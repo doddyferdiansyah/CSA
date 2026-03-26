@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cybersecurity Awareness Session | Doddy Ferdiansyah</title>
-  <meta name="description" content="Landing page materi training cybersecurity awareness dan social engineering." />
+  <title>Cybersecurity Awareness Training | Doddy Ferdiansyah</title>
+  <meta name="description" content="Pelatihan praktis untuk meningkatkan security awareness terhadap ancaman rekayasa sosial dan perilaku digital yang berisiko di tempat kerja." />
   <style>
     :root {
       --white: #ffffff;
       --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
       --sky-blue-soft: #eaf4ff;
       --dark-gray: #1f2937;
       --mid-gray: #4b5563;
       --light-gray: #f3f4f6;
       --border: rgba(31, 41, 55, 0.12);
-      --shadow: 0 12px 30px rgba(31, 41, 55, 0.10);
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 30px;
       --radius-lg: 22px;
       --radius-md: 16px;
       --radius-sm: 12px;
-      --max-width: 1120px;
+      --max-width: 1140px;
     }
 
     * {
@@ -35,12 +38,17 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
       color: var(--dark-gray);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
     }
 
     .container {
@@ -52,8 +60,8 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.86);
       border-bottom: 1px solid rgba(31, 41, 55, 0.06);
     }
 
@@ -62,12 +70,14 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 0;
+      gap: 16px;
     }
 
     .brand {
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 1.02rem;
       letter-spacing: 0.2px;
+      white-space: nowrap;
     }
 
     .brand span {
@@ -79,12 +89,13 @@
       gap: 18px;
       align-items: center;
       flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .nav-links a {
       font-size: 0.95rem;
       color: var(--mid-gray);
-      transition: 0.2s ease;
+      transition: color 0.2s ease;
     }
 
     .nav-links a:hover {
@@ -100,7 +111,7 @@
       border-radius: 999px;
       border: 1px solid transparent;
       font-weight: 700;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
       cursor: pointer;
     }
 
@@ -111,23 +122,28 @@
     .btn-primary {
       background: var(--sky-blue);
       color: var(--white);
-      box-shadow: 0 12px 22px rgba(77, 163, 255, 0.25);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-primary:hover {
+      background: var(--sky-blue-deep);
     }
 
     .btn-secondary {
       background: var(--white);
       border-color: var(--border);
       color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
     }
 
     .hero {
-      padding: 88px 0 56px;
+      padding: 92px 0 62px;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
+      gap: 30px;
       align-items: center;
     }
 
@@ -137,7 +153,7 @@
       gap: 8px;
       padding: 8px 14px;
       background: var(--sky-blue-soft);
-      color: var(--sky-blue);
+      color: var(--sky-blue-deep);
       border-radius: 999px;
       font-weight: 700;
       font-size: 0.9rem;
@@ -145,15 +161,16 @@
     }
 
     h1 {
-      font-size: clamp(2rem, 4vw, 3.7rem);
-      line-height: 1.1;
+      font-size: clamp(2.2rem, 4vw, 3.9rem);
+      line-height: 1.08;
       margin-bottom: 18px;
+      letter-spacing: -0.02em;
     }
 
     .hero p {
       font-size: 1.05rem;
       color: var(--mid-gray);
-      max-width: 680px;
+      max-width: 720px;
       margin-bottom: 26px;
     }
 
@@ -171,11 +188,11 @@
     }
 
     .metric {
-      background: rgba(255,255,255,0.84);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 18px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
     }
 
     .metric h3 {
@@ -191,10 +208,10 @@
 
     .hero-card {
       background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
-      border: 1px solid rgba(77, 163, 255, 0.18);
+      border: 1px solid rgba(77, 163, 255, 0.16);
       border-radius: 28px;
-      padding: 26px;
-      box-shadow: 0 20px 45px rgba(31, 41, 55, 0.10);
+      padding: 28px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.11);
       position: relative;
       overflow: hidden;
     }
@@ -204,21 +221,22 @@
       content: "";
       position: absolute;
       border-radius: 999px;
-      background: rgba(77, 163, 255, 0.12);
+      background: rgba(77, 163, 255, 0.10);
+      pointer-events: none;
     }
 
     .hero-card::before {
-      width: 180px;
-      height: 180px;
-      right: -30px;
-      top: -30px;
+      width: 190px;
+      height: 190px;
+      right: -38px;
+      top: -38px;
     }
 
     .hero-card::after {
-      width: 120px;
-      height: 120px;
-      left: -20px;
-      bottom: -20px;
+      width: 126px;
+      height: 126px;
+      left: -26px;
+      bottom: -26px;
     }
 
     .card-label {
@@ -239,10 +257,12 @@
     }
 
     .session-item {
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.92);
       border: 1px solid rgba(31, 41, 55, 0.08);
       border-radius: var(--radius-sm);
       padding: 14px 16px;
+      position: relative;
+      z-index: 1;
     }
 
     .session-item strong {
@@ -251,17 +271,18 @@
     }
 
     section {
-      padding: 34px 0;
+      padding: 38px 0;
     }
 
     .section-head {
-      margin-bottom: 20px;
-      max-width: 720px;
+      margin-bottom: 22px;
+      max-width: 760px;
     }
 
     .section-head h2 {
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-size: clamp(1.7rem, 3vw, 2.45rem);
       margin-bottom: 8px;
+      letter-spacing: -0.02em;
     }
 
     .section-head p {
@@ -286,15 +307,16 @@
       border-radius: var(--radius-lg);
       padding: 22px;
       box-shadow: var(--shadow);
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 18px 38px rgba(31, 41, 55, 0.12);
     }
 
     .card h3 {
-      font-size: 1.15rem;
+      font-size: 1.16rem;
       margin-bottom: 10px;
     }
 
@@ -313,20 +335,28 @@
       padding: 6px 10px;
       border-radius: 999px;
       background: var(--sky-blue-soft);
-      color: var(--sky-blue);
+      color: var(--sky-blue-deep);
       font-size: 0.78rem;
       font-weight: 700;
       margin-bottom: 10px;
     }
 
-    .resources {
-      background: linear-gradient(180deg, rgba(77, 163, 255, 0.07), rgba(255,255,255,0));
-      border-radius: 30px;
+    .overview-box {
+      background: linear-gradient(180deg, rgba(77, 163, 255, 0.06), rgba(255,255,255,0));
+      border-radius: var(--radius-xl);
       padding: 28px;
       border: 1px solid rgba(77, 163, 255, 0.12);
     }
 
-    .resource-link {
+    .resources {
+      background: linear-gradient(180deg, rgba(77, 163, 255, 0.07), rgba(255,255,255,0));
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      border: 1px solid rgba(77, 163, 255, 0.12);
+    }
+
+    .resource-link,
+    .contact-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -336,36 +366,107 @@
       border-radius: var(--radius-md);
       background: var(--white);
       color: var(--dark-gray);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
       margin-bottom: 12px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
-    .resource-link:hover {
-      border-color: rgba(77, 163, 255, 0.4);
+    .resource-link:hover,
+    .contact-link:hover {
+      border-color: rgba(77, 163, 255, 0.38);
+      transform: translateY(-2px);
     }
 
-    .notice {
-      margin-top: 10px;
+    .notice,
+    .muted {
+      margin-top: 6px;
       font-size: 0.92rem;
       color: var(--mid-gray);
     }
 
-    .cta {
-      padding: 22px;
+    .assessment-grid .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+    }
+
+    .speaker-card {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      align-items: center;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .speaker-avatar {
+      width: 180px;
+      height: 180px;
       border-radius: 28px;
+      background: linear-gradient(145deg, #dceeff 0%, #ffffff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--sky-blue-deep);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .speaker-info h3 {
+      font-size: 1.65rem;
+      margin-bottom: 6px;
+    }
+
+    .speaker-role {
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .speaker-points {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .speaker-point {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      background: #fbfdff;
+    }
+
+    .speaker-point strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.98rem;
+    }
+
+    .cta {
+      padding: 28px;
+      border-radius: var(--radius-xl);
       background: linear-gradient(135deg, var(--dark-gray) 0%, #111827 100%);
       color: var(--white);
-      box-shadow: 0 24px 40px rgba(17, 24, 39, 0.20);
+      box-shadow: 0 24px 42px rgba(17, 24, 39, 0.20);
     }
 
     .cta h2 {
       margin-bottom: 10px;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      letter-spacing: -0.02em;
     }
 
     .cta p {
-      color: rgba(255,255,255,0.78);
+      color: rgba(255,255,255,0.80);
       margin-bottom: 18px;
+      max-width: 760px;
     }
 
     footer {
@@ -385,10 +486,12 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 920px) {
+    @media (max-width: 980px) {
       .hero-grid,
       .grid-3,
-      .grid-2 {
+      .grid-2,
+      .speaker-card,
+      .speaker-points {
         grid-template-columns: 1fr;
       }
 
@@ -399,13 +502,22 @@
       .nav {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .speaker-avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 22px;
       }
     }
 
     @media (max-width: 640px) {
       .hero {
-        padding-top: 52px;
+        padding-top: 56px;
       }
 
       .nav-links {
@@ -428,9 +540,10 @@
       <div class="brand">Doddy <span>Ferdiansyah</span></div>
       <nav class="nav-links">
         <a href="#overview">Overview</a>
-        <a href="#agenda">Agenda</a>
-        <a href="#resources">Resources</a>
+        <a href="#program">Program</a>
+        <a href="#resources">Resource</a>
         <a href="#assessment">Assessment</a>
+        <a href="#speaker">Speaker</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -440,50 +553,49 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="fade-in">
-          <div class="eyebrow">Cybersecurity Awareness Session</div>
-          <h1>The Psychology of Social Engineering</h1>
+          <div class="eyebrow">Corporate Training · Workshop · Awareness Session</div>
+          <h1>Cybersecurity Awareness Training</h1>
           <p>
-            Landing page sederhana untuk memudahkan peserta mengakses materi, handout, checklist keamanan,
-            serta pre-test dan post-test dalam satu tempat yang rapi, ringan, dan profesional.
+            Pelatihan praktis untuk meningkatkan security awareness Anda terhadap ancaman rekayasa sosial dan perilaku digital yang berisiko di tempat kerja.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#resources">Lihat Materi</a>
-            <a class="btn btn-secondary" href="#assessment">Mulai Pre-Test</a>
+            <a class="btn btn-primary" href="#resources">Lihat Resource</a>
+            <a class="btn btn-secondary" href="#assessment">Mulai Assessment</a>
           </div>
           <div class="hero-metrics">
             <div class="metric">
               <h3>4 Jam</h3>
-              <p>Sesi online terstruktur</p>
+              <p>Format sesi online yang terstruktur dan interaktif.</p>
             </div>
             <div class="metric">
               <h3>100–200</h3>
-              <p>Estimasi peserta lintas departemen</p>
+              <p>Ideal untuk peserta lintas divisi, IT maupun non-IT.</p>
             </div>
             <div class="metric">
               <h3>Praktis</h3>
-              <p>Checklist dan studi kasus kontekstual</p>
+              <p>Fokus pada kebiasaan kerja, studi kasus, dan langkah yang dapat diterapkan.</p>
             </div>
           </div>
         </div>
 
         <div class="hero-card fade-in">
-          <span class="card-label">Session Snapshot</span>
+          <span class="card-label">Session Highlight</span>
           <h2 style="margin-bottom: 8px;">Apa yang akan dipelajari peserta?</h2>
           <p style="color: var(--mid-gray); margin-bottom: 12px;">
-            Dari pemahaman dasar social engineering hingga perilaku kerja yang berisiko, termasuk ancaman AI-assisted scam.
+            Peserta tidak hanya memahami modus social engineering, tetapi juga belajar mengenali red flags, mengevaluasi kebiasaan kerja, dan merespons ancaman digital dengan lebih aman.
           </p>
           <div class="session-list">
             <div class="session-item">
-              <strong>1. Mengapa manusia menjadi target utama?</strong>
-              Memahami manipulasi psikologis dalam serangan digital.
+              <strong>1. Psikologi rekayasa sosial</strong>
+              Memahami bagaimana pelaku memanfaatkan rasa takut, urgensi, rasa ingin tahu, dan kepercayaan.
             </div>
             <div class="session-item">
-              <strong>2. Studi kasus viral di Indonesia</strong>
-              Undangan palsu, paket, voice scam, dan modus lain yang relevan.
+              <strong>2. Studi kasus yang relevan</strong>
+              Membahas contoh ancaman digital yang sering muncul dalam konteks kerja dan kehidupan sehari-hari.
             </div>
             <div class="session-item">
-              <strong>3. Langkah praktis di tempat kerja</strong>
-              Checklist keamanan pegawai dan kebiasaan digital yang lebih aman.
+              <strong>3. Implementasi perilaku aman</strong>
+              Menurunkan materi ke langkah praktis yang dapat diterapkan di lingkungan kerja.
             </div>
           </div>
         </div>
@@ -493,55 +605,83 @@
     <section id="overview">
       <div class="container">
         <div class="section-head fade-in">
-          <h2>Struktur landing page yang disarankan</h2>
+          <h2>Overview</h2>
           <p>
-            Untuk GitHub Pages, buat satu halaman utama yang langsung mengarahkan peserta ke seluruh resource penting tanpa perlu banyak klik.
+            Program ini dirancang untuk membantu peserta memahami ancaman social engineering secara lebih utuh, mulai dari sisi psikologis, pola serangan yang umum terjadi, hingga perilaku digital yang perlu diperkuat di tempat kerja.
           </p>
         </div>
 
-        <div class="grid-3">
-          <div class="card fade-in">
-            <span class="pill">Bagian 1</span>
-            <h3>Hero Section</h3>
-            <p>Berisi judul sesi, deskripsi singkat, CTA ke materi dan pre-test, serta gambaran singkat acara.</p>
-          </div>
-          <div class="card fade-in">
-            <span class="pill">Bagian 2</span>
-            <h3>Agenda Singkat</h3>
-            <p>Tunjukkan urutan topik agar peserta tahu alur belajar dari awal sampai akhir.</p>
-          </div>
-          <div class="card fade-in">
-            <span class="pill">Bagian 3</span>
-            <h3>Resource Hub</h3>
-            <p>Semua link Google Drive, handout, checklist, dan assessment diletakkan dalam satu blok yang mudah diakses.</p>
+        <div class="overview-box fade-in">
+          <div class="grid-3">
+            <div class="card">
+              <span class="pill">Fokus</span>
+              <h3>Awareness yang kontekstual</h3>
+              <p>Materi dikemas agar relevan dengan realitas kerja sehari-hari, bukan sekadar konsep teknis yang jauh dari praktik.</p>
+            </div>
+            <div class="card">
+              <span class="pill">Pendekatan</span>
+              <h3>Interaktif dan terarah</h3>
+              <p>Sesi menggabungkan pemaparan, studi kasus, refleksi, dan aktivitas terstruktur agar peserta tetap terlibat.</p>
+            </div>
+            <div class="card">
+              <span class="pill">Output</span>
+              <h3>Siap diterapkan</h3>
+              <p>Peserta membawa pulang pemahaman yang lebih kuat, checklist praktis, dan kebiasaan baru yang lebih aman.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="agenda">
+    <section id="program">
       <div class="container">
         <div class="section-head fade-in">
-          <h2>Contoh agenda yang bisa ditampilkan</h2>
-          <p>Bagian ini membantu halaman terasa hidup sekaligus memperjelas value sesi sebelum peserta masuk ke materi.</p>
+          <h2>Program</h2>
+          <p>
+            Struktur sesi dirancang untuk membangun pemahaman secara bertahap, dari awareness dasar sampai langkah implementasi yang relevan untuk lingkungan kerja modern.
+          </p>
         </div>
+
         <div class="grid-2">
           <div class="card fade-in">
-            <h3>Sesi Materi</h3>
+            <span class="pill">Learning Outcomes</span>
+            <h3>Peserta diharapkan mampu</h3>
             <ul>
-              <li>Pengantar cybersecurity awareness dan social engineering</li>
-              <li>Psikologi manipulasi: urgency, authority, fear, curiosity</li>
-              <li>Studi kasus Indonesia yang relevan</li>
-              <li>AI dan peningkatan kualitas modus penipuan</li>
+              <li>Memahami prinsip dasar social engineering dan faktor psikologis yang dimanfaatkan pelaku.</li>
+              <li>Mengenali tanda-tanda awal pesan, permintaan, atau perilaku digital yang mencurigakan.</li>
+              <li>Menilai ulang kebiasaan kerja yang berpotensi meningkatkan risiko keamanan.</li>
+              <li>Menerapkan langkah pencegahan yang lebih aman pada akun, perangkat, dan data kerja.</li>
             </ul>
           </div>
           <div class="card fade-in">
-            <h3>Sesi Praktik</h3>
+            <span class="pill">Session Flow</span>
+            <h3>Alur pembahasan utama</h3>
             <ul>
-              <li>Red flag detection terhadap pesan atau skenario tertentu</li>
-              <li>Office behavior audit untuk kebiasaan kerja sehari-hari</li>
-              <li>Checklist keamanan pegawai yang dapat langsung diterapkan</li>
-              <li>Post-test dan refleksi akhir</li>
+              <li>Pengantar cybersecurity awareness dan konteks ancaman saat ini.</li>
+              <li>Psikologi social engineering dan pola manipulasi yang umum digunakan.</li>
+              <li>Studi kasus dan skenario yang relevan dengan lingkungan kerja.</li>
+              <li>Checklist keamanan pegawai, refleksi, serta penguatan perilaku aman.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top: 18px;">
+          <div class="card fade-in">
+            <h3>Materi inti</h3>
+            <ul>
+              <li>Pengantar security awareness di tempat kerja.</li>
+              <li>Rekayasa sosial: urgency, authority, fear, curiosity, dan trust exploitation.</li>
+              <li>Ancaman digital modern, termasuk pemanfaatan AI untuk penipuan dan impersonation.</li>
+              <li>Hubungan antara perilaku karyawan dan risiko keamanan organisasi.</li>
+            </ul>
+          </div>
+          <div class="card fade-in">
+            <h3>Aktivitas workshop</h3>
+            <ul>
+              <li>Red flag detection pada pesan atau skenario tertentu.</li>
+              <li>Office behavior audit untuk menilai kebiasaan kerja peserta.</li>
+              <li>Mini case response drill untuk memilih respons yang lebih aman.</li>
+              <li>Refleksi dan penguatan checklist keamanan pegawai.</li>
             </ul>
           </div>
         </div>
@@ -551,39 +691,41 @@
     <section id="resources">
       <div class="container">
         <div class="section-head fade-in">
-          <h2>Resource Hub</h2>
-          <p>Ganti semua tombol di bawah ini dengan link Google Drive atau link halaman yang kamu gunakan.</p>
+          <h2>Resource</h2>
+          <p>
+            Seluruh materi pendukung disusun agar mudah diakses peserta dalam satu halaman. Tautan berikut masih berupa placeholder dan dapat diganti kapan saja dengan link final Anda.
+          </p>
         </div>
 
         <div class="resources fade-in">
-          <a class="resource-link" href="https://drive.google.com" target="_blank" rel="noopener noreferrer">
+          <a class="resource-link" href="#" aria-label="Placeholder slide materi utama">
             <div>
               <strong>Slide Materi Utama</strong>
-              <div class="notice">Versi PDF atau Google Slides view-only</div>
+              <div class="notice">Placeholder · Ganti dengan link PDF atau view-only slide final.</div>
             </div>
             <span>→</span>
           </a>
 
-          <a class="resource-link" href="https://drive.google.com" target="_blank" rel="noopener noreferrer">
+          <a class="resource-link" href="#" aria-label="Placeholder handout ringkas">
             <div>
               <strong>Handout Ringkas</strong>
-              <div class="notice">Poin penting untuk peserta setelah sesi</div>
+              <div class="notice">Placeholder · Ringkasan materi utama untuk peserta setelah sesi.</div>
             </div>
             <span>→</span>
           </a>
 
-          <a class="resource-link" href="https://drive.google.com" target="_blank" rel="noopener noreferrer">
+          <a class="resource-link" href="#" aria-label="Placeholder checklist keamanan pegawai">
             <div>
               <strong>Checklist Keamanan Pegawai</strong>
-              <div class="notice">Checklist perilaku, perangkat, password, dan data kerja</div>
+              <div class="notice">Placeholder · Checklist perilaku, perangkat, password, dan pengelolaan data kerja.</div>
             </div>
             <span>→</span>
           </a>
 
-          <a class="resource-link" href="https://drive.google.com" target="_blank" rel="noopener noreferrer">
+          <a class="resource-link" href="#" aria-label="Placeholder studi kasus">
             <div>
-              <strong>Ringkasan Studi Kasus</strong>
-              <div class="notice">Kumpulan contoh modus yang relevan di Indonesia</div>
+              <strong>Studi Kasus & Ringkasan Modus</strong>
+              <div class="notice">Placeholder · Kumpulan studi kasus dan pola ancaman yang relevan.</div>
             </div>
             <span>→</span>
           </a>
@@ -594,25 +736,77 @@
     <section id="assessment">
       <div class="container">
         <div class="section-head fade-in">
-          <h2>Assessment & Aktivitas</h2>
-          <p>Bagian ini bisa diarahkan ke Google Forms atau ke halaman quiz interaktif terpisah di GitHub Pages.</p>
+          <h2>Assessment</h2>
+          <p>
+            Assessment dapat digunakan sebagai pre-test, post-test, maupun aktivitas interaktif di tengah sesi. Semua tautan di bawah ini dapat Anda arahkan ke form atau halaman quiz final.
+          </p>
         </div>
 
-        <div class="grid-3">
+        <div class="grid-3 assessment-grid">
           <div class="card fade-in">
-            <h3>Pre-Test</h3>
-            <p>Ukur baseline awareness peserta sebelum materi dimulai.</p>
-            <div style="margin-top: 14px;"><a class="btn btn-secondary" href="#">Buka Pre-Test</a></div>
+            <div>
+              <span class="pill">Sebelum sesi</span>
+              <h3>Pre-Test</h3>
+              <p>Mengukur baseline awareness peserta sebelum materi dimulai dan membantu memetakan tingkat pemahaman awal.</p>
+            </div>
+            <div style="margin-top: 16px;"><a class="btn btn-secondary" href="#">Buka Pre-Test</a></div>
           </div>
           <div class="card fade-in">
-            <h3>Quiz Interaktif</h3>
-            <p>Aktivitas ringan untuk mengenali red flags dari skenario social engineering.</p>
-            <div style="margin-top: 14px;"><a class="btn btn-secondary" href="#">Mulai Quiz</a></div>
+            <div>
+              <span class="pill">Saat sesi</span>
+              <h3>Quiz Interaktif</h3>
+              <p>Aktivitas ringan untuk mengenali red flags, menilai skenario, dan menjaga partisipasi peserta tetap aktif.</p>
+            </div>
+            <div style="margin-top: 16px;"><a class="btn btn-secondary" href="#">Mulai Quiz</a></div>
           </div>
           <div class="card fade-in">
-            <h3>Post-Test</h3>
-            <p>Lihat peningkatan pemahaman peserta setelah sesi berakhir.</p>
-            <div style="margin-top: 14px;"><a class="btn btn-secondary" href="#">Buka Post-Test</a></div>
+            <div>
+              <span class="pill">Setelah sesi</span>
+              <h3>Post-Test</h3>
+              <p>Digunakan untuk melihat peningkatan pemahaman peserta setelah pembahasan materi dan aktivitas workshop selesai.</p>
+            </div>
+            <div style="margin-top: 16px;"><a class="btn btn-secondary" href="#">Buka Post-Test</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="speaker">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Speaker</h2>
+          <p>
+            Halaman ini dapat digunakan secara reusable untuk kebutuhan pelatihan dan workshop di berbagai organisasi, sehingga profil pembicara ditampilkan secara ringkas namun profesional.
+          </p>
+        </div>
+
+        <div class="speaker-card fade-in">
+          <div class="speaker-avatar">DF</div>
+          <div class="speaker-info">
+            <h3>Doddy Ferdiansyah</h3>
+            <div class="speaker-role">Dosen Cybersecurity & Trainer</div>
+            <p class="muted">
+              Membawakan sesi pelatihan yang berfokus pada peningkatan awareness, pemahaman ancaman digital, dan penerapan perilaku aman yang relevan untuk konteks kerja modern.
+            </p>
+
+            <div class="speaker-points">
+              <div class="speaker-point">
+                <strong>Bidang fokus</strong>
+                Security awareness, social engineering, dan perilaku digital di lingkungan kerja.
+              </div>
+              <div class="speaker-point">
+                <strong>Pendekatan</strong>
+                Menggabungkan materi yang mudah dipahami dengan studi kasus dan aktivitas praktis.
+              </div>
+              <div class="speaker-point">
+                <strong>Audiens</strong>
+                Cocok untuk peserta IT maupun non-IT pada level awareness dan implementasi dasar.
+              </div>
+              <div class="speaker-point">
+                <strong>Format</strong>
+                Dapat digunakan untuk training, workshop, sharing session, maupun program corporate learning.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -620,13 +814,73 @@
 
     <section id="contact">
       <div class="container">
-        <div class="cta fade-in">
-          <h2>Catatan untuk implementasi di GitHub Pages</h2>
+        <div class="section-head fade-in">
+          <h2>Contact</h2>
           <p>
-            Simpan file ini sebagai <strong>index.html</strong>, upload ke repository GitHub, aktifkan GitHub Pages,
-            lalu arahkan custom domain <strong>doddyferdiansyah.web.id</strong> ke repository tersebut.
+            Untuk kebutuhan diskusi, koordinasi sesi, atau penyesuaian program pelatihan, silakan hubungi melalui kanal berikut.
           </p>
-          <a class="btn btn-primary" href="mailto:yourmail@example.com">Ubah Kontak</a>
+        </div>
+
+        <div class="grid-2">
+          <div class="fade-in">
+            <a class="contact-link" href="mailto:doddy@unpas.ac.id">
+              <div>
+                <strong>Email</strong>
+                <div class="notice">doddy@unpas.ac.id</div>
+              </div>
+              <span>↗</span>
+            </a>
+            <a class="contact-link" href="https://wa.me/6285141505120" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>WhatsApp</strong>
+                <div class="notice">085141505120</div>
+              </div>
+              <span>↗</span>
+            </a>
+            <a class="contact-link" href="https://www.instagram.com/doddyferdiansyah" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>Instagram</strong>
+                <div class="notice">@doddyferdiansyah</div>
+              </div>
+              <span>↗</span>
+            </a>
+          </div>
+
+          <div class="fade-in">
+            <a class="contact-link" href="https://www.linkedin.com/in/doddyferdiansyah" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>LinkedIn</strong>
+                <div class="notice">doddyferdiansyah</div>
+              </div>
+              <span>↗</span>
+            </a>
+            <a class="contact-link" href="https://www.youtube.com/@doddyferdiansyah" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>YouTube</strong>
+                <div class="notice">doddyferdiansyah</div>
+              </div>
+              <span>↗</span>
+            </a>
+            <a class="contact-link" href="https://doddyferdiansyah.web.id" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>Website</strong>
+                <div class="notice">doddyferdiansyah.web.id</div>
+              </div>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta fade-in">
+          <h2>Siap digunakan untuk berbagai kebutuhan pelatihan</h2>
+          <p>
+            Halaman ini dirancang sebagai landing page reusable untuk training dan workshop. Anda dapat mengganti tautan resource, assessment, dan detail materi tanpa perlu mengubah struktur utama halaman.
+          </p>
+          <a class="btn btn-primary" href="#contact">Hubungi Saya</a>
         </div>
       </div>
     </section>
@@ -634,7 +888,7 @@
 
   <footer>
     <div class="container">
-      © 2026 Doddy Ferdiansyah · Cybersecurity Awareness Session Landing Page
+      © 2026 Doddy Ferdiansyah · Cybersecurity Awareness Training
     </div>
   </footer>
 
