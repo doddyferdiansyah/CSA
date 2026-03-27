@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Interaktif Bagian B | Soal 1</title>
+  <meta name="description" content="Game interaktif Bagian B untuk memahami faktor manusia dalam social engineering." />
+  <style>
+    :root {
+      --white: #ffffff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1080px;
+      --success: #198754;
+      --danger: #dc3545;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand { font-weight: 800; font-size: 1.02rem; }
+    .brand span { color: var(--sky-blue); }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: var(--sky-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero { padding: 72px 0 34px; }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-card p { color: var(--mid-gray); max-width: 860px; }
+    section { padding: 26px 0 40px; }
+
+    .section-head { margin-bottom: 20px; max-width: 820px; }
+    .section-head h2 {
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-head p { color: var(--mid-gray); }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .question-box {
+      background: #fbfdff;
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin: 16px 0 18px;
+    }
+
+    .muted { color: var(--mid-gray); }
+
+    .chat-mockup {
+      background: #f7fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      padding: 18px;
+      max-width: 760px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .chat-bubble {
+      background: #e8f3ff;
+      border-left: 4px solid var(--sky-blue);
+      padding: 14px 16px;
+      border-radius: 14px;
+      color: var(--dark-gray);
+      font-size: 1rem;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .choice-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--white);
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
+    .choice-btn:hover {
+      border-color: rgba(77, 163, 255, 0.38);
+      transform: translateY(-1px);
+    }
+
+    .choice-btn.selected {
+      border-color: rgba(77, 163, 255, 0.45);
+      background: rgba(77, 163, 255, 0.10);
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.50);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal-card {
+      width: min(100%, 760px);
+      background: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 54px rgba(17, 24, 39, 0.22);
+      padding: 24px;
+      max-height: 85vh;
+      overflow: auto;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-text {
+      color: var(--mid-gray);
+      margin-bottom: 14px;
+    }
+
+    .option-feedback-list {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .option-feedback-item {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--white);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      font-size: 0.95rem;
+    }
+
+    .success { color: var(--success); }
+    .danger { color: var(--danger); }
+
+    footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 900px) {
+      .choice-grid { grid-template-columns: 1fr; }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links { justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .btn { width: 100%; }
+      .footer-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="#soal-1">Soal 1</a>
+        <a href="index.html">Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Bagian B · Faktor Manusia dalam Social Engineering</div>
+          <h1>Game Interaktif — Soal 1</h1>
+          <p>
+            Halaman ini berisi satu aktivitas singkat untuk membantu peserta memahami bagaimana tekanan psikologis dapat dimainkan dalam satu pesan yang tampak sederhana.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="soal-1">
+      <div class="container">
+        <div class="section-head">
+          <h2>Soal 1 — Apa yang Sedang Dimainkan?</h2>
+          <p>
+            Baca pesan berikut, lalu pilih semua faktor yang menurut Anda paling mungkin dimainkan. Setelah itu, tekan tombol cek jawaban untuk melihat pembahasan.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="pill">Studi Kasus Singkat</span>
+          <div class="chat-mockup">
+            <div class="chat-bubble">
+              “Pak/Bu, mohon segera kirim file yang kemarin. Saya butuh sekarang untuk rapat. Jangan kirim ke grup ya, langsung ke saya saja.”
+            </div>
+          </div>
+
+          <div class="question-box">
+            <strong>Menurut Anda, apa yang paling mungkin dimainkan?</strong>
+            <div class="muted" style="margin-top: 6px;">Boleh pilih lebih dari 1 jawaban.</div>
+          </div>
+
+          <div class="choice-grid" id="choiceGrid">
+            <button class="choice-btn" data-choice="A">A. Rasa ingin tahu</button>
+            <button class="choice-btn" data-choice="B">B. Otoritas</button>
+            <button class="choice-btn" data-choice="C">C. Urgensi</button>
+            <button class="choice-btn" data-choice="D">D. Rasa sungkan</button>
+            <button class="choice-btn" data-choice="E">E. Panik</button>
+            <button class="choice-btn" data-choice="F">F. Overconfidence</button>
+          </div>
+
+          <div class="footer-actions">
+            <button class="btn btn-primary" onclick="checkGame1()">Cek Jawaban</button>
+            <button class="btn btn-secondary" onclick="resetGame1()">Ulangi Soal 1</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <div class="modal-text" id="modalText"></div>
+      <div class="option-feedback-list" id="modalFeedbackList"></div>
+      <div class="footer-actions">
+        <button class="btn btn-primary" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">© 2026 Doddy Ferdiansyah · Game Interaktif Bagian B · Soal 1</div>
+  </footer>
+
+  <script>
+    const choiceButtons = document.querySelectorAll('.choice-btn');
+    const resultModal = document.getElementById('resultModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalFeedbackList = document.getElementById('modalFeedbackList');
+
+    const correctChoicesGame1 = ['B', 'C'];
+    const feedbackGame1 = {
+      A: {
+        title: 'A. Rasa ingin tahu',
+        correct: false,
+        text: 'Pilihan ini kurang tepat karena pesan tersebut tidak sedang memancing korban membuka sesuatu karena penasaran. Fokus pesannya adalah mendorong respons cepat terhadap sebuah permintaan.'
+      },
+      B: {
+        title: 'B. Otoritas',
+        correct: true,
+        text: 'Pilihan ini benar karena pesan tersebut terasa seperti datang dari pihak yang perlu diprioritaskan. Kesan otoritas membuat korban lebih cenderung patuh tanpa banyak bertanya.'
+      },
+      C: {
+        title: 'C. Urgensi',
+        correct: true,
+        text: 'Pilihan ini benar karena frasa seperti “segera” dan “butuh sekarang” menekan korban agar bertindak cepat sebelum sempat memverifikasi.'
+      },
+      D: {
+        title: 'D. Rasa sungkan',
+        correct: false,
+        text: 'Pilihan ini kurang tepat sebagai jawaban utama untuk soal ini. Rasa sungkan bisa muncul sebagai dampak lanjutan pada korban, tetapi faktor yang paling jelas dimainkan langsung di pesan ini adalah otoritas dan urgensi.'
+      },
+      E: {
+        title: 'E. Panik',
+        correct: false,
+        text: 'Pilihan ini kurang tepat karena pesan tersebut tidak membangun ancaman atau konsekuensi yang eksplisit. Tekanannya lebih berupa urgensi daripada kepanikan.'
+      },
+      F: {
+        title: 'F. Overconfidence',
+        correct: false,
+        text: 'Pilihan ini kurang tepat karena overconfidence adalah kondisi internal korban, bukan faktor yang sedang dimainkan secara langsung oleh isi pesan ini.'
+      }
+    };
+
+    choiceButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('selected');
+      });
+    });
+
+    function checkGame1() {
+      const selectedChoices = [...choiceButtons]
+        .filter((btn) => btn.classList.contains('selected'))
+        .map((btn) => btn.dataset.choice)
+        .sort();
+
+      modalFeedbackList.innerHTML = '';
+
+      if (selectedChoices.length === 0) {
+        modalTitle.innerHTML = '<span class="danger">Anda belum memilih jawaban.</span>';
+        modalText.innerHTML = 'Silakan pilih satu atau lebih jawaban terlebih dahulu, lalu tekan cek jawaban kembali.';
+        openModal();
+        return;
+      }
+
+      const isExactlyCorrect = selectedChoices.length === correctChoicesGame1.length && selectedChoices.every((choice, index) => choice === correctChoicesGame1[index]);
+
+      if (isExactlyCorrect) {
+        modalTitle.innerHTML = '<span class="success">Jawaban Anda benar.</span>';
+        modalText.innerHTML = 'Pada kasus ini, faktor yang paling jelas dimainkan adalah <strong>otoritas</strong> dan <strong>urgensi</strong>. Pelaku membuat permintaan terdengar penting dan mendesak agar korban segera bertindak tanpa verifikasi. Ini menunjukkan bahwa dalam social engineering, pelaku bisa memainkan <strong>lebih dari satu faktor kelemahan sekaligus</strong>.';
+      } else {
+        modalTitle.innerHTML = '<span class="danger">Jawaban Anda salah.</span>';
+        modalText.innerHTML = 'Pilihan Anda belum tepat. Berikut penjelasan untuk pilihan yang Anda ambil. Coba perhatikan kembali isi pesan, terutama bagian yang menunjukkan tekanan dan posisi pengirim, lalu jawab lagi.';
+      }
+
+      selectedChoices.forEach((choice) => {
+        const item = document.createElement('div');
+        item.className = 'option-feedback-item';
+        const meta = feedbackGame1[choice];
+        item.innerHTML = '<strong>' + meta.title + (meta.correct ? ' — alasan mengapa ini benar.' : ' — alasan mengapa ini belum tepat.') + '</strong>' + meta.text;
+        modalFeedbackList.appendChild(item);
+      });
+
+      openModal();
+    }
+
+    function resetGame1() {
+      choiceButtons.forEach((b) => b.classList.remove('selected'));
+      closeModal();
+    }
+
+    function openModal() {
+      resultModal.classList.add('show');
+    }
+
+    function closeModal() {
+      resultModal.classList.remove('show');
+    }
+
+    resultModal.addEventListener('click', (event) => {
+      if (event.target === resultModal) closeModal();
+    });
+  </script>
+</body>
+</html>
