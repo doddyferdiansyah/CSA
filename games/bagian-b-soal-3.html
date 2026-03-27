@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Interaktif Bagian B | Soal 3</title>
+  <meta name="description" content="Game interaktif Bagian B untuk mengurutkan cara kerja social engineering berdasarkan contoh nyata." />
+  <style>
+    :root {
+      --white: #ffffff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1120px;
+      --success: #198754;
+      --danger: #dc3545;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand { font-weight: 800; font-size: 1.02rem; }
+    .brand span { color: var(--sky-blue); }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav-links a { color: var(--mid-gray); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--sky-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero { padding: 72px 0 34px; }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-card p { color: var(--mid-gray); max-width: 860px; }
+    section { padding: 26px 0 40px; }
+
+    .section-head { margin-bottom: 20px; max-width: 860px; }
+    .section-head h2 {
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-head p { color: var(--mid-gray); }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .instructions {
+      background: #fbfdff;
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin: 16px 0 18px;
+      color: var(--mid-gray);
+    }
+
+    .steps-wrap {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: #fbfdff;
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .panel h3 {
+      margin-bottom: 12px;
+      font-size: 1.05rem;
+    }
+
+    .cards-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 14px;
+      background: var(--white);
+      padding: 16px;
+      cursor: grab;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .step-card.dragging {
+      opacity: 0.55;
+      transform: scale(0.98);
+    }
+
+    .step-card strong {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      margin-right: 10px;
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+
+    .order-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .drop-zone {
+      min-height: 86px;
+      border: 2px dashed rgba(77, 163, 255, 0.35);
+      border-radius: 16px;
+      background: rgba(77, 163, 255, 0.05);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .drop-zone.active {
+      border-color: rgba(77, 163, 255, 0.7);
+      background: rgba(77, 163, 255, 0.10);
+    }
+
+    .drop-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      border: 1px solid rgba(77, 163, 255, 0.24);
+      flex-shrink: 0;
+    }
+
+    .drop-zone .placeholder {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .drop-zone .step-card {
+      width: 100%;
+      margin: 0;
+      cursor: grab;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.50);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal-card {
+      width: min(100%, 820px);
+      background: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 54px rgba(17, 24, 39, 0.22);
+      padding: 24px;
+      max-height: 85vh;
+      overflow: auto;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-text {
+      color: var(--mid-gray);
+      margin-bottom: 14px;
+    }
+
+    .feedback-list {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .feedback-item {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--white);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      font-size: 0.95rem;
+    }
+
+    .success { color: var(--success); }
+    .danger { color: var(--danger); }
+
+    footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 920px) {
+      .steps-wrap { grid-template-columns: 1fr; }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links { justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .btn { width: 100%; }
+      .footer-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="bagian-b-soal-1.html">Soal 1</a>
+        <a href="bagian-b-soal-2.html">Soal 2</a>
+        <a href="#soal-3">Soal 3</a>
+        <a href="../index.html">Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Bagian B · Faktor Manusia dalam Social Engineering</div>
+          <h1>Game Interaktif — Soal 3</h1>
+          <p>
+            Halaman ini membantu peserta memahami bahwa social engineering bekerja melalui rangkaian langkah yang saling terhubung. Tugas Anda adalah menyusun urutan kejadian secara logis berdasarkan contoh nyata.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="soal-3">
+      <div class="container">
+        <div class="section-head">
+          <h2>Soal 3 — Urutkan Cara Kerja Social Engineering</h2>
+          <p>
+            Seret kartu di sebelah kiri ke urutan yang menurut Anda paling tepat. Fokuskan pada bagaimana serangan berkembang dari observasi awal hingga pelaku mendapatkan hasil.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="pill">Drag and Drop Activity</span>
+          <div class="instructions">
+            <strong>Petunjuk:</strong> susun kelima kartu berikut dari langkah pertama sampai langkah terakhir. Gunakan pemahaman Anda tentang cara kerja social engineering, bukan hanya menebak dari bunyi kalimat.
+          </div>
+
+          <div class="steps-wrap">
+            <div class="panel">
+              <h3>Kartu yang Diacak</h3>
+              <div class="cards-list" id="cardsList">
+                <div class="step-card" draggable="true" data-id="C"><strong>C</strong>Pesan dibuat terdengar mendesak agar korban merasa harus cepat merespons dan tidak sempat berpikir panjang.</div>
+                <div class="step-card" draggable="true" data-id="A"><strong>A</strong>Pelaku memperhatikan bahwa seorang karyawan sering membagikan aktivitas lembur, rapat, atau kesibukan kerja melalui status WhatsApp atau media sosial.</div>
+                <div class="step-card" draggable="true" data-id="E"><strong>E</strong>Pelaku akhirnya mendapatkan akses, file, atau informasi yang sebelumnya tidak seharusnya diberikan.</div>
+                <div class="step-card" draggable="true" data-id="B"><strong>B</strong>Berdasarkan informasi itu, pelaku menyusun pesan yang terasa masuk akal, misalnya meminta file tertentu dengan alasan dibutuhkan untuk rapat mendadak.</div>
+                <div class="step-card" draggable="true" data-id="D"><strong>D</strong>Karena sedang sibuk dan merasa konteksnya wajar, korban langsung mengirim file atau informasi tanpa verifikasi lebih dulu.</div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>Susun Urutannya</h3>
+              <div class="order-list">
+                <div class="drop-zone" data-position="1"><span class="drop-label">1</span><span class="placeholder">Tarik kartu ke sini</span></div>
+                <div class="drop-zone" data-position="2"><span class="drop-label">2</span><span class="placeholder">Tarik kartu ke sini</span></div>
+                <div class="drop-zone" data-position="3"><span class="drop-label">3</span><span class="placeholder">Tarik kartu ke sini</span></div>
+                <div class="drop-zone" data-position="4"><span class="drop-label">4</span><span class="placeholder">Tarik kartu ke sini</span></div>
+                <div class="drop-zone" data-position="5"><span class="drop-label">5</span><span class="placeholder">Tarik kartu ke sini</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-actions">
+            <button class="btn btn-primary" onclick="checkOrder()">Cek Jawaban</button>
+            <button class="btn btn-secondary" onclick="resetOrder()">Ulangi Soal 3</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <div class="modal-text" id="modalText"></div>
+      <div class="feedback-list" id="feedbackList"></div>
+      <div class="footer-actions">
+        <button class="btn btn-primary" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">© 2026 Doddy Ferdiansyah · Game Interaktif Bagian B · Soal 3</div>
+  </footer>
+
+  <script>
+    const correctOrder = ['A', 'B', 'C', 'D', 'E'];
+    const cardsList = document.getElementById('cardsList');
+    const dropZones = document.querySelectorAll('.drop-zone');
+    const resultModal = document.getElementById('resultModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const feedbackList = document.getElementById('feedbackList');
+
+    const explanations = {
+      A: 'Kartu A menunjukkan tahap observasi. Pelaku memanfaatkan informasi yang terlihat publik untuk memahami kebiasaan dan konteks korban.',
+      B: 'Kartu B menunjukkan tahap penyusunan skenario. Setelah punya konteks, pelaku membuat pesan yang terasa wajar dan relevan.',
+      C: 'Kartu C menunjukkan tahap memberi tekanan. Pesan dibuat mendesak agar korban merasa perlu segera bertindak.',
+      D: 'Kartu D menunjukkan titik keputusan cepat. Korban bertindak tanpa verifikasi, dan di sinilah celah utama terbuka.',
+      E: 'Kartu E menunjukkan hasil akhir serangan, yaitu ketika pelaku berhasil memperoleh akses, file, atau informasi.'
+    };
+
+    let draggedCard = null;
+
+    function refreshDragEvents() {
+      document.querySelectorAll('.step-card').forEach((card) => {
+        card.addEventListener('dragstart', () => {
+          draggedCard = card;
+          card.classList.add('dragging');
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('dragging');
+          draggedCard = null;
+        });
+      });
+    }
+
+    refreshDragEvents();
+
+    dropZones.forEach((zone) => {
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('active');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('active');
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('active');
+        if (!draggedCard) return;
+
+        const existingCard = zone.querySelector('.step-card');
+        if (existingCard) {
+          cardsList.appendChild(existingCard);
+        }
+
+        const placeholder = zone.querySelector('.placeholder');
+        if (placeholder) placeholder.remove();
+        zone.appendChild(draggedCard);
+      });
+    });
+
+    cardsList.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    cardsList.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (!draggedCard) return;
+      cardsList.appendChild(draggedCard);
+      addPlaceholders();
+    });
+
+    function addPlaceholders() {
+      dropZones.forEach((zone) => {
+        const hasCard = zone.querySelector('.step-card');
+        const hasPlaceholder = zone.querySelector('.placeholder');
+        if (!hasCard && !hasPlaceholder) {
+          const placeholder = document.createElement('span');
+          placeholder.className = 'placeholder';
+          placeholder.textContent = 'Tarik kartu ke sini';
+          zone.appendChild(placeholder);
+        }
+      });
+    }
+
+    function getUserOrder() {
+      return [...dropZones].map((zone) => {
+        const card = zone.querySelector('.step-card');
+        return card ? card.dataset.id : null;
+      });
+    }
+
+    function checkOrder() {
+      const userOrder = getUserOrder();
+      feedbackList.innerHTML = '';
+
+      if (userOrder.includes(null)) {
+        modalTitle.innerHTML = '<span class="danger">Urutan belum lengkap.</span>';
+        modalText.innerHTML = 'Silakan tempatkan semua kartu ke dalam lima slot urutan terlebih dahulu, lalu tekan cek jawaban kembali.';
+        openModal();
+        return;
+      }
+
+      const isCorrect = userOrder.every((item, index) => item === correctOrder[index]);
+
+      if (isCorrect) {
+        modalTitle.innerHTML = '<span class="success">Urutan Anda benar.</span>';
+        modalText.innerHTML = 'Anda berhasil menyusun alur social engineering dengan tepat. Aktivitas ini menunjukkan bahwa serangan seperti ini tidak terjadi secara tiba-tiba, tetapi berkembang melalui observasi, penyusunan konteks, tekanan psikologis, keputusan cepat, lalu eksploitasi.';
+      } else {
+        modalTitle.innerHTML = '<span class="danger">Urutan Anda belum tepat.</span>';
+        modalText.innerHTML = 'Masih ada beberapa posisi yang perlu diperhatikan lagi. Coba lihat kembali logika prosesnya: pelaku biasanya tidak langsung meminta sesuatu, tetapi membangun konteks lebih dulu sebelum menekan korban untuk bertindak.';
+      }
+
+      correctOrder.forEach((id, index) => {
+        const item = document.createElement('div');
+        item.className = 'feedback-item';
+        item.innerHTML = '<strong>Langkah ' + (index + 1) + ' · Kartu ' + id + '</strong>' + explanations[id];
+        feedbackList.appendChild(item);
+      });
+
+      openModal();
+    }
+
+    function resetOrder() {
+      const orderedCards = [];
+      dropZones.forEach((zone) => {
+        const card = zone.querySelector('.step-card');
+        if (card) orderedCards.push(card);
+      });
+
+      orderedCards.forEach((card) => cardsList.appendChild(card));
+      addPlaceholders();
+      closeModal();
+    }
+
+    function openModal() {
+      resultModal.classList.add('show');
+    }
+
+    function closeModal() {
+      resultModal.classList.remove('show');
+    }
+
+    resultModal.addEventListener('click', (event) => {
+      if (event.target === resultModal) closeModal();
+    });
+  </script>
+</body>
+</html>
