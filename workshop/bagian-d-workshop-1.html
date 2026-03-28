@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian D | Workshop 1</title>
+  <meta name="description" content="Workshop interaktif Buka atau Lewati untuk mengenali pola serangan social engineering dalam situasi kerja dan ruang publik." />
+  <style>
+    :root {
+      --white: #ffffff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1160px;
+      --success: #198754;
+      --danger: #dc3545;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand { font-weight: 800; font-size: 1.02rem; }
+    .brand span { color: var(--sky-blue); }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav-links a { color: var(--mid-gray); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--sky-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77,163,255,0.24);
+    }
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-danger {
+      background: rgba(220,53,69,0.10);
+      border-color: rgba(220,53,69,0.18);
+      color: var(--danger);
+    }
+    .btn-success {
+      background: rgba(25,135,84,0.10);
+      border-color: rgba(25,135,84,0.18);
+      color: var(--success);
+    }
+
+    .hero { padding: 72px 0 34px; }
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .hero-card p { color: var(--mid-gray); max-width: 880px; }
+    section { padding: 26px 0 40px; }
+
+    .section-head { margin-bottom: 20px; max-width: 880px; }
+    .section-head h2 {
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-head p { color: var(--mid-gray); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .context-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .status-chip {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(77,163,255,0.18);
+      background: #fbfdff;
+      color: var(--mid-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.18);
+    }
+    .result-box.show { display: block; }
+    .result-box h3 { margin-bottom: 8px; }
+    .result-box p { color: var(--mid-gray); }
+    .result-box ul {
+      padding-left: 18px;
+      margin-top: 10px;
+      color: var(--mid-gray);
+      display: grid;
+      gap: 6px;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .deck-wrap {
+      display: grid;
+      gap: 16px;
+    }
+
+    .deck-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .scenario-card {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .visual-banner {
+      min-height: 180px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      align-items: stretch;
+      border-bottom: 1px solid rgba(31,41,55,0.08);
+      background: linear-gradient(135deg, #eef6ff 0%, #ffffff 100%);
+    }
+
+    .visual-scene {
+      border: 1px solid rgba(77,163,255,0.16);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88);
+      padding: 16px;
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .scene-label {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .visual-items {
+      display: grid;
+      gap: 8px;
+    }
+
+    .visual-item {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      color: var(--mid-gray);
+    }
+
+    .visual-aside {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 18px;
+      background: #ffffff;
+      padding: 14px;
+      display: grid;
+      align-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .aside-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--dark-gray);
+    }
+
+    .visual-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .visual-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid rgba(31,41,55,0.08);
+      color: var(--mid-gray);
+    }
+
+    .scenario-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(31,41,55,0.08);
+      background: #f8fafc;
+    }
+
+    .scenario-type {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+    }
+
+    .scenario-header h3 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .scenario-header p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .scenario-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .scenario-box {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 16px;
+      color: var(--dark-gray);
+      white-space: pre-line;
+    }
+
+    .question-box {
+      border: 1px solid rgba(77,163,255,0.16);
+      border-radius: 16px;
+      background: #fafdff;
+      padding: 14px 16px;
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .decision-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .feedback-box {
+      display: none;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(31,41,55,0.08);
+      background: #fbfdff;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box h4 { margin-bottom: 8px; }
+    .feedback-box p { color: var(--mid-gray); }
+    .feedback-box ul {
+      padding-left: 18px;
+      margin-top: 10px;
+      color: var(--mid-gray);
+      display: grid;
+      gap: 6px;
+    }
+
+    .note-box {
+      padding: 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .muted { color: var(--mid-gray); }
+    .success-text { color: var(--success); }
+    .danger-text { color: var(--danger); }
+
+    footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: flex-start; }
+      .nav-links { justify-content: flex-start; }
+    }
+
+    @media (max-width: 760px) {
+      .visual-banner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .btn { width: 100%; }
+      .footer-actions,
+      .decision-actions { flex-direction: column; }
+      .deck-top { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="#workshop-d1">Workshop 1</a>
+        <a href="bagian-d-workshop-2.html">Workshop 2</a>
+        <a href="bagian-d-workshop-3.html">Workshop 3</a>
+        <a href="../index.html">Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Bagian D · Bentuk Serangan</div>
+          <h1>Workshop Interaktif — Buka atau Lewati?</h1>
+          <p>
+            Anda akan melihat beberapa kartu situasi yang bisa terjadi di kantor maupun ruang publik. Pada tiap kartu, putuskan cepat: <strong>Buka / Lanjutkan</strong> atau <strong>Lewati / Jangan Lanjutkan</strong>. Setelah memilih, Anda akan langsung melihat konsekuensi, modus serangannya, dan faktor manusia yang dimainkan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop-d1">
+      <div class="container">
+        <div class="section-head">
+          <h2>Workshop D1: Buka atau Lewati?</h2>
+          <p>
+            Tujuan workshop ini bukan sekadar menebak benar atau salah, tetapi melatih penilaian cepat terhadap situasi yang tampak biasa namun bisa berisiko. Formatnya ringan, cepat, dan cocok untuk ritme kelas yang dinamis.
+          </p>
+        </div>
+
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Panduan Workshop</span>
+            <h3 style="margin-bottom: 8px;">Cara Menggunakan</h3>
+            <p class="muted">
+              Pada setiap kartu, bayangkan Anda benar-benar berada di situasi tersebut. Lalu putuskan apakah Anda akan <strong>membuka / melanjutkan</strong> situasi itu, atau <strong>melewati / tidak melanjutkan</strong>. Sistem akan memberi pembahasan singkat setelah Anda memilih.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Mulai dari kartu pertama. Pilih keputusan Anda dengan cepat, lalu perhatikan pembahasannya. Setelah itu, lanjut ke kartu berikutnya sampai semua selesai.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip" id="progressChip">Kartu 1 dari 5</span>
+              <span class="status-chip" id="scoreChip">Respons aman: 0</span>
+              <span class="status-chip">Fokus: modus serangan</span>
+            </div>
+
+            <div class="result-box" id="resultBox" aria-live="polite">
+              <h3 id="resultTitle"></h3>
+              <p id="resultSummary"></p>
+              <ul id="resultInsights"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-secondary" onclick="restartWorkshop()">Ulangi Workshop D1</button>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="deck-wrap">
+              <div class="deck-top">
+                <div><strong>Deck Situasi</strong></div>
+                <div id="deckCounter">Situasi 1 / 5</div>
+              </div>
+
+              <div class="scenario-card" id="scenarioCard">
+                <div class="visual-banner">
+                  <div class="visual-scene">
+                    <div class="scene-label" id="sceneLabel">Ruang kerja</div>
+                    <div class="visual-items" id="visualItems"></div>
+                  </div>
+                  <div class="visual-aside">
+                    <div>
+                      <div class="aside-title">Isyarat yang terlihat</div>
+                      <div class="visual-badges" id="visualBadges"></div>
+                    </div>
+                    <div class="muted" id="visualHint">Baca situasinya cepat, lalu putuskan.</div>
+                  </div>
+                </div>
+                <div class="scenario-header">
+                  <div class="scenario-type" id="scenarioType">Email kerja</div>
+                  <h3 id="scenarioTitle">Memuat situasi…</h3>
+                  <p id="scenarioLocation"></p>
+                </div>
+                <div class="scenario-body">
+                  <div class="scenario-box" id="scenarioText"></div>
+                  <div class="question-box" id="questionText">
+                    Dalam situasi ini, apakah Anda akan membuka / melanjutkan, atau memilih melewatinya dulu?
+                  </div>
+                  <div class="decision-actions" id="decisionActions">
+                    <button class="btn btn-success" type="button" onclick="answerScenario('open')">Buka / Lanjutkan</button>
+                    <button class="btn btn-danger" type="button" onclick="answerScenario('skip')">Lewati / Jangan Lanjutkan</button>
+                  </div>
+                  <div class="feedback-box" id="feedbackBox">
+                    <h4 id="feedbackTitle"></h4>
+                    <p id="feedbackSummary"></p>
+                    <ul id="feedbackList"></ul>
+                    <div class="footer-actions" style="margin-top:16px;">
+                      <button class="btn btn-primary" type="button" id="nextButton" onclick="nextScenario()">Lanjut ke Kartu Berikutnya</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="note-box" id="noteBox">
+                Catatan: keputusan “Buka / Lanjutkan” tidak selalu salah, dan keputusan “Lewati” tidak selalu berarti takut. Yang ingin dilatih adalah kemampuan membaca pola serangan dan memilih jeda yang tepat sebelum bertindak.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Doddy Ferdiansyah · Workshop Bagian D · Workshop 1</div>
+  </footer>
+
+  <script>
+    const scenarios = [
+      {
+        type: 'Email kerja',
+        scene: 'Inbox kantor',
+        title: 'Formulir training internal yang harus diisi hari ini',
+        location: 'Situasi: sedang di meja kerja, pagi hari, inbox baru saja dibuka.',
+        text: `Anda menerima email berjudul “Konfirmasi Data Peserta Training Internal”.\n\nDi dalamnya ada tautan formulir dan kalimat: “Mohon diisi sebelum pukul 15.00 WIB hari ini.”\n\nPengirim terlihat seperti tim internal, tetapi domain pengirim terlihat agak mirip dengan domain perusahaan, tidak persis sama.`,
+        visualItems: [
+          'Subjek email terlihat formal dan relevan dengan training.',
+          'Ada tautan formulir yang diminta dibuka hari ini juga.',
+          'Domain pengirim tampak mirip, tetapi tidak persis sama.'
+        ],
+        badges: ['Formal', 'Mendesak', 'Domain mirip'],
+        hint: 'Tampilan resmi belum tentu sumbernya benar.',
+        safeAnswer: 'skip',
+        feedbackTitleSafe: 'Keputusan Anda lebih aman',
+        feedbackTitleRisk: 'Keputusan ini berisiko',
+        summarySafe: 'Dalam situasi seperti ini, lebih aman tidak langsung membuka tautan atau melanjutkan proses sebelum sumbernya diverifikasi.',
+        summaryRisk: 'Membuka tautan terlalu cepat dalam situasi seperti ini berisiko karena kemasan email terlihat formal, tetapi ada tanda bahwa sumbernya belum tentu valid.',
+        bulletsSafe: [
+          'Modus yang mungkin dimainkan: phishing atau impersonation lewat email.',
+          'Faktor manusia yang dimainkan: bias penilaian, konteks yang terasa wajar, dan tekanan waktu.',
+          'Tindakan aman: cek domain pengirim, verifikasi ke jalur resmi, atau akses hanya lewat portal internal yang biasa dipakai.'
+        ],
+        bulletsRisk: [
+          'Modus yang mungkin dimainkan: phishing atau impersonation lewat email.',
+          'Faktor manusia yang dimainkan: tampilan resmi, konteks training, dan urgensi waktu.',
+          'Jeda verifikasi sangat penting sebelum membuka tautan atau mengisi formulir.'
+        ]
+      },
+      {
+        type: 'Chat / WhatsApp',
+        scene: 'Menjelang meeting',
+        title: 'Pesan dari “atasan” yang meminta file cepat',
+        location: 'Situasi: Anda sedang di kantor, menjelang meeting dimulai.',
+        text: `Ada chat masuk dari nomor baru dengan foto profil atasan Anda. Pesannya: “Tolong kirim file vendor yang kemarin sekarang ya. Jangan lewat grup, langsung ke saya saja. Saya butuh cepat.”`,
+        visualItems: [
+          'Nomor baru, tetapi foto profil terlihat meyakinkan.',
+          'Permintaan file dilakukan mendadak dan mendesak.',
+          'Pengirim meminta jangan pakai grup resmi.'
+        ],
+        badges: ['Atasan', 'Urgensi', 'Jalur pribadi'],
+        hint: 'Permintaan sensitif yang pindah ke jalur pribadi perlu dicurigai.',
+        safeAnswer: 'skip',
+        feedbackTitleSafe: 'Keputusan Anda lebih aman',
+        feedbackTitleRisk: 'Keputusan ini berisiko',
+        summarySafe: 'Dalam situasi seperti ini, lebih aman tidak langsung melanjutkan permintaan sebelum identitas dan konteksnya dipastikan lewat jalur yang benar.',
+        summaryRisk: 'Melanjutkan terlalu cepat berisiko karena pelaku bisa memanfaatkan otoritas, urgensi, dan kebiasaan membantu untuk membuat korban patuh.',
+        bulletsSafe: [
+          'Modus yang mungkin dimainkan: pretexting, impersonation, atau business-context scam ringan.',
+          'Faktor manusia yang dimainkan: otoritas, takut dianggap lambat, dan sungkan memverifikasi.',
+          'Tindakan aman: konfirmasi ke nomor resmi, hubungi lewat kanal biasa, atau tanyakan detail yang hanya atasan asli yang tahu.'
+        ],
+        bulletsRisk: [
+          'Modus yang mungkin dimainkan: pretexting atau impersonation lewat chat.',
+          'Faktor manusia yang dimainkan: otoritas, urgensi, dan keinginan untuk cepat membantu.',
+          'Permintaan untuk menghindari grup dan berpindah ke jalur pribadi patut dicurigai.'
+        ]
+      },
+      {
+        type: 'Portal internal',
+        scene: 'Halaman login kantor',
+        title: 'Link portal internal dari bookmark resmi perusahaan',
+        location: 'Situasi: Anda ingin mengisi konfirmasi training lewat portal yang biasa dipakai tim Human Capital.',
+        text: `Anda membuka portal internal perusahaan melalui bookmark yang biasa Anda gunakan. Domain sesuai dengan domain resmi perusahaan, koneksi aman aktif, dan halaman hanya meminta login normal ke sistem internal seperti biasanya.`,
+        visualItems: [
+          'Domain portal sesuai dengan domain resmi perusahaan.',
+          'Anda membuka dari bookmark yang biasa dipakai.',
+          'Alur yang diminta adalah login internal yang memang rutin dilakukan.'
+        ],
+        badges: ['Domain sesuai', 'Bookmark resmi', 'Proses normal'],
+        hint: 'Tidak semua yang terlihat formal itu jebakan. Ada juga situasi yang memang aman untuk dilanjutkan.',
+        safeAnswer: 'open',
+        feedbackTitleSafe: 'Keputusan Anda tepat',
+        feedbackTitleRisk: 'Keputusan ini justru terlalu ragu',
+        summarySafe: 'Dalam situasi seperti ini, melanjutkan bisa dianggap wajar karena sumber, domain, dan jalurnya sesuai dengan kebiasaan resmi organisasi.',
+        summaryRisk: 'Melewati situasi seperti ini tidak berbahaya, tetapi menunjukkan Anda bisa terlalu curiga bahkan saat sumber dan jalurnya sudah sesuai prosedur resmi.',
+        bulletsSafe: [
+          'Ini adalah kartu jebakan: tampilannya memang aman dan juga jalurnya sesuai.',
+          'Faktor manusia yang diuji: kemampuan membedakan situasi benar-benar aman vs. sekadar terlihat aman.',
+          'Pelajaran penting: awareness bukan berarti menolak semua hal, tetapi menilai dengan proporsional.'
+        ],
+        bulletsRisk: [
+          'Tidak semua situasi harus ditolak. Ada kondisi yang memang aman untuk dilanjutkan jika sumber dan prosedurnya valid.',
+          'Faktor manusia yang diuji: kecenderungan menjadi terlalu defensif tanpa membedakan konteks yang benar-benar resmi.',
+          'Pelajaran penting: yang dibutuhkan adalah penilaian yang tepat, bukan sekadar selalu menolak.'
+        ]
+      },
+      {
+        type: 'Ruang publik',
+        scene: 'Kafe dekat kantor',
+        title: 'Flashdisk berlabel “Payroll 2026” ditemukan di kafe',
+        location: 'Situasi: Anda sedang bekerja di kafe dekat kantor saat melihat flashdisk tertinggal di meja sebelah.',
+        text: `Di dekat Anda ada flashdisk dengan label tulisan tangan: “Payroll 2026”. Anda penasaran apakah itu milik seseorang dari kantor atau berisi file penting. Anda punya laptop kerja di tas.`,
+        visualItems: [
+          'Flashdisk tampak sederhana tetapi labelnya menarik perhatian.',
+          'Kata “Payroll” membuat isi perangkat terlihat penting.',
+          'Anda punya laptop kerja yang bisa langsung dipakai untuk mengecek isi.'
+        ],
+        badges: ['Penasaran', 'Terlihat penting', 'Akses mudah'],
+        hint: 'Umpan yang tampak penting sering sengaja dibuat untuk memancing reaksi cepat.',
+        safeAnswer: 'skip',
+        feedbackTitleSafe: 'Keputusan Anda lebih aman',
+        feedbackTitleRisk: 'Keputusan ini berisiko',
+        summarySafe: 'Dalam situasi seperti ini, lebih aman tidak langsung membuka atau menyambungkan perangkat yang tidak jelas asal-usulnya ke laptop kerja.',
+        summaryRisk: 'Membuka atau menyambungkan flashdisk seperti ini berisiko tinggi karena baiting memanfaatkan rasa ingin tahu dan asumsi bahwa isi perangkat tampak penting.',
+        bulletsSafe: [
+          'Modus yang mungkin dimainkan: baiting berbasis perangkat fisik.',
+          'Faktor manusia yang dimainkan: rasa ingin tahu, overconfidence, dan dorongan ingin cepat tahu isi file.',
+          'Tindakan aman: jangan colok ke perangkat kerja; serahkan ke petugas atau bagian yang berwenang jika relevan.'
+        ],
+        bulletsRisk: [
+          'Modus yang mungkin dimainkan: baiting melalui media fisik.',
+          'Faktor manusia yang dimainkan: rasa penasaran dan keyakinan bahwa Anda bisa membedakan mana yang aman.',
+          'Perangkat yang tampak “penting” justru sering dipakai sebagai umpan.'
+        ]
+      },
+      {
+        type: 'Akses fisik',
+        scene: 'Pintu akses kantor',
+        title: 'Seseorang ikut masuk pintu akses kantor tanpa kartu',
+        location: 'Situasi: sore hari di kantor, Anda baru saja membuka pintu akses menuju area kerja internal.',
+        text: `Di belakang Anda ada seseorang berpakaian rapi membawa laptop. Ia berkata, “Mas, boleh nebeng masuk sebentar? Saya ketinggalan kartu akses. Saya dari vendor yang mau meeting di lantai atas.”`,
+        visualItems: [
+          'Orang tersebut berpakaian rapi dan membawa laptop.',
+          'Alasannya terdengar masuk akal dan sopan.',
+          'Ia meminta bantuan cepat saat Anda sudah membuka pintu.'
+        ],
+        badges: ['Sopan', 'Tampak profesional', 'Minta dibantu'],
+        hint: 'Situasi yang sopan dan terasa normal tetap perlu diverifikasi.',
+        safeAnswer: 'skip',
+        feedbackTitleSafe: 'Keputusan Anda lebih aman',
+        feedbackTitleRisk: 'Keputusan ini berisiko',
+        summarySafe: 'Dalam situasi seperti ini, lebih aman tidak langsung membiarkan orang ikut masuk tanpa verifikasi identitas atau arahan ke prosedur yang benar.',
+        summaryRisk: 'Membiarkan orang ikut masuk berisiko karena tailgating memanfaatkan sopan santun, rasa sungkan, dan keinginan membantu dalam situasi yang tampak wajar.',
+        bulletsSafe: [
+          'Modus yang mungkin dimainkan: tailgating atau pretexting fisik.',
+          'Faktor manusia yang dimainkan: sungkan menolak, ingin membantu, dan konteks yang terasa normal.',
+          'Tindakan aman: arahkan ke resepsionis, minta verifikasi, atau gunakan prosedur akses yang berlaku.'
+        ],
+        bulletsRisk: [
+          'Modus yang mungkin dimainkan: tailgating.',
+          'Faktor manusia yang dimainkan: sungkan menegur, ingin membantu, dan asumsi bahwa orang berpakaian rapi pasti sah.',
+          'Akses fisik yang tampak sepele bisa membuka risiko besar untuk organisasi.'
+        ]
+      }
+    ];
+
+    let currentIndex = 0;
+    let safeCount = 0;
+    let answeredCurrent = false;
+
+    const contextBox = document.getElementById('contextBox');
+    const progressChip = document.getElementById('progressChip');
+    const scoreChip = document.getElementById('scoreChip');
+    const deckCounter = document.getElementById('deckCounter');
+    const scenarioType = document.getElementById('scenarioType');
+    const scenarioTitle = document.getElementById('scenarioTitle');
+    const sceneLabel = document.getElementById('sceneLabel');
+    const visualItems = document.getElementById('visualItems');
+    const visualBadges = document.getElementById('visualBadges');
+    const visualHint = document.getElementById('visualHint');
+    const scenarioLocation = document.getElementById('scenarioLocation');
+    const scenarioText = document.getElementById('scenarioText');
+    const decisionActions = document.getElementById('decisionActions');
+    const feedbackBox = document.getElementById('feedbackBox');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackSummary = document.getElementById('feedbackSummary');
+    const feedbackList = document.getElementById('feedbackList');
+    const nextButton = document.getElementById('nextButton');
+    const resultBox = document.getElementById('resultBox');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultSummary = document.getElementById('resultSummary');
+    const resultInsights = document.getElementById('resultInsights');
+    const scenarioCard = document.getElementById('scenarioCard');
+    const noteBox = document.getElementById('noteBox');
+
+    function renderScenario() {
+      const s = scenarios[currentIndex];
+      answeredCurrent = false;
+      scenarioType.textContent = s.type;
+      scenarioTitle.textContent = s.title;
+      scenarioLocation.textContent = s.location;
+      scenarioText.textContent = s.text;
+      progressChip.textContent = `Kartu ${currentIndex + 1} dari ${scenarios.length}`;
+      sceneLabel.textContent = s.scene;
+
+      visualItems.innerHTML = '';
+      s.visualItems.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'visual-item';
+        div.textContent = item;
+        visualItems.appendChild(div);
+      });
+
+      visualBadges.innerHTML = '';
+      s.badges.forEach((badge) => {
+        const span = document.createElement('span');
+        span.className = 'visual-badge';
+        span.textContent = badge;
+        visualBadges.appendChild(span);
+      });
+
+      visualHint.textContent = s.hint;
+      deckCounter.textContent = `Situasi ${currentIndex + 1} / ${scenarios.length}`;
+      scoreChip.textContent = `Respons aman: ${safeCount}`;
+      feedbackBox.classList.remove('show');
+      decisionActions.style.display = 'flex';
+      nextButton.textContent = currentIndex === scenarios.length - 1 ? 'Lihat Ringkasan Akhir' : 'Lanjut ke Kartu Berikutnya';
+    }
+
+    function answerScenario(choice) {
+      if (answeredCurrent) return;
+      answeredCurrent = true;
+      const s = scenarios[currentIndex];
+      const isSafe = choice === s.safeAnswer;
+
+      if (isSafe) {
+        safeCount += 1;
+      }
+      scoreChip.textContent = `Respons aman: ${safeCount}`;
+
+      feedbackTitle.textContent = isSafe ? s.feedbackTitleSafe : s.feedbackTitleRisk;
+      feedbackTitle.className = isSafe ? 'success-text' : 'danger-text';
+      feedbackSummary.textContent = isSafe ? s.summarySafe : s.summaryRisk;
+      feedbackList.innerHTML = '';
+
+      const bullets = isSafe ? s.bulletsSafe : s.bulletsRisk;
+      bullets.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      decisionActions.style.display = 'none';
+      feedbackBox.classList.add('show');
+      contextBox.innerHTML = isSafe
+        ? 'Keputusan Anda pada kartu ini lebih aman. Perhatikan modus dan faktor manusia yang dimainkan pada pembahasan di sebelah kanan.'
+        : 'Keputusan Anda pada kartu ini berisiko. Perhatikan kenapa situasi ini tampak wajar, tetapi sebenarnya memanfaatkan pola serangan tertentu.';
+    }
+
+    function nextScenario() {
+      if (currentIndex < scenarios.length - 1) {
+        currentIndex += 1;
+        renderScenario();
+      } else {
+        showFinalResult();
+      }
+    }
+
+    function showFinalResult() {
+      const total = scenarios.length;
+      const riskyCount = total - safeCount;
+      let title = 'Anda cukup baik membaca pola serangan';
+      let summary = 'Anda menunjukkan kemampuan yang cukup baik dalam menahan respons cepat dan membaca modus serangan yang memanfaatkan faktor manusia.';
+      const insights = [];
+
+      if (safeCount === total) {
+        title = 'Anda sangat baik membaca pola serangan';
+        summary = 'Anda konsisten memilih jeda yang aman sebelum membuka, melanjutkan, atau memberi akses dalam situasi yang tampak biasa.';
+      } else if (safeCount <= 1) {
+        title = 'Anda masih mudah terdorong oleh situasi yang tampak wajar';
+        summary = 'Beberapa skenario menunjukkan bahwa Anda masih cukup mudah membuka, melanjutkan, atau membantu tanpa cukup jeda verifikasi.';
+      }
+
+      insights.push(`Dari ${total} kartu, Anda memberi ${safeCount} respons yang lebih aman dan ${riskyCount} respons yang berisiko.`);
+      insights.push('Banyak serangan di Bagian D tidak tampak terlalu teknis. Justru yang dimainkan adalah konteks yang terlihat normal, sopan, atau mendesak.');
+      insights.push('Pelajaran utamanya: tidak semua hal yang tampak wajar layak langsung dibuka, dilanjutkan, atau dibantu tanpa verifikasi.');
+      insights.push('Semakin cepat Anda merasa “ini biasa saja”, semakin penting untuk memberi jeda sejenak sebelum bertindak.');
+
+      resultTitle.textContent = title;
+      resultSummary.textContent = summary;
+      resultInsights.innerHTML = '';
+      insights.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        resultInsights.appendChild(li);
+      });
+
+      resultBox.classList.add('show');
+      contextBox.innerHTML = 'Workshop selesai. Ringkasan akhir muncul di panel kiri. Anda bisa mengulang untuk mencoba lagi dengan cara berpikir yang berbeda.';
+      scenarioCard.style.display = 'none';
+      noteBox.style.display = 'none';
+      deckCounter.textContent = 'Selesai';
+      progressChip.textContent = 'Workshop selesai';
+    }
+
+    function restartWorkshop() {
+      currentIndex = 0;
+      safeCount = 0;
+      answeredCurrent = false;
+      contextBox.innerHTML = 'Mulai dari kartu pertama. Pilih keputusan Anda dengan cepat, lalu perhatikan pembahasannya. Setelah itu, lanjut ke kartu berikutnya sampai semua selesai.';
+      resultBox.classList.remove('show');
+      scenarioCard.style.display = 'block';
+      noteBox.style.display = 'block';
+      renderScenario();
+    }
+
+    console.assert(Array.isArray(scenarios) && scenarios.length === 5, 'Workshop D1 should contain 5 scenarios');
+    console.assert(document.getElementById('feedbackBox') !== null, 'feedbackBox should exist');
+    console.assert(document.getElementById('resultBox') !== null, 'resultBox should exist');
+    console.assert(document.getElementById('sceneLabel') !== null, 'sceneLabel should exist');
+
+    renderScenario();
+  </script>
+</body>
+</html>
