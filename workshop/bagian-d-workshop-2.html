@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian D | Workshop 2</title>
+  <meta name="description" content="Workshop interaktif Bantu atau Curiga untuk melatih keputusan sosial yang aman di kantor dan ruang publik." />
+  <style>
+    :root {
+      --white: #ffffff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1180px;
+      --success: #198754;
+      --danger: #dc3545;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand { font-weight: 800; font-size: 1.02rem; }
+    .brand span { color: var(--sky-blue); }
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .nav-links a { color: var(--mid-gray); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--sky-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77,163,255,0.24);
+    }
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero { padding: 72px 0 34px; }
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .hero-card p { color: var(--mid-gray); max-width: 900px; }
+    section { padding: 26px 0 40px; }
+
+    .section-head { margin-bottom: 20px; max-width: 900px; }
+    .section-head h2 {
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-head p { color: var(--mid-gray); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.94fr 1.06fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .context-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .status-chip {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(77,163,255,0.18);
+      background: #fbfdff;
+      color: var(--mid-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.18);
+    }
+    .result-box.show { display: block; }
+    .result-box h3 { margin-bottom: 8px; }
+    .result-box p { color: var(--mid-gray); }
+    .result-box ul { padding-left: 18px; margin-top: 10px; color: var(--mid-gray); display: grid; gap: 6px; }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .scene-wrap {
+      display: grid;
+      gap: 16px;
+    }
+    .scene-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .scenario-card {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .scene-visual {
+      min-height: 220px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      border-bottom: 1px solid rgba(31,41,55,0.08);
+      background: linear-gradient(135deg, #eef6ff 0%, #ffffff 100%);
+    }
+    .scene-main {
+      border: 1px solid rgba(77,163,255,0.16);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.9);
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      box-shadow: var(--shadow-soft);
+    }
+    .scene-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+    .scene-points {
+      display: grid;
+      gap: 8px;
+    }
+    .scene-point {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      color: var(--mid-gray);
+    }
+    .scene-side {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 18px;
+      background: #ffffff;
+      padding: 14px;
+      display: grid;
+      align-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-soft);
+    }
+    .side-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--dark-gray);
+    }
+    .signal-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .signal-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid rgba(31,41,55,0.08);
+      color: var(--mid-gray);
+    }
+
+    .scenario-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(31,41,55,0.08);
+      background: #f8fafc;
+    }
+    .scenario-type {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+    }
+    .scenario-header h3 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+    .scenario-header p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .scenario-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+    .scenario-box {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 16px;
+      color: var(--dark-gray);
+      white-space: pre-line;
+    }
+    .question-box {
+      border: 1px solid rgba(77,163,255,0.16);
+      border-radius: 16px;
+      background: #fafdff;
+      padding: 14px 16px;
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .decision-btn {
+      text-align: left;
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 16px;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      line-height: 1.45;
+      font-size: 0.93rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .decision-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77,163,255,0.35);
+      background: #fbfdff;
+    }
+    .decision-btn strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.96rem;
+    }
+
+    .feedback-box {
+      display: none;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(31,41,55,0.08);
+      background: #fbfdff;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box h4 { margin-bottom: 8px; }
+    .feedback-box p { color: var(--mid-gray); }
+    .feedback-box ul {
+      padding-left: 18px;
+      margin-top: 10px;
+      color: var(--mid-gray);
+      display: grid;
+      gap: 6px;
+    }
+
+    .note-box {
+      padding: 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .muted { color: var(--mid-gray); }
+    .success-text { color: var(--success); }
+    .warning-text { color: var(--warning); }
+    .danger-text { color: var(--danger); }
+
+    footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: flex-start; }
+      .nav-links { justify-content: flex-start; }
+      .decision-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .scene-visual { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .btn { width: 100%; }
+      .footer-actions { flex-direction: column; }
+      .scene-top { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="bagian-d-workshop-1.html">Workshop 1</a>
+        <a href="#workshop-d2">Workshop 2</a>
+        <a href="bagian-d-workshop-3.html">Workshop 3</a>
+        <a href="../index.html">Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Bagian D · Bentuk Serangan</div>
+          <h1>Workshop Interaktif — Bantu atau Curiga?</h1>
+          <p>
+            Anda akan menghadapi beberapa situasi sosial yang terlihat wajar di kantor atau ruang publik. Pada setiap situasi, pilih respons yang paling tepat: <strong>bantu langsung</strong>, <strong>verifikasi dulu</strong>, atau <strong>tolak / arahkan ke prosedur resmi</strong>. Setelah memilih, Anda akan melihat pembahasan singkat tentang risiko, modus serangan, dan faktor manusia yang dimainkan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop-d2">
+      <div class="container">
+        <div class="section-head">
+          <h2>Workshop D2: Bantu atau Curiga?</h2>
+          <p>
+            Tujuan workshop ini adalah melatih penilaian sosial dalam situasi yang tampak sopan, mendesak, atau masuk akal. Anda tidak sedang diuji untuk menjadi curiga pada semua orang, tetapi untuk memilih bentuk bantuan yang tetap aman.
+          </p>
+        </div>
+
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Panduan Workshop</span>
+            <h3 style="margin-bottom: 8px;">Cara Menggunakan</h3>
+            <p class="muted">
+              Baca situasinya, lalu pilih salah satu dari tiga respons berikut:
+              <br>1. <strong>Bantu langsung</strong>
+              <br>2. <strong>Verifikasi dulu</strong>
+              <br>3. <strong>Tolak / arahkan ke prosedur resmi</strong>
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Mulai dari situasi pertama. Pada workshop ini, pilihan terbaik sering kali bukan membantu langsung atau menolak mentah-mentah, tetapi memilih bentuk bantuan yang tetap aman dan terverifikasi.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip" id="progressChip">Situasi 1 dari 4</span>
+              <span class="status-chip" id="scoreChip">Keputusan tepat: 0</span>
+              <span class="status-chip">Fokus: keputusan sosial aman</span>
+            </div>
+
+            <div class="result-box" id="resultBox" aria-live="polite">
+              <h3 id="resultTitle"></h3>
+              <p id="resultSummary"></p>
+              <ul id="resultInsights"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-secondary" onclick="restartWorkshop()">Ulangi Workshop D2</button>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="scene-wrap">
+              <div class="scene-top">
+                <div><strong>Deck Situasi Sosial</strong></div>
+                <div id="deckCounter">Situasi 1 / 4</div>
+              </div>
+
+              <div class="scenario-card" id="scenarioCard">
+                <div class="scene-visual">
+                  <div class="scene-main">
+                    <div class="scene-tag" id="sceneTag">Area kantor</div>
+                    <div class="scene-points" id="scenePoints"></div>
+                  </div>
+                  <div class="scene-side">
+                    <div>
+                      <div class="side-title">Isyarat yang muncul</div>
+                      <div class="signal-list" id="signalList"></div>
+                    </div>
+                    <div class="muted" id="sceneHint">Bantu boleh, tetapi jangan sampai melewati verifikasi.</div>
+                  </div>
+                </div>
+
+                <div class="scenario-header">
+                  <div class="scenario-type" id="scenarioType">Akses fisik</div>
+                  <h3 id="scenarioTitle">Memuat situasi…</h3>
+                  <p id="scenarioLocation"></p>
+                </div>
+
+                <div class="scenario-body">
+                  <div class="scenario-box" id="scenarioText"></div>
+                  <div class="question-box" id="questionText">
+                    Dalam situasi ini, respons mana yang paling tepat menurut Anda?
+                  </div>
+
+                  <div class="decision-grid" id="decisionGrid">
+                    <button class="decision-btn" type="button" onclick="answerScenario('help')">
+                      <strong>Bantu langsung</strong>
+                      Penuhi permintaannya saat itu juga.
+                    </button>
+                    <button class="decision-btn" type="button" onclick="answerScenario('verify')">
+                      <strong>Verifikasi dulu</strong>
+                      Bantu seperlunya, tetapi cek identitas, tujuan, atau jalur resminya.
+                    </button>
+                    <button class="decision-btn" type="button" onclick="answerScenario('reject')">
+                      <strong>Tolak / arahkan resmi</strong>
+                      Jangan bantu langsung; arahkan ke prosedur atau pihak resmi.
+                    </button>
+                  </div>
+
+                  <div class="feedback-box" id="feedbackBox">
+                    <h4 id="feedbackTitle"></h4>
+                    <p id="feedbackSummary"></p>
+                    <ul id="feedbackList"></ul>
+                    <div class="footer-actions" style="margin-top:16px;">
+                      <button class="btn btn-primary" type="button" id="nextButton" onclick="nextScenario()">Lanjut ke Situasi Berikutnya</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="note-box" id="noteBox">
+                Catatan: tujuan workshop ini bukan mengajarkan Anda untuk dingin atau tidak peduli. Yang dilatih adalah bagaimana tetap sopan dan membantu, tanpa melewati batas keamanan yang wajar.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Doddy Ferdiansyah · Workshop Bagian D · Workshop 2</div>
+  </footer>
+
+  <script>
+    const scenarios = [
+      {
+        type: 'Akses fisik',
+        scene: 'Pintu akses kantor',
+        title: 'Vendor minta ikut masuk karena ketinggalan kartu akses',
+        location: 'Situasi: pagi hari, Anda baru saja membuka pintu akses menuju area kerja internal.',
+        text: `Di belakang Anda ada seseorang berpakaian rapi membawa laptop. Ia berkata, “Mas, boleh nebeng masuk sebentar? Saya dari vendor. Kartu akses saya ketinggalan, padahal saya ada meeting di lantai atas.”`,
+        scenePoints: [
+          'Orangnya tampak profesional dan berbicara sopan.',
+          'Alasannya terdengar masuk akal dan mendesak.',
+          'Permintaan muncul tepat saat Anda sudah membuka pintu.'
+        ],
+        signals: ['Sopan', 'Mendesak', 'Minta akses'],
+        hint: 'Bersikap baik tidak harus berarti memberi akses langsung.',
+        bestAnswer: 'reject',
+        feedbackTitles: {
+          help: 'Respons ini berisiko',
+          verify: 'Respons ini masih kurang aman',
+          reject: 'Respons ini paling tepat'
+        },
+        feedbackSummaries: {
+          help: 'Membantu langsung dengan membiarkan orang ikut masuk membuka risiko tailgating dan melewati kontrol akses fisik yang seharusnya berlaku untuk semua orang.',
+          verify: 'Berniat memverifikasi itu baik, tetapi untuk akses fisik seperti ini, bentuk bantuan yang paling aman adalah tidak memberi akses langsung dan mengarahkan ke prosedur resmi.',
+          reject: 'Menolak memberi akses langsung lalu mengarahkan ke resepsionis atau prosedur resmi adalah bentuk bantuan yang paling aman dalam konteks ini.'
+        },
+        feedbackBullets: {
+          help: [
+            'Modus yang mungkin dimainkan: tailgating atau pretexting fisik.',
+            'Faktor manusia yang dimainkan: sungkan menolak, ingin membantu, dan asumsi bahwa orang berpakaian rapi pasti sah.',
+            'Pelajaran: akses fisik tidak boleh digantikan oleh rasa kasihan atau sopan santun.'
+          ],
+          verify: [
+            'Niat untuk cek dulu sudah lebih baik daripada bantu langsung.',
+            'Namun, pada area akses terbatas, solusi paling aman bukan verifikasi spontan di tempat, melainkan arahkan ke prosedur akses yang berlaku.',
+            'Pelajaran: beberapa situasi memang lebih aman ditangani oleh prosedur resmi, bukan keputusan personal.'
+          ],
+          reject: [
+            'Ini bukan berarti Anda tidak membantu, tetapi membantu dengan cara yang aman.',
+            'Mengarahkannya ke resepsionis atau PIC akses tetap menjaga sopan santun sekaligus menjaga kontrol fisik organisasi.',
+            'Pelajaran: bantuan yang aman kadang berarti tidak memenuhi permintaan langsung.'
+          ]
+        }
+      },
+      {
+        type: 'Ruang publik',
+        scene: 'Bandara / area tunggu',
+        title: 'Orang asing minta hotspot sebentar untuk buka email kantor',
+        location: 'Situasi: Anda sedang menunggu boarding dan bekerja dari laptop di area publik.',
+        text: `Orang di kursi sebelah berkata, “Maaf, boleh pinjam hotspot sebentar? Saya cuma mau buka email kantor, ini urgent. Tadi jaringan saya putus.”`,
+        scenePoints: [
+          'Permintaan terdengar kecil dan hanya “sebentar”.',
+          'Alasan yang diberikan terdengar wajar untuk pekerja mobile.',
+          'Anda sedang berada di ruang publik, bukan kantor.'
+        ],
+        signals: ['Ruang publik', 'Urgent', 'Pinjam akses'],
+        hint: 'Bantuan kecil di ruang publik tetap bisa membawa risiko.',
+        bestAnswer: 'reject',
+        feedbackTitles: {
+          help: 'Respons ini berisiko',
+          verify: 'Respons ini masih kurang aman',
+          reject: 'Respons ini paling tepat'
+        },
+        feedbackSummaries: {
+          help: 'Memberi hotspot langsung pada orang asing di ruang publik memperluas risiko pada koneksi, perangkat, dan interaksi yang tidak perlu.',
+          verify: 'Mencoba memverifikasi niat baik orang asing di ruang publik belum tentu cukup, karena Anda tetap tidak memiliki dasar aman untuk memberi akses jaringan pribadi.',
+          reject: 'Menolak memberi hotspot pribadi adalah pilihan paling aman. Anda tetap bisa bersikap sopan tanpa membuka akses yang tidak perlu.'
+        },
+        feedbackBullets: {
+          help: [
+            'Modus yang mungkin dimainkan: social engineering berbasis bantuan spontan di ruang publik.',
+            'Faktor manusia yang dimainkan: ingin membantu, sungkan menolak, dan konteks yang terasa ringan.',
+            'Pelajaran: tidak semua permintaan kecil aman untuk dipenuhi, apalagi yang menyangkut akses atau koneksi.'
+          ],
+          verify: [
+            'Di sini, verifikasi identitas tidak memberi jaminan keamanan yang cukup.',
+            'Masalah utamanya bukan hanya siapa orangnya, tetapi apa akses yang Anda berikan.',
+            'Pelajaran: ada situasi di mana batas aman terbaik adalah tidak memberi akses sama sekali.'
+          ],
+          reject: [
+            'Menolak akses jaringan pribadi di ruang publik adalah keputusan yang wajar dan aman.',
+            'Anda tetap bisa menyarankan alternatif umum, misalnya mencari jaringan resmi bandara atau counter bantuan.',
+            'Pelajaran: sopan tidak harus berarti membuka akses pribadi.'
+          ]
+        }
+      },
+      {
+        type: 'Interaksi internal',
+        scene: 'Ruang kerja / chat tim',
+        title: 'Rekan kerja minta file presentasi yang memang sedang dibutuhkan hari ini',
+        location: 'Situasi: menjelang presentasi sore, rekan satu tim menghubungi Anda lewat kanal tim resmi.',
+        text: `Rekan satu tim yang memang Anda kenal mengirim pesan lewat kanal kerja resmi: “Slide presentasi final yang tadi pagi dibahas sudah siap? Kalau sudah, kirim ke folder tim ya, saya mau cek sebelum meeting sore.”`,
+        scenePoints: [
+          'Pengirim dikenal dan berkomunikasi lewat kanal kerja resmi.',
+          'Permintaannya sesuai konteks kerja hari itu.',
+          'Ia tidak meminta bypass prosedur atau pindah ke jalur pribadi.'
+        ],
+        signals: ['Kanal resmi', 'Konteks sesuai', 'Permintaan normal'],
+        hint: 'Tidak semua permintaan harus dicurigai. Ada juga situasi yang memang aman dan normal.',
+        bestAnswer: 'help',
+        feedbackTitles: {
+          help: 'Respons ini paling tepat',
+          verify: 'Respons ini masih aman, tetapi terlalu hati-hati',
+          reject: 'Respons ini justru terlalu defensif'
+        },
+        feedbackSummaries: {
+          help: 'Dalam konteks ini, membantu langsung lewat jalur resmi adalah keputusan yang wajar dan efisien karena sumber, kanal, dan tujuan permintaan semuanya sesuai.',
+          verify: 'Berhati-hati itu baik, tetapi pada situasi yang jelas resmi dan normal seperti ini, verifikasi tambahan berlebihan bisa menghambat kerja tanpa memberi nilai keamanan yang berarti.',
+          reject: 'Menolak dalam situasi ini justru terlalu defensif. Awareness yang baik bukan berarti mencurigai semua hal, tetapi menilai dengan proporsional.'
+        },
+        feedbackBullets: {
+          help: [
+            'Ini adalah kartu jebakan yang aman: situasinya memang normal dan sesuai prosedur kerja.',
+            'Faktor yang diuji: kemampuan membedakan situasi benar-benar aman vs. sekadar terlihat aman.',
+            'Pelajaran: kewaspadaan yang baik harus tetap proporsional agar kerja tetap berjalan.'
+          ],
+          verify: [
+            'Verifikasi tambahan tidak salah, tetapi tidak selalu diperlukan jika kanal, konteks, dan pola permintaannya sudah sesuai dengan kebiasaan resmi tim.',
+            'Pelajaran: terlalu curiga pada semua situasi juga bukan tujuan awareness training.',
+            'Yang dibutuhkan adalah penilaian yang tepat, bukan sekadar memperlambat semua hal.'
+          ],
+          reject: [
+            'Menolak situasi kerja normal yang sudah sesuai jalur resmi menunjukkan penilaian yang terlalu defensif.',
+            'Pelajaran: keamanan yang matang berarti mampu membedakan mana yang perlu ditahan dan mana yang memang aman dilanjutkan.',
+            'Tidak semua bantuan langsung adalah risiko.'
+          ]
+        }
+      },
+      {
+        type: 'Kafe / kerja mobile',
+        scene: 'Meja kerja publik',
+        title: 'Orang asing menawarkan bantuan melihat file error di laptop Anda',
+        location: 'Situasi: Anda sedang bekerja di kafe dan terlihat kesulitan membuka file kerja.',
+        text: `Seseorang di meja sebelah melihat Anda beberapa kali mencoba membuka file presentasi. Ia berkata, “Kalau mau saya bantu lihat sebentar, saya sering pakai aplikasi itu kok. Kadang filenya cuma perlu dibuka dengan setting tertentu.”`,
+        scenePoints: [
+          'Bantuannya terdengar teknis dan terlihat tulus.',
+          'Anda memang sedang kesulitan dan sedikit terburu-buru.',
+          'Ia orang asing, dan layar laptop Anda memuat materi kerja.'
+        ],
+        signals: ['Terlihat membantu', 'Anda sedang butuh', 'Data terbuka'],
+        hint: 'Bantuan teknis dari orang asing bisa membuka akses ke layar atau file kerja Anda.',
+        bestAnswer: 'reject',
+        feedbackTitles: {
+          help: 'Respons ini berisiko',
+          verify: 'Respons ini masih kurang aman',
+          reject: 'Respons ini paling tepat'
+        },
+        feedbackSummaries: {
+          help: 'Menerima bantuan langsung dari orang asing pada perangkat kerja membuka risiko shoulder surfing, akses tidak perlu ke layar, dan paparan informasi kerja.',
+          verify: 'Berniat hati-hati itu baik, tetapi dalam konteks perangkat kerja di ruang publik, bantuan dari orang asing tetap bukan pilihan yang aman meski Anda sempat bertanya lebih dulu.',
+          reject: 'Menolak bantuan langsung dari orang asing pada perangkat kerja adalah pilihan paling aman. Anda tetap bisa bersikap sopan tanpa membuka akses ke layar atau file kerja.'
+        },
+        feedbackBullets: {
+          help: [
+            'Modus yang mungkin dimainkan: pendekatan sosial berbasis bantuan spontan di ruang publik.',
+            'Faktor manusia yang dimainkan: sedang butuh bantuan, terburu-buru, dan rasa tidak enak menolak.',
+            'Pelajaran: saat sedang kesulitan, kita justru lebih mudah mengendurkan batas keamanan.'
+          ],
+          verify: [
+            'Verifikasi spontan pada orang asing tidak cukup untuk memberi akses pada layar atau file kerja.',
+            'Masalah utamanya bukan sekadar niat orang itu, tetapi eksposur data kerja Anda.',
+            'Pelajaran: ada batas bantuan yang tidak perlu dilampaui di ruang publik.'
+          ],
+          reject: [
+            'Ini bukan sikap tidak ramah, tetapi bentuk menjaga batas aman pada perangkat dan data kerja.',
+            'Alternatif aman: selesaikan sendiri, hubungi rekan/IT, atau pindah ke tempat yang lebih privat.',
+            'Pelajaran: membantu diri sendiri dengan aman kadang lebih penting daripada menerima bantuan cepat.'
+          ]
+        }
+      }
+    ];
+
+    let currentIndex = 0;
+    let correctCount = 0;
+    let answeredCurrent = false;
+
+    const contextBox = document.getElementById('contextBox');
+    const progressChip = document.getElementById('progressChip');
+    const scoreChip = document.getElementById('scoreChip');
+    const deckCounter = document.getElementById('deckCounter');
+    const sceneTag = document.getElementById('sceneTag');
+    const scenePoints = document.getElementById('scenePoints');
+    const signalList = document.getElementById('signalList');
+    const sceneHint = document.getElementById('sceneHint');
+    const scenarioType = document.getElementById('scenarioType');
+    const scenarioTitle = document.getElementById('scenarioTitle');
+    const scenarioLocation = document.getElementById('scenarioLocation');
+    const scenarioText = document.getElementById('scenarioText');
+    const decisionGrid = document.getElementById('decisionGrid');
+    const feedbackBox = document.getElementById('feedbackBox');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackSummary = document.getElementById('feedbackSummary');
+    const feedbackList = document.getElementById('feedbackList');
+    const nextButton = document.getElementById('nextButton');
+    const resultBox = document.getElementById('resultBox');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultSummary = document.getElementById('resultSummary');
+    const resultInsights = document.getElementById('resultInsights');
+    const scenarioCard = document.getElementById('scenarioCard');
+    const noteBox = document.getElementById('noteBox');
+
+    function renderScenario() {
+      const s = scenarios[currentIndex];
+      answeredCurrent = false;
+      progressChip.textContent = `Situasi ${currentIndex + 1} dari ${scenarios.length}`;
+      scoreChip.textContent = `Keputusan tepat: ${correctCount}`;
+      deckCounter.textContent = `Situasi ${currentIndex + 1} / ${scenarios.length}`;
+      sceneTag.textContent = s.scene;
+      sceneHint.textContent = s.hint;
+      scenarioType.textContent = s.type;
+      scenarioTitle.textContent = s.title;
+      scenarioLocation.textContent = s.location;
+      scenarioText.textContent = s.text;
+
+      scenePoints.innerHTML = '';
+      s.scenePoints.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'scene-point';
+        div.textContent = item;
+        scenePoints.appendChild(div);
+      });
+
+      signalList.innerHTML = '';
+      s.signals.forEach((item) => {
+        const span = document.createElement('span');
+        span.className = 'signal-badge';
+        span.textContent = item;
+        signalList.appendChild(span);
+      });
+
+      feedbackBox.classList.remove('show');
+      decisionGrid.style.display = 'grid';
+      nextButton.textContent = currentIndex === scenarios.length - 1 ? 'Lihat Ringkasan Akhir' : 'Lanjut ke Situasi Berikutnya';
+    }
+
+    function answerScenario(choice) {
+      if (answeredCurrent) return;
+      answeredCurrent = true;
+      const s = scenarios[currentIndex];
+      const isCorrect = choice === s.bestAnswer;
+      if (isCorrect) {
+        correctCount += 1;
+      }
+      scoreChip.textContent = `Keputusan tepat: ${correctCount}`;
+
+      feedbackTitle.textContent = s.feedbackTitles[choice];
+      feedbackTitle.className = isCorrect ? 'success-text' : (choice === 'verify' ? 'warning-text' : 'danger-text');
+      feedbackSummary.textContent = s.feedbackSummaries[choice];
+      feedbackList.innerHTML = '';
+      s.feedbackBullets[choice].forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      decisionGrid.style.display = 'none';
+      feedbackBox.classList.add('show');
+      contextBox.innerHTML = isCorrect
+        ? 'Keputusan Anda pada situasi ini paling tepat. Perhatikan mengapa bentuk bantuan yang aman tidak selalu berarti membantu langsung.'
+        : 'Keputusan Anda pada situasi ini masih kurang tepat. Perhatikan bagaimana situasi sosial yang sopan atau terlihat normal bisa membuat kita melonggarkan batas aman.';
+    }
+
+    function nextScenario() {
+      if (currentIndex < scenarios.length - 1) {
+        currentIndex += 1;
+        renderScenario();
+      } else {
+        showFinalResult();
+      }
+    }
+
+    function showFinalResult() {
+      const total = scenarios.length;
+      const missed = total - correctCount;
+      let title = 'Anda cukup baik menjaga keputusan sosial tetap aman';
+      let summary = 'Anda menunjukkan kemampuan yang cukup baik untuk bersikap sopan tanpa harus mengorbankan keamanan dalam situasi sosial yang tampak wajar.';
+      const insights = [];
+
+      if (correctCount === total) {
+        title = 'Anda sangat baik membaca batas bantuan yang aman';
+        summary = 'Anda konsisten memilih bentuk bantuan yang tepat, proporsional, dan tidak melewati batas keamanan yang wajar.';
+      } else if (correctCount <= 1) {
+        title = 'Anda masih cukup mudah terdorong untuk membantu terlalu cepat';
+        summary = 'Beberapa situasi menunjukkan Anda masih rentan membantu langsung atau memilih bentuk respons yang kurang aman ketika konteks terasa sopan atau masuk akal.';
+      }
+
+      insights.push(`Dari ${total} situasi, Anda memilih ${correctCount} keputusan yang paling tepat dan ${missed} keputusan yang masih bisa diperkuat.`);
+      insights.push('Banyak serangan tidak selalu meminta data atau klik tautan. Sebagian hanya memancing kita untuk membantu, membuka akses, atau menurunkan batas verifikasi.');
+      insights.push('Pelajaran utamanya: membantu itu baik, tetapi bentuk bantuannya harus tetap aman, proporsional, dan sesuai prosedur.');
+      insights.push('Keamanan yang matang tidak selalu berarti menolak, tetapi tahu kapan harus membantu, kapan harus verifikasi, dan kapan harus mengarahkan ke jalur resmi.');
+
+      resultTitle.textContent = title;
+      resultSummary.textContent = summary;
+      resultInsights.innerHTML = '';
+      insights.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        resultInsights.appendChild(li);
+      });
+      resultBox.classList.add('show');
+      contextBox.innerHTML = 'Workshop selesai. Ringkasan akhir muncul di panel kiri. Anda bisa mengulang untuk mencoba lagi dan melihat apakah pilihan Anda berubah setelah memahami pembahasan.';
+      scenarioCard.style.display = 'none';
+      noteBox.style.display = 'none';
+      deckCounter.textContent = 'Selesai';
+      progressChip.textContent = 'Workshop selesai';
+    }
+
+    function restartWorkshop() {
+      currentIndex = 0;
+      correctCount = 0;
+      answeredCurrent = false;
+      contextBox.innerHTML = 'Mulai dari situasi pertama. Pilih respons yang menurut Anda paling tepat. Fokus workshop ini adalah memilih bentuk bantuan yang tetap aman, bukan sekadar membantu atau curiga secara berlebihan.';
+      resultBox.classList.remove('show');
+      scenarioCard.style.display = 'block';
+      noteBox.style.display = 'block';
+      renderScenario();
+    }
+
+    console.assert(Array.isArray(scenarios) && scenarios.length === 4, 'Workshop D2 should contain 4 scenarios');
+    console.assert(document.getElementById('decisionGrid') !== null, 'decisionGrid should exist');
+    console.assert(document.getElementById('resultBox') !== null, 'resultBox should exist');
+
+    renderScenario();
+  </script>
+</body>
+</html>
