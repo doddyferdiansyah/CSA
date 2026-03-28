@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian D | Workshop 3</title>
+  <meta name="description" content="Workshop interaktif Lingkungan Aman atau Tidak untuk membaca risiko dari tempat dan situasi kerja di kantor maupun ruang publik." />
+  <style>
+    :root {
+      --white: #ffffff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1180px;
+      --success: #198754;
+      --danger: #dc3545;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand { font-weight: 800; font-size: 1.02rem; }
+    .brand span { color: var(--sky-blue); }
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .nav-links a { color: var(--mid-gray); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--sky-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77,163,255,0.24);
+    }
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero { padding: 72px 0 34px; }
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .hero-card p { color: var(--mid-gray); max-width: 920px; }
+    section { padding: 26px 0 40px; }
+
+    .section-head { margin-bottom: 20px; max-width: 920px; }
+    .section-head h2 {
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-head p { color: var(--mid-gray); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.94fr 1.06fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .context-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .status-chip {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(77,163,255,0.18);
+      background: #fbfdff;
+      color: var(--mid-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.18);
+    }
+    .result-box.show { display: block; }
+    .result-box h3 { margin-bottom: 8px; }
+    .result-box p { color: var(--mid-gray); }
+    .result-box ul { padding-left: 18px; margin-top: 10px; color: var(--mid-gray); display: grid; gap: 6px; }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .scene-wrap {
+      display: grid;
+      gap: 16px;
+    }
+    .scene-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .scenario-card {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .place-visual {
+      min-height: 250px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      border-bottom: 1px solid rgba(31,41,55,0.08);
+      background: linear-gradient(135deg, #eef6ff 0%, #ffffff 100%);
+    }
+    .place-main {
+      border: 1px solid rgba(77,163,255,0.16);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.92);
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      box-shadow: var(--shadow-soft);
+    }
+    .place-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .map-point {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px;
+      font-size: 0.9rem;
+      color: var(--mid-gray);
+    }
+    .map-point strong {
+      display: block;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+    .place-hint {
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+    }
+
+    .scenario-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(31,41,55,0.08);
+      background: #f8fafc;
+    }
+    .scenario-type {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+    }
+    .scenario-header h3 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+    .scenario-header p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .scenario-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+    .scenario-box {
+      border: 1px solid rgba(31,41,55,0.08);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 16px;
+      color: var(--dark-gray);
+      white-space: pre-line;
+    }
+    .question-box {
+      border: 1px solid rgba(77,163,255,0.16);
+      border-radius: 16px;
+      background: #fafdff;
+      padding: 14px 16px;
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .answer-group {
+      display: grid;
+      gap: 12px;
+    }
+    .answer-group h4 {
+      font-size: 0.98rem;
+      color: var(--dark-gray);
+    }
+    .option-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .option-btn {
+      text-align: left;
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 14px;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      line-height: 1.45;
+      font-size: 0.93rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .option-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77,163,255,0.35);
+      background: #fbfdff;
+    }
+    .option-btn.selected {
+      border-color: rgba(77,163,255,0.50);
+      background: rgba(77,163,255,0.10);
+    }
+
+    .feedback-box {
+      display: none;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(31,41,55,0.08);
+      background: #fbfdff;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box h4 { margin-bottom: 8px; }
+    .feedback-box p { color: var(--mid-gray); }
+    .feedback-box ul {
+      padding-left: 18px;
+      margin-top: 10px;
+      color: var(--mid-gray);
+      display: grid;
+      gap: 6px;
+    }
+
+    .note-box {
+      padding: 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .muted { color: var(--mid-gray); }
+    .success-text { color: var(--success); }
+    .warning-text { color: var(--warning); }
+    .danger-text { color: var(--danger); }
+
+    footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: flex-start; }
+      .nav-links { justify-content: flex-start; }
+      .option-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .btn { width: 100%; }
+      .footer-actions { flex-direction: column; }
+      .scene-top { flex-direction: column; align-items: flex-start; }
+      .map-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="bagian-d-workshop-1.html">Workshop 1</a>
+        <a href="bagian-d-workshop-2.html">Workshop 2</a>
+        <a href="#workshop-d3">Workshop 3</a>
+        <a href="../index.html">Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Bagian D · Bentuk Serangan</div>
+          <h1>Workshop Interaktif — Lingkungan Aman atau Tidak?</h1>
+          <p>
+            Anda akan membaca beberapa situasi tempat yang terasa biasa: kantor, kafe, bandara, atau ruang meeting. Tugas Anda adalah menilai <strong>risiko utama</strong>, memilih <strong>modus serangan yang paling relevan</strong>, dan menentukan <strong>tindakan aman pertama</strong>. Workshop ini melatih kemampuan membaca konteks, bukan sekadar mengenali pesan mencurigakan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop-d3">
+      <div class="container">
+        <div class="section-head">
+          <h2>Workshop D3: Lingkungan Aman atau Tidak?</h2>
+          <p>
+            Fokus workshop ini adalah membaca lingkungan. Dalam dunia kerja modern, risiko tidak selalu datang dari satu pesan atau satu orang, tetapi dari kombinasi tempat, kebiasaan, perangkat, dan perhatian yang sedang terpecah.
+          </p>
+        </div>
+
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Panduan Workshop</span>
+            <h3 style="margin-bottom: 8px;">Cara Menggunakan</h3>
+            <p class="muted">
+              Pada tiap situasi, Anda akan memilih tiga hal:
+              <br>1. risiko utama yang paling menonjol
+              <br>2. modus serangan yang paling relevan
+              <br>3. tindakan aman pertama yang paling tepat
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Mulai dari situasi pertama. Anda tidak sedang mencari semua risiko yang mungkin, tetapi memilih satu risiko utama, satu modus yang paling relevan, dan satu tindakan pertama yang paling tepat untuk dilakukan.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip" id="progressChip">Situasi 1 dari 4</span>
+              <span class="status-chip" id="scoreChip">Analisis tepat: 0</span>
+              <span class="status-chip">Fokus: membaca konteks</span>
+            </div>
+
+            <div class="result-box" id="resultBox" aria-live="polite">
+              <h3 id="resultTitle"></h3>
+              <p id="resultSummary"></p>
+              <ul id="resultInsights"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-secondary" onclick="restartWorkshop()">Ulangi Workshop D3</button>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="scene-wrap">
+              <div class="scene-top">
+                <div><strong>Deck Lingkungan</strong></div>
+                <div id="deckCounter">Situasi 1 / 4</div>
+              </div>
+
+              <div class="scenario-card" id="scenarioCard">
+                <div class="place-visual">
+                  <div class="place-main">
+                    <div class="place-tag" id="placeTag">Kafe</div>
+                    <div class="map-grid" id="mapGrid"></div>
+                    <div class="place-hint" id="placeHint">Lihat kombinasi tempat, perangkat, dan perilaku yang muncul.</div>
+                  </div>
+                </div>
+
+                <div class="scenario-header">
+                  <div class="scenario-type" id="scenarioType">Ruang publik</div>
+                  <h3 id="scenarioTitle">Memuat situasi…</h3>
+                  <p id="scenarioLocation"></p>
+                </div>
+
+                <div class="scenario-body">
+                  <div class="scenario-box" id="scenarioText"></div>
+                  <div class="question-box">
+                    Pilih satu jawaban untuk tiap bagian. Anda tidak harus menebak semua risiko, cukup tentukan mana yang paling utama, modus yang paling relevan, dan tindakan pertama yang paling tepat.
+                  </div>
+
+                  <div class="answer-group">
+                    <h4>1. Risiko utama apa yang paling menonjol?</h4>
+                    <div class="option-grid" id="riskOptions"></div>
+                  </div>
+
+                  <div class="answer-group">
+                    <h4>2. Modus apa yang paling relevan dengan situasi ini?</h4>
+                    <div class="option-grid" id="modusOptions"></div>
+                  </div>
+
+                  <div class="answer-group">
+                    <h4>3. Tindakan aman pertama apa yang paling tepat?</h4>
+                    <div class="option-grid" id="actionOptions"></div>
+                  </div>
+
+                  <div class="footer-actions" id="submitActions">
+                    <button class="btn btn-primary" type="button" onclick="submitScenario()">Cek Analisis Situasi</button>
+                  </div>
+
+                  <div class="feedback-box" id="feedbackBox">
+                    <h4 id="feedbackTitle"></h4>
+                    <p id="feedbackSummary"></p>
+                    <ul id="feedbackList"></ul>
+                    <div class="footer-actions" style="margin-top:16px;">
+                      <button class="btn btn-primary" type="button" id="nextButton" onclick="nextScenario()">Lanjut ke Situasi Berikutnya</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="note-box" id="noteBox">
+                Catatan: tujuan workshop ini bukan menghafal semua istilah, tetapi melatih kemampuan membaca konteks. Kadang risikonya bukan yang paling mencolok secara visual, tetapi yang paling mungkin dieksploitasi saat itu.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Doddy Ferdiansyah · Workshop Bagian D · Workshop 3</div>
+  </footer>
+
+  <script>
+    const scenarios = [
+      {
+        type: 'Ruang publik',
+        place: 'Kafe dekat kantor',
+        title: 'Kerja sambil membuka dokumen internal di tempat ramai',
+        location: 'Situasi: siang hari, Anda kerja dari kafe sambil menunggu meeting online berikutnya.',
+        text: `Laptop Anda terbuka menampilkan dokumen presentasi internal. Ponsel sedang dicas di colokan umum. Anda juga terhubung ke Wi‑Fi publik kafe. Di meja sebelah ada orang yang duduk cukup dekat dan beberapa kali melirik ke arah layar Anda.`,
+        mapPoints: [
+          { label: 'Layar laptop', value: 'Dokumen internal terbuka' },
+          { label: 'Ponsel', value: 'Sedang dicas di colokan umum' },
+          { label: 'Koneksi', value: 'Masih memakai Wi‑Fi publik' },
+          { label: 'Lingkungan', value: 'Orang lain duduk dekat dan bisa melihat layar' }
+        ],
+        hint: 'Di ruang publik, risiko sering datang dari gabungan perangkat, posisi duduk, dan keterbukaan layar.',
+        riskOptions: [
+          'Shoulder surfing terhadap layar kerja',
+          'Tailgating ke ruang akses terbatas',
+          'Dumpster diving pada dokumen fisik',
+          'Penggunaan kartu identitas palsu di resepsionis'
+        ],
+        correctRisk: 'Shoulder surfing terhadap layar kerja',
+        modusOptions: [
+          'Shoulder surfing',
+          'Tailgating',
+          'Pretexting lewat vendor palsu',
+          'Dumpster diving'
+        ],
+        correctModus: 'Shoulder surfing',
+        actionOptions: [
+          'Biarkan saja, karena Anda hanya bekerja sebentar',
+          'Kecilkan eksposur layar, pindah posisi, dan hentikan akses yang tidak perlu di ruang publik',
+          'Fokus ke meeting saja, nanti juga orang lain bosan melihat layar',
+          'Tunggu sampai orang lain pergi baru lanjut kerja'
+        ],
+        correctAction: 'Kecilkan eksposur layar, pindah posisi, dan hentikan akses yang tidak perlu di ruang publik',
+        feedbackBase: [
+          'Risiko utama di situasi ini adalah keterbukaan layar dan eksposur kerja di ruang publik.',
+          'Modus yang paling relevan adalah shoulder surfing, karena orang lain bisa melihat informasi sensitif tanpa harus menyentuh perangkat Anda.',
+          'Tindakan aman pertama adalah mengurangi eksposur layar dan lingkungan kerja, bukan menunggu situasi memburuk.'
+        ]
+      },
+      {
+        type: 'Ruang kerja internal',
+        place: 'Ruang meeting kantor',
+        title: 'Whiteboard dan printout proyek masih tertinggal setelah rapat',
+        location: 'Situasi: rapat tim baru saja selesai, lalu ruangan akan dipakai kelompok lain.',
+        text: `Whiteboard masih berisi angka target proyek, nama klien, dan daftar tugas internal. Di meja ada printout draft anggaran dan catatan rapat. Anda buru-buru keluar karena ada panggilan masuk dari atasan.`,
+        mapPoints: [
+          { label: 'Whiteboard', value: 'Masih berisi informasi internal' },
+          { label: 'Meja rapat', value: 'Printout dan catatan belum dirapikan' },
+          { label: 'Waktu', value: 'Anda sedang terburu-buru pindah aktivitas' },
+          { label: 'Pengguna berikutnya', value: 'Ruangan akan dipakai orang lain' }
+        ],
+        hint: 'Risiko bisa muncul bukan karena serangan aktif, tetapi karena lingkungan dibiarkan terbuka.',
+        riskOptions: [
+          'Paparan informasi karena dokumen dan catatan tertinggal',
+          'Phishing lewat email HR',
+          'Tailgating di pintu akses kantor',
+          'Vishing dari nomor tidak dikenal'
+        ],
+        correctRisk: 'Paparan informasi karena dokumen dan catatan tertinggal',
+        modusOptions: [
+          'Dumpster diving atau pengumpulan informasi pasif',
+          'Shoulder surfing saat login laptop',
+          'Baiting lewat flashdisk',
+          'Pretexting lewat telepon'
+        ],
+        correctModus: 'Dumpster diving atau pengumpulan informasi pasif',
+        actionOptions: [
+          'Keluar saja dulu karena ruangan pasti dibersihkan petugas',
+          'Hapus isi whiteboard dan amankan printout sebelum meninggalkan ruangan',
+          'Tutup pintu rapat dan lanjutkan aktivitas lain',
+          'Foto dulu catatan itu untuk arsip, lalu tinggalkan di meja'
+        ],
+        correctAction: 'Hapus isi whiteboard dan amankan printout sebelum meninggalkan ruangan',
+        feedbackBase: [
+          'Risiko utama di sini adalah eksposur informasi akibat kebiasaan meninggalkan jejak kerja di ruang bersama.',
+          'Modus yang paling relevan adalah pengumpulan informasi pasif, termasuk dumpster diving atau observasi dokumen tertinggal.',
+          'Tindakan aman pertama adalah membersihkan jejak informasi sebelum ruangan dipakai orang lain.'
+        ]
+      },
+      {
+        type: 'Ruang transit',
+        place: 'Bandara / ruang tunggu',
+        title: 'Perangkat kerja aktif di area umum sambil menunggu boarding',
+        location: 'Situasi: Anda sedang transit dan memanfaatkan waktu untuk menyelesaikan pekerjaan.',
+        text: `Laptop kerja menyala, email kantor masih terbuka, dan ponsel berada di kursi sebelah saat Anda beberapa kali berdiri membeli minum. Anda merasa area bandara cukup aman karena ada banyak orang dan CCTV.`,
+        mapPoints: [
+          { label: 'Laptop', value: 'Masih menyala dan akun kerja aktif' },
+          { label: 'Ponsel', value: 'Ditaruh terpisah di kursi sebelah' },
+          { label: 'Persepsi', value: 'Anda merasa tempat ramai berarti aman' },
+          { label: 'Pergerakan', value: 'Anda beberapa kali meninggalkan posisi' }
+        ],
+        hint: 'Keramaian tidak selalu berarti aman. Tempat umum justru memberi banyak peluang observasi dan akses singkat.',
+        riskOptions: [
+          'Paparan perangkat dan akun kerja saat ditinggal di ruang publik',
+          'Tailgating ke area kerja internal kantor',
+          'Dumpster diving dari tong sampah ruang meeting',
+          'Penyamaran vendor untuk meminta akses proyek'
+        ],
+        correctRisk: 'Paparan perangkat dan akun kerja saat ditinggal di ruang publik',
+        modusOptions: [
+          'Shoulder surfing atau opportunistic access pada perangkat',
+          'Tailgating',
+          'Pretexting via atasan palsu',
+          'Vishing dari call center palsu'
+        ],
+        correctModus: 'Shoulder surfing atau opportunistic access pada perangkat',
+        actionOptions: [
+          'Tetap seperti biasa karena area bandara diawasi CCTV',
+          'Kunci layar, rapikan perangkat, dan jangan tinggalkan akun kerja aktif saat berpindah',
+          'Cukup pindahkan ponsel lebih dekat ke laptop',
+          'Tutup email tetapi biarkan laptop tetap menyala di kursi'
+        ],
+        correctAction: 'Kunci layar, rapikan perangkat, dan jangan tinggalkan akun kerja aktif saat berpindah',
+        feedbackBase: [
+          'Risiko utama di sini adalah perangkat dan akun kerja dibiarkan aktif di ruang publik.',
+          'Modus yang paling relevan adalah opportunistic access atau shoulder surfing, karena orang lain bisa memanfaatkan momen singkat saat Anda lengah.',
+          'Tindakan aman pertama adalah mengunci layar dan menghilangkan akses terbuka sebelum berpindah posisi.'
+        ]
+      },
+      {
+        type: 'Coworking / ruang semi publik',
+        place: 'Coworking space',
+        title: 'Ada perangkat asing tertinggal dengan label pekerjaan yang menarik',
+        location: 'Situasi: Anda menemukan flashdisk bertuliskan “Kontrak Vendor Final” di meja bersama.',
+        text: `Saat bekerja di coworking space, Anda menemukan flashdisk yang tampak baru dengan label tulisan tangan: “Kontrak Vendor Final”. Anda sempat berpikir untuk membuka isi file demi menemukan pemiliknya, apalagi Anda juga sedang mengurus pekerjaan vendor minggu ini.`,
+        mapPoints: [
+          { label: 'Objek', value: 'Flashdisk tampak baru dan rapi' },
+          { label: 'Label', value: 'Topiknya relevan dengan pekerjaan Anda' },
+          { label: 'Lingkungan', value: 'Coworking space dipakai banyak orang' },
+          { label: 'Konteks batin', value: 'Anda merasa bisa sekalian membantu mencari pemiliknya' }
+        ],
+        hint: 'Objek fisik yang terlihat relevan sering lebih mudah memancing rasa penasaran daripada pesan digital.',
+        riskOptions: [
+          'Baiting melalui perangkat fisik yang memancing rasa ingin tahu',
+          'Tailgating melalui pintu akses',
+          'Shoulder surfing pada rapat online',
+          'Dumpster diving di ruang meeting'
+        ],
+        correctRisk: 'Baiting melalui perangkat fisik yang memancing rasa ingin tahu',
+        modusOptions: [
+          'Baiting',
+          'Tailgating',
+          'Vishing',
+          'Pretexting lewat chat'
+        ],
+        correctModus: 'Baiting',
+        actionOptions: [
+          'Colok ke laptop kerja untuk cek file agar bisa mengembalikan ke pemilik',
+          'Jangan colok ke perangkat kerja; serahkan ke petugas tempat atau bagian yang berwenang',
+          'Bawa pulang dulu supaya bisa dicek dengan lebih tenang',
+          'Foto labelnya lalu tetap colok ke laptop pribadi'
+        ],
+        correctAction: 'Jangan colok ke perangkat kerja; serahkan ke petugas tempat atau bagian yang berwenang',
+        feedbackBase: [
+          'Risiko utama di sini adalah baiting: objek dibuat terlihat relevan dan penting agar orang terdorong membuka atau menyambungkannya.',
+          'Modus yang paling relevan memang baiting, karena rasa ingin tahu dan niat membantu dipakai sebagai umpan.',
+          'Tindakan aman pertama adalah tidak menyambungkan perangkat tersebut ke perangkat kerja dan menyerahkannya ke jalur yang aman.'
+        ]
+      }
+    ];
+
+    let currentIndex = 0;
+    let exactCount = 0;
+    let answeredCurrent = false;
+    let selected = { risk: null, modus: null, action: null };
+
+    const contextBox = document.getElementById('contextBox');
+    const progressChip = document.getElementById('progressChip');
+    const scoreChip = document.getElementById('scoreChip');
+    const deckCounter = document.getElementById('deckCounter');
+    const placeTag = document.getElementById('placeTag');
+    const mapGrid = document.getElementById('mapGrid');
+    const placeHint = document.getElementById('placeHint');
+    const scenarioType = document.getElementById('scenarioType');
+    const scenarioTitle = document.getElementById('scenarioTitle');
+    const scenarioLocation = document.getElementById('scenarioLocation');
+    const scenarioText = document.getElementById('scenarioText');
+    const riskOptions = document.getElementById('riskOptions');
+    const modusOptions = document.getElementById('modusOptions');
+    const actionOptions = document.getElementById('actionOptions');
+    const submitActions = document.getElementById('submitActions');
+    const feedbackBox = document.getElementById('feedbackBox');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackSummary = document.getElementById('feedbackSummary');
+    const feedbackList = document.getElementById('feedbackList');
+    const nextButton = document.getElementById('nextButton');
+    const resultBox = document.getElementById('resultBox');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultSummary = document.getElementById('resultSummary');
+    const resultInsights = document.getElementById('resultInsights');
+    const scenarioCard = document.getElementById('scenarioCard');
+    const noteBox = document.getElementById('noteBox');
+
+    function renderOptionGroup(container, options, key) {
+      container.innerHTML = '';
+      options.forEach((option) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn' + (selected[key] === option ? ' selected' : '');
+        btn.textContent = option;
+        btn.addEventListener('click', () => {
+          if (answeredCurrent) return;
+          selected[key] = option;
+          renderScenario();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    function renderScenario() {
+      const s = scenarios[currentIndex];
+      progressChip.textContent = `Situasi ${currentIndex + 1} dari ${scenarios.length}`;
+      scoreChip.textContent = `Analisis tepat: ${exactCount}`;
+      deckCounter.textContent = `Situasi ${currentIndex + 1} / ${scenarios.length}`;
+      placeTag.textContent = s.place;
+      placeHint.textContent = s.hint;
+      scenarioType.textContent = s.type;
+      scenarioTitle.textContent = s.title;
+      scenarioLocation.textContent = s.location;
+      scenarioText.textContent = s.text;
+
+      mapGrid.innerHTML = '';
+      s.mapPoints.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'map-point';
+        div.innerHTML = `<strong>${item.label}</strong>${item.value}`;
+        mapGrid.appendChild(div);
+      });
+
+      renderOptionGroup(riskOptions, s.riskOptions, 'risk');
+      renderOptionGroup(modusOptions, s.modusOptions, 'modus');
+      renderOptionGroup(actionOptions, s.actionOptions, 'action');
+
+      feedbackBox.classList.remove('show');
+      submitActions.style.display = 'flex';
+      nextButton.textContent = currentIndex === scenarios.length - 1 ? 'Lihat Ringkasan Akhir' : 'Lanjut ke Situasi Berikutnya';
+    }
+
+    function submitScenario() {
+      if (answeredCurrent) return;
+      if (!selected.risk || !selected.modus || !selected.action) {
+        contextBox.innerHTML = 'Lengkapi dulu tiga pilihan Anda: risiko utama, modus yang paling relevan, dan tindakan aman pertama.';
+        return;
+      }
+
+      answeredCurrent = true;
+      const s = scenarios[currentIndex];
+      let matchCount = 0;
+      const bullets = [...s.feedbackBase];
+
+      if (selected.risk === s.correctRisk) {
+        matchCount += 1;
+        bullets.push('Anda tepat dalam membaca risiko utama yang paling menonjol pada situasi ini.');
+      } else {
+        bullets.push(`Risiko utama yang lebih tepat adalah: ${s.correctRisk}.`);
+      }
+
+      if (selected.modus === s.correctModus) {
+        matchCount += 1;
+        bullets.push('Anda tepat memilih modus serangan yang paling relevan dengan konteks tempat dan perilaku yang muncul.');
+      } else {
+        bullets.push(`Modus yang paling relevan adalah: ${s.correctModus}.`);
+      }
+
+      if (selected.action === s.correctAction) {
+        matchCount += 1;
+        bullets.push('Anda juga tepat menentukan tindakan aman pertama yang paling penting dilakukan.');
+      } else {
+        bullets.push(`Tindakan aman pertama yang lebih tepat adalah: ${s.correctAction}.`);
+      }
+
+      if (matchCount === 3) {
+        exactCount += 1;
+        feedbackTitle.textContent = 'Analisis Anda sangat tepat';
+        feedbackTitle.className = 'success-text';
+        feedbackSummary.textContent = 'Anda berhasil membaca konteks, memilih modus yang paling relevan, dan menentukan tindakan pertama yang tepat.';
+        contextBox.innerHTML = 'Analisis Anda pada situasi ini sangat tepat. Lihat pembahasan di bawah, lalu lanjut ke situasi berikutnya.';
+      } else if (matchCount === 2) {
+        feedbackTitle.textContent = 'Analisis Anda cukup baik';
+        feedbackTitle.className = 'warning-text';
+        feedbackSummary.textContent = 'Anda sudah menangkap sebagian besar inti risikonya, tetapi masih ada satu bagian yang perlu diperkuat.';
+        contextBox.innerHTML = 'Analisis Anda cukup baik. Perhatikan bagian yang belum tepat agar pembacaan konteks Anda semakin tajam.';
+      } else {
+        feedbackTitle.textContent = 'Analisis Anda masih perlu diperkuat';
+        feedbackTitle.className = 'danger-text';
+        feedbackSummary.textContent = 'Situasi ini menunjukkan bahwa membaca lingkungan sering lebih rumit daripada hanya mengenali pesan mencurigakan.';
+        contextBox.innerHTML = 'Analisis Anda pada situasi ini masih perlu diperkuat. Lihat pembahasan untuk memahami kenapa konteks tempat bisa membuka risiko tertentu.';
+      }
+
+      feedbackList.innerHTML = '';
+      bullets.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      scoreChip.textContent = `Analisis tepat: ${exactCount}`;
+      submitActions.style.display = 'none';
+      feedbackBox.classList.add('show');
+    }
+
+    function nextScenario() {
+      if (currentIndex < scenarios.length - 1) {
+        currentIndex += 1;
+        answeredCurrent = false;
+        selected = { risk: null, modus: null, action: null };
+        renderScenario();
+      } else {
+        showFinalResult();
+      }
+    }
+
+    function showFinalResult() {
+      const total = scenarios.length;
+      const notExact = total - exactCount;
+      let title = 'Anda cukup baik membaca risiko dari lingkungan';
+      let summary = 'Anda menunjukkan kemampuan yang cukup baik untuk melihat bahwa tempat, kebiasaan, dan perangkat yang terbuka dapat menciptakan risiko meski tidak ada pesan mencurigakan yang jelas.';
+      const insights = [];
+
+      if (exactCount === total) {
+        title = 'Anda sangat baik membaca konteks lingkungan';
+        summary = 'Anda konsisten mengidentifikasi risiko utama, modus yang paling relevan, dan tindakan pertama yang tepat pada setiap situasi.';
+      } else if (exactCount <= 1) {
+        title = 'Anda masih perlu memperkuat pembacaan konteks';
+        summary = 'Beberapa situasi menunjukkan bahwa risiko lingkungan masih cukup mudah terlewat ketika tidak muncul dalam bentuk pesan atau permintaan yang langsung mencurigakan.';
+      }
+
+      insights.push(`Dari ${total} situasi, Anda menghasilkan ${exactCount} analisis yang sepenuhnya tepat dan ${notExact} situasi yang masih bisa diperkuat.`);
+      insights.push('Banyak risiko datang dari kombinasi tempat, perangkat, keterbukaan informasi, dan kebiasaan kerja yang terlihat sepele.');
+      insights.push('Pelajaran utamanya: keamanan tidak hanya soal menolak pesan mencurigakan, tetapi juga membaca kapan lingkungan Anda sendiri sedang membuka peluang bagi orang lain.');
+      insights.push('Semakin sering Anda bekerja di ruang semi-publik atau berpindah tempat, semakin penting membiasakan diri membaca konteks sebelum fokus ke tugas utama.');
+
+      resultTitle.textContent = title;
+      resultSummary.textContent = summary;
+      resultInsights.innerHTML = '';
+      insights.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        resultInsights.appendChild(li);
+      });
+      resultBox.classList.add('show');
+      contextBox.innerHTML = 'Workshop selesai. Ringkasan akhir muncul di panel kiri. Anda bisa mengulang lagi untuk melihat apakah pembacaan konteks Anda berubah setelah memahami pembahasan.';
+      scenarioCard.style.display = 'none';
+      noteBox.style.display = 'none';
+      deckCounter.textContent = 'Selesai';
+      progressChip.textContent = 'Workshop selesai';
+    }
+
+    function restartWorkshop() {
+      currentIndex = 0;
+      exactCount = 0;
+      answeredCurrent = false;
+      selected = { risk: null, modus: null, action: null };
+      contextBox.innerHTML = 'Mulai dari situasi pertama. Anda tidak sedang mencari semua risiko yang mungkin, tetapi memilih satu risiko utama, satu modus yang paling relevan, dan satu tindakan pertama yang paling tepat untuk dilakukan.';
+      resultBox.classList.remove('show');
+      scenarioCard.style.display = 'block';
+      noteBox.style.display = 'block';
+      renderScenario();
+    }
+
+    console.assert(Array.isArray(scenarios) && scenarios.length === 4, 'Workshop D3 should contain 4 scenarios');
+    console.assert(document.getElementById('riskOptions') !== null, 'riskOptions should exist');
+    console.assert(document.getElementById('modusOptions') !== null, 'modusOptions should exist');
+    console.assert(document.getElementById('actionOptions') !== null, 'actionOptions should exist');
+
+    renderScenario();
+  </script>
+</body>
+</html>
