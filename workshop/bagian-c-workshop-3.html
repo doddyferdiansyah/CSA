@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian C | Workshop 3</title>
+  <meta name="description" content="Workshop simulasi inbox sibuk untuk memahami bagaimana kondisi kerja dan kebiasaan memengaruhi keputusan keamanan." />
+  <style>
+    :root {
+      --white: #ffffff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #f8fafc;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1180px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand { font-weight: 800; font-size: 1.02rem; }
+    .brand span { color: var(--sky-blue); }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav-links a { color: var(--mid-gray); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--sky-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero { padding: 72px 0 34px; }
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-card p { color: var(--mid-gray); max-width: 860px; }
+    section { padding: 26px 0 40px; }
+
+    .section-head { margin-bottom: 20px; max-width: 860px; }
+    .section-head h2 {
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-head p { color: var(--mid-gray); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .sticky-panel {
+      position: sticky;
+      top: 96px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .context-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .status-chip {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(77,163,255,0.18);
+      background: #fbfdff;
+      color: var(--mid-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.18);
+    }
+    .result-box.show { display: block; }
+    .result-box h3 { margin-bottom: 8px; }
+    .result-box p { color: var(--mid-gray); }
+    .result-box ul { padding-left: 18px; margin-top: 10px; color: var(--mid-gray); display: grid; gap: 6px; }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .tablet-note {
+      margin-bottom: 12px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .tablet {
+      width: min(100%, 820px);
+      margin: 0 auto;
+      background: #111827;
+      border-radius: 28px;
+      padding: 14px;
+      box-shadow: 0 28px 54px rgba(17, 24, 39, 0.24);
+    }
+
+    .tablet-inner {
+      background: #f5f7fb;
+      border-radius: 22px;
+      overflow: hidden;
+      min-height: 620px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tablet-top {
+      height: 16px;
+      background: #0b1220;
+      width: 180px;
+      border-radius: 0 0 12px 12px;
+      margin: 0 auto;
+    }
+
+    .sim-shell { display: flex; flex-direction: column; flex: 1; }
+
+    .sim-top {
+      background: #0f172a;
+      color: var(--white);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sim-top .small { font-size: 0.85rem; opacity: 0.85; }
+
+    .sim-body {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .notif-list {
+      background: #f8fafc;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      overflow-y: auto;
+      border-right: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .notif-item {
+      background: var(--white);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 14px;
+      padding: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .notif-item:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77,163,255,0.32);
+    }
+
+    .notif-item.active {
+      border-color: rgba(77,163,255,0.5);
+      background: rgba(77,163,255,0.08);
+    }
+
+    .notif-item h4 {
+      font-size: 0.98rem;
+      margin-bottom: 4px;
+    }
+
+    .item-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--mid-gray);
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+
+    .item-preview {
+      font-size: 0.9rem;
+      color: var(--mid-gray);
+      line-height: 1.45;
+    }
+
+    .detail-panel {
+      padding: 14px;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .detail-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 16px;
+    }
+
+    .detail-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .detail-meta { font-size: 0.84rem; color: var(--mid-gray); margin-bottom: 10px; }
+    .detail-body { color: var(--dark-gray); font-size: 0.96rem; white-space: pre-line; }
+
+    .choices-title {
+      font-weight: 700;
+      color: var(--mid-gray);
+      margin-bottom: 10px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .choice-btn {
+      text-align: left;
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 14px;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      line-height: 1.45;
+      font-size: 0.94rem;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77,163,255,0.35);
+      background: #fbfdff;
+    }
+
+    .note-box {
+      padding: 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(77,163,255,0.16);
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sticky-panel { position: static; }
+      .nav { flex-direction: column; align-items: flex-start; }
+      .nav-links { justify-content: flex-start; }
+    }
+
+    @media (max-width: 760px) {
+      .sim-body { grid-template-columns: 1fr; }
+      .notif-list {
+        border-right: 0;
+        border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+        max-height: 260px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .btn { width: 100%; }
+      .footer-actions { flex-direction: column; }
+      .sim-top { flex-direction: column; align-items: flex-start; }
+      .tablet { width: 100%; }
+      .tablet-inner { min-height: 680px; }
+      .choices { max-height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="bagian-c-workshop-1.html">Workshop 1</a>
+        <a href="bagian-c-workshop-2.html">Workshop 2</a>
+        <a href="#workshop-3">Workshop 3</a>
+        <a href="bagian-c-workshop-4.html">Workshop 4</a>
+        <a href="../index.html">Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Bagian C · Kondisi Kerja dan Kebiasaan</div>
+          <h1>Workshop Interaktif — Workshop 3</h1>
+          <p>
+            Simulasi ini menempatkan Anda dalam situasi inbox kerja yang sibuk. Beberapa notifikasi masuk hampir bersamaan, dan Anda harus memutuskan mana yang dibuka dulu, mana yang ditindaklanjuti, dan kapan verifikasi perlu dilakukan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop-3">
+      <div class="container">
+        <div class="section-head">
+          <h2>Workshop 3: Simulasi Inbox Sibuk</h2>
+          <p>
+            Buka satu notifikasi lebih dulu, lalu pilih apa yang akan Anda lakukan. Simulasi ini membantu Anda melihat apakah keputusan Anda lebih dipengaruhi oleh multitasking, respons otomatis, atau keinginan untuk cepat beres.
+          </p>
+        </div>
+
+        <div class="layout">
+          <div class="panel-card sticky-panel">
+            <span class="pill">Konteks Simulasi</span>
+            <h3 style="margin-bottom: 8px;">Pagi yang Sibuk di Kantor</h3>
+            <p style="color: var(--mid-gray);">
+              Waktu menunjukkan pukul <strong>09.25</strong>. Anda punya meeting pukul 09.30, beberapa tugas belum selesai, dan lima notifikasi masuk hampir bersamaan.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Status awal: Anda sedang bersiap masuk meeting dan perhatian mulai terbagi. Pilih notifikasi mana yang akan Anda buka lebih dulu, lalu lihat bagaimana keputusan kecil itu memengaruhi kualitas verifikasi Anda.
+            </div>
+
+            <div class="status-bar" aria-label="Reminder situasi kerja">
+              <span class="status-chip">Meeting mulai 5 menit lagi</span>
+              <span class="status-chip">5 notifikasi belum dibuka</span>
+              <span class="status-chip">Deadline laporan hari ini</span>
+            </div>
+
+            <div class="result-box" id="resultBox" aria-live="polite">
+              <h3 id="resultTitle"></h3>
+              <p id="resultSummary"></p>
+              <ul id="resultInsights"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-secondary" onclick="restartWorkshop()">Ulangi Workshop 3</button>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="tablet-note">Simulasi utama dilakukan di tampilan tablet berikut. Notifikasi tampil bertingkat di sebelah kiri, lalu detail dan pilihan tindakan muncul di sebelah kanan.</div>
+            <div class="tablet">
+              <div class="tablet-top"></div>
+              <div class="tablet-inner">
+                <div class="sim-shell">
+                  <div class="sim-top">
+                    <div>
+                      <strong>Pusat Notifikasi Kerja</strong>
+                      <div class="small">09.25 · 5 notifikasi masuk hampir bersamaan</div>
+                    </div>
+                    <div class="small" id="progressLabel">Langkah 1 dari 2</div>
+                  </div>
+
+                  <div class="sim-body">
+                    <div class="notif-list" id="inboxList"></div>
+
+                    <div class="detail-panel">
+                      <div class="detail-card">
+                        <h3 id="detailTitle">Pilih satu notifikasi</h3>
+                        <div class="detail-meta" id="detailMeta">Belum ada notifikasi yang dibuka</div>
+                        <div class="detail-body" id="detailBody">Klik salah satu notifikasi di sebelah kiri untuk melihat detailnya, lalu pilih tindakan yang paling mendekati respons Anda.</div>
+                      </div>
+
+                      <div>
+                        <div class="choices-title" id="choicesTitle">Pilihan tindakan</div>
+                        <div class="choices" id="choicesContainer">
+                          <button class="choice-btn" disabled>Pilih notifikasi terlebih dahulu</button>
+                        </div>
+                      </div>
+
+                      <div class="note-box" id="noteBox">
+                        Catatan: fokus workshop ini bukan mencari jawaban sempurna, tetapi melihat pola keputusan Anda saat beberapa notifikasi masuk hampir bersamaan dan perhatian mulai terbagi.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Doddy Ferdiansyah · Workshop Bagian C · Workshop 3</div>
+  </footer>
+
+  <script>
+    const inboxList = document.getElementById('inboxList');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailMeta = document.getElementById('detailMeta');
+    const detailBody = document.getElementById('detailBody');
+    const choicesTitle = document.getElementById('choicesTitle');
+    const choicesContainer = document.getElementById('choicesContainer');
+    const noteBox = document.getElementById('noteBox');
+    const contextBox = document.getElementById('contextBox');
+    const resultBox = document.getElementById('resultBox');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultSummary = document.getElementById('resultSummary');
+    const resultInsights = document.getElementById('resultInsights');
+    const progressLabel = document.getElementById('progressLabel');
+
+    const state = {
+      multitaskRisk: 0,
+      autoResponseRisk: 0,
+      fastFinishRisk: 0,
+      priorityControl: 0,
+      verificationStrength: 0,
+      selectedFirst: null,
+      completed: false
+    };
+
+    const inboxItems = [
+      {
+        id: 'chat-rina',
+        title: 'Rina — Tim Operasional',
+        type: 'Chat internal',
+        time: '09.25',
+        preview: 'Bro, cek file ini bentar ya. Kayaknya penting.',
+        body: 'Bro, cek file ini bentar ya. Kayaknya penting.',
+        choices: [
+          {
+            label: 'Langsung buka file',
+            note: 'Anda langsung menindak tanpa banyak jeda karena pesannya terasa ringan dan akrab.',
+            scores: { autoResponseRisk: 2, multitaskRisk: 1 },
+            endContext: 'Anda membuka file karena notifikasi terasa biasa dan datang dari konteks kerja yang familiar.'
+          },
+          {
+            label: 'Tanyakan dulu file apa ini',
+            note: 'Anda memberi jeda sebelum bertindak dan mencoba memahami konteksnya lebih dulu.',
+            scores: { verificationStrength: 1, priorityControl: 1 },
+            endContext: 'Anda menahan respons otomatis dan mencoba memperjelas konteks sebelum bertindak.'
+          },
+          {
+            label: 'Cek pengirim dan konteks dulu',
+            note: 'Anda tidak langsung terpancing rasa ingin tahu dan mencoba menjaga kontrol keputusan.',
+            scores: { verificationStrength: 2, priorityControl: 1 },
+            endContext: 'Anda menunjukkan kebiasaan pause sebelum membuka file atau lampiran.'
+          },
+          {
+            label: 'Simpan dulu, lanjut meeting',
+            note: 'Anda sadar perhatian sedang terbagi dan memilih mengatur prioritas sebelum merespons.',
+            scores: { priorityControl: 2 },
+            endContext: 'Anda menunda respons yang tidak harus diputuskan saat itu juga.'
+          }
+        ]
+      },
+      {
+        id: 'email-revisi',
+        title: 'Email — Dokumen revisi untuk review',
+        type: 'Email',
+        time: '09.25',
+        preview: 'Terlampir revisi dokumen. Mohon dicek.',
+        body: 'Subjek: Dokumen revisi untuk review\n\nTerlampir revisi dokumen. Mohon dicek.',
+        choices: [
+          {
+            label: 'Langsung buka lampiran',
+            note: 'Anda masuk ke pola respons refleks karena email seperti ini terasa sangat biasa.',
+            scores: { autoResponseRisk: 2 },
+            endContext: 'Anda memperlakukan lampiran sebagai hal yang otomatis aman untuk dibuka.'
+          },
+          {
+            label: 'Baca detail email dulu',
+            note: 'Anda memberi sedikit ruang untuk memahami konteks sebelum bertindak.',
+            scores: { verificationStrength: 1 },
+            endContext: 'Anda tidak langsung bertindak hanya karena melihat ada lampiran.'
+          },
+          {
+            label: 'Cek pengirim dan konteks',
+            note: 'Anda menunjukkan kontrol yang baik dalam situasi kerja yang padat.',
+            scores: { verificationStrength: 2, priorityControl: 1 },
+            endContext: 'Anda menempatkan verifikasi sebelum kenyamanan atau rutinitas.'
+          },
+          {
+            label: 'Tandai untuk dicek setelah meeting',
+            note: 'Anda menunda keputusan agar tidak dilakukan saat perhatian sedang terbagi.',
+            scores: { priorityControl: 2 },
+            endContext: 'Anda memilih waktu yang lebih aman untuk memproses email dan lampiran.'
+          }
+        ]
+      },
+      {
+        id: 'meeting',
+        title: 'Reminder Kalender',
+        type: 'Meeting reminder',
+        time: '09.25',
+        preview: 'Meeting dimulai 5 menit lagi.',
+        body: 'Reminder: Meeting dimulai 5 menit lagi. Pastikan Anda sudah siap masuk ruang rapat.',
+        choices: [
+          {
+            label: 'Langsung masuk meeting',
+            note: 'Anda memprioritaskan konteks kerja yang paling dekat waktunya.',
+            scores: { priorityControl: 2 },
+            endContext: 'Anda menahan godaan untuk membuka banyak hal lain di saat bersamaan.'
+          },
+          {
+            label: 'Cek notifikasi lain sebentar dulu',
+            note: 'Anda mulai membagi perhatian ke beberapa arah dalam waktu yang sempit.',
+            scores: { multitaskRisk: 2 },
+            endContext: 'Perhatian Anda mulai terpecah pada momen yang seharusnya sudah cukup jelas prioritasnya.'
+          },
+          {
+            label: 'Rapikan prioritas, lalu masuk meeting',
+            note: 'Anda mencoba mengelola beban kerja dengan sadar sebelum bertindak.',
+            scores: { priorityControl: 2, verificationStrength: 1 },
+            endContext: 'Anda tidak sekadar cepat, tetapi juga berusaha tetap terkendali.'
+          },
+          {
+            label: 'Buka chat yang mendesak dulu',
+            note: 'Anda memberi ruang bagi tekanan sesaat untuk menggeser prioritas utama.',
+            scores: { multitaskRisk: 1, fastFinishRisk: 1 },
+            endContext: 'Anda terdorong menyelesaikan satu hal cepat meski konteks utama sudah jelas.'
+          }
+        ]
+      },
+      {
+        id: 'chat-data',
+        title: 'Kontak internal dikenal',
+        type: 'Chat mendadak',
+        time: '09.26',
+        preview: 'Tolong kirim data yang kemarin sekarang ya, saya butuh cepat.',
+        body: 'Tolong kirim data yang kemarin sekarang ya, saya butuh cepat.',
+        choices: [
+          {
+            label: 'Langsung kirim data',
+            note: 'Anda memilih jalan tercepat agar urusan terasa selesai, tetapi verifikasi hilang.',
+            scores: { fastFinishRisk: 2, autoResponseRisk: 1 },
+            endContext: 'Anda lebih terdorong menyelesaikan cepat daripada mengecek konteks dengan aman.'
+          },
+          {
+            label: 'Tanyakan data yang mana',
+            note: 'Anda memberi sedikit rem sebelum bertindak, walau masih dalam konteks terburu-buru.',
+            scores: { verificationStrength: 1 },
+            endContext: 'Anda mencoba memperjelas permintaan sebelum menindaklanjuti.'
+          },
+          {
+            label: 'Verifikasi dulu lewat jalur resmi',
+            note: 'Anda tetap menjaga kontrol, meski permintaan terdengar mendesak.',
+            scores: { verificationStrength: 2, priorityControl: 1 },
+            endContext: 'Anda tidak membiarkan kebutuhan cepat langsung mengalahkan prosedur yang aman.'
+          },
+          {
+            label: 'Tandai untuk nanti setelah meeting',
+            note: 'Anda sadar bahwa saat ini perhatian tidak ideal untuk memproses permintaan seperti ini.',
+            scores: { priorityControl: 2 },
+            endContext: 'Anda menunda keputusan sampai punya ruang berpikir yang lebih baik.'
+          }
+        ]
+      },
+      {
+        id: 'deadline',
+        title: 'Task Reminder',
+        type: 'Internal reminder',
+        time: '09.26',
+        preview: 'Deadline laporan hari ini pukul 16.00.',
+        body: 'Reminder: Deadline laporan hari ini pukul 16.00. Pastikan revisi utama selesai sebelum pukul 14.00.',
+        choices: [
+          {
+            label: 'Langsung fokus ke laporan',
+            note: 'Anda berorientasi pada pekerjaan utama dan tidak mudah terdistraksi oleh input lain.',
+            scores: { priorityControl: 2 },
+            endContext: 'Anda memegang prioritas kerja secara lebih stabil.'
+          },
+          {
+            label: 'Cek notifikasi cepat dulu',
+            note: 'Anda mulai menggeser fokus karena ingin membereskan hal kecil lebih dulu.',
+            scores: { fastFinishRisk: 1, multitaskRisk: 1 },
+            endContext: 'Dorongan menyelesaikan hal kecil cepat mulai memecah perhatian Anda.'
+          },
+          {
+            label: 'Susun prioritas sebelum lanjut',
+            note: 'Anda menunjukkan kecenderungan mengelola beban kerja dengan lebih sadar.',
+            scores: { priorityControl: 2, verificationStrength: 1 },
+            endContext: 'Anda tidak langsung bereaksi, tetapi mencoba mengatur urutan kerja lebih dulu.'
+          },
+          {
+            label: 'Buka file yang tadi masuk',
+            note: 'Anda tergoda merespons yang terasa baru dan mendesak, bukan yang paling penting.',
+            scores: { autoResponseRisk: 1, multitaskRisk: 1 },
+            endContext: 'Perhatian Anda mulai lebih mudah ditarik oleh input yang baru muncul.'
+          }
+        ]
+      }
+    ];
+
+    function renderInbox(activeId = null) {
+      inboxList.innerHTML = '';
+      inboxItems.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'notif-item' + (item.id === activeId ? ' active' : '');
+        div.innerHTML = `
+          <div class="item-meta"><span>${item.type}</span><span>${item.time}</span></div>
+          <h4>${item.title}</h4>
+          <div class="item-preview">${item.preview}</div>
+        `;
+        div.addEventListener('click', () => selectItem(item.id));
+        inboxList.appendChild(div);
+      });
+    }
+
+    function selectItem(id) {
+      if (state.completed) return;
+      const item = inboxItems.find((x) => x.id === id);
+      if (!item) return;
+
+      if (!state.selectedFirst) {
+        state.selectedFirst = id;
+        progressLabel.textContent = 'Langkah 2 dari 2';
+      }
+
+      renderInbox(id);
+      detailTitle.textContent = item.title;
+      detailMeta.textContent = item.type + ' · ' + item.time;
+      detailBody.textContent = item.body;
+      choicesTitle.textContent = 'Apa yang Anda lakukan sekarang?';
+      noteBox.textContent = 'Pilih tindakan yang paling mendekati respons Anda dalam situasi kerja nyata.';
+      choicesContainer.innerHTML = '';
+
+      item.choices.forEach((choice) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = choice.label;
+        btn.addEventListener('click', () => applyChoice(item, choice));
+        choicesContainer.appendChild(btn);
+      });
+    }
+
+    function applyScores(scores = {}) {
+      Object.keys(scores).forEach((key) => {
+        state[key] += scores[key];
+      });
+    }
+
+    function applyChoice(item, choice) {
+      if (state.completed) return;
+      applyScores(choice.scores || {});
+      state.completed = true;
+
+      contextBox.innerHTML = '<strong>Keputusan Anda sudah tercatat.</strong><div style="margin-top:6px;">' + choice.endContext + '</div>';
+      detailTitle.textContent = 'Keputusan dipilih';
+      detailMeta.textContent = item.title + ' · simulasi selesai';
+      detailBody.textContent = choice.note;
+      choicesTitle.textContent = 'Simulasi selesai';
+      choicesContainer.innerHTML = '<button class="choice-btn" disabled>Hasil refleksi Anda muncul di panel kiri.</button>';
+      noteBox.textContent = 'Catatan: dalam kondisi kerja yang sibuk, keputusan kecil sering diambil lebih cepat dari yang kita sadari.';
+      progressLabel.textContent = 'Selesai';
+
+      showResult();
+    }
+
+    function showResult() {
+      const riskProfiles = [
+        {
+          key: 'multitaskRisk',
+          title: 'Anda rentan pada multitasking',
+          summary: 'Anda cenderung membagi perhatian ke terlalu banyak hal dalam waktu yang sempit, sehingga detail penting lebih mudah terlewat.'
+        },
+        {
+          key: 'autoResponseRisk',
+          title: 'Anda mudah terdorong oleh respons otomatis',
+          summary: 'Anda cenderung langsung membuka, membalas, atau menindaklanjuti sesuatu karena terasa biasa dan refleks dilakukan.'
+        },
+        {
+          key: 'fastFinishRisk',
+          title: 'Anda terlalu fokus pada cepat beres',
+          summary: 'Anda cenderung memilih jalan tercepat agar urusan terasa selesai, meskipun verifikasi dan pengecekan berkurang.'
+        }
+      ];
+
+      const dominantRisk = riskProfiles.sort((a, b) => state[b.key] - state[a.key])[0];
+      let title = 'Anda cukup baik dalam mengelola prioritas';
+      let summary = 'Anda menunjukkan kecenderungan untuk menahan respons, memilah prioritas, dan tidak langsung menindak semua hal yang masuk secara bersamaan.';
+
+      if (state.priorityControl >= 2 && state.verificationStrength >= 1 && dominantRisk && state[dominantRisk.key] <= 1) {
+        title = 'Anda cukup aman dalam situasi kerja yang sibuk';
+        summary = 'Anda menunjukkan kecenderungan yang cukup baik dalam menahan respons otomatis, mengelola prioritas, dan menjaga keputusan tetap lebih sadar.';
+      } else if (dominantRisk && state[dominantRisk.key] >= 2) {
+        title = dominantRisk.title;
+        summary = dominantRisk.summary;
+      }
+
+      resultTitle.textContent = title;
+      resultSummary.textContent = summary;
+      resultInsights.innerHTML = '';
+
+      const insights = [];
+      if (state.multitaskRisk >= 2) insights.push('Perhatian Anda cukup mudah terpecah ketika beberapa input masuk hampir bersamaan.');
+      if (state.autoResponseRisk >= 2) insights.push('Anda cenderung cepat membuka atau merespons sesuatu yang terasa biasa tanpa banyak jeda.');
+      if (state.fastFinishRisk >= 2) insights.push('Dorongan untuk segera menyelesaikan urusan masih cukup kuat dalam keputusan Anda.');
+      if (state.priorityControl >= 2) insights.push('Anda cukup mampu menahan diri dan memikirkan prioritas sebelum bertindak.');
+      if (state.verificationStrength >= 1) insights.push('Anda menunjukkan tanda-tanda baik dalam menjaga verifikasi, meskipun konteksnya sibuk.');
+      if (insights.length === 0) insights.push('Gunakan simulasi ini sebagai pengingat bahwa situasi sibuk sering membuat keputusan terasa kecil, padahal dampaknya bisa besar.');
+
+      insights.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        resultInsights.appendChild(li);
+      });
+
+      resultBox.classList.add('show');
+    }
+
+    function restartWorkshop() {
+      state.multitaskRisk = 0;
+      state.autoResponseRisk = 0;
+      state.fastFinishRisk = 0;
+      state.priorityControl = 0;
+      state.verificationStrength = 0;
+      state.selectedFirst = null;
+      state.completed = false;
+
+      progressLabel.textContent = 'Langkah 1 dari 2';
+      contextBox.innerHTML = 'Status awal: Anda sedang bersiap masuk meeting dan perhatian mulai terbagi. Pilih notifikasi mana yang akan Anda buka lebih dulu, lalu lihat bagaimana keputusan kecil itu memengaruhi kualitas verifikasi Anda.';
+      detailTitle.textContent = 'Pilih satu notifikasi';
+      detailMeta.textContent = 'Belum ada notifikasi yang dibuka';
+      detailBody.textContent = 'Klik salah satu notifikasi di sebelah kiri untuk melihat detailnya, lalu pilih tindakan yang paling mendekati respons Anda.';
+      choicesTitle.textContent = 'Pilihan tindakan';
+      choicesContainer.innerHTML = '<button class="choice-btn" disabled>Pilih notifikasi terlebih dahulu</button>';
+      noteBox.textContent = 'Catatan: fokus workshop ini bukan mencari jawaban sempurna, tetapi melihat pola keputusan Anda saat beberapa notifikasi masuk hampir bersamaan dan perhatian mulai terbagi.';
+      resultBox.classList.remove('show');
+      renderInbox();
+    }
+
+    restartWorkshop();
+  </script>
+</body>
+</html>
