@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soal 1 — Email Internal Palsu</title>
+  <meta name="description" content="Soal 1 ujian social engineering: klik red flag pada email internal palsu." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .email-stage {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fbfdff;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .email-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    .email-content {
+      position: relative;
+      padding: 18px 18px 22px;
+      background: #ffffff;
+    }
+
+    .email-subject {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--dark-gray);
+      margin-bottom: 14px;
+    }
+
+    .email-head {
+      display: grid;
+      gap: 8px;
+      font-size: 0.93rem;
+      color: var(--mid-gray);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .email-head strong {
+      color: var(--dark-gray);
+    }
+
+    .email-body-copy {
+      white-space: pre-line;
+      color: var(--dark-gray);
+      font-size: 0.96rem;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    .fake-link {
+      display: inline-block;
+      margin: 10px 0;
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    .hotspot-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(77,163,255,0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hotspot.correct.active {
+      border-color: var(--success);
+      background: rgba(25, 135, 84, 0.14);
+    }
+
+    .hotspot.wrong.active {
+      border-color: var(--danger);
+      background: rgba(220, 53, 69, 0.12);
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .attempt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Soal 1 · Klik Red Flag</div>
+          <h1 class="hero-title">Email Internal yang Terlihat Resmi</h1>
+          <p class="hero-desc">
+            Perhatikan mockup email berikut. Tugas Anda adalah mengklik <strong>3 red flag utama</strong> yang paling menunjukkan bahwa email ini patut dicurigai. Hati-hati, ada area jebakan yang terlihat aneh tetapi tidak cukup kuat untuk dijadikan red flag utama.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Petunjuk</span>
+            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <p class="muted">
+              Klik tiga bagian email yang menurut Anda paling mencurigakan. Setelah itu klik tombol <strong>Cek Jawaban</strong>. Skor akan diberikan berdasarkan ketepatan pilihan Anda.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Fokus pada elemen yang benar-benar menunjukkan risiko, bukan sekadar hal yang terlihat kurang rapi. Dalam phishing, detail kecil sering lebih penting daripada tampilan keseluruhan.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip">Target: 3 red flag</span>
+              <span class="status-chip" id="selectedChip">Terpilih: 0</span>
+              <span class="status-chip">Nilai maksimal: 10</span>
+            </div>
+
+            <div class="attempt-grid">
+              <div class="mini-stat">
+                <strong id="correctCount">0</strong>
+                <span>Red flag benar</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="wrongCount">0</strong>
+                <span>Jebakan terklik</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="finalScore">-</strong>
+                <span>Skor soal</span>
+              </div>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackSummary"></p>
+              <ul id="feedbackList"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-primary" type="button" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" type="button" id="retryBtn">Ulangi Soal 1</button>
+              <a class="btn btn-secondary" href="soal-2.html">Lanjut ke Soal 2</a>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="mockup-card">
+              <div class="email-toolbar">
+                <span>Inbox · 09:12 WIB</span>
+                <span>Internal Mail</span>
+              </div>
+              <div class="email-content">
+                <div class="hotspot-label">Klik 3 area yang paling mencurigakan</div>
+
+                <div class="email-subject">Konfirmasi Data Peserta Training Internal</div>
+
+                <div class="email-head">
+                  <div id="metaFrom"><strong>From:</strong> Human Capital Internal &lt;hc.training@sant0sjayagroup.co&gt;</div>
+                  <div id="metaTo"><strong>To:</strong> Seluruh Peserta Training Awareness</div>
+                  <div id="metaDate"><strong>Date:</strong> Senin, 09.12 WIB</div>
+                </div>
+
+                <div class="email-body-copy">
+Yth. Bapak/Ibu,
+
+Sebagai tindak lanjut kegiatan awareness training, mohon segera melakukan konfirmasi data peserta melalui formulir pada tautan berikut sebelum pukul 15.00 WIB hari ini.
+
+<span class="fake-link" id="fakeLink">https://sja-training-confirmation.com/internal-form</span>
+
+Mohon tidak membagikan tautan ini ke pihak lain agar proses verifikasi berjalan lebih cepat.
+
+Apabila Anda tidak melakukan konfirmasi hari ini, data Anda dapat dianggap belum tervalidasi dalam daftar peserta.
+
+Terima kasih,
+Human Capital Internal
+PT Santos Jaya Abadi
+                </div>
+
+                <!-- Correct hotspots -->
+                <button class="hotspot correct" data-flag="domain" type="button" aria-label="Hotspot domain pengirim"
+                  style="top: 82px; left: 195px; width: 255px; height: 28px;"></button>
+
+                <button class="hotspot correct" data-flag="link" type="button" aria-label="Hotspot tautan eksternal"
+                  style="top: 260px; left: 22px; width: 360px; height: 34px;"></button>
+
+                <button class="hotspot correct" data-flag="urgency" type="button" aria-label="Hotspot tekanan waktu"
+                  style="top: 214px; left: 370px; width: 170px; height: 26px;"></button>
+
+                <!-- Wrong / decoy hotspots -->
+                <button class="hotspot wrong" data-flag="greeting" type="button" aria-label="Hotspot salam pembuka"
+                  style="top: 158px; left: 20px; width: 138px; height: 24px;"></button>
+
+                <button class="hotspot wrong" data-flag="subject" type="button" aria-label="Hotspot subject email"
+                  style="top: 22px; left: 18px; width: 355px; height: 28px;"></button>
+
+                <button class="hotspot wrong" data-flag="toall" type="button" aria-label="Hotspot penerima email"
+                  style="top: 110px; left: 72px; width: 250px; height: 24px;"></button>
+              </div>
+            </div>
+
+            <div class="note-box">
+              Catatan: tidak semua bagian yang terlihat biasa harus diklik. Pilih area yang paling kuat menunjukkan bahwa email ini berpotensi phishing atau impersonation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Soal 1 Ujian Social Engineering</div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const QUESTION_ID = 'soal-1';
+    const MAX_SELECTION = 3;
+    const hotspots = Array.from(document.querySelectorAll('.hotspot'));
+    const selectedChip = document.getElementById('selectedChip');
+    const correctCountEl = document.getElementById('correctCount');
+    const wrongCountEl = document.getElementById('wrongCount');
+    const finalScoreEl = document.getElementById('finalScore');
+    const contextBox = document.getElementById('contextBox');
+    const feedbackBox = document.getElementById('feedbackBox');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackSummary = document.getElementById('feedbackSummary');
+    const feedbackList = document.getElementById('feedbackList');
+    const checkBtn = document.getElementById('checkBtn');
+    const retryBtn = document.getElementById('retryBtn');
+
+    let locked = false;
+
+    function getSelectedHotspots() {
+      return hotspots.filter(h => h.classList.contains('active'));
+    }
+
+    function updateSelectedChip() {
+      selectedChip.textContent = `Terpilih: ${getSelectedHotspots().length}`;
+    }
+
+    hotspots.forEach((hotspot) => {
+      hotspot.addEventListener('click', () => {
+        if (locked) return;
+
+        const currentSelected = getSelectedHotspots();
+        const isActive = hotspot.classList.contains('active');
+
+        if (!isActive && currentSelected.length >= MAX_SELECTION) {
+          contextBox.textContent = 'Anda hanya boleh memilih 3 area. Hapus salah satu pilihan jika ingin mengganti.';
+          return;
+        }
+
+        hotspot.classList.toggle('active');
+        updateSelectedChip();
+        contextBox.textContent = 'Pilih tiga area yang paling menunjukkan risiko. Setelah yakin, klik tombol Cek Jawaban.';
+      });
+    });
+
+    function scoreSelection() {
+      const selected = getSelectedHotspots();
+      const correct = selected.filter(h => h.classList.contains('correct')).length;
+      const wrong = selected.filter(h => h.classList.contains('wrong')).length;
+      let score = 0;
+
+      if (correct === 3 && wrong === 0) {
+        score = 10;
+      } else if (correct === 2 && wrong === 0) {
+        score = 7;
+      } else if (correct === 2 && wrong === 1) {
+        score = 5;
+      } else if (correct === 1 && wrong === 0) {
+        score = 3;
+      } else {
+        score = 0;
+      }
+
+      return { correct, wrong, score };
+    }
+
+    function renderFeedback(result) {
+      const bullets = [];
+
+      if (result.score === 10) {
+        feedbackTitle.textContent = 'Analisis Anda sangat tepat';
+        feedbackTitle.className = 'success-text';
+        feedbackSummary.textContent = 'Anda berhasil memilih tiga red flag utama tanpa terjebak oleh area yang kurang relevan.';
+      } else if (result.score >= 5) {
+        feedbackTitle.textContent = 'Analisis Anda cukup baik';
+        feedbackTitle.className = 'warning-text';
+        feedbackSummary.textContent = 'Anda sudah menangkap sebagian besar red flag utama, tetapi masih ada pilihan yang kurang tepat atau belum lengkap.';
+      } else {
+        feedbackTitle.textContent = 'Analisis Anda masih perlu diperkuat';
+        feedbackTitle.className = 'danger-text';
+        feedbackSummary.textContent = 'Email phishing sering berhasil karena korban fokus pada tampilan umum, bukan pada detail kecil yang justru sangat penting.';
+      }
+
+      bullets.push('Red flag utama pertama adalah domain pengirim yang mirip dengan domain perusahaan, tetapi tidak persis sama.');
+      bullets.push('Red flag utama kedua adalah tautan yang mengarah ke domain eksternal dan bukan portal internal resmi.');
+      bullets.push('Red flag utama ketiga adalah tekanan waktu: peserta didorong untuk segera bertindak pada hari yang sama.');
+
+      if (result.wrong > 0) {
+        bullets.push('Beberapa area yang Anda pilih adalah jebakan: tidak semua bagian yang terlihat umum atau formal cukup kuat untuk dijadikan indikator utama phishing.');
+      } else if (result.correct < 3) {
+        bullets.push('Anda masih melewatkan satu atau lebih red flag utama. Pada phishing, detail kecil seperti domain dan tautan sering lebih penting daripada tampilan visual keseluruhan.');
+      } else {
+        bullets.push('Ini menunjukkan Anda mampu membedakan tampilan formal dari indikator teknis dan perilaku yang lebih kuat.');
+      }
+
+      feedbackList.innerHTML = '';
+      bullets.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      feedbackBox.classList.add('show');
+    }
+
+    checkBtn.addEventListener('click', () => {
+      if (locked) return;
+
+      const selected = getSelectedHotspots();
+      if (selected.length !== MAX_SELECTION) {
+        contextBox.textContent = 'Pilih tepat 3 area terlebih dahulu sebelum memeriksa jawaban.';
+        return;
+      }
+
+      locked = true;
+      const result = scoreSelection();
+      correctCountEl.textContent = result.correct;
+      wrongCountEl.textContent = result.wrong;
+      finalScoreEl.textContent = `${result.score}/10`;
+      renderFeedback(result);
+      contextBox.textContent = 'Soal sudah dinilai. Perhatikan pembahasan di panel kiri, lalu lanjut ke soal berikutnya bila sudah siap.';
+      UjianApp.saveScore(QUESTION_ID, result.score);
+      checkBtn.disabled = true;
+    });
+
+    retryBtn.addEventListener('click', () => {
+      locked = false;
+      hotspots.forEach((h) => h.classList.remove('active'));
+      updateSelectedChip();
+      correctCountEl.textContent = '0';
+      wrongCountEl.textContent = '0';
+      finalScoreEl.textContent = '-';
+      feedbackBox.classList.remove('show');
+      feedbackTitle.className = '';
+      feedbackList.innerHTML = '';
+      feedbackSummary.textContent = '';
+      contextBox.textContent = 'Pilih tiga area yang paling menunjukkan risiko. Setelah yakin, klik tombol Cek Jawaban.';
+      checkBtn.disabled = false;
+    });
+
+    // Restore score info if already answered before
+    const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
+    if (typeof previousScore === 'number') {
+      finalScoreEl.textContent = `${previousScore}/10`;
+    }
+
+    console.assert(typeof UjianApp.saveScore === 'function', 'saveScore should exist');
+    console.assert(hotspots.length === 6, 'Soal 1 should contain 6 hotspots');
+  </script>
+</body>
+</html>
 
