@@ -1,1 +1,607 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soal 6 — Bandingkan Dua Halaman Login</title>
+  <meta name="description" content="Soal 6 ujian social engineering: pilih halaman login yang lebih aman dan alasan yang paling tepat." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
 
+    .site-card {
+      border: 1px solid rgba(31, 41, 55, 0.12);
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .browser-top {
+      background: #f3f6fb;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #d1d5db;
+    }
+
+    .address-bar {
+      flex: 1;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .lock-icon {
+      font-size: 0.92rem;
+      color: var(--success);
+      flex-shrink: 0;
+    }
+
+    .url-text {
+      font-size: 0.92rem;
+      color: var(--dark-gray);
+      min-width: 0;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    .site-body {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      padding: 20px;
+    }
+
+    .site-badge {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .site-hero {
+      display: grid;
+      gap: 14px;
+    }
+
+    .site-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--dark-gray);
+      font-size: 1.02rem;
+    }
+
+    .site-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #60a5fa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .site-copy {
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+
+    .login-box {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 18px;
+      background: #ffffff;
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .login-box h3 {
+      font-size: 1.08rem;
+      margin-bottom: 6px;
+      color: var(--dark-gray);
+    }
+
+    .login-box p {
+      color: var(--mid-gray);
+      font-size: 0.91rem;
+      margin-bottom: 14px;
+    }
+
+    .fake-field {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 12px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      color: var(--light-gray);
+      font-size: 0.92rem;
+      margin-bottom: 12px;
+    }
+
+    .fake-button {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 12px 14px;
+      font-size: 0.94rem;
+      margin-top: 4px;
+    }
+
+    .choice-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .choice-btn,
+    .reason-btn {
+      text-align: left;
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 16px;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      line-height: 1.5;
+      font-size: 0.93rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .choice-btn:hover,
+    .reason-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77, 163, 255, 0.35);
+      background: #fbfdff;
+    }
+
+    .choice-btn.selected,
+    .reason-btn.selected {
+      border-color: rgba(77, 163, 255, 0.5);
+      background: rgba(77, 163, 255, 0.10);
+    }
+
+    .choice-btn strong,
+    .reason-btn strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.96rem;
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 1000px) {
+      .compare-grid,
+      .choice-row {
+        grid-template-columns: 1fr;
+      }
+
+      .attempt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Soal 6 · Bandingkan Halaman</div>
+          <h1 class="hero-title">Dua Halaman Login yang Mirip</h1>
+          <p class="hero-desc">
+            Perhatikan dua halaman berikut dengan saksama. Pilih halaman yang menurut Anda lebih aman, lalu pilih alasan yang paling relevan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Petunjuk</span>
+            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <p class="muted">
+              Kerjakan dua langkah berikut:
+              <br>1. Pilih salah satu halaman
+              <br>2. Pilih satu alasan yang paling relevan
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Nilai halaman secara menyeluruh sebelum menentukan pilihan.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip" id="pageChip">Halaman dipilih: 0</span>
+              <span class="status-chip" id="reasonChip">Alasan dipilih: 0</span>
+              <span class="status-chip">Nilai maksimal: 10</span>
+            </div>
+
+            <div class="attempt-grid">
+              <div class="mini-stat">
+                <strong id="selectedPageStat">-</strong>
+                <span>Halaman terpilih</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="selectedReasonStat">-</strong>
+                <span>Alasan terpilih</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="finalScore">-</strong>
+                <span>Skor soal</span>
+              </div>
+            </div>
+
+            <div style="margin-top:18px;">
+              <h3 style="margin-bottom:10px;">1. Pilih halaman yang lebih aman</h3>
+              <div class="choice-row">
+                <button class="choice-btn" type="button" data-page="A">
+                  <strong>Halaman A</strong>
+                  Pilih jika menurut Anda halaman A lebih aman digunakan.
+                </button>
+
+                <button class="choice-btn" type="button" data-page="B">
+                  <strong>Halaman B</strong>
+                  Pilih jika menurut Anda halaman B lebih aman digunakan.
+                </button>
+              </div>
+            </div>
+
+            <div style="margin-top:18px;">
+              <h3 style="margin-bottom:10px;">2. Pilih alasan yang paling relevan</h3>
+              <div class="decision-grid" id="reasonGrid">
+                <button class="reason-btn" type="button" data-reason="1">
+                  <strong>Alasan 1</strong>
+                  Tampilan halaman terlihat lebih rapi dan profesional.
+                </button>
+
+                <button class="reason-btn" type="button" data-reason="2">
+                  <strong>Alasan 2</strong>
+                  Alamat situs dan jalur akses terlihat lebih dapat dipercaya.
+                </button>
+
+                <button class="reason-btn" type="button" data-reason="3">
+                  <strong>Alasan 3</strong>
+                  Tombol login dan form terlihat lebih jelas dan modern.
+                </button>
+
+                <button class="reason-btn" type="button" data-reason="4">
+                  <strong>Alasan 4</strong>
+                  Halaman memiliki lebih banyak informasi promosi dan bantuan.
+                </button>
+              </div>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackSummary"></p>
+              <ul id="feedbackList"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-primary" type="button" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" type="button" id="retryBtn">Ulangi Soal 6</button>
+              <a class="btn btn-secondary" href="soal-7.html">Lanjut ke Soal 7</a>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="compare-grid">
+              <!-- Halaman A -->
+              <div class="site-card">
+                <div class="browser-top">
+                  <div class="browser-dots">
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                  </div>
+
+                  <div class="address-bar">
+                    <span class="lock-icon">🔒</span>
+                    <div class="url-text">https://secure-login-abcbank-help.com/auth</div>
+                  </div>
+                </div>
+
+                <div class="site-body">
+                  <div class="site-badge">Halaman A</div>
+
+                  <div class="site-hero">
+                    <div class="site-brand">
+                      <div class="site-logo">A</div>
+                      <div>ABC Bank Secure Login</div>
+                    </div>
+
+                    <div class="site-copy">
+                      Lanjutkan login untuk memverifikasi akun dan menjaga keamanan akses perbankan digital Anda.
+                    </div>
+
+                    <div class="login-box">
+                      <h3>Secure Login</h3>
+                      <p>Masukkan user ID dan password Anda.</p>
+
+                      <div class="fake-field">User ID</div>
+                      <div class="fake-field">Password</div>
+                      <button class="fake-button" type="button">Login Sekarang</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Halaman B -->
+              <div class="site-card">
+                <div class="browser-top">
+                  <div class="browser-dots">
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                  </div>
+
+                  <div class="address-bar">
+                    <span class="lock-icon">🔒</span>
+                    <div class="url-text">https://klikabc.com/login</div>
+                  </div>
+                </div>
+
+                <div class="site-body">
+                  <div class="site-badge">Halaman B</div>
+
+                  <div class="site-hero">
+                    <div class="site-brand">
+                      <div class="site-logo">A</div>
+                      <div>Bank ABC Digital</div>
+                    </div>
+
+                    <div class="site-copy">
+                      Akses rekening Anda untuk melihat saldo, transfer, pembayaran, dan layanan digital lainnya.
+                    </div>
+
+                    <div class="login-box">
+                      <h3>Login Internet Banking</h3>
+                      <p>Masukkan kredensial Anda untuk mengakses layanan perbankan digital.</p>
+
+                      <div class="fake-field">User ID</div>
+                      <div class="fake-field">Password</div>
+                      <button class="fake-button" type="button">Masuk</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box" style="margin-top:16px;">
+              Tentukan pilihan berdasarkan penilaian Anda terhadap keseluruhan situasi.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Soal 6 Ujian Social Engineering</div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const QUESTION_ID = "soal-6";
+    const pageButtons = Array.from(document.querySelectorAll(".choice-btn"));
+    const reasonButtons = Array.from(document.querySelectorAll(".reason-btn"));
+
+    const pageChip = document.getElementById("pageChip");
+    const reasonChip = document.getElementById("reasonChip");
+    const contextBox = document.getElementById("contextBox");
+    const selectedPageStat = document.getElementById("selectedPageStat");
+    const selectedReasonStat = document.getElementById("selectedReasonStat");
+    const finalScoreEl = document.getElementById("finalScore");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackSummary = document.getElementById("feedbackSummary");
+    const feedbackList = document.getElementById("feedbackList");
+    const checkBtn = document.getElementById("checkBtn");
+    const retryBtn = document.getElementById("retryBtn");
+
+    let selectedPage = null;
+    let selectedReason = null;
+    let locked = false;
+
+    function updateChips() {
+      pageChip.textContent = `Halaman dipilih: ${selectedPage ? 1 : 0}`;
+      reasonChip.textContent = `Alasan dipilih: ${selectedReason ? 1 : 0}`;
+    }
+
+    pageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (locked) return;
+        pageButtons.forEach((btn) => btn.classList.remove("selected"));
+        button.classList.add("selected");
+        selectedPage = button.dataset.page;
+        updateChips();
+        contextBox.textContent = "Pastikan pilihan halaman dan alasan Anda sudah sesuai sebelum memeriksa jawaban.";
+      });
+    });
+
+    reasonButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (locked) return;
+        reasonButtons.forEach((btn) => btn.classList.remove("selected"));
+        button.classList.add("selected");
+        selectedReason = button.dataset.reason;
+        updateChips();
+        contextBox.textContent = "Pastikan pilihan halaman dan alasan Anda sudah sesuai sebelum memeriksa jawaban.";
+      });
+    });
+
+    function calculateScore() {
+      const correctPage = selectedPage === "B";
+      const correctReason = selectedReason === "2";
+      let score = 0;
+
+      if (correctPage && correctReason) {
+        score = 10;
+      } else if (correctPage && !correctReason) {
+        score = 6;
+      } else {
+        score = 0;
+      }
+
+      return { correctPage, correctReason, score };
+    }
+
+    function renderFeedback(result) {
+      const bullets = [];
+
+      if (result.score === 10) {
+        feedbackTitle.textContent = "Analisis Anda sangat tepat";
+        feedbackTitle.className = "success-text";
+        feedbackSummary.textContent = "Anda berhasil memilih halaman yang lebih aman sekaligus alasan yang paling relevan.";
+      } else if (result.score === 6) {
+        feedbackTitle.textContent = "Pilihan Anda sebagian tepat";
+        feedbackTitle.className = "warning-text";
+        feedbackSummary.textContent = "Anda berhasil memilih halaman yang lebih aman, tetapi alasan yang dipilih belum paling kuat.";
+      } else {
+        feedbackTitle.textContent = "Analisis Anda masih perlu diperkuat";
+        feedbackTitle.className = "danger-text";
+        feedbackSummary.textContent = "Pada halaman login palsu, tampilan visual sering dibuat meyakinkan. Karena itu, penilaian tidak boleh hanya berdasarkan desain.";
+      }
+
+      bullets.push("Halaman yang lebih aman pada soal ini adalah Halaman B.");
+      bullets.push("Alasan yang paling relevan adalah alamat situs dan jalur akses terlihat lebih dapat dipercaya.");
+      bullets.push("Halaman A sengaja dibuat cukup rapi agar korban tergoda menilai dari tampilan, bukan dari sumber aksesnya.");
+
+      if (!result.correctPage) {
+        bullets.push("Pilihan halaman Anda belum tepat. Ini menunjukkan bahwa tampilan profesional masih cukup mudah memengaruhi penilaian.");
+      } else if (!result.correctReason) {
+        bullets.push("Pilihan alasan Anda belum paling kuat. Dalam situasi seperti ini, faktor paling penting bukan sekadar tampilan, tetapi kredibilitas alamat situs dan jalur akses.");
+      } else {
+        bullets.push("Ini menunjukkan Anda mampu menilai halaman secara lebih kritis, tidak hanya dari desain antarmuka.");
+      }
+
+      feedbackList.innerHTML = "";
+      bullets.forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      feedbackBox.classList.add("show");
+      selectedPageStat.textContent = selectedPage || "-";
+      selectedReasonStat.textContent = selectedReason || "-";
+      finalScoreEl.textContent = `${result.score}/10`;
+      UjianApp.saveScore(QUESTION_ID, result.score);
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (locked) return;
+
+      if (!selectedPage || !selectedReason) {
+        contextBox.textContent = "Pilih satu halaman dan satu alasan terlebih dahulu sebelum memeriksa jawaban.";
+        return;
+      }
+
+      locked = true;
+      const result = calculateScore();
+      renderFeedback(result);
+      contextBox.textContent = "Soal sudah dinilai. Perhatikan pembahasan di panel kiri, lalu lanjut ke soal berikutnya bila sudah siap.";
+      checkBtn.disabled = true;
+    });
+
+    retryBtn.addEventListener("click", () => {
+      locked = false;
+      selectedPage = null;
+      selectedReason = null;
+      pageButtons.forEach((btn) => btn.classList.remove("selected"));
+      reasonButtons.forEach((btn) => btn.classList.remove("selected"));
+      updateChips();
+      selectedPageStat.textContent = "-";
+      selectedReasonStat.textContent = "-";
+      finalScoreEl.textContent = "-";
+      feedbackBox.classList.remove("show");
+      feedbackTitle.className = "";
+      feedbackList.innerHTML = "";
+      feedbackSummary.textContent = "";
+      contextBox.textContent = "Nilai halaman secara menyeluruh sebelum menentukan pilihan.";
+      checkBtn.disabled = false;
+    });
+
+    const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
+    if (typeof previousScore === "number") {
+      finalScoreEl.textContent = `${previousScore}/10`;
+    }
+
+    console.assert(typeof UjianApp.saveScore === "function", "saveScore should exist");
+    console.assert(pageButtons.length === 2, "Soal 6 should contain 2 page choices");
+    console.assert(reasonButtons.length === 4, "Soal 6 should contain 4 reason choices");
+  </script>
+</body>
+</html>
