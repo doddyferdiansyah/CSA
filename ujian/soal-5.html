@@ -1,1 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soal 5 — Wi-Fi Kafe</title>
+  <meta name="description" content="Soal 5 ujian social engineering: pilih keputusan paling tepat terkait jaringan Wi-Fi di kafe." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .laptop-stage {
+      border: 1px solid rgba(31, 41, 55, 0.12);
+      border-radius: 24px;
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: var(--shadow);
+    }
 
+    .laptop-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      background: #1e293b;
+      color: #cbd5e1;
+      font-size: 0.82rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .laptop-body {
+      background: linear-gradient(180deg, #e2e8f0 0%, #f8fafc 100%);
+      min-height: 640px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .workspace {
+      padding: 24px;
+      min-height: 640px;
+      position: relative;
+    }
+
+    .workspace-banner {
+      max-width: 58%;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .workspace-banner h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      color: var(--dark-gray);
+    }
+
+    .workspace-banner p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .workspace-window {
+      margin-top: 18px;
+      max-width: 62%;
+      background: #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .window-top {
+      padding: 10px 14px;
+      background: #f8fafc;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.84rem;
+    }
+
+    .window-body {
+      padding: 18px;
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.7;
+      min-height: 180px;
+    }
+
+    .wifi-panel {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      width: min(100%, 360px);
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+      overflow: hidden;
+    }
+
+    .wifi-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .wifi-header strong {
+      color: var(--dark-gray);
+      font-size: 0.98rem;
+    }
+
+    .wifi-header span {
+      color: var(--mid-gray);
+      font-size: 0.82rem;
+    }
+
+    .wifi-list {
+      display: grid;
+      gap: 0;
+      background: #fbfdff;
+    }
+
+    .wifi-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+      color: var(--dark-gray);
+      font-size: 0.93rem;
+    }
+
+    .wifi-item:last-child {
+      border-bottom: none;
+    }
+
+    .wifi-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .wifi-icon {
+      flex-shrink: 0;
+      color: var(--mid-gray);
+      font-size: 0.92rem;
+    }
+
+    .wifi-text {
+      word-break: break-word;
+      line-height: 1.45;
+    }
+
+    .wifi-lock {
+      color: var(--mid-gray);
+      font-size: 0.84rem;
+      flex-shrink: 0;
+    }
+
+    .decision-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .decision-btn {
+      text-align: left;
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 16px;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      line-height: 1.5;
+      font-size: 0.93rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .decision-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77, 163, 255, 0.35);
+      background: #fbfdff;
+    }
+
+    .decision-btn.selected {
+      border-color: rgba(77, 163, 255, 0.5);
+      background: rgba(77, 163, 255, 0.10);
+    }
+
+    .decision-btn strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.96rem;
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 1100px) {
+      .workspace-banner,
+      .workspace-window {
+        max-width: 100%;
+      }
+
+      .wifi-panel {
+        position: static;
+        width: 100%;
+        margin-top: 18px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .attempt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Soal 5 · Pilih Keputusan</div>
+          <h1 class="hero-title">Jaringan Wi-Fi di Kafe</h1>
+          <p class="hero-desc">
+            Perhatikan situasi berikut dengan saksama. Tentukan satu keputusan yang menurut Anda paling tepat untuk diambil.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Petunjuk</span>
+            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <p class="muted">
+              Pilih satu keputusan yang menurut Anda paling tepat. Setelah itu klik tombol <strong>Cek Jawaban</strong>.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Baca situasi dengan teliti sebelum menentukan pilihan.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip">Target: 1 keputusan</span>
+              <span class="status-chip" id="selectedChip">Terpilih: 0</span>
+              <span class="status-chip">Nilai maksimal: 10</span>
+            </div>
+
+            <div class="attempt-grid">
+              <div class="mini-stat">
+                <strong id="decisionStatus">-</strong>
+                <span>Status jawaban</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="decisionType">-</strong>
+                <span>Kategori keputusan</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="finalScore">-</strong>
+                <span>Skor soal</span>
+              </div>
+            </div>
+
+            <div class="decision-grid" id="decisionGrid">
+              <button class="decision-btn" type="button" data-choice="A">
+                <strong>A. Sambungkan ke Cafe_Bahagia_101</strong>
+                Gunakan jaringan dengan nama yang paling mirip dengan nama kafe.
+              </button>
+
+              <button class="decision-btn" type="button" data-choice="B">
+                <strong>B. Sambungkan ke Cafe_Bahagia_101 5G</strong>
+                Pilih yang terlihat paling modern agar koneksinya lebih cepat.
+              </button>
+
+              <button class="decision-btn" type="button" data-choice="C">
+                <strong>C. Sambungkan ke Cafe_Bahagia_1O1</strong>
+                Pilih jaringan yang tampak paling mendekati nama resmi kafe.
+              </button>
+
+              <button class="decision-btn" type="button" data-choice="D">
+                <strong>D. Jangan sambungkan dulu</strong>
+                Gunakan hotspot pribadi atau verifikasi SSID resmi ke petugas sebelum terhubung.
+              </button>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackSummary"></p>
+              <ul id="feedbackList"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-primary" type="button" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" type="button" id="retryBtn">Ulangi Soal 5</button>
+              <a class="btn btn-secondary" href="soal-6.html">Lanjut ke Soal 6</a>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="laptop-stage">
+              <div class="laptop-topbar">
+                <span>10:28 WIB</span>
+                <span>Kafe Bahagia · Laptop Kerja</span>
+              </div>
+
+              <div class="laptop-body">
+                <div class="workspace">
+                  <div class="workspace-banner">
+                    <h3>Anda sedang menunggu meeting dimulai</h3>
+                    <p>
+                      Laptop kerja sudah terbuka. Anda ingin segera terhubung ke internet untuk membuka email dan menyiapkan dokumen kerja.
+                    </p>
+                    <p>
+                      Di sekitar Anda tersedia beberapa pilihan jaringan Wi-Fi yang terdeteksi oleh laptop.
+                    </p>
+                  </div>
+
+                  <div class="workspace-window">
+                    <div class="window-top">Workspace</div>
+                    <div class="window-body">
+                      Dokumen kerja sudah siap dibuka. Koneksi internet dibutuhkan untuk sinkronisasi file, membuka email, dan bergabung ke meeting berikutnya.
+                    </div>
+                  </div>
+
+                  <div class="wifi-panel">
+                    <div class="wifi-header">
+                      <strong>Wi-Fi</strong>
+                      <span>9 jaringan ditemukan</span>
+                    </div>
+
+                    <div class="wifi-list">
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">Cafe_Bahagia_101</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">cafe_bahagia_101</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">Cafe_Bahagia_101 5G</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">Free_Wifi</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">Wifi_gratis</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">Xiomay Note 17</span>
+                        </div>
+                        <span class="wifi-lock">🔒</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">sayangku</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">fakir kuota</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+
+                      <div class="wifi-item">
+                        <div class="wifi-name">
+                          <span class="wifi-icon">📶</span>
+                          <span class="wifi-text">Cafe_Bahagia_1O1</span>
+                        </div>
+                        <span class="wifi-lock">Terbuka</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box">
+              Tentukan keputusan berdasarkan penilaian Anda terhadap situasi yang tersedia.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Soal 5 Ujian Social Engineering</div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const QUESTION_ID = "soal-5";
+    const decisionButtons = Array.from(document.querySelectorAll(".decision-btn"));
+    const selectedChip = document.getElementById("selectedChip");
+    const contextBox = document.getElementById("contextBox");
+    const decisionStatusEl = document.getElementById("decisionStatus");
+    const decisionTypeEl = document.getElementById("decisionType");
+    const finalScoreEl = document.getElementById("finalScore");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackSummary = document.getElementById("feedbackSummary");
+    const feedbackList = document.getElementById("feedbackList");
+    const checkBtn = document.getElementById("checkBtn");
+    const retryBtn = document.getElementById("retryBtn");
+
+    let selectedChoice = null;
+    let locked = false;
+
+    const scoringMap = {
+      A: { score: 0, type: "Berisiko" },
+      B: { score: 3, type: "Kurang aman" },
+      C: { score: 0, type: "Berisiko" },
+      D: { score: 10, type: "Paling tepat" }
+    };
+
+    function updateSelectedChip() {
+      selectedChip.textContent = `Terpilih: ${selectedChoice ? 1 : 0}`;
+    }
+
+    decisionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (locked) return;
+
+        decisionButtons.forEach((btn) => btn.classList.remove("selected"));
+        button.classList.add("selected");
+        selectedChoice = button.dataset.choice;
+        updateSelectedChip();
+        contextBox.textContent = "Pastikan pilihan Anda sudah sesuai sebelum memeriksa jawaban.";
+      });
+    });
+
+    function renderFeedback(choice) {
+      const result = scoringMap[choice];
+      const bullets = [];
+
+      if (choice === "D") {
+        feedbackTitle.textContent = "Keputusan Anda paling tepat";
+        feedbackTitle.className = "success-text";
+        feedbackSummary.textContent = "Dalam situasi seperti ini, tidak terburu-buru terhubung ke jaringan yang belum terverifikasi adalah keputusan paling aman.";
+        bullets.push("Nama jaringan yang mirip-mirip dapat digunakan untuk mengecoh pengguna, terutama saat korban terburu-buru membutuhkan koneksi.");
+        bullets.push("Pilihan paling aman adalah menggunakan hotspot pribadi atau menanyakan SSID resmi ke petugas sebelum menyambungkan perangkat kerja.");
+        bullets.push("Keamanan tidak selalu berarti memilih yang terlihat paling cocok, tetapi menahan diri sampai sumbernya benar-benar terverifikasi.");
+      } else if (choice === "B") {
+        feedbackTitle.textContent = "Keputusan Anda masih kurang aman";
+        feedbackTitle.className = "warning-text";
+        feedbackSummary.textContent = "Pilihan ini terlihat masuk akal, tetapi tetap berisiko jika belum ada verifikasi bahwa jaringan tersebut benar-benar resmi.";
+        bullets.push("Nama yang tampak meyakinkan, termasuk label 5G, belum cukup untuk dijadikan dasar kepercayaan.");
+        bullets.push("Pada lingkungan publik, SSID palsu dapat dibuat sangat mirip dengan jaringan asli.");
+        bullets.push("Keputusan yang lebih aman adalah tidak menyambungkan perangkat kerja sebelum jaringan diverifikasi.");
+      } else {
+        feedbackTitle.textContent = "Keputusan Anda berisiko";
+        feedbackTitle.className = "danger-text";
+        feedbackSummary.textContent = "Pilihan ini terlalu bergantung pada kemiripan nama jaringan, padahal justru itulah yang sering dipakai untuk mengecoh pengguna.";
+        bullets.push("Pada lingkungan publik, pelaku dapat membuat SSID yang sangat mirip dengan nama resmi lokasi.");
+        bullets.push("Perangkat kerja sebaiknya tidak disambungkan ke jaringan yang belum diverifikasi hanya karena namanya terlihat cocok.");
+        bullets.push("Keputusan yang lebih aman adalah menggunakan hotspot pribadi atau memastikan SSID resmi ke petugas.");
+      }
+
+      feedbackList.innerHTML = "";
+      bullets.forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      feedbackBox.classList.add("show");
+      decisionStatusEl.textContent = choice === "D" ? "Tepat" : (choice === "B" ? "Sebagian tepat" : "Kurang tepat");
+      decisionTypeEl.textContent = result.type;
+      finalScoreEl.textContent = `${result.score}/10`;
+      UjianApp.saveScore(QUESTION_ID, result.score);
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (locked) return;
+
+      if (!selectedChoice) {
+        contextBox.textContent = "Pilih satu keputusan terlebih dahulu sebelum memeriksa jawaban.";
+        return;
+      }
+
+      locked = true;
+      renderFeedback(selectedChoice);
+      contextBox.textContent = "Soal sudah dinilai. Perhatikan pembahasan di panel kiri, lalu lanjut ke soal berikutnya bila sudah siap.";
+      checkBtn.disabled = true;
+    });
+
+    retryBtn.addEventListener("click", () => {
+      locked = false;
+      selectedChoice = null;
+      decisionButtons.forEach((btn) => btn.classList.remove("selected"));
+      updateSelectedChip();
+      decisionStatusEl.textContent = "-";
+      decisionTypeEl.textContent = "-";
+      finalScoreEl.textContent = "-";
+      feedbackBox.classList.remove("show");
+      feedbackTitle.className = "";
+      feedbackList.innerHTML = "";
+      feedbackSummary.textContent = "";
+      contextBox.textContent = "Baca situasi dengan teliti sebelum menentukan pilihan.";
+      checkBtn.disabled = false;
+    });
+
+    const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
+    if (typeof previousScore === "number") {
+      finalScoreEl.textContent = `${previousScore}/10`;
+    }
+
+    console.assert(typeof UjianApp.saveScore === "function", "saveScore should exist");
+    console.assert(decisionButtons.length === 4, "Soal 5 should contain 4 decision options");
+  </script>
+</body>
+</html>
