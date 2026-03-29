@@ -1,1 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soal 2 — Chat Atasan Palsu</title>
+  <meta name="description" content="Soal 2 ujian social engineering: klik red flag pada chat atasan palsu." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .phone-wrap {
+      display: grid;
+      justify-content: center;
+    }
 
+    .chat-screen {
+      width: min(100%, 400px);
+      border: 1px solid rgba(31, 41, 55, 0.12);
+      border-radius: 28px;
+      background: #111827;
+      padding: 10px;
+      box-shadow: var(--shadow);
+      margin: 0 auto;
+    }
+
+    .chat-body {
+      background: #f8fafc;
+      border-radius: 22px;
+      overflow: hidden;
+      min-height: 640px;
+    }
+
+    .chat-topbar {
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: var(--mid-gray);
+      background: #ffffff;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chat-header {
+      padding: 14px 16px;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      display: grid;
+      gap: 4px;
+    }
+
+    .chat-header-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--sky-blue-deep);
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(77, 163, 255, 0.18);
+    }
+
+    .chat-contact {
+      display: grid;
+      gap: 3px;
+    }
+
+    .chat-contact-name {
+      font-weight: 800;
+      color: var(--dark-gray);
+      line-height: 1.2;
+    }
+
+    .chat-contact-meta {
+      font-size: 0.85rem;
+      color: var(--mid-gray);
+      line-height: 1.4;
+    }
+
+    .chat-thread {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      background:
+        linear-gradient(180deg, rgba(248,250,252,1) 0%, rgba(255,255,255,1) 100%);
+    }
+
+    .day-separator {
+      justify-self: center;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 999px;
+      padding: 6px 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .chat-bubble {
+      max-width: 84%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      font-size: 0.93rem;
+      line-height: 1.6;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .chat-bubble.incoming {
+      background: #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--dark-gray);
+      justify-self: start;
+    }
+
+    .chat-bubble.outgoing {
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.18);
+      color: var(--dark-gray);
+      justify-self: end;
+    }
+
+    .chat-time {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--light-gray);
+      text-align: right;
+    }
+
+    .flag-inline {
+      display: inline;
+      border-radius: 8px;
+      padding: 1px 3px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px dashed transparent;
+    }
+
+    .flag-inline:hover {
+      border-color: rgba(77, 163, 255, 0.55);
+      background: rgba(77, 163, 255, 0.08);
+    }
+
+    .flag-inline.correct.active {
+      border-color: var(--success);
+      background: rgba(25, 135, 84, 0.14);
+    }
+
+    .flag-inline.wrong.active {
+      border-color: var(--danger);
+      background: rgba(220, 53, 69, 0.12);
+    }
+
+    .helper-label {
+      display: inline-flex;
+      justify-self: end;
+      margin-bottom: 8px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(77, 163, 255, 0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .attempt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Soal 2 · Klik Red Flag</div>
+          <h1 class="hero-title">Chat “Atasan” yang Terlihat Meyakinkan</h1>
+          <p class="hero-desc">
+            Perhatikan mockup chat berikut. Tugas Anda adalah mengklik <strong>3 red flag utama</strong> yang paling menunjukkan bahwa percakapan ini patut dicurigai. Hati-hati, ada bagian yang terlihat biasa atau sopan, tetapi bukan indikator utama penipuan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Petunjuk</span>
+            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <p class="muted">
+              Klik tiga bagian chat yang menurut Anda paling mencurigakan. Setelah itu klik tombol <strong>Cek Jawaban</strong>. Nilai diberikan berdasarkan ketepatan pilihan Anda.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Fokus pada tanda yang benar-benar menunjukkan risiko, misalnya identitas yang tidak wajar, tekanan waktu, atau upaya memindahkan komunikasi ke jalur yang tidak biasa.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip">Target: 3 red flag</span>
+              <span class="status-chip" id="selectedChip">Terpilih: 0</span>
+              <span class="status-chip">Nilai maksimal: 10</span>
+            </div>
+
+            <div class="attempt-grid">
+              <div class="mini-stat">
+                <strong id="correctCount">0</strong>
+                <span>Red flag benar</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="wrongCount">0</strong>
+                <span>Jebakan terklik</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="finalScore">-</strong>
+                <span>Skor soal</span>
+              </div>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackSummary"></p>
+              <ul id="feedbackList"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-primary" type="button" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" type="button" id="retryBtn">Ulangi Soal 2</button>
+              <a class="btn btn-secondary" href="soal-3.html">Lanjut ke Soal 3</a>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="phone-wrap">
+              <div class="chat-screen">
+                <div class="chat-body">
+                  <div class="chat-topbar">
+                    <span>09:47</span>
+                    <span>4G · 82%</span>
+                  </div>
+
+                  <div class="chat-header">
+                    <div class="chat-header-top">
+                      <div class="avatar">AR</div>
+                      <div class="chat-contact">
+                        <div class="chat-contact-name">Pak Arif</div>
+                        <div class="chat-contact-meta">
+                          <span class="flag-inline correct" data-flag="number" role="button" tabindex="0" aria-label="Nomor baru tidak tersimpan">
+                            +62 852-7719-4421
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="chat-thread">
+                    <div class="helper-label">Klik 3 area yang paling mencurigakan</div>
+
+                    <div class="day-separator">Hari ini</div>
+
+                    <div class="chat-bubble incoming">
+                      Pagi. Ini saya Pak Arif. Nomor saya ganti sementara.
+                      <span class="chat-time">09.41</span>
+                    </div>
+
+                    <div class="chat-bubble outgoing">
+                      Baik pak, noted.
+                      <span class="chat-time">09.42</span>
+                    </div>
+
+                    <div class="chat-bubble incoming">
+                      Tolong kirim file vendor final yang kemarin ya.
+                      <span class="chat-time">09.43</span>
+                    </div>
+
+                    <div class="chat-bubble incoming">
+                      <span class="flag-inline correct" data-flag="private" role="button" tabindex="0" aria-label="Permintaan pindah ke jalur pribadi">
+                        Jangan lewat grup dulu. Langsung ke saya saja biar cepat.
+                      </span>
+                      <span class="chat-time">09.43</span>
+                    </div>
+
+                    <div class="chat-bubble incoming">
+                      <span class="flag-inline correct" data-flag="urgency" role="button" tabindex="0" aria-label="Tekanan waktu">
+                        Saya butuh 10 menit lagi sebelum meeting.
+                      </span>
+                      <span class="chat-time">09.44</span>
+                    </div>
+
+                    <div class="chat-bubble incoming">
+                      <span class="flag-inline wrong" data-flag="polite" role="button" tabindex="0" aria-label="Kalimat sopan">
+                        Tolong ya, terima kasih.
+                      </span>
+                      <span class="chat-time">09.44</span>
+                    </div>
+
+                    <div class="chat-bubble incoming">
+                      <span class="flag-inline wrong" data-flag="name" role="button" tabindex="0" aria-label="Nama kontak">
+                        Pak Arif
+                      </span>
+                      tetap pakai nomor ini dulu sampai siang.
+                      <span class="chat-time">09.45</span>
+                    </div>
+
+                    <div class="chat-bubble incoming">
+                      <span class="flag-inline wrong" data-flag="greeting" role="button" tabindex="0" aria-label="Sapaan biasa">
+                        Saya tunggu ya.
+                      </span>
+                      <span class="chat-time">09.45</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box">
+              Catatan: tidak semua kalimat pendek atau sopan adalah red flag. Pilih bagian yang paling kuat menunjukkan penyamaran, tekanan, atau upaya melewati jalur kerja yang normal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Soal 2 Ujian Social Engineering</div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const QUESTION_ID = "soal-2";
+    const MAX_SELECTION = 3;
+    const hotspots = Array.from(document.querySelectorAll(".flag-inline"));
+    const selectedChip = document.getElementById("selectedChip");
+    const correctCountEl = document.getElementById("correctCount");
+    const wrongCountEl = document.getElementById("wrongCount");
+    const finalScoreEl = document.getElementById("finalScore");
+    const contextBox = document.getElementById("contextBox");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackSummary = document.getElementById("feedbackSummary");
+    const feedbackList = document.getElementById("feedbackList");
+    const checkBtn = document.getElementById("checkBtn");
+    const retryBtn = document.getElementById("retryBtn");
+
+    let locked = false;
+
+    function getSelectedHotspots() {
+      return hotspots.filter((h) => h.classList.contains("active"));
+    }
+
+    function updateSelectedChip() {
+      selectedChip.textContent = `Terpilih: ${getSelectedHotspots().length}`;
+    }
+
+    hotspots.forEach((hotspot) => {
+      hotspot.addEventListener("click", () => {
+        if (locked) return;
+
+        const currentSelected = getSelectedHotspots();
+        const isActive = hotspot.classList.contains("active");
+
+        if (!isActive && currentSelected.length >= MAX_SELECTION) {
+          contextBox.textContent = "Anda hanya boleh memilih 3 area. Klik lagi salah satu pilihan jika ingin mengganti.";
+          return;
+        }
+
+        hotspot.classList.toggle("active");
+        updateSelectedChip();
+        contextBox.textContent = "Pilih tiga area yang paling menunjukkan risiko. Setelah yakin, klik tombol Cek Jawaban.";
+      });
+
+      hotspot.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          hotspot.click();
+        }
+      });
+    });
+
+    function scoreSelection() {
+      const selected = getSelectedHotspots();
+      const correct = selected.filter((h) => h.classList.contains("correct")).length;
+      const wrong = selected.filter((h) => h.classList.contains("wrong")).length;
+
+      let score = 0;
+      if (correct === 3 && wrong === 0) {
+        score = 10;
+      } else if (correct === 2 && wrong === 0) {
+        score = 7;
+      } else if (correct === 2 && wrong === 1) {
+        score = 5;
+      } else if (correct === 1 && wrong === 0) {
+        score = 3;
+      } else {
+        score = 0;
+      }
+
+      return { correct, wrong, score };
+    }
+
+    function renderFeedback(result) {
+      const bullets = [];
+
+      if (result.score === 10) {
+        feedbackTitle.textContent = "Analisis Anda sangat tepat";
+        feedbackTitle.className = "success-text";
+        feedbackSummary.textContent = "Anda berhasil memilih tiga red flag utama tanpa terjebak oleh bagian yang terlihat biasa atau sopan.";
+      } else if (result.score >= 5) {
+        feedbackTitle.textContent = "Analisis Anda cukup baik";
+        feedbackTitle.className = "warning-text";
+        feedbackSummary.textContent = "Anda sudah menangkap sebagian besar red flag utama, tetapi masih ada pilihan yang kurang tepat atau belum lengkap.";
+      } else {
+        feedbackTitle.textContent = "Analisis Anda masih perlu diperkuat";
+        feedbackTitle.className = "danger-text";
+        feedbackSummary.textContent = "Pada chat penyamaran, korban sering tertipu karena terlalu fokus pada nama/foto profil dan lupa memeriksa pola permintaan.";
+      }
+
+      bullets.push("Red flag utama pertama adalah nomor baru yang belum terverifikasi, meskipun pelaku mengaku sebagai atasan.");
+      bullets.push("Red flag utama kedua adalah permintaan untuk tidak memakai grup atau kanal resmi, melainkan pindah ke jalur pribadi.");
+      bullets.push("Red flag utama ketiga adalah tekanan waktu yang mendorong korban segera mengirim file sebelum sempat verifikasi.");
+
+      if (result.wrong > 0) {
+        bullets.push("Beberapa area yang Anda pilih adalah jebakan: kalimat sopan atau sapaan singkat bukan indikator utama penipuan bila berdiri sendiri.");
+      } else if (result.correct < 3) {
+        bullets.push("Anda masih melewatkan satu atau lebih red flag utama. Pada penipuan seperti ini, pola perilaku lebih penting daripada tampilan kontak.");
+      } else {
+        bullets.push("Ini menunjukkan Anda mampu membedakan hubungan sosial yang terlihat wajar dari sinyal manipulasi yang lebih kuat.");
+      }
+
+      feedbackList.innerHTML = "";
+      bullets.forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      feedbackBox.classList.add("show");
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (locked) return;
+
+      const selected = getSelectedHotspots();
+      if (selected.length !== MAX_SELECTION) {
+        contextBox.textContent = "Pilih tepat 3 area terlebih dahulu sebelum memeriksa jawaban.";
+        return;
+      }
+
+      locked = true;
+      const result = scoreSelection();
+      correctCountEl.textContent = result.correct;
+      wrongCountEl.textContent = result.wrong;
+      finalScoreEl.textContent = `${result.score}/10`;
+      renderFeedback(result);
+      contextBox.textContent = "Soal sudah dinilai. Perhatikan pembahasan di panel kiri, lalu lanjut ke soal berikutnya bila sudah siap.";
+      UjianApp.saveScore(QUESTION_ID, result.score);
+      checkBtn.disabled = true;
+    });
+
+    retryBtn.addEventListener("click", () => {
+      locked = false;
+      hotspots.forEach((h) => h.classList.remove("active"));
+      updateSelectedChip();
+      correctCountEl.textContent = "0";
+      wrongCountEl.textContent = "0";
+      finalScoreEl.textContent = "-";
+      feedbackBox.classList.remove("show");
+      feedbackTitle.className = "";
+      feedbackList.innerHTML = "";
+      feedbackSummary.textContent = "";
+      contextBox.textContent = "Pilih tiga area yang paling menunjukkan risiko. Setelah yakin, klik tombol Cek Jawaban.";
+      checkBtn.disabled = false;
+    });
+
+    const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
+    if (typeof previousScore === "number") {
+      finalScoreEl.textContent = `${previousScore}/10`;
+    }
+
+    console.assert(typeof UjianApp.saveScore === "function", "saveScore should exist");
+    console.assert(hotspots.length === 6, "Soal 2 should contain 6 clickable areas");
+  </script>
+</body>
+</html>
