@@ -7,15 +7,6 @@
   <meta name="description" content="Soal 1 ujian social engineering: klik red flag pada email internal palsu." />
   <link rel="stylesheet" href="../assets/ujian.css" />
   <style>
-    .email-stage {
-      position: relative;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: #fbfdff;
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-    }
-
     .email-toolbar {
       display: flex;
       align-items: center;
@@ -30,8 +21,72 @@
 
     .email-content {
       position: relative;
-      padding: 18px 18px 22px;
+      padding: 20px 20px 24px;
       background: #ffffff;
+    }
+
+    .email-subject {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--dark-gray);
+      margin-bottom: 14px;
+      padding-right: 190px;
+      line-height: 1.4;
+    }
+
+    .email-head {
+      display: grid;
+      gap: 8px;
+      font-size: 0.93rem;
+      color: var(--mid-gray);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .email-head strong {
+      color: var(--dark-gray);
+    }
+
+    .email-body-copy {
+      color: var(--dark-gray);
+      font-size: 0.96rem;
+      line-height: 1.8;
+    }
+
+    .email-body-copy p {
+      margin: 0 0 16px;
+    }
+
+    .email-body-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .fake-link {
+      display: inline-block;
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    .email-signature {
+      margin-top: 6px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(31, 41, 55, 0.08);
+    }
+
+    .hotspot-label {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(77, 163, 255, 0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      box-shadow: var(--shadow-soft);
     }
 
     .flag-inline {
@@ -57,22 +112,6 @@
       border-color: var(--danger);
       background: rgba(220, 53, 69, 0.12);
     }
-
-    .hotspot-label {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 3;
-      background: rgba(255,255,255,0.96);
-      border: 1px solid rgba(77,163,255,0.18);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.78rem;
-      color: var(--mid-gray);
-      box-shadow: var(--shadow-soft);
-    }
-
-    
 
     .attempt-grid {
       display: grid;
@@ -132,7 +171,7 @@
           <div class="eyebrow">Soal 1 · Klik Red Flag</div>
           <h1 class="hero-title">Email Internal yang Terlihat Resmi</h1>
           <p class="hero-desc">
-            Perhatikan mockup email berikut. Tugas Anda adalah mengklik <strong>3 red flag utama</strong> yang paling menunjukkan bahwa email ini patut dicurigai. Hati-hati, ada area jebakan yang terlihat aneh tetapi tidak cukup kuat untuk dijadikan red flag utama.
+            Perhatikan mockup email berikut. Tugas Anda adalah mengklik <strong>3 red flag utama</strong> yang paling menunjukkan bahwa email ini patut dicurigai. Hati-hati, ada area jebakan yang terlihat biasa, tetapi bukan indikator utama phishing.
           </p>
         </div>
       </div>
@@ -143,13 +182,13 @@
         <div class="layout">
           <div class="panel-card">
             <span class="pill">Petunjuk</span>
-            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <h3 style="margin-bottom: 8px;">Apa yang harus dilakukan?</h3>
             <p class="muted">
               Klik tiga bagian email yang menurut Anda paling mencurigakan. Setelah itu klik tombol <strong>Cek Jawaban</strong>. Skor akan diberikan berdasarkan ketepatan pilihan Anda.
             </p>
 
             <div class="context-box" id="contextBox">
-              Fokus pada elemen yang benar-benar menunjukkan risiko, bukan sekadar hal yang terlihat kurang rapi. Dalam phishing, detail kecil sering lebih penting daripada tampilan keseluruhan.
+              Fokus pada elemen yang benar-benar menunjukkan risiko, bukan sekadar bagian yang terlihat umum. Dalam phishing, detail kecil sering lebih penting daripada tampilan keseluruhan.
             </div>
 
             <div class="status-bar">
@@ -192,31 +231,42 @@
                 <span>Inbox · 09:12 WIB</span>
                 <span>Internal Mail</span>
               </div>
+
               <div class="email-content">
                 <div class="hotspot-label">Klik 3 area yang paling mencurigakan</div>
 
                 <div class="email-subject">Konfirmasi Data Peserta Training Internal</div>
 
                 <div class="email-head">
-                  <div id="metaFrom"><strong>From:</strong> Human Capital Internal &lt;<span class="flag-inline correct" data-flag="domain" role="button" tabindex="0" aria-label="Domain pengirim">hc.training@sant0sjayagroup.co</span>&gt;</div>
-                  <div id="metaTo"><strong>To:</strong> <span class="flag-inline wrong" data-flag="toall" role="button" tabindex="0" aria-label="Penerima email">Seluruh Peserta Training Awareness</span></div>
-                  <div id="metaDate"><strong>Date:</strong> Senin, 09.12 WIB</div>
+                  <div><strong>From:</strong> Human Capital Internal &lt;<span class="flag-inline correct" data-flag="domain" role="button" tabindex="0" aria-label="Domain pengirim">hc.training@sant0sjayagroup.co</span>&gt;</div>
+                  <div><strong>To:</strong> <span class="flag-inline wrong" data-flag="toall" role="button" tabindex="0" aria-label="Penerima email">Seluruh Peserta Training Awareness</span></div>
+                  <div><strong>Date:</strong> Senin, 09.12 WIB</div>
                 </div>
 
                 <div class="email-body-copy">
-<span class="flag-inline wrong" data-flag="greeting" role="button" tabindex="0" aria-label="Salam pembuka">Yth. Bapak/Ibu,</span>
+                  <p><span class="flag-inline wrong" data-flag="greeting" role="button" tabindex="0" aria-label="Salam pembuka">Yth. Bapak/Ibu,</span></p>
 
-Sebagai tindak lanjut kegiatan awareness training, mohon segera melakukan konfirmasi data peserta melalui formulir pada tautan berikut <span class="flag-inline correct" data-flag="urgency" role="button" tabindex="0" aria-label="Tekanan waktu">sebelum pukul 15.00 WIB hari ini</span>.
+                  <p>
+                    Sebagai tindak lanjut kegiatan awareness training, mohon segera melakukan konfirmasi data peserta melalui formulir pada tautan berikut
+                    <span class="flag-inline correct" data-flag="urgency" role="button" tabindex="0" aria-label="Tekanan waktu">sebelum pukul 15.00 WIB hari ini</span>.
+                  </p>
 
-<span class="fake-link flag-inline correct" id="fakeLink" data-flag="link" role="button" tabindex="0" aria-label="Tautan eksternal">https://sja-training-confirmation.com/internal-form</span>
+                  <p>
+                    <span class="fake-link flag-inline correct" id="fakeLink" data-flag="link" role="button" tabindex="0" aria-label="Tautan eksternal">https://sja-training-confirmation.com/internal-form</span>
+                  </p>
 
-Mohon tidak membagikan tautan ini ke pihak lain agar proses verifikasi berjalan lebih cepat.
+                  <p>
+                    Mohon tidak membagikan tautan ini ke pihak lain agar proses verifikasi berjalan lebih cepat.
+                  </p>
 
-Apabila Anda tidak melakukan konfirmasi hari ini, data Anda dapat dianggap belum tervalidasi dalam daftar peserta.
+                  <p>
+                    Apabila Anda tidak melakukan konfirmasi hari ini, data Anda dapat dianggap belum tervalidasi dalam daftar peserta.
+                  </p>
 
-Terima kasih,
-<span class="flag-inline wrong" data-flag="subject" role="button" tabindex="0" aria-label="Signature email">Human Capital Internal
-PT Santos Jaya Abadi</span>
+                  <p class="email-signature">
+                    Terima kasih,<br>
+                    <span class="flag-inline wrong" data-flag="signature" role="button" tabindex="0" aria-label="Tanda tangan email">Human Capital Internal<br>PT Santos Jaya Abadi</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -276,6 +326,13 @@ PT Santos Jaya Abadi</span>
         hotspot.classList.toggle('active');
         updateSelectedChip();
         contextBox.textContent = 'Pilih tiga area yang paling menunjukkan risiko. Setelah yakin, klik tombol Cek Jawaban.';
+      });
+
+      hotspot.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          hotspot.click();
+        }
       });
     });
 
@@ -380,7 +437,7 @@ PT Santos Jaya Abadi</span>
     }
 
     console.assert(typeof UjianApp.saveScore === 'function', 'saveScore should exist');
-    console.assert(hotspots.length === 6, 'Soal 1 should contain 6 hotspots');
+    console.assert(hotspots.length === 6, 'Soal 1 should contain 6 clickable areas');
   </script>
 </body>
 </html>
