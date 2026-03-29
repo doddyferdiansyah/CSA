@@ -277,7 +277,7 @@
           <div class="eyebrow">Soal 4 · Klik URL Palsu</div>
           <h1 class="hero-title">Website Bank yang Terlihat Meyakinkan</h1>
           <p class="hero-desc">
-            Perhatikan mockup website bank berikut. Tugas Anda adalah mengklik <strong>bagian URL</strong> yang menunjukkan bahwa halaman ini palsu. Hati-hati, tampilannya dibuat sangat meyakinkan agar korban fokus pada desain, bukan pada alamat situs.
+            Perhatikan mockup website berikut dengan saksama. Tentukan bagian yang menurut Anda paling menunjukkan adanya risiko pada halaman ini.
           </p>
         </div>
       </div>
@@ -290,11 +290,11 @@
             <span class="pill">Petunjuk</span>
             <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
             <p class="muted">
-              Klik bagian URL yang paling menunjukkan bahwa website ini palsu. Setelah itu klik tombol <strong>Cek Jawaban</strong>.
+              Klik satu area yang menurut Anda paling relevan untuk dijadikan dasar penilaian pada halaman ini. Setelah itu klik tombol <strong>Cek Jawaban</strong>.
             </p>
 
             <div class="context-box" id="contextBox">
-              Pada website palsu, tampilan halaman sering dibuat sangat rapi. Karena itu, perhatikan detail kecil pada alamat situs, bukan hanya desain halaman.
+              Perhatikan halaman dengan teliti sebelum menentukan pilihan. Jangan hanya terpaku pada tampilannya.
             </div>
 
             <div class="status-bar">
@@ -332,7 +332,7 @@
           </div>
 
           <div class="panel-card">
-            <div class="helper-label">Klik bagian URL yang paling menunjukkan bahwa website ini palsu</div>
+            <div class="helper-label">Pilih 1 area yang menurut Anda paling relevan</div>
 
             <div class="browser-shell">
               <div class="browser-top">
@@ -345,11 +345,7 @@
                 <div class="address-bar">
                   <span class="lock-icon">🔒</span>
                   <div class="url-text">
-                    https://
-                    <span class="flag-inline correct" data-flag="url" role="button" tabindex="0" aria-label="URL typo domain">
-                      kilkabc.com
-                    </span>
-                    /login
+                    https://<span class="flag-inline correct" data-flag="url" role="button" tabindex="0" aria-label="URL typo domain">kilkabc.com</span>/login
                   </div>
                 </div>
               </div>
@@ -412,7 +408,7 @@
             </div>
 
             <div class="note-box">
-              Catatan: pada website palsu, yang paling penting sering bukan tampilan halaman, tetapi detail kecil seperti domain yang ditukar hurufnya agar mirip dengan situs asli.
+              Pilih berdasarkan penilaian Anda terhadap elemen yang paling penting pada halaman ini.
             </div>
           </div>
         </div>
@@ -464,7 +460,7 @@
 
         hotspot.classList.toggle("active");
         updateSelectedChip();
-        contextBox.textContent = "Pilih satu bagian URL yang paling menunjukkan bahwa website ini palsu, lalu klik tombol Cek Jawaban.";
+        contextBox.textContent = "Pilih satu area yang menurut Anda paling relevan, lalu klik tombol Cek Jawaban.";
       });
 
       hotspot.addEventListener("keydown", (event) => {
@@ -554,7 +550,7 @@
       feedbackTitle.className = "";
       feedbackList.innerHTML = "";
       feedbackSummary.textContent = "";
-      contextBox.textContent = "Pilih satu bagian URL yang paling menunjukkan bahwa website ini palsu, lalu klik tombol Cek Jawaban.";
+      contextBox.textContent = "Pilih satu area yang menurut Anda paling relevan, lalu klik tombol Cek Jawaban.";
       checkBtn.disabled = false;
     });
 
