@@ -34,42 +34,28 @@
       background: #ffffff;
     }
 
-    .email-subject {
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: var(--dark-gray);
-      margin-bottom: 14px;
-      padding-right: 180px;
+    .flag-inline {
+      display: inline;
+      border-radius: 8px;
+      padding: 1px 3px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px dashed transparent;
     }
 
-    .email-head {
-      display: grid;
-      gap: 8px;
-      font-size: 0.93rem;
-      color: var(--mid-gray);
-      margin-bottom: 16px;
-      position: relative;
+    .flag-inline:hover {
+      border-color: rgba(77, 163, 255, 0.55);
+      background: rgba(77, 163, 255, 0.08);
     }
 
-    .email-head strong {
-      color: var(--dark-gray);
+    .flag-inline.correct.active {
+      border-color: var(--success);
+      background: rgba(25, 135, 84, 0.14);
     }
 
-    .email-body-copy {
-      white-space: pre-line;
-      color: var(--dark-gray);
-      font-size: 0.96rem;
-      line-height: 1.75;
-      position: relative;
-      padding-right: 10px;
-    }
-
-    .fake-link {
-      display: inline-block;
-      margin: 10px 0;
-      color: var(--sky-blue-deep);
-      font-weight: 700;
-      word-break: break-all;
+    .flag-inline.wrong.active {
+      border-color: var(--danger);
+      background: rgba(220, 53, 69, 0.12);
     }
 
     .hotspot-label {
@@ -86,37 +72,7 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .hotspot {
-      position: absolute;
-      border: 2px dashed transparent;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      background: transparent;
-      appearance: none;
-      -webkit-appearance: none;
-      box-shadow: none;
-      padding: 0;
-      margin: 0;
-      outline: none;
-      color: transparent;
-      font-size: 0;
-    }
-
-    .hotspot:hover {
-      border-color: rgba(77, 163, 255, 0.55);
-      background: rgba(77, 163, 255, 0.08);
-    }
-
-    .hotspot.correct.active {
-      border-color: var(--success);
-      background: rgba(25, 135, 84, 0.14);
-    }
-
-    .hotspot.wrong.active {
-      border-color: var(--danger);
-      background: rgba(220, 53, 69, 0.12);
-    }
+    
 
     .attempt-grid {
       display: grid;
@@ -242,40 +198,26 @@
                 <div class="email-subject">Konfirmasi Data Peserta Training Internal</div>
 
                 <div class="email-head">
-                  <div id="metaFrom"><strong>From:</strong> Human Capital Internal &lt;hc.training@sant0sjayagroup.co&gt;</div>
-                  <div id="metaTo"><strong>To:</strong> Seluruh Peserta Training Awareness</div>
+                  <div id="metaFrom"><strong>From:</strong> Human Capital Internal &lt;<span class="flag-inline correct" data-flag="domain" role="button" tabindex="0" aria-label="Domain pengirim">hc.training@sant0sjayagroup.co</span>&gt;</div>
+                  <div id="metaTo"><strong>To:</strong> <span class="flag-inline wrong" data-flag="toall" role="button" tabindex="0" aria-label="Penerima email">Seluruh Peserta Training Awareness</span></div>
                   <div id="metaDate"><strong>Date:</strong> Senin, 09.12 WIB</div>
                 </div>
 
                 <div class="email-body-copy">
-Yth. Bapak/Ibu,
+<span class="flag-inline wrong" data-flag="greeting" role="button" tabindex="0" aria-label="Salam pembuka">Yth. Bapak/Ibu,</span>
 
-Sebagai tindak lanjut kegiatan awareness training, mohon segera melakukan konfirmasi data peserta melalui formulir pada tautan berikut sebelum pukul 15.00 WIB hari ini.
+Sebagai tindak lanjut kegiatan awareness training, mohon segera melakukan konfirmasi data peserta melalui formulir pada tautan berikut <span class="flag-inline correct" data-flag="urgency" role="button" tabindex="0" aria-label="Tekanan waktu">sebelum pukul 15.00 WIB hari ini</span>.
 
-<span class="fake-link" id="fakeLink">https://sja-training-confirmation.com/internal-form</span>
+<span class="fake-link flag-inline correct" id="fakeLink" data-flag="link" role="button" tabindex="0" aria-label="Tautan eksternal">https://sja-training-confirmation.com/internal-form</span>
 
 Mohon tidak membagikan tautan ini ke pihak lain agar proses verifikasi berjalan lebih cepat.
 
 Apabila Anda tidak melakukan konfirmasi hari ini, data Anda dapat dianggap belum tervalidasi dalam daftar peserta.
 
 Terima kasih,
-Human Capital Internal
-PT Santos Jaya Abadi
+<span class="flag-inline wrong" data-flag="subject" role="button" tabindex="0" aria-label="Signature email">Human Capital Internal
+PT Santos Jaya Abadi</span>
                 </div>
-
-                <!-- Correct hotspots -->
-                <button class="hotspot correct" data-flag="domain" type="button" aria-label="Hotspot domain pengirim" style="top: 82px; left: 210px; width: 248px; height: 26px;"></button>
-
-                <button class="hotspot correct" data-flag="link" type="button" aria-label="Hotspot tautan eksternal" style="top: 255px; left: 18px; width: 410px; height: 38px;"></button>
-
-                <button class="hotspot correct" data-flag="urgency" type="button" aria-label="Hotspot tekanan waktu" style="top: 212px; left: 390px; width: 165px; height: 28px;"></button>
-
-                <!-- Wrong / decoy hotspots -->
-                <button class="hotspot wrong" data-flag="greeting" type="button" aria-label="Hotspot salam pembuka" style="top: 155px; left: 18px; width: 145px; height: 28px;"></button>
-
-                <button class="hotspot wrong" data-flag="subject" type="button" aria-label="Hotspot subject email" style="top: 18px; left: 18px; width: 330px; height: 28px;"></button>
-
-                <button class="hotspot wrong" data-flag="toall" type="button" aria-label="Hotspot penerima email" style="top: 108px; left: 62px; width: 240px; height: 24px;"></button>
               </div>
             </div>
 
@@ -296,7 +238,7 @@ PT Santos Jaya Abadi
   <script>
     const QUESTION_ID = 'soal-1';
     const MAX_SELECTION = 3;
-    const hotspots = Array.from(document.querySelectorAll('.hotspot'));
+    const hotspots = Array.from(document.querySelectorAll('.flag-inline'));
     const selectedChip = document.getElementById('selectedChip');
     const correctCountEl = document.getElementById('correctCount');
     const wrongCountEl = document.getElementById('wrongCount');
