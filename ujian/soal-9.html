@@ -1,1 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soal 9 — Prompt Digital Mencurigakan</title>
+  <meta name="description" content="Soal 9 ujian social engineering: pilih prompt digital yang harus ditolak atau dicurigai." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
 
+    .prompt-card {
+      border: 2px dashed transparent;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .prompt-card:hover {
+      border-color: rgba(77, 163, 255, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .prompt-card.correct.active {
+      border-color: var(--success);
+      background: rgba(25, 135, 84, 0.08);
+    }
+
+    .prompt-card.wrong.active {
+      border-color: var(--danger);
+      background: rgba(220, 53, 69, 0.08);
+    }
+
+    .prompt-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.84rem;
+      color: var(--mid-gray);
+    }
+
+    .prompt-badge {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .prompt-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      min-height: 220px;
+    }
+
+    .prompt-title {
+      font-weight: 800;
+      color: var(--dark-gray);
+      line-height: 1.35;
+      font-size: 0.98rem;
+    }
+
+    .prompt-copy {
+      color: var(--mid-gray);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .mini-ui {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 14px;
+      background: #ffffff;
+      padding: 12px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-ui-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+    }
+
+    .mini-ui-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .mini-ui-label {
+      color: var(--mid-gray);
+      font-size: 0.82rem;
+    }
+
+    .mini-pill {
+      display: inline-flex;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: var(--mid-gray);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .mini-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .mini-btn {
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      background: #ffffff;
+      color: var(--dark-gray);
+    }
+
+    .mini-btn.primary {
+      background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+      color: #ffffff;
+      border: none;
+    }
+
+    .qr-box {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, #111827 12%, transparent 12%) 0 0 / 12px 12px,
+        linear-gradient(#111827 12%, transparent 12%) 0 0 / 12px 12px,
+        #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      flex-shrink: 0;
+    }
+
+    .helper-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(77, 163, 255, 0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 980px) {
+      .prompt-grid,
+      .attempt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Soal 9 · Pilih Prompt</div>
+          <h1 class="hero-title">Prompt Digital dalam Aktivitas Kerja</h1>
+          <p class="hero-desc">
+            Perhatikan beberapa prompt berikut. Pilih item yang menurut Anda seharusnya tidak langsung disetujui atau perlu dicurigai.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Petunjuk</span>
+            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <p class="muted">
+              Klik item yang menurut Anda perlu ditolak atau dicurigai. Setelah itu klik tombol <strong>Cek Jawaban</strong>.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Nilai setiap prompt berdasarkan konteks, sumber, dan risiko akses yang mungkin diberikan.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip">Target pilihan: fleksibel</span>
+              <span class="status-chip" id="selectedChip">Terpilih: 0</span>
+              <span class="status-chip">Nilai maksimal: 10</span>
+            </div>
+
+            <div class="attempt-grid">
+              <div class="mini-stat">
+                <strong id="correctCount">0</strong>
+                <span>Pilihan tepat</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="wrongCount">0</strong>
+                <span>Jebakan terpilih</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="finalScore">-</strong>
+                <span>Skor soal</span>
+              </div>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackSummary"></p>
+              <ul id="feedbackList"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-primary" type="button" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" type="button" id="retryBtn">Ulangi Soal 9</button>
+              <a class="btn btn-secondary" href="soal-10.html">Lanjut ke Soal 10</a>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="helper-label">Tentukan item yang menurut Anda perlu ditolak atau dicurigai</div>
+
+            <div class="prompt-grid">
+              <!-- 1 correct -->
+              <div class="prompt-card correct" data-type="correct" tabindex="0" role="button" aria-label="Prompt MFA tidak diminta">
+                <div class="prompt-head">
+                  <span class="prompt-badge">MFA</span>
+                  <span>09:42 WIB</span>
+                </div>
+                <div class="prompt-body">
+                  <div class="prompt-title">Permintaan persetujuan login muncul saat Anda tidak sedang login</div>
+                  <div class="prompt-copy">
+                    Notifikasi masuk ke ponsel kerja: “Approve sign-in request?” Padahal Anda tidak sedang membuka akun tersebut.
+                  </div>
+                  <div class="mini-ui">
+                    <div class="mini-ui-row">
+                      <span class="mini-ui-label">Lokasi</span>
+                      <span>Unknown Device</span>
+                    </div>
+                    <div class="mini-actions">
+                      <span class="mini-btn">Deny</span>
+                      <span class="mini-btn primary">Approve</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2 wrong -->
+              <div class="prompt-card wrong" data-type="wrong" tabindex="0" role="button" aria-label="Prompt resmi session timeout">
+                <div class="prompt-head">
+                  <span class="prompt-badge">Sesi</span>
+                  <span>10:05 WIB</span>
+                </div>
+                <div class="prompt-body">
+                  <div class="prompt-title">Portal internal meminta login ulang setelah sesi berakhir</div>
+                  <div class="prompt-copy">
+                    Anda memang baru saja diam terlalu lama di portal HR internal, lalu halaman meminta login ulang.
+                  </div>
+                  <div class="mini-ui">
+                    <div class="mini-ui-row">
+                      <span class="mini-ui-label">Status</span>
+                      <span class="mini-pill">Session expired</span>
+                    </div>
+                    <div class="mini-actions">
+                      <span class="mini-btn primary">Login ulang</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3 correct -->
+              <div class="prompt-card correct" data-type="correct" tabindex="0" role="button" aria-label="OAuth app berisiko">
+                <div class="prompt-head">
+                  <span class="prompt-badge">App Access</span>
+                  <span>11:14 WIB</span>
+                </div>
+                <div class="prompt-body">
+                  <div class="prompt-title">Aplikasi pihak ketiga meminta akses ke email, drive, kontak, dan kalender</div>
+                  <div class="prompt-copy">
+                    Anda tidak mengenal aplikasi ini dan tidak ingat pernah membutuhkannya untuk pekerjaan saat ini.
+                  </div>
+                  <div class="mini-ui">
+                    <div class="mini-ui-row">
+                      <span class="mini-ui-label">App</span>
+                      <span>QuickDocs Sync Pro</span>
+                    </div>
+                    <div class="mini-ui-row">
+                      <span class="mini-ui-label">Scope</span>
+                      <span>Mail, Drive, Contacts, Calendar</span>
+                    </div>
+                    <div class="mini-actions">
+                      <span class="mini-btn">Cancel</span>
+                      <span class="mini-btn primary">Allow</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4 wrong -->
+              <div class="prompt-card wrong" data-type="wrong" tabindex="0" role="button" aria-label="VPN resmi perusahaan">
+                <div class="prompt-head">
+                  <span class="prompt-badge">VPN</span>
+                  <span>08:11 WIB</span>
+                </div>
+                <div class="prompt-body">
+                  <div class="prompt-title">Aplikasi VPN resmi kantor meminta kode MFA saat Anda sedang login</div>
+                  <div class="prompt-copy">
+                    Anda memang sedang mengakses dashboard kantor dari luar jaringan dan mengikuti alur login yang biasa.
+                  </div>
+                  <div class="mini-ui">
+                    <div class="mini-ui-row">
+                      <span class="mini-ui-label">Aplikasi</span>
+                      <span>Corp Secure VPN</span>
+                    </div>
+                    <div class="mini-actions">
+                      <span class="mini-btn primary">Masukkan kode</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5 correct -->
+              <div class="prompt-card correct" data-type="correct" tabindex="0" role="button" aria-label="QR verifikasi akun">
+                <div class="prompt-head">
+                  <span class="prompt-badge">QR</span>
+                  <span>13:28 WIB</span>
+                </div>
+                <div class="prompt-body">
+                  <div class="prompt-title">Poster meminta scan QR untuk verifikasi ulang akun kerja</div>
+                  <div class="prompt-copy">
+                    Di area publik ada poster bertuliskan: “Scan di sini untuk re-verify corporate account dan hindari suspend otomatis.”
+                  </div>
+                  <div class="mini-ui" style="display:flex; align-items:center; gap:12px;">
+                    <div class="qr-box"></div>
+                    <div style="font-size:0.88rem; color:var(--mid-gray); line-height:1.55;">
+                      Re-verify access now<br>Corporate login protection
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6 wrong -->
+              <div class="prompt-card wrong" data-type="wrong" tabindex="0" role="button" aria-label="Password manager resmi">
+                <div class="prompt-head">
+                  <span class="prompt-badge">Browser</span>
+                  <span>09:55 WIB</span>
+                </div>
+                <div class="prompt-body">
+                  <div class="prompt-title">Browser menawarkan menyimpan password di password manager perusahaan</div>
+                  <div class="prompt-copy">
+                    Anda baru login ke aplikasi resmi yang memang biasa dipakai, dan kebijakan tim mengizinkan penggunaan password manager internal.
+                  </div>
+                  <div class="mini-ui">
+                    <div class="mini-ui-row">
+                      <span class="mini-ui-label">Action</span>
+                      <span class="mini-pill">Save credential</span>
+                    </div>
+                    <div class="mini-actions">
+                      <span class="mini-btn">Never</span>
+                      <span class="mini-btn primary">Save</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box" style="margin-top:16px;">
+              Tentukan pilihan berdasarkan penilaian Anda terhadap konteks, tujuan akses, dan risiko yang mungkin timbul.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Soal 9 Ujian Social Engineering</div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const QUESTION_ID = "soal-9";
+    const selectableItems = Array.from(document.querySelectorAll(".prompt-card"));
+    const selectedChip = document.getElementById("selectedChip");
+    const correctCountEl = document.getElementById("correctCount");
+    const wrongCountEl = document.getElementById("wrongCount");
+    const finalScoreEl = document.getElementById("finalScore");
+    const contextBox = document.getElementById("contextBox");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackSummary = document.getElementById("feedbackSummary");
+    const feedbackList = document.getElementById("feedbackList");
+    const checkBtn = document.getElementById("checkBtn");
+    const retryBtn = document.getElementById("retryBtn");
+
+    let locked = false;
+
+    function getSelectedItems() {
+      return selectableItems.filter((item) => item.classList.contains("active"));
+    }
+
+    function updateSelectedChip() {
+      selectedChip.textContent = `Terpilih: ${getSelectedItems().length}`;
+    }
+
+    selectableItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        if (locked) return;
+        item.classList.toggle("active");
+        updateSelectedChip();
+        contextBox.textContent = "Tinjau kembali pilihan Anda sebelum memeriksa jawaban.";
+      });
+
+      item.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          item.click();
+        }
+      });
+    });
+
+    function calculateScore() {
+      const selected = getSelectedItems();
+      const correct = selected.filter((item) => item.dataset.type === "correct").length;
+      const wrong = selected.filter((item) => item.dataset.type === "wrong").length;
+
+      let score = 0;
+      if (correct === 3 && wrong === 0) {
+        score = 10;
+      } else if (correct === 2 && wrong === 0) {
+        score = 7;
+      } else if (correct === 2 && wrong === 1) {
+        score = 5;
+      } else if (correct === 1 && wrong === 0) {
+        score = 3;
+      } else {
+        score = 0;
+      }
+
+      return { correct, wrong, score };
+    }
+
+    function renderFeedback(result) {
+      const bullets = [];
+
+      if (result.score === 10) {
+        feedbackTitle.textContent = "Analisis Anda sangat tepat";
+        feedbackTitle.className = "success-text";
+        feedbackSummary.textContent = "Anda berhasil memilih prompt yang paling patut dicurigai tanpa terjebak pada prompt yang masih masuk konteks kerja normal.";
+      } else if (result.score >= 5) {
+        feedbackTitle.textContent = "Analisis Anda cukup baik";
+        feedbackTitle.className = "warning-text";
+        feedbackSummary.textContent = "Anda sudah menangkap sebagian besar prompt berisiko, tetapi masih ada pilihan yang kurang tepat atau belum lengkap.";
+      } else {
+        feedbackTitle.textContent = "Analisis Anda masih perlu diperkuat";
+        feedbackTitle.className = "danger-text";
+        feedbackSummary.textContent = "Dalam aktivitas digital, konteks sangat penting. Prompt yang terlihat resmi belum tentu aman, tetapi prompt yang sesuai konteks kerja juga tidak otomatis berbahaya.";
+      }
+
+      bullets.push("Prompt MFA yang muncul saat Anda tidak sedang login patut dicurigai karena dapat mengindikasikan MFA fatigue atau percobaan akses tidak sah.");
+      bullets.push("Aplikasi yang meminta akses luas ke email, drive, kontak, dan kalender tanpa kebutuhan yang jelas patut dicurigai karena dapat membuka akses data yang besar.");
+      bullets.push("QR yang meminta verifikasi ulang akun kerja di ruang publik patut dicurigai karena dapat mengarahkan korban ke halaman login palsu atau skema quishing.");
+      bullets.push("Sebaliknya, prompt yang memang muncul sesuai konteks aktivitas kerja yang sedang Anda lakukan tidak otomatis harus ditolak bila sumber dan jalurnya jelas.");
+
+      if (result.wrong > 0) {
+        bullets.push("Beberapa item yang Anda pilih adalah jebakan: tidak semua prompt login, MFA, atau penyimpanan kredensial otomatis berbahaya jika muncul pada konteks yang valid.");
+      } else if (result.correct < 3) {
+        bullets.push("Anda masih melewatkan satu atau lebih item penting. Dalam situasi seperti ini, sumber, konteks, dan lingkup akses adalah dasar penilaian yang paling penting.");
+      } else {
+        bullets.push("Ini menunjukkan Anda mampu membedakan prompt digital yang benar-benar berisiko dari prompt yang masih sesuai konteks kerja normal.");
+      }
+
+      feedbackList.innerHTML = "";
+      bullets.forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      feedbackBox.classList.add("show");
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (locked) return;
+
+      const selected = getSelectedItems();
+      if (selected.length === 0) {
+        contextBox.textContent = "Pilih minimal satu item terlebih dahulu sebelum memeriksa jawaban.";
+        return;
+      }
+
+      locked = true;
+      const result = calculateScore();
+      correctCountEl.textContent = result.correct;
+      wrongCountEl.textContent = result.wrong;
+      finalScoreEl.textContent = `${result.score}/10`;
+      renderFeedback(result);
+      contextBox.textContent = "Soal sudah dinilai. Perhatikan pembahasan di panel kiri, lalu lanjut ke soal berikutnya bila sudah siap.";
+      UjianApp.saveScore(QUESTION_ID, result.score);
+      checkBtn.disabled = true;
+    });
+
+    retryBtn.addEventListener("click", () => {
+      locked = false;
+      selectableItems.forEach((item) => item.classList.remove("active"));
+      updateSelectedChip();
+      correctCountEl.textContent = "0";
+      wrongCountEl.textContent = "0";
+      finalScoreEl.textContent = "-";
+      feedbackBox.classList.remove("show");
+      feedbackTitle.className = "";
+      feedbackList.innerHTML = "";
+      feedbackSummary.textContent = "";
+      contextBox.textContent = "Nilai setiap prompt berdasarkan konteks, sumber, dan risiko akses yang mungkin diberikan.";
+      checkBtn.disabled = false;
+    });
+
+    const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
+    if (typeof previousScore === "number") {
+      finalScoreEl.textContent = `${previousScore}/10`;
+    }
+
+    console.assert(typeof UjianApp.saveScore === "function", "saveScore should exist");
+    console.assert(selectableItems.length === 6, "Soal 9 should contain 6 selectable items");
+  </script>
+</body>
+</html>
