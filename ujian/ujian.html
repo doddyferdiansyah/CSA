@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ujian Pemahaman Social Engineering</title>
+  <meta name="description" content="Uji pemahaman interaktif tentang social engineering dan bentuk serangannya." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../index.html">Kembali ke Landing Page</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
 
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Ujian Praktik Interaktif</div>
+          <h1 class="hero-title">Uji Pemahaman Social Engineering dan Serangannya</h1>
+          <p class="hero-desc">
+            Ujian ini dirancang untuk menguji pemahaman peserta melalui simulasi praktis, bukan sekadar soal teori. 
+            Setiap soal bernilai <strong>10 poin</strong>. Total skor maksimal adalah <strong>100</strong>, dan batas lulus untuk 
+            <strong>Certificate of Completion</strong> adalah <strong>70</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Petunjuk Ujian</h2>
+          <p>
+            Kerjakan seluruh soal berdasarkan penilaian yang paling aman dan paling tepat. 
+            Beberapa soal meminta Anda mengklik area tertentu, sementara soal lainnya meminta Anda memilih respons terbaik 
+            terhadap situasi yang tampak nyata di dunia kerja maupun ruang publik.
+          </p>
+        </div>
+
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Identitas Peserta</span>
+            <h3 style="margin-bottom: 8px;">Isi nama Anda terlebih dahulu</h3>
+            <p class="muted">
+              Nama peserta akan dipakai untuk menampilkan hasil akhir dan dapat digunakan untuk dokumen penyelesaian program.
+            </p>
+
+            <div class="info-box">
+              <label for="participantName" style="display:block; font-weight:700; margin-bottom:8px; color:var(--dark-gray);">
+                Nama Peserta
+              </label>
+              <input
+                id="participantName"
+                type="text"
+                placeholder="Tulis nama lengkap Anda"
+                style="width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:12px; background:var(--white); color:var(--dark-gray);"
+              />
+            </div>
+
+            <div class="context-box">
+              <strong>Aturan utama:</strong><br />
+              1. Selesaikan semua soal dari nomor 1 sampai 10.<br />
+              2. Nilai akan tersimpan otomatis di browser ini.<br />
+              3. Anda dapat kembali ke halaman ini kapan saja untuk melihat progres.<br />
+              4. Jika skor akhir mencapai batas lulus, Anda dapat melanjutkan ke halaman hasil.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip">10 soal</span>
+              <span class="status-chip">10 poin per soal</span>
+              <span class="status-chip">Batas lulus: 70</span>
+            </div>
+
+            <div class="footer-actions">
+              <a class="btn btn-primary" href="soal-1.html">Mulai dari Soal 1</a>
+              <button id="resetExamBtn" class="btn btn-secondary" type="button">Reset Ujian</button>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <span class="pill">Ringkasan Progres</span>
+            <h3 style="margin-bottom: 8px;">Status Ujian Anda</h3>
+            <p class="muted">
+              Statistik ini akan diperbarui otomatis saat Anda menyelesaikan soal.
+            </p>
+
+            <div class="status-bar" style="margin-top:16px;">
+              <span class="status-chip">Total skor: <strong id="statTotalScore">0/100</strong></span>
+              <span class="status-chip">Selesai: <strong id="statCompleted">0/10</strong></span>
+              <span class="status-chip">Belum selesai: <strong id="statUnfinished">10</strong></span>
+              <span class="status-chip">Status: <strong id="statPassStatus">Belum lulus</strong></span>
+            </div>
+
+            <div class="note-box">
+              <strong>Catatan:</strong><br />
+              <strong>Certificate of Attendance</strong> dapat diberikan kepada peserta training sesuai kebijakan penyelenggara.<br />
+              <strong>Certificate of Completion</strong> diberikan kepada peserta yang menyelesaikan ujian dan memenuhi batas skor minimum.
+            </div>
+
+            <div class="footer-actions">
+              <a class="btn btn-secondary" href="hasil.html">Lihat Halaman Hasil</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Daftar Soal Ujian</h2>
+          <p>
+            Klik salah satu card untuk membuka soal. Anda boleh mengerjakan secara berurutan atau melanjutkan soal yang belum selesai.
+          </p>
+        </div>
+
+        <div id="examCards" class="exam-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Ujian Pemahaman Social Engineering
+    </div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    UjianApp.bindParticipantName("participantName");
+
+    UjianApp.renderDashboardStats({
+      totalScoreId: "statTotalScore",
+      completedCountId: "statCompleted",
+      unfinishedCountId: "statUnfinished",
+      passStatusId: "statPassStatus"
+    });
+
+    UjianApp.renderExamCards("examCards");
+
+    UjianApp.bindResetButton("resetExamBtn", {
+      confirmMessage: "Yakin ingin menghapus semua progres ujian dan mengulang dari awal?",
+      onAfterReset: "reload"
+    });
+  </script>
+</body>
+</html>
