@@ -39,6 +39,7 @@
       font-weight: 800;
       color: var(--dark-gray);
       margin-bottom: 14px;
+      padding-right: 180px;
     }
 
     .email-head {
@@ -58,8 +59,9 @@
       white-space: pre-line;
       color: var(--dark-gray);
       font-size: 0.96rem;
-      line-height: 1.7;
+      line-height: 1.75;
       position: relative;
+      padding-right: 10px;
     }
 
     .fake-link {
@@ -82,6 +84,28 @@
       font-size: 0.78rem;
       color: var(--mid-gray);
       box-shadow: var(--shadow-soft);
+    }
+
+    .hotspot {
+      position: absolute;
+      border: 2px dashed transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: transparent;
+      appearance: none;
+      -webkit-appearance: none;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      outline: none;
+      color: transparent;
+      font-size: 0;
+    }
+
+    .hotspot:hover {
+      border-color: rgba(77, 163, 255, 0.55);
+      background: rgba(77, 163, 255, 0.08);
     }
 
     .hotspot.correct.active {
@@ -119,6 +143,12 @@
     .mini-stat span {
       color: var(--mid-gray);
       font-size: 0.88rem;
+    }
+
+    @media (max-width: 1100px) {
+      .email-subject {
+        padding-right: 0;
+      }
     }
 
     @media (max-width: 900px) {
@@ -234,24 +264,18 @@ PT Santos Jaya Abadi
                 </div>
 
                 <!-- Correct hotspots -->
-                <button class="hotspot correct" data-flag="domain" type="button" aria-label="Hotspot domain pengirim"
-                  style="top: 82px; left: 195px; width: 255px; height: 28px;"></button>
+                <button class="hotspot correct" data-flag="domain" type="button" aria-label="Hotspot domain pengirim" style="top: 82px; left: 210px; width: 248px; height: 26px;"></button>
 
-                <button class="hotspot correct" data-flag="link" type="button" aria-label="Hotspot tautan eksternal"
-                  style="top: 260px; left: 22px; width: 360px; height: 34px;"></button>
+                <button class="hotspot correct" data-flag="link" type="button" aria-label="Hotspot tautan eksternal" style="top: 255px; left: 18px; width: 410px; height: 38px;"></button>
 
-                <button class="hotspot correct" data-flag="urgency" type="button" aria-label="Hotspot tekanan waktu"
-                  style="top: 214px; left: 370px; width: 170px; height: 26px;"></button>
+                <button class="hotspot correct" data-flag="urgency" type="button" aria-label="Hotspot tekanan waktu" style="top: 212px; left: 390px; width: 165px; height: 28px;"></button>
 
                 <!-- Wrong / decoy hotspots -->
-                <button class="hotspot wrong" data-flag="greeting" type="button" aria-label="Hotspot salam pembuka"
-                  style="top: 158px; left: 20px; width: 138px; height: 24px;"></button>
+                <button class="hotspot wrong" data-flag="greeting" type="button" aria-label="Hotspot salam pembuka" style="top: 155px; left: 18px; width: 145px; height: 28px;"></button>
 
-                <button class="hotspot wrong" data-flag="subject" type="button" aria-label="Hotspot subject email"
-                  style="top: 22px; left: 18px; width: 355px; height: 28px;"></button>
+                <button class="hotspot wrong" data-flag="subject" type="button" aria-label="Hotspot subject email" style="top: 18px; left: 18px; width: 330px; height: 28px;"></button>
 
-                <button class="hotspot wrong" data-flag="toall" type="button" aria-label="Hotspot penerima email"
-                  style="top: 110px; left: 72px; width: 250px; height: 24px;"></button>
+                <button class="hotspot wrong" data-flag="toall" type="button" aria-label="Hotspot penerima email" style="top: 108px; left: 62px; width: 240px; height: 24px;"></button>
               </div>
             </div>
 
@@ -288,7 +312,7 @@ PT Santos Jaya Abadi
     let locked = false;
 
     function getSelectedHotspots() {
-      return hotspots.filter(h => h.classList.contains('active'));
+      return hotspots.filter((h) => h.classList.contains('active'));
     }
 
     function updateSelectedChip() {
@@ -303,7 +327,7 @@ PT Santos Jaya Abadi
         const isActive = hotspot.classList.contains('active');
 
         if (!isActive && currentSelected.length >= MAX_SELECTION) {
-          contextBox.textContent = 'Anda hanya boleh memilih 3 area. Hapus salah satu pilihan jika ingin mengganti.';
+          contextBox.textContent = 'Anda hanya boleh memilih 3 area. Klik lagi salah satu pilihan jika ingin mengganti.';
           return;
         }
 
@@ -315,8 +339,8 @@ PT Santos Jaya Abadi
 
     function scoreSelection() {
       const selected = getSelectedHotspots();
-      const correct = selected.filter(h => h.classList.contains('correct')).length;
-      const wrong = selected.filter(h => h.classList.contains('wrong')).length;
+      const correct = selected.filter((h) => h.classList.contains('correct')).length;
+      const wrong = selected.filter((h) => h.classList.contains('wrong')).length;
       let score = 0;
 
       if (correct === 3 && wrong === 0) {
@@ -408,7 +432,6 @@ PT Santos Jaya Abadi
       checkBtn.disabled = false;
     });
 
-    // Restore score info if already answered before
     const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
     if (typeof previousScore === 'number') {
       finalScoreEl.textContent = `${previousScore}/10`;
@@ -419,4 +442,3 @@ PT Santos Jaya Abadi
   </script>
 </body>
 </html>
-
