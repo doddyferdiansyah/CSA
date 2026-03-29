@@ -1,1 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soal 10 — Pesan Doxing di HP</title>
+  <meta name="description" content="Soal 10 ujian social engineering: pilih respons paling aman terhadap pesan doxing dari nomor tak dikenal." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .phone-wrap {
+      display: grid;
+      justify-content: center;
+    }
 
+    .phone-stage {
+      width: min(100%, 400px);
+      border: 1px solid rgba(31, 41, 55, 0.12);
+      border-radius: 30px;
+      background: #111827;
+      padding: 10px;
+      box-shadow: var(--shadow);
+      margin: 0 auto;
+    }
+
+    .phone-body {
+      background: #f8fafc;
+      border-radius: 24px;
+      overflow: hidden;
+      min-height: 660px;
+    }
+
+    .phone-topbar {
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: var(--mid-gray);
+      background: #ffffff;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chat-header {
+      padding: 14px 16px;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      display: grid;
+      gap: 4px;
+    }
+
+    .chat-header-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #b91c1c;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(185, 28, 28, 0.14);
+    }
+
+    .chat-contact {
+      display: grid;
+      gap: 3px;
+    }
+
+    .chat-contact-name {
+      font-weight: 800;
+      color: var(--dark-gray);
+      line-height: 1.2;
+    }
+
+    .chat-contact-meta {
+      font-size: 0.85rem;
+      color: var(--mid-gray);
+      line-height: 1.4;
+    }
+
+    .chat-thread {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      background: linear-gradient(180deg, rgba(248,250,252,1) 0%, rgba(255,255,255,1) 100%);
+    }
+
+    .day-separator {
+      justify-self: center;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 999px;
+      padding: 6px 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .chat-bubble {
+      max-width: 86%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      font-size: 0.93rem;
+      line-height: 1.65;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .chat-bubble.incoming {
+      background: #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--dark-gray);
+      justify-self: start;
+    }
+
+    .chat-bubble.outgoing {
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.18);
+      color: var(--dark-gray);
+      justify-self: end;
+    }
+
+    .chat-time {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--light-gray);
+      text-align: right;
+    }
+
+    .danger-bubble {
+      border-left: 4px solid rgba(185, 28, 28, 0.28);
+      background: linear-gradient(180deg, #ffffff 0%, #fff8f8 100%);
+    }
+
+    .evidence-box {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 14px;
+      background: #ffffff;
+      padding: 12px;
+      font-size: 0.88rem;
+      color: var(--mid-gray);
+      line-height: 1.6;
+    }
+
+    .helper-label {
+      display: inline-flex;
+      justify-self: end;
+      margin-bottom: 8px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(77, 163, 255, 0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .decision-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .decision-btn {
+      text-align: left;
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 16px;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      line-height: 1.5;
+      font-size: 0.93rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .decision-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77, 163, 255, 0.35);
+      background: #fbfdff;
+    }
+
+    .decision-btn.selected {
+      border-color: rgba(77, 163, 255, 0.5);
+      background: rgba(77, 163, 255, 0.10);
+    }
+
+    .decision-btn strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.96rem;
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .attempt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Soal 10 · Pilih Respons</div>
+          <h1 class="hero-title">Pesan Ancaman dan Doxing di HP</h1>
+          <p class="hero-desc">
+            Perhatikan situasi berikut dengan saksama. Tentukan satu respons yang menurut Anda paling tepat untuk diambil.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Petunjuk</span>
+            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <p class="muted">
+              Pilih satu respons yang menurut Anda paling tepat. Setelah itu klik tombol <strong>Cek Jawaban</strong>.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Pertimbangkan risiko, emosi, dan langkah yang paling aman sebelum menentukan pilihan.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip">Target: 1 keputusan</span>
+              <span class="status-chip" id="selectedChip">Terpilih: 0</span>
+              <span class="status-chip">Nilai maksimal: 10</span>
+            </div>
+
+            <div class="attempt-grid">
+              <div class="mini-stat">
+                <strong id="decisionStatus">-</strong>
+                <span>Status jawaban</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="decisionType">-</strong>
+                <span>Kategori keputusan</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="finalScore">-</strong>
+                <span>Skor soal</span>
+              </div>
+            </div>
+
+            <div class="decision-grid" id="decisionGrid">
+              <button class="decision-btn" type="button" data-choice="A">
+                <strong>A. Balas dulu untuk meminta penjelasan</strong>
+                Coba ajak bicara agar situasinya cepat jelas dan lawan bicara berhenti mengancam.
+              </button>
+
+              <button class="decision-btn" type="button" data-choice="B">
+                <strong>B. Ikuti instruksinya agar masalah cepat selesai</strong>
+                Prioritaskan meredakan situasi secepat mungkin agar data tidak disebarkan.
+              </button>
+
+              <button class="decision-btn" type="button" data-choice="C">
+                <strong>C. Simpan bukti, jangan terpancing, dan laporkan</strong>
+                Dokumentasikan pesan, batasi interaksi, lalu eskalasi ke pihak yang tepat.
+              </button>
+
+              <button class="decision-btn" type="button" data-choice="D">
+                <strong>D. Sebarkan ke grup teman agar ramai dibahas</strong>
+                Minta pendapat banyak orang lebih dulu sebelum memutuskan langkah berikutnya.
+              </button>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackSummary"></p>
+              <ul id="feedbackList"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-primary" type="button" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" type="button" id="retryBtn">Ulangi Soal 10</button>
+              <a class="btn btn-secondary" href="hasil.html">Lihat Hasil Akhir</a>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="phone-wrap">
+              <div class="phone-stage">
+                <div class="phone-body">
+                  <div class="phone-topbar">
+                    <span>19:26</span>
+                    <span>4G · 61%</span>
+                  </div>
+
+                  <div class="chat-header">
+                    <div class="chat-header-top">
+                      <div class="avatar">?</div>
+                      <div class="chat-contact">
+                        <div class="chat-contact-name">+62 857-8120-4419</div>
+                        <div class="chat-contact-meta">Nomor tidak tersimpan</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="chat-thread">
+                    <div class="helper-label">Tentukan satu respons yang menurut Anda paling tepat</div>
+
+                    <div class="day-separator">Hari ini</div>
+
+                    <div class="chat-bubble incoming danger-bubble">
+                      Kami tahu data kamu. Alamat rumah, kantor, dan beberapa kontak dekatmu sudah ada di tangan kami.
+                      <span class="chat-time">19.18</span>
+                    </div>
+
+                    <div class="chat-bubble incoming danger-bubble">
+                      Jangan sok aman. Kalau kamu tidak ikuti instruksi kami, semua data ini akan kami sebar malam ini.
+                      <span class="chat-time">19.19</span>
+                    </div>
+
+                    <div class="chat-bubble incoming danger-bubble">
+                      Jangan blokir nomor ini. Jangan lapor siapa-siapa. Ikuti instruksi berikut dan kirim balasan sekarang.
+                      <span class="chat-time">19.20</span>
+                    </div>
+
+                    <div class="evidence-box">
+                      <strong style="display:block; margin-bottom:6px; color:var(--dark-gray);">Konteks situasi</strong>
+                      Anda menerima pesan ini di luar jam kerja. Anda tidak mengenal nomor tersebut, dan isi pesannya mencoba membuat Anda panik serta segera mengikuti instruksi.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box">
+              Tentukan pilihan berdasarkan penilaian Anda terhadap tekanan, risiko, dan langkah yang paling aman untuk dilakukan.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Soal 10 Ujian Social Engineering</div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const QUESTION_ID = "soal-10";
+    const decisionButtons = Array.from(document.querySelectorAll(".decision-btn"));
+    const selectedChip = document.getElementById("selectedChip");
+    const contextBox = document.getElementById("contextBox");
+    const decisionStatusEl = document.getElementById("decisionStatus");
+    const decisionTypeEl = document.getElementById("decisionType");
+    const finalScoreEl = document.getElementById("finalScore");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackSummary = document.getElementById("feedbackSummary");
+    const feedbackList = document.getElementById("feedbackList");
+    const checkBtn = document.getElementById("checkBtn");
+    const retryBtn = document.getElementById("retryBtn");
+
+    let selectedChoice = null;
+    let locked = false;
+
+    const scoringMap = {
+      A: { score: 0, type: "Berisiko" },
+      B: { score: 0, type: "Sangat berisiko" },
+      C: { score: 10, type: "Paling tepat" },
+      D: { score: 3, type: "Kurang tepat" }
+    };
+
+    function updateSelectedChip() {
+      selectedChip.textContent = `Terpilih: ${selectedChoice ? 1 : 0}`;
+    }
+
+    decisionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (locked) return;
+
+        decisionButtons.forEach((btn) => btn.classList.remove("selected"));
+        button.classList.add("selected");
+        selectedChoice = button.dataset.choice;
+        updateSelectedChip();
+        contextBox.textContent = "Pastikan pilihan Anda sudah sesuai sebelum memeriksa jawaban.";
+      });
+    });
+
+    function renderFeedback(choice) {
+      const result = scoringMap[choice];
+      const bullets = [];
+
+      if (choice === "C") {
+        feedbackTitle.textContent = "Keputusan Anda paling tepat";
+        feedbackTitle.className = "success-text";
+        feedbackSummary.textContent = "Dalam situasi ancaman seperti ini, menjaga ketenangan, menyimpan bukti, dan melapor adalah langkah yang paling aman.";
+        bullets.push("Pesan seperti ini dirancang untuk memancing panik agar korban bertindak impulsif.");
+        bullets.push("Dokumentasi bukti seperti screenshot, nomor pengirim, waktu, dan isi pesan penting untuk pelaporan dan tindak lanjut.");
+        bullets.push("Membatasi interaksi, tidak terpancing, dan melapor ke pihak yang tepat jauh lebih aman daripada mengikuti tekanan pelaku.");
+      } else if (choice === "D") {
+        feedbackTitle.textContent = "Keputusan Anda masih kurang tepat";
+        feedbackTitle.className = "warning-text";
+        feedbackSummary.textContent = "Mencari pendapat orang lain bisa terasa membantu, tetapi menyebarkan isi ancaman ke grup justru dapat memperbesar eksposur dan membuat situasi makin tidak terkendali.";
+        bullets.push("Pesan ancaman seperti ini sebaiknya tidak dijadikan konsumsi luas sebelum ada penanganan yang tepat.");
+        bullets.push("Langkah yang lebih aman adalah menyimpan bukti, membatasi interaksi, dan melapor ke pihak yang relevan.");
+        bullets.push("Respons yang terlalu terbuka dapat memperluas dampak psikologis dan memperumit penanganan.");
+      } else if (choice === "A") {
+        feedbackTitle.textContent = "Keputusan Anda berisiko";
+        feedbackTitle.className = "danger-text";
+        feedbackSummary.textContent = "Membalas ancaman untuk meminta penjelasan justru membuka ruang interaksi lebih lanjut dan memberi pelaku sinyal bahwa Anda terpengaruh.";
+        bullets.push("Pelaku sering memanfaatkan respons awal korban untuk meningkatkan tekanan atau memancing informasi tambahan.");
+        bullets.push("Dalam situasi seperti ini, interaksi spontan bukan langkah yang paling aman.");
+        bullets.push("Lebih baik dokumentasikan pesan, jangan terpancing, dan laporkan melalui jalur yang sesuai.");
+      } else {
+        feedbackTitle.textContent = "Keputusan Anda sangat berisiko";
+        feedbackTitle.className = "danger-text";
+        feedbackSummary.textContent = "Mengikuti instruksi pelaku karena panik justru memperbesar peluang manipulasi dan tidak menjamin ancaman benar-benar berhenti.";
+        bullets.push("Teknik ancaman seperti ini sengaja dibuat agar korban merasa harus segera patuh.");
+        bullets.push("Menuruti instruksi pelaku bukan strategi mitigasi yang aman.");
+        bullets.push("Langkah yang lebih tepat adalah menyimpan bukti, menahan respons impulsif, dan melapor ke pihak yang tepat.");
+      }
+
+      bullets.push("Inti dari soal ini adalah memilih respons yang tenang, aman, dan tidak memperburuk situasi.");
+      feedbackList.innerHTML = "";
+      bullets.forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      feedbackBox.classList.add("show");
+      decisionStatusEl.textContent = choice === "C" ? "Tepat" : (choice === "D" ? "Sebagian tepat" : "Kurang tepat");
+      decisionTypeEl.textContent = result.type;
+      finalScoreEl.textContent = `${result.score}/10`;
+      UjianApp.saveScore(QUESTION_ID, result.score);
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (locked) return;
+
+      if (!selectedChoice) {
+        contextBox.textContent = "Pilih satu respons terlebih dahulu sebelum memeriksa jawaban.";
+        return;
+      }
+
+      locked = true;
+      renderFeedback(selectedChoice);
+      contextBox.textContent = "Soal sudah dinilai. Perhatikan pembahasan di panel kiri, lalu lanjutkan ke halaman hasil akhir bila sudah siap.";
+      checkBtn.disabled = true;
+    });
+
+    retryBtn.addEventListener("click", () => {
+      locked = false;
+      selectedChoice = null;
+      decisionButtons.forEach((btn) => btn.classList.remove("selected"));
+      updateSelectedChip();
+      decisionStatusEl.textContent = "-";
+      decisionTypeEl.textContent = "-";
+      finalScoreEl.textContent = "-";
+      feedbackBox.classList.remove("show");
+      feedbackTitle.className = "";
+      feedbackList.innerHTML = "";
+      feedbackSummary.textContent = "";
+      contextBox.textContent = "Pertimbangkan risiko, emosi, dan langkah yang paling aman sebelum menentukan pilihan.";
+      checkBtn.disabled = false;
+    });
+
+    const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
+    if (typeof previousScore === "number") {
+      finalScoreEl.textContent = `${previousScore}/10`;
+    }
+
+    console.assert(typeof UjianApp.saveScore === "function", "saveScore should exist");
+    console.assert(decisionButtons.length === 4, "Soal 10 should contain 4 decision options");
+  </script>
+</body>
+</html>
