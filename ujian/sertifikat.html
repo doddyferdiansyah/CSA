@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generator Sertifikat</title>
+  <meta name="description" content="Generator sertifikat attendance dan completion." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    :root {
+      --cert-blue: #1d4ed8;
+      --cert-blue-soft: #dbeafe;
+      --cert-gold: #c89b3c;
+      --cert-gold-soft: #f6e7bf;
+      --cert-ink: #0f172a;
+      --cert-muted: #475569;
+    }
+
+    body {
+      background: #eef4fb;
+      margin: 0;
+      color: var(--cert-ink);
+    }
+
+    .cert-page-wrap {
+      min-height: 100vh;
+      padding: 28px;
+      display: grid;
+      place-items: center;
+    }
+
+    .cert-controls {
+      width: min(100%, 1200px);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .certificate-sheet {
+      width: 1123px;
+      min-height: 794px;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 44px rgba(15, 23, 42, 0.16);
+      border-radius: 18px;
+    }
+
+    .certificate-sheet::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 2px solid rgba(29, 78, 216, 0.16);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .certificate-sheet::after {
+      content: "";
+      position: absolute;
+      inset: 34px;
+      border: 1px solid rgba(200, 155, 60, 0.28);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    .cert-top-band {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 110px;
+      background: linear-gradient(90deg, #0f172a 0%, #1d4ed8 55%, #60a5fa 100%);
+    }
+
+    .cert-bottom-band {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 28px;
+      background: linear-gradient(90deg, #0f172a 0%, #1d4ed8 55%, #60a5fa 100%);
+    }
+
+    .cert-corner {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(219,234,254,0.8) 0%, rgba(219,234,254,0) 70%);
+      pointer-events: none;
+    }
+
+    .cert-corner.top-right {
+      top: 70px;
+      right: 40px;
+    }
+
+    .cert-corner.bottom-left {
+      bottom: 40px;
+      left: 60px;
+    }
+
+    .cert-content {
+      position: relative;
+      z-index: 2;
+      padding: 140px 90px 80px;
+      min-height: 794px;
+      display: grid;
+      grid-template-rows: auto auto auto 1fr auto;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .cert-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+
+    .cert-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #60a5fa 100%);
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1.35rem;
+      box-shadow: 0 10px 20px rgba(29, 78, 216, 0.22);
+    }
+
+    .cert-brand-text {
+      text-align: left;
+    }
+
+    .cert-brand-text strong {
+      display: block;
+      font-size: 1.02rem;
+      color: var(--cert-ink);
+      line-height: 1.2;
+    }
+
+    .cert-brand-text span {
+      display: block;
+      color: var(--cert-muted);
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+
+    .cert-label {
+      display: inline-flex;
+      justify-self: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--cert-blue-soft);
+      color: var(--cert-blue);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .cert-title {
+      font-size: 3rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      color: var(--cert-ink);
+      margin-top: 6px;
+    }
+
+    .cert-subtitle {
+      color: var(--cert-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 840px;
+      justify-self: center;
+    }
+
+    .cert-recipient-block {
+      margin-top: 8px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .cert-recipient-label {
+      color: var(--cert-muted);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .cert-recipient-name {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--cert-ink);
+      line-height: 1.15;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(29, 78, 216, 0.18);
+      width: fit-content;
+      justify-self: center;
+      min-width: 420px;
+    }
+
+    .cert-description {
+      color: var(--cert-ink);
+      font-size: 1.04rem;
+      line-height: 1.9;
+      max-width: 900px;
+      justify-self: center;
+    }
+
+    .cert-highlight {
+      margin-top: 8px;
+      display: inline-flex;
+      justify-self: center;
+      padding: 12px 18px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff8eb 0%, #fffdf6 100%);
+      border: 1px solid rgba(200, 155, 60, 0.28);
+      color: #6b4e16;
+      font-weight: 700;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .cert-meta-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      text-align: left;
+    }
+
+    .cert-meta-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 14px 16px;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+    }
+
+    .cert-meta-card strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--cert-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+    }
+
+    .cert-meta-card span {
+      display: block;
+      color: var(--cert-ink);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .cert-footer {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .cert-signature {
+      text-align: left;
+    }
+
+    .cert-sign-line {
+      width: 260px;
+      border-top: 2px solid rgba(15, 23, 42, 0.2);
+      margin-bottom: 10px;
+    }
+
+    .cert-signature strong {
+      display: block;
+      color: var(--cert-ink);
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .cert-signature span {
+      color: var(--cert-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .cert-id-box {
+      text-align: right;
+      color: var(--cert-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .cert-id-box strong {
+      color: var(--cert-ink);
+    }
+
+    .not-eligible {
+      width: min(100%, 980px);
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 22px;
+      background: #ffffff;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      color: var(--mid-gray);
+      line-height: 1.75;
+    }
+
+    .not-eligible h2 {
+      margin-bottom: 10px;
+      color: var(--dark-gray);
+    }
+
+    .print-only {
+      display: none;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .cert-page-wrap {
+        padding: 0;
+      }
+
+      .cert-controls,
+      .not-print {
+        display: none !important;
+      }
+
+      .print-only {
+        display: block;
+      }
+
+      .certificate-sheet {
+        width: 100%;
+        min-height: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .certificate-sheet {
+        width: 100%;
+        min-height: auto;
+      }
+
+      .cert-content {
+        padding: 140px 56px 72px;
+      }
+
+      .cert-meta-grid,
+      .cert-footer {
+        grid-template-columns: 1fr;
+      }
+
+      .cert-recipient-name {
+        min-width: auto;
+        width: 100%;
+      }
+
+      .cert-signature,
+      .cert-id-box {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cert-page-wrap">
+    <div class="cert-controls not-print">
+      <a href="hasil.html" class="btn btn-secondary">Kembali ke Hasil</a>
+      <button class="btn btn-secondary" type="button" onclick="window.print()">Unduh / Print PDF</button>
+    </div>
+
+    <div id="notEligibleBox" class="not-eligible" style="display:none;">
+      <h2>Sertifikat belum dapat dibuat</h2>
+      <p id="notEligibleText">
+        Data sertifikat belum memenuhi syarat.
+      </p>
+      <div class="footer-actions">
+        <a href="hasil.html" class="btn btn-secondary">Kembali ke Hasil</a>
+        <a href="ujian.html" class="btn btn-primary">Kembali ke Ujian</a>
+      </div>
+    </div>
+
+    <div id="certificateSheet" class="certificate-sheet">
+      <div class="cert-top-band"></div>
+      <div class="cert-bottom-band"></div>
+      <div class="cert-corner top-right"></div>
+      <div class="cert-corner bottom-left"></div>
+
+      <div class="cert-content">
+        <div class="cert-brand">
+          <div class="cert-logo">DF</div>
+          <div class="cert-brand-text">
+            <strong>Doddy Ferdiansyah</strong>
+            <span>Training Program · Social Engineering Awareness</span>
+          </div>
+        </div>
+
+        <div id="certLabel" class="cert-label">Certificate</div>
+
+        <div>
+          <div id="certTitle" class="cert-title">Certificate of Attendance</div>
+          <div id="certSubtitle" class="cert-subtitle">
+            Sertifikat ini diberikan sebagai bukti keikutsertaan dalam program training awareness.
+          </div>
+        </div>
+
+        <div class="cert-recipient-block">
+          <div class="cert-recipient-label">Diberikan kepada</div>
+          <div id="certRecipientName" class="cert-recipient-name">Peserta</div>
+          <div id="certDescription" class="cert-description">
+            Atas partisipasi dalam program pelatihan dan pembelajaran mengenai social engineering awareness, pola serangan, dan kebiasaan aman di tempat kerja.
+          </div>
+          <div id="certHighlight" class="cert-highlight">
+            Program Training · Social Engineering Awareness
+          </div>
+        </div>
+
+        <div class="cert-meta-grid">
+          <div class="cert-meta-card">
+            <strong>Program</strong>
+            <span>Social Engineering Awareness untuk Karyawan</span>
+          </div>
+
+          <div class="cert-meta-card">
+            <strong>Tanggal</strong>
+            <span id="certDate">-</span>
+          </div>
+
+          <div class="cert-meta-card">
+            <strong id="metaLabel3">Status</strong>
+            <span id="certMeta3">-</span>
+          </div>
+        </div>
+
+        <div class="cert-footer">
+          <div class="cert-signature">
+            <div class="cert-sign-line"></div>
+            <strong>Doddy Ferdiansyah</strong>
+            <span>Penyelenggara / Pemateri</span>
+          </div>
+
+          <div class="cert-id-box">
+            <div><strong>ID Sertifikat:</strong> <span id="certId">-</span></div>
+            <div><strong>Jenis:</strong> <span id="certTypeText">-</span></div>
+            <div><strong>Catatan:</strong> Dokumen ini merupakan bukti partisipasi/penyelesaian program internal.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    function formatDate(dateInput) {
+      const date = dateInput ? new Date(dateInput) : new Date();
+      return new Intl.DateTimeFormat("id-ID", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function makeCertificateId(type, name, score) {
+      const cleanName = (name || "peserta")
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, "")
+        .slice(0, 8) || "PESERTA";
+
+      const today = new Date();
+      const y = today.getFullYear();
+      const m = String(today.getMonth() + 1).padStart(2, "0");
+      const d = String(today.getDate()).padStart(2, "0");
+      const s = String(score || 0).padStart(3, "0");
+      const t = type === "completion" ? "COMP" : "ATTD";
+      return `${t}-${cleanName}-${y}${m}${d}-${s}`;
+    }
+
+    const type = (getQueryParam("type") || "attendance").toLowerCase();
+    const summary = UjianApp.getSummary();
+    const participantName = UjianApp.getParticipantName() || "Peserta";
+    const state = UjianApp.getState();
+
+    const certificateSheet = document.getElementById("certificateSheet");
+    const notEligibleBox = document.getElementById("notEligibleBox");
+    const notEligibleText = document.getElementById("notEligibleText");
+
+    const certLabel = document.getElementById("certLabel");
+    const certTitle = document.getElementById("certTitle");
+    const certSubtitle = document.getElementById("certSubtitle");
+    const certRecipientName = document.getElementById("certRecipientName");
+    const certDescription = document.getElementById("certDescription");
+    const certHighlight = document.getElementById("certHighlight");
+    const certDate = document.getElementById("certDate");
+    const certMeta3 = document.getElementById("certMeta3");
+    const metaLabel3 = document.getElementById("metaLabel3");
+    const certId = document.getElementById("certId");
+    const certTypeText = document.getElementById("certTypeText");
+
+    certRecipientName.textContent = participantName;
+    certDate.textContent = formatDate(state.lastUpdated || new Date());
+
+    if (type === "completion") {
+      if (!summary.isPassed) {
+        certificateSheet.style.display = "none";
+        notEligibleBox.style.display = "block";
+        notEligibleText.textContent =
+          "Certificate of Completion hanya tersedia bagi peserta yang menyelesaikan ujian dan memenuhi batas nilai minimum. Silakan kembali ke halaman hasil atau lanjutkan ujian Anda.";
+      } else {
+        certLabel.textContent = "Completion";
+        certTitle.textContent = "Certificate of Completion";
+        certSubtitle.textContent =
+          "Sertifikat ini diberikan sebagai bukti bahwa peserta telah menyelesaikan program training dan uji pemahaman internal.";
+        certDescription.textContent =
+          "Atas keberhasilan menyelesaikan program pelatihan Social Engineering Awareness untuk Karyawan serta memenuhi ambang nilai minimum pada uji pemahaman internal.";
+        certHighlight.textContent =
+          `Skor akhir: ${summary.totalScore}/100 · Status: Lulus`;
+        metaLabel3.textContent = "Skor Akhir";
+        certMeta3.textContent = `${summary.totalScore}/100`;
+        certTypeText.textContent = "Certificate of Completion";
+        certId.textContent = makeCertificateId("completion", participantName, summary.totalScore);
+      }
+    } else {
+      certLabel.textContent = "Attendance";
+      certTitle.textContent = "Certificate of Attendance";
+      certSubtitle.textContent =
+        "Sertifikat ini diberikan sebagai bukti keikutsertaan dalam program training awareness.";
+      certDescription.textContent =
+        "Atas partisipasi dalam program pelatihan Social Engineering Awareness untuk Karyawan yang membahas faktor manusia, pola serangan, simulasi situasi, dan kebiasaan aman di tempat kerja.";
+      certHighlight.textContent =
+        "Partisipasi Program Training · Social Engineering Awareness";
+      metaLabel3.textContent = "Status";
+      certMeta3.textContent = "Peserta Training";
+      certTypeText.textContent = "Certificate of Attendance";
+      certId.textContent = makeCertificateId("attendance", participantName, summary.totalScore);
+    }
+
+    console.assert(typeof UjianApp.getSummary === "function", "getSummary should exist");
+    console.assert(typeof UjianApp.getParticipantName === "function", "getParticipantName should exist");
+  </script>
+</body>
+</html>
