@@ -363,30 +363,61 @@
       }
     }
 
-    @media (max-width: 1200px) {
+    @media print {
+      html, body {
+        width: 297mm;
+        height: 210mm;
+        background: #ffffff;
+      }
+    
+      body {
+        margin: 0;
+      }
+    
+      .page-wrap {
+        padding: 0;
+        min-height: auto;
+      }
+    
+      .top-actions {
+        display: none !important;
+      }
+    
       .sheet {
-        width: 100%;
-        height: auto;
-        min-height: 794px;
+        width: 297mm;
+        height: 210mm;
+        border-radius: 0;
+        box-shadow: none;
       }
-
+    
       .content {
-        padding: 128px 56px 70px;
+        padding: 128px 82px 70px !important;
       }
-
-      .meta-row,
+    
+      .meta-row {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+    
       .footer-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr !important;
       }
-
+    
       .recipient-name {
-        min-width: auto;
-        width: 100%;
+        min-width: 480px !important;
+        width: auto !important;
       }
-
-      .signature,
+    
+      .signature {
+        text-align: left !important;
+      }
+    
       .cert-id-box {
-        text-align: left;
+        text-align: right !important;
+      }
+    
+      .not-eligible {
+        box-shadow: none;
+        border-radius: 0;
       }
     }
   </style>
