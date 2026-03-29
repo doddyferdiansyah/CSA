@@ -1,1 +1,570 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soal 4 — Website Bank Palsu</title>
+  <meta name="description" content="Soal 4 ujian social engineering: klik URL palsu pada mockup website bank." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .browser-shell {
+      border: 1px solid rgba(31, 41, 55, 0.12);
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
 
+    .browser-top {
+      background: #f3f6fb;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #d1d5db;
+    }
+
+    .address-bar {
+      flex: 1;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .lock-icon {
+      font-size: 0.92rem;
+      color: var(--success);
+      flex-shrink: 0;
+    }
+
+    .url-text {
+      font-size: 0.92rem;
+      color: var(--dark-gray);
+      min-width: 0;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    .flag-inline {
+      display: inline;
+      border-radius: 8px;
+      padding: 1px 3px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px dashed transparent;
+    }
+
+    .flag-inline:hover {
+      border-color: rgba(77, 163, 255, 0.55);
+      background: rgba(77, 163, 255, 0.08);
+    }
+
+    .flag-inline.correct.active {
+      border-color: var(--success);
+      background: rgba(25, 135, 84, 0.14);
+    }
+
+    .flag-inline.wrong.active {
+      border-color: var(--danger);
+      background: rgba(220, 53, 69, 0.12);
+    }
+
+    .bank-site {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .bank-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      background: #ffffff;
+    }
+
+    .bank-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--dark-gray);
+      font-size: 1.05rem;
+    }
+
+    .bank-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #60a5fa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .bank-menu {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--mid-gray);
+      font-size: 0.92rem;
+    }
+
+    .bank-hero {
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .hero-copy h2 {
+      font-size: 1.8rem;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      color: var(--dark-gray);
+    }
+
+    .hero-copy p {
+      color: var(--mid-gray);
+      margin-bottom: 18px;
+      font-size: 0.96rem;
+    }
+
+    .hero-list {
+      display: grid;
+      gap: 10px;
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+    }
+
+    .hero-item {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 14px;
+      background: #ffffff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .login-panel {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 18px;
+      background: #ffffff;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .login-panel h3 {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      color: var(--dark-gray);
+    }
+
+    .login-panel p {
+      color: var(--mid-gray);
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+    }
+
+    .fake-field {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 12px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      color: var(--light-gray);
+      font-size: 0.92rem;
+      margin-bottom: 12px;
+    }
+
+    .fake-button {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 12px 14px;
+      font-size: 0.94rem;
+      margin-top: 4px;
+    }
+
+    .helper-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(77, 163, 255, 0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 980px) {
+      .bank-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .attempt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="hasil.html">Lihat Hasil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Soal 4 · Klik URL Palsu</div>
+          <h1 class="hero-title">Website Bank yang Terlihat Meyakinkan</h1>
+          <p class="hero-desc">
+            Perhatikan mockup website bank berikut. Tugas Anda adalah mengklik <strong>bagian URL</strong> yang menunjukkan bahwa halaman ini palsu. Hati-hati, tampilannya dibuat sangat meyakinkan agar korban fokus pada desain, bukan pada alamat situs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="layout">
+          <div class="panel-card">
+            <span class="pill">Petunjuk</span>
+            <h3 style="margin-bottom:8px;">Apa yang harus dilakukan?</h3>
+            <p class="muted">
+              Klik bagian URL yang paling menunjukkan bahwa website ini palsu. Setelah itu klik tombol <strong>Cek Jawaban</strong>.
+            </p>
+
+            <div class="context-box" id="contextBox">
+              Pada website palsu, tampilan halaman sering dibuat sangat rapi. Karena itu, perhatikan detail kecil pada alamat situs, bukan hanya desain halaman.
+            </div>
+
+            <div class="status-bar">
+              <span class="status-chip">Target: 1 red flag utama</span>
+              <span class="status-chip" id="selectedChip">Terpilih: 0</span>
+              <span class="status-chip">Nilai maksimal: 10</span>
+            </div>
+
+            <div class="attempt-grid">
+              <div class="mini-stat">
+                <strong id="correctCount">0</strong>
+                <span>Red flag benar</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="wrongCount">0</strong>
+                <span>Jebakan terklik</span>
+              </div>
+              <div class="mini-stat">
+                <strong id="finalScore">-</strong>
+                <span>Skor soal</span>
+              </div>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackSummary"></p>
+              <ul id="feedbackList"></ul>
+            </div>
+
+            <div class="footer-actions">
+              <button class="btn btn-primary" type="button" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" type="button" id="retryBtn">Ulangi Soal 4</button>
+              <a class="btn btn-secondary" href="soal-5.html">Lanjut ke Soal 5</a>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="helper-label">Klik bagian URL yang paling menunjukkan bahwa website ini palsu</div>
+
+            <div class="browser-shell">
+              <div class="browser-top">
+                <div class="browser-dots">
+                  <span class="browser-dot"></span>
+                  <span class="browser-dot"></span>
+                  <span class="browser-dot"></span>
+                </div>
+
+                <div class="address-bar">
+                  <span class="lock-icon">🔒</span>
+                  <div class="url-text">
+                    https://
+                    <span class="flag-inline correct" data-flag="url" role="button" tabindex="0" aria-label="URL typo domain">
+                      kilkabc.com
+                    </span>
+                    /login
+                  </div>
+                </div>
+              </div>
+
+              <div class="bank-site">
+                <div class="bank-nav">
+                  <div class="bank-brand">
+                    <div class="bank-logo">A</div>
+                    <div>Bank ABC Digital</div>
+                  </div>
+                  <div class="bank-menu">
+                    <span class="flag-inline wrong" data-flag="menu" role="button" tabindex="0" aria-label="Menu website">
+                      Personal
+                    </span>
+                    <span>Bisnis</span>
+                    <span>Bantuan</span>
+                    <span>Promo</span>
+                  </div>
+                </div>
+
+                <div class="bank-hero">
+                  <div class="hero-copy">
+                    <h2>Akses rekening Anda dengan cepat dan aman</h2>
+                    <p>
+                      Nikmati layanan perbankan digital untuk transfer, pembayaran, pembelian, dan pengelolaan keuangan harian Anda.
+                    </p>
+
+                    <div class="hero-list">
+                      <div class="hero-item">
+                        Login mudah dengan user ID dan password
+                      </div>
+                      <div class="hero-item">
+                        Riwayat transaksi real-time
+                      </div>
+                      <div class="hero-item">
+                        Perlindungan berlapis untuk setiap akun
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="login-panel">
+                    <h3>Login Internet Banking</h3>
+                    <p>
+                      Masukkan kredensial Anda untuk mengakses layanan perbankan digital.
+                    </p>
+
+                    <div class="fake-field">User ID</div>
+                    <div class="fake-field">Password</div>
+
+                    <button class="fake-button" type="button">Masuk</button>
+
+                    <p style="margin-top:12px; margin-bottom:0;">
+                      <span class="flag-inline wrong" data-flag="securecopy" role="button" tabindex="0" aria-label="Kalimat keamanan">
+                        Pastikan Anda menjaga kerahasiaan data login.
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box">
+              Catatan: pada website palsu, yang paling penting sering bukan tampilan halaman, tetapi detail kecil seperti domain yang ditukar hurufnya agar mirip dengan situs asli.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Soal 4 Ujian Social Engineering</div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const QUESTION_ID = "soal-4";
+    const MAX_SELECTION = 1;
+    const hotspots = Array.from(document.querySelectorAll(".flag-inline"));
+    const selectedChip = document.getElementById("selectedChip");
+    const correctCountEl = document.getElementById("correctCount");
+    const wrongCountEl = document.getElementById("wrongCount");
+    const finalScoreEl = document.getElementById("finalScore");
+    const contextBox = document.getElementById("contextBox");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackSummary = document.getElementById("feedbackSummary");
+    const feedbackList = document.getElementById("feedbackList");
+    const checkBtn = document.getElementById("checkBtn");
+    const retryBtn = document.getElementById("retryBtn");
+
+    let locked = false;
+
+    function getSelectedHotspots() {
+      return hotspots.filter((h) => h.classList.contains("active"));
+    }
+
+    function updateSelectedChip() {
+      selectedChip.textContent = `Terpilih: ${getSelectedHotspots().length}`;
+    }
+
+    hotspots.forEach((hotspot) => {
+      hotspot.addEventListener("click", () => {
+        if (locked) return;
+
+        const currentSelected = getSelectedHotspots();
+        const isActive = hotspot.classList.contains("active");
+
+        if (!isActive && currentSelected.length >= MAX_SELECTION) {
+          currentSelected.forEach((item) => item.classList.remove("active"));
+        }
+
+        hotspot.classList.toggle("active");
+        updateSelectedChip();
+        contextBox.textContent = "Pilih satu bagian URL yang paling menunjukkan bahwa website ini palsu, lalu klik tombol Cek Jawaban.";
+      });
+
+      hotspot.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          hotspot.click();
+        }
+      });
+    });
+
+    function scoreSelection() {
+      const selected = getSelectedHotspots();
+      const correct = selected.filter((h) => h.classList.contains("correct")).length;
+      const wrong = selected.filter((h) => h.classList.contains("wrong")).length;
+
+      let score = 0;
+      if (correct === 1 && wrong === 0) {
+        score = 10;
+      } else if (wrong === 1) {
+        score = 0;
+      }
+
+      return { correct, wrong, score };
+    }
+
+    function renderFeedback(result) {
+      const bullets = [];
+
+      if (result.score === 10) {
+        feedbackTitle.textContent = "Analisis Anda sangat tepat";
+        feedbackTitle.className = "success-text";
+        feedbackSummary.textContent = "Anda berhasil menemukan indikator utama bahwa halaman ini palsu, yaitu typo pada domain.";
+      } else {
+        feedbackTitle.textContent = "Analisis Anda masih perlu diperkuat";
+        feedbackTitle.className = "danger-text";
+        feedbackSummary.textContent = "Pada halaman phishing, pelaku sering mengandalkan desain yang rapi agar korban tidak memeriksa detail URL secara teliti.";
+      }
+
+      bullets.push("Indikator utama pada soal ini adalah domain palsu: “kilkabc.com” terlihat mirip dengan “klikabc.com”, tetapi susunan hurufnya berubah.");
+      bullets.push("Ini adalah teknik yang umum dipakai untuk mengecoh korban agar merasa sedang berada di situs yang benar.");
+      bullets.push("Elemen seperti tampilan logo, menu, dan pesan keamanan bisa dibuat terlihat sangat meyakinkan, sehingga bukan indikator utama bila berdiri sendiri.");
+
+      if (result.wrong > 0) {
+        bullets.push("Pilihan Anda terkena jebakan: tampilan halaman bisa terlihat profesional, tetapi bukan itu inti risikonya. Fokus utama seharusnya ada pada URL.");
+      } else {
+        bullets.push("Ini menunjukkan Anda tidak hanya melihat desain halaman, tetapi juga memeriksa sumber dan alamat situs secara kritis.");
+      }
+
+      feedbackList.innerHTML = "";
+      bullets.forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        feedbackList.appendChild(li);
+      });
+
+      feedbackBox.classList.add("show");
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (locked) return;
+
+      const selected = getSelectedHotspots();
+      if (selected.length !== MAX_SELECTION) {
+        contextBox.textContent = "Pilih tepat 1 area terlebih dahulu sebelum memeriksa jawaban.";
+        return;
+      }
+
+      locked = true;
+      const result = scoreSelection();
+      correctCountEl.textContent = result.correct;
+      wrongCountEl.textContent = result.wrong;
+      finalScoreEl.textContent = `${result.score}/10`;
+      renderFeedback(result);
+      contextBox.textContent = "Soal sudah dinilai. Perhatikan pembahasan di panel kiri, lalu lanjut ke soal berikutnya bila sudah siap.";
+      UjianApp.saveScore(QUESTION_ID, result.score);
+      checkBtn.disabled = true;
+    });
+
+    retryBtn.addEventListener("click", () => {
+      locked = false;
+      hotspots.forEach((h) => h.classList.remove("active"));
+      updateSelectedChip();
+      correctCountEl.textContent = "0";
+      wrongCountEl.textContent = "0";
+      finalScoreEl.textContent = "-";
+      feedbackBox.classList.remove("show");
+      feedbackTitle.className = "";
+      feedbackList.innerHTML = "";
+      feedbackSummary.textContent = "";
+      contextBox.textContent = "Pilih satu bagian URL yang paling menunjukkan bahwa website ini palsu, lalu klik tombol Cek Jawaban.";
+      checkBtn.disabled = false;
+    });
+
+    const previousScore = UjianApp.getQuestionScore(QUESTION_ID);
+    if (typeof previousScore === "number") {
+      finalScoreEl.textContent = `${previousScore}/10`;
+    }
+
+    console.assert(typeof UjianApp.saveScore === "function", "saveScore should exist");
+    console.assert(hotspots.length === 3, "Soal 4 should contain 3 clickable areas");
+  </script>
+</body>
+</html>
