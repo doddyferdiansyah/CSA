@@ -1,1 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasil Ujian Social Engineering</title>
+  <meta name="description" content="Halaman hasil ujian pemahaman social engineering." />
+  <link rel="stylesheet" href="../assets/ujian.css" />
+  <style>
+    .result-hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+      align-items: stretch;
+    }
 
+    .score-panel {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 24px;
+      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .score-big {
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--dark-gray);
+      letter-spacing: -0.03em;
+    }
+
+    .score-caption {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .summary-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.88);
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 1.05rem;
+      color: var(--dark-gray);
+      margin-bottom: 4px;
+    }
+
+    .summary-card span {
+      color: var(--mid-gray);
+      font-size: 0.88rem;
+    }
+
+    .result-panel {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 24px;
+      background: #ffffff;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .result-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--dark-gray);
+      line-height: 1.3;
+    }
+
+    .result-subtext {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .result-note {
+      border: 1px solid rgba(77, 163, 255, 0.16);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 14px 16px;
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .score-table-wrap {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 22px;
+      background: #ffffff;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .score-table-head {
+      padding: 16px 18px;
+      background: #f8fafc;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .score-table-head h3 {
+      margin-bottom: 4px;
+      font-size: 1.02rem;
+      color: var(--dark-gray);
+    }
+
+    .score-table-head p {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+    }
+
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .score-table th,
+    .score-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+      font-size: 0.92rem;
+      vertical-align: top;
+    }
+
+    .score-table th {
+      background: #fbfdff;
+      color: var(--mid-gray);
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    .score-table td {
+      color: var(--dark-gray);
+    }
+
+    .score-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .score-pill {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      background: #fbfdff;
+      color: var(--mid-gray);
+    }
+
+    .score-pill.good {
+      color: var(--success);
+      background: rgba(25, 135, 84, 0.10);
+      border-color: rgba(25, 135, 84, 0.18);
+    }
+
+    .score-pill.mid {
+      color: var(--warning);
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.18);
+    }
+
+    .score-pill.low {
+      color: var(--danger);
+      background: rgba(220, 53, 69, 0.10);
+      border-color: rgba(220, 53, 69, 0.18);
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .cert-box {
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      border-radius: 22px;
+      background: #ffffff;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .cert-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      background: #fbfdff;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .cert-card h4 {
+      font-size: 1rem;
+      color: var(--dark-gray);
+    }
+
+    .cert-card p {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .empty-state {
+      border: 1px dashed rgba(31, 41, 55, 0.14);
+      border-radius: 20px;
+      background: #ffffff;
+      padding: 26px;
+      box-shadow: var(--shadow-soft);
+      color: var(--mid-gray);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 980px) {
+      .result-hero,
+      .cert-grid,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .score-table thead {
+        display: none;
+      }
+
+      .score-table,
+      .score-table tbody,
+      .score-table tr,
+      .score-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .score-table tr {
+        border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      }
+
+      .score-table td {
+        border-bottom: none;
+        padding: 8px 16px;
+      }
+
+      .score-table td:first-child {
+        padding-top: 16px;
+      }
+
+      .score-table td:last-child {
+        padding-bottom: 16px;
+      }
+
+      .score-table td::before {
+        content: attr(data-label);
+        display: block;
+        color: var(--mid-gray);
+        font-size: 0.78rem;
+        margin-bottom: 4px;
+        font-weight: 700;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="ujian.html">Kembali ke Daftar Ujian</a>
+        <a href="../index.html">Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Hasil Ujian</div>
+          <h1 class="hero-title">Ringkasan Hasil Uji Pemahaman</h1>
+          <p class="hero-desc">
+            Halaman ini menampilkan total skor, status penyelesaian, dan ringkasan performa Anda untuk seluruh soal ujian social engineering.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="result-hero">
+          <div class="score-panel">
+            <span class="pill">Skor Akhir</span>
+            <div class="score-big" id="scoreBig">0/100</div>
+            <div class="score-caption" id="scoreCaption">
+              Total skor akan muncul di sini setelah Anda menyelesaikan soal-soal ujian.
+            </div>
+
+            <div class="summary-grid">
+              <div class="summary-card">
+                <strong id="summaryCompleted">0/10</strong>
+                <span>Soal selesai</span>
+              </div>
+              <div class="summary-card">
+                <strong id="summaryUnfinished">10</strong>
+                <span>Soal belum selesai</span>
+              </div>
+              <div class="summary-card">
+                <strong id="summaryPassing">70</strong>
+                <span>Batas lulus</span>
+              </div>
+              <div class="summary-card">
+                <strong id="summaryStatus">Belum lulus</strong>
+                <span>Status hasil</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-panel">
+            <span class="pill">Peserta</span>
+            <div class="result-name" id="participantNameText">Peserta</div>
+            <p class="result-subtext" id="resultSummaryText">
+              Ringkasan hasil akhir akan ditampilkan setelah sistem membaca progres ujian Anda.
+            </p>
+
+            <div class="result-note">
+              <strong style="display:block; margin-bottom:6px; color:var(--dark-gray);">Catatan penting</strong>
+              Certificate of Attendance dapat diberikan kepada peserta training sesuai kebijakan penyelenggara.
+              Certificate of Completion diberikan kepada peserta yang menyelesaikan ujian dan memenuhi batas skor minimum.
+            </div>
+
+            <div class="result-actions">
+              <a class="btn btn-secondary" href="ujian.html">Kembali ke Daftar Soal</a>
+              <button class="btn btn-secondary" type="button" id="resetExamBtn">Reset Ujian</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="score-table-wrap">
+          <div class="score-table-head">
+            <h3>Ringkasan Nilai per Soal</h3>
+            <p>Status tiap soal diambil dari progres yang tersimpan pada browser ini.</p>
+          </div>
+
+          <table class="score-table">
+            <thead>
+              <tr>
+                <th style="width: 16%;">No.</th>
+                <th style="width: 42%;">Soal</th>
+                <th style="width: 22%;">Status</th>
+                <th style="width: 20%;">Skor</th>
+              </tr>
+            </thead>
+            <tbody id="scoreTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cert-box">
+          <div class="section-head" style="margin-bottom:0;">
+            <h2>Dokumen Penyelesaian</h2>
+            <p>
+              Tombol di bawah ini dapat dihubungkan ke halaman, file, atau generator sertifikat sesuai kebutuhan program training Anda.
+            </p>
+          </div>
+
+          <div class="cert-grid">
+            <div class="cert-card">
+              <h4>Certificate of Attendance</h4>
+              <p>
+                Bukti keikutsertaan peserta dalam program training. Sertifikat ini dapat diberikan sesuai kebijakan penyelenggara, terlepas dari skor ujian.
+              </p>
+              <div class="footer-actions" style="margin-top:0;">
+                <a class="btn btn-secondary" href="#" id="attendanceBtn">Download Attendance</a>
+              </div>
+            </div>
+
+            <div class="cert-card">
+              <h4>Certificate of Completion</h4>
+              <p>
+                Bukti bahwa peserta telah menyelesaikan training dan memenuhi ambang nilai minimum pada uji pemahaman internal.
+              </p>
+              <div class="footer-actions" style="margin-top:0;">
+                <a class="btn btn-primary" href="#" id="completionBtn" style="display:none;">Download Completion</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="note-box" id="completionInfoBox">
+            Status kelayakan completion akan muncul setelah seluruh progres ujian dibaca.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="empty-state" id="adviceBox">
+          Anda dapat kembali ke daftar soal untuk melanjutkan ujian atau memperbaiki hasil. Setelah semua soal selesai, halaman ini akan menampilkan ringkasan yang lebih lengkap.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Hasil Ujian Social Engineering
+    </div>
+  </footer>
+
+  <script src="../assets/ujian.js"></script>
+  <script>
+    const summary = UjianApp.getSummary();
+    const state = UjianApp.getState();
+    const participantName = UjianApp.getParticipantName() || "Peserta";
+
+    const scoreBig = document.getElementById("scoreBig");
+    const scoreCaption = document.getElementById("scoreCaption");
+    const summaryCompleted = document.getElementById("summaryCompleted");
+    const summaryUnfinished = document.getElementById("summaryUnfinished");
+    const summaryPassing = document.getElementById("summaryPassing");
+    const summaryStatus = document.getElementById("summaryStatus");
+    const participantNameText = document.getElementById("participantNameText");
+    const resultSummaryText = document.getElementById("resultSummaryText");
+    const scoreTableBody = document.getElementById("scoreTableBody");
+    const completionBtn = document.getElementById("completionBtn");
+    const attendanceBtn = document.getElementById("attendanceBtn");
+    const completionInfoBox = document.getElementById("completionInfoBox");
+    const adviceBox = document.getElementById("adviceBox");
+
+    participantNameText.textContent = participantName;
+    scoreBig.textContent = `${summary.totalScore}/100`;
+    summaryCompleted.textContent = `${summary.completedCount}/${summary.totalQuestions}`;
+    summaryUnfinished.textContent = `${summary.unfinishedCount}`;
+    summaryPassing.textContent = `${summary.passingScore}`;
+    summaryStatus.textContent = summary.isPassed ? "Lulus" : (summary.isFinished ? "Belum lulus" : "Belum selesai");
+
+    summaryStatus.classList.remove("success-text", "warning-text", "danger-text");
+    if (summary.isPassed) {
+      summaryStatus.classList.add("success-text");
+    } else if (summary.isFinished) {
+      summaryStatus.classList.add("warning-text");
+    } else {
+      summaryStatus.classList.add("danger-text");
+    }
+
+    if (summary.isPassed) {
+      scoreCaption.textContent = "Anda telah memenuhi ambang nilai minimum untuk completion.";
+      resultSummaryText.textContent = `${participantName} telah menyelesaikan ujian dengan skor ${summary.totalScore}/100 dan memenuhi batas lulus ${summary.passingScore}/100.`;
+      completionInfoBox.innerHTML = "<strong style='display:block; margin-bottom:6px; color:var(--dark-gray);'>Status completion</strong> Anda memenuhi syarat untuk Certificate of Completion.";
+      adviceBox.innerHTML = "Hasil Anda sudah memenuhi syarat completion. Anda dapat melanjutkan ke dokumen penyelesaian atau kembali ke halaman utama training.";
+      completionBtn.style.display = "inline-flex";
+    } else if (summary.isFinished) {
+      scoreCaption.textContent = "Seluruh soal sudah selesai, tetapi skor Anda belum memenuhi batas lulus.";
+      resultSummaryText.textContent = `${participantName} telah menyelesaikan seluruh soal, tetapi skor akhir masih ${summary.totalScore}/100 sehingga belum mencapai batas lulus ${summary.passingScore}/100.`;
+      completionInfoBox.innerHTML = "<strong style='display:block; margin-bottom:6px; color:var(--dark-gray);'>Status completion</strong> Anda belum memenuhi syarat untuk Certificate of Completion. Anda dapat mengulang ujian untuk memperbaiki hasil.";
+      adviceBox.innerHTML = "Seluruh soal sudah selesai, tetapi skor Anda belum mencapai batas lulus. Anda dapat kembali ke daftar soal untuk meninjau dan mengulang progres bila diperlukan.";
+      completionBtn.style.display = "none";
+    } else {
+      scoreCaption.textContent = "Masih ada soal yang belum selesai.";
+      resultSummaryText.textContent = `${participantName} baru menyelesaikan ${summary.completedCount} dari ${summary.totalQuestions} soal. Lengkapi seluruh soal untuk mendapatkan hasil akhir yang utuh.`;
+      completionInfoBox.innerHTML = "<strong style='display:block; margin-bottom:6px; color:var(--dark-gray);'>Status completion</strong> Completion baru dapat dipertimbangkan setelah seluruh soal selesai dikerjakan.";
+      adviceBox.innerHTML = "Masih ada soal yang belum selesai. Kembali ke daftar ujian untuk melanjutkan pengerjaan dan melihat hasil akhir yang lebih lengkap.";
+      completionBtn.style.display = "none";
+    }
+
+    // Placeholder link sertifikat
+    attendanceBtn.setAttribute("href", "#");
+    completionBtn.setAttribute("href", "#");
+
+    function scoreBadge(score) {
+      if (score === null || typeof score !== "number") {
+        return `<span class="score-pill">Belum ada skor</span>`;
+      }
+      if (score >= 7) {
+        return `<span class="score-pill good">${score}/10</span>`;
+      }
+      if (score >= 4) {
+        return `<span class="score-pill mid">${score}/10</span>`;
+      }
+      return `<span class="score-pill low">${score}/10</span>`;
+    }
+
+    function statusBadge(q) {
+      if (!q.completed) {
+        return `<span class="score-pill">Belum dikerjakan</span>`;
+      }
+      if (typeof q.score === "number" && q.score >= 7) {
+        return `<span class="score-pill good">Selesai</span>`;
+      }
+      if (typeof q.score === "number" && q.score >= 4) {
+        return `<span class="score-pill mid">Selesai</span>`;
+      }
+      return `<span class="score-pill low">Selesai</span>`;
+    }
+
+    const questions = UjianApp.getAllQuestions();
+    scoreTableBody.innerHTML = "";
+
+    questions.forEach((q, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td data-label="No.">${index + 1}</td>
+        <td data-label="Soal">
+          <strong style="display:block; margin-bottom:4px;">${q.title}</strong>
+          <span style="color: var(--mid-gray); font-size: 0.84rem;">${q.type}</span>
+        </td>
+        <td data-label="Status">${statusBadge(q)}</td>
+        <td data-label="Skor">${scoreBadge(q.score)}</td>
+      `;
+      scoreTableBody.appendChild(row);
+    });
+
+    UjianApp.bindResetButton("resetExamBtn", {
+      confirmMessage: "Yakin ingin mereset seluruh progres ujian?",
+      redirectTo: "ujian.html"
+    });
+
+    console.assert(typeof UjianApp.getSummary === "function", "getSummary should exist");
+    console.assert(typeof UjianApp.getAllQuestions === "function", "getAllQuestions should exist");
+    console.assert(questions.length === 10, "Result page should display 10 questions");
+  </script>
+</body>
+</html>
