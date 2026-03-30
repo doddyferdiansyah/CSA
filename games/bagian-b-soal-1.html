@@ -9,6 +9,7 @@
     content="Aktivitas interaktif Bagian B untuk memahami faktor manusia yang dimainkan dalam social engineering."
   />
   <link rel="stylesheet" href="../assets/main.css" />
+  <link rel="stylesheet" href="../assets/simulations.css" />
   <style>
     .sub-hero {
       padding: 76px 0 28px;
@@ -55,12 +56,18 @@
       box-shadow: var(--shadow);
     }
 
+    .scenario-block {
+      display: grid;
+      gap: 18px;
+      margin-top: 16px;
+      margin-bottom: 22px;
+    }
+
     .question-box {
       background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
       border: 1px solid rgba(77, 163, 255, 0.14);
       border-radius: var(--radius-md);
       padding: 18px;
-      margin: 16px 0 20px;
     }
 
     .question-box strong {
@@ -68,23 +75,55 @@
       margin-bottom: 6px;
     }
 
-    .chat-mockup {
-      background: #f7fafc;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      border-radius: 18px;
-      padding: 18px;
-      max-width: 780px;
-      box-shadow: var(--shadow-soft);
+    .scenario-note {
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.65;
     }
 
-    .chat-bubble {
-      background: #e8f3ff;
-      border-left: 4px solid var(--sky-blue);
-      border-radius: 14px;
-      padding: 14px 16px;
-      color: var(--dark-gray);
+    .wa-stage {
+      display: grid;
+      justify-items: center;
+    }
+
+    .wa-stage .device-phone.landscape {
+      width: min(100%, 760px);
+    }
+
+    .wa-stage .device-screen {
+      min-height: 390px;
+    }
+
+    .mock-whatsapp .chat-header {
+      padding: 12px 16px;
+    }
+
+    .mock-whatsapp .chat-body {
+      min-height: 260px;
+      padding: 18px;
+      align-content: start;
+    }
+
+    .mock-whatsapp .chat-bubble {
+      max-width: min(76%, 520px);
       font-size: 1rem;
-      line-height: 1.65;
+    }
+
+    .chat-clue-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .clue-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
     }
 
     .choice-grid {
@@ -227,6 +266,16 @@
       }
     }
 
+    @media (max-width: 760px) {
+      .wa-stage .device-phone.landscape .device-screen {
+        min-height: 340px;
+      }
+
+      .mock-whatsapp .chat-bubble {
+        max-width: 88%;
+      }
+    }
+
     @media (max-width: 640px) {
       .sub-hero .hero-card,
       .question-card,
@@ -265,7 +314,7 @@
           <h1 class="hero-title">Apa yang Sedang Dimainkan?</h1>
           <p>
             Aktivitas singkat untuk membantu peserta membaca faktor manusia yang
-            sedang dimainkan dalam satu pesan yang tampak sederhana.
+            dimainkan dalam sebuah pesan kerja yang terlihat sederhana.
           </p>
 
           <div class="hero-actions-inline">
@@ -284,7 +333,7 @@
             </div>
             <div class="metric">
               <h3>Output</h3>
-              <p>Peserta belajar membedakan sinyal utama dari dampak atau kondisi lanjutan.</p>
+              <p>Membedakan faktor utama yang dimainkan dari dampak psikologis lanjutan.</p>
             </div>
           </div>
         </div>
@@ -296,24 +345,71 @@
         <div class="section-head fade-in">
           <h2>Studi Kasus Singkat</h2>
           <p>
-            Baca pesan berikut, lalu pilih semua faktor yang menurut Anda paling mungkin dimainkan.
-            Setelah itu, tekan tombol cek jawaban untuk melihat pembahasan.
+            Perhatikan skenario berikut. Pilih semua faktor yang menurut Anda paling mungkin
+            sedang dimainkan dari isi pesan tersebut.
           </p>
         </div>
 
         <div class="question-card fade-in">
-          <span class="pill">Multiple Response</span>
+          <span class="pill">WhatsApp-like Scenario</span>
 
-          <div class="chat-mockup">
-            <div class="chat-bubble">
-              “Pak/Bu, mohon segera kirim file yang kemarin. Saya butuh sekarang untuk rapat.
-              Jangan kirim ke grup ya, langsung ke saya saja.”
+          <div class="scenario-block">
+            <div class="wa-stage">
+              <div class="device device-phone landscape device-glare">
+                <div class="device-screen">
+                  <div class="chat-app mock-whatsapp">
+                    <div class="chat-header">
+                      <div class="chat-header-left">
+                        <div class="mock-avatar">PB</div>
+                        <div class="chat-contact">
+                          <div class="chat-name">Pak Bos</div>
+                          <div class="chat-number">0813-7284-xxxx</div>
+                        </div>
+                      </div>
+
+                      <div class="chat-header-right">
+                        <div class="mock-chip" style="background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.12); color: #fff;">
+                          online
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="chat-body">
+                      <div class="chat-date-divider">Hari ini</div>
+
+                      <div class="chat-bubble in">
+                        Pak/Bu, mohon segera kirim file yang kemarin. Saya butuh sekarang untuk rapat.
+                        Jangan kirim ke grup ya, langsung ke saya saja.
+                        <span class="chat-time">09.14</span>
+                      </div>
+                    </div>
+
+                    <div class="chat-inputbar">
+                      <div class="mock-icon-btn"></div>
+                      <div class="chat-input"></div>
+                      <div class="mock-icon-btn"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scenario-note">
+              Skenario di atas menggambarkan pesan yang tampak wajar dalam konteks kerja,
+              tetapi tetap perlu dibaca dengan cermat. Fokuskan perhatian pada faktor
+              yang paling jelas sedang dimainkan oleh isi pesan.
             </div>
           </div>
 
           <div class="question-box">
             <strong>Menurut Anda, apa yang paling mungkin sedang dimainkan?</strong>
             <div class="muted">Anda boleh memilih lebih dari satu jawaban.</div>
+
+            <div class="chat-clue-row">
+              <span class="clue-chip">Konteks kerja</span>
+              <span class="clue-chip">Permintaan langsung</span>
+              <span class="clue-chip">Perlu prioritas</span>
+            </div>
           </div>
 
           <div class="choice-grid" id="choiceGrid">
@@ -331,9 +427,9 @@
           </div>
 
           <div class="note-box">
-            <strong>Catatan:</strong> Pada latihan seperti ini, yang dicari bukan hanya jawaban yang terasa benar,
+            <strong>Catatan:</strong> Dalam latihan seperti ini, yang dicari bukan hanya jawaban yang terasa masuk akal,
             tetapi faktor yang paling jelas terlihat dari isi pesan. Ini membantu peserta membedakan
-            <em>faktor utama yang dimainkan</em> dari <em>dampak psikologis yang mungkin muncul kemudian</em>.
+            faktor utama yang sedang dimainkan dari reaksi psikologis yang bisa muncul setelahnya.
           </div>
         </div>
       </div>
@@ -449,9 +545,7 @@
         item.innerHTML =
           '<strong>' +
           meta.title +
-          (meta.correct
-            ? ' — alasan mengapa ini tepat.'
-            : ' — alasan mengapa ini belum tepat.') +
+          (meta.correct ? ' — alasan mengapa ini tepat.' : ' — alasan mengapa ini belum tepat.') +
           '</strong>' +
           meta.text;
 
