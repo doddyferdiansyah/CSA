@@ -81,32 +81,224 @@
       line-height: 1.65;
     }
 
-    .wa-stage {
+    /* =========================
+       REALISTIC PHONE LANDSCAPE
+    ========================= */
+    .phone-stage {
       display: grid;
       justify-items: center;
     }
 
-    .wa-stage .device-phone.landscape {
+    .phone-realistic {
       width: min(100%, 760px);
+      background: linear-gradient(180deg, #2c3440 0%, #111827 100%);
+      border-radius: 34px;
+      padding: 12px;
+      box-shadow:
+        0 26px 60px rgba(15, 23, 42, 0.18),
+        0 10px 20px rgba(15, 23, 42, 0.12);
+      position: relative;
     }
 
-    .wa-stage .device-screen {
-      min-height: 390px;
+    .phone-realistic::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 74px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
     }
 
-    .mock-whatsapp .chat-header {
-      padding: 12px 16px;
+    .phone-realistic::after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 98px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.10);
     }
 
-    .mock-whatsapp .chat-body {
-      min-height: 260px;
-      padding: 18px;
+    .phone-screen {
+      position: relative;
+      overflow: hidden;
+      min-height: 350px;
+      border-radius: 24px;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .phone-camera {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 35%, #64748b, #0f172a 70%);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+      z-index: 5;
+    }
+
+    .phone-speaker {
+      position: absolute;
+      left: 36px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 52px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      z-index: 5;
+    }
+
+    .wa-real {
+      min-height: 350px;
+      display: grid;
+      grid-template-rows: 28px auto 1fr auto;
+      background: var(--wa-bg);
+    }
+
+    .wa-statusbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px 0 56px;
+      background: #0b5f58;
+      color: rgba(255,255,255,0.92);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .wa-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px 12px 56px;
+      background: var(--wa-header);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .wa-header-left,
+    .wa-header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wa-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
+      color: #1d4ed8;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .wa-contact {
+      display: grid;
+      gap: 2px;
+    }
+
+    .wa-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.2;
+    }
+
+    .wa-number {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .wa-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .wa-body {
+      padding: 18px 18px 18px 56px;
+      display: grid;
+      gap: 12px;
       align-content: start;
+      background:
+        linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.05)),
+        var(--wa-bg);
     }
 
-    .mock-whatsapp .chat-bubble {
-      max-width: min(76%, 520px);
-      font-size: 1rem;
+    .wa-date {
+      justify-self: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .wa-bubble-in {
+      max-width: min(72%, 500px);
+      background: #ffffff;
+      color: var(--dark-gray);
+      padding: 13px 14px 10px;
+      border-radius: 14px 14px 14px 5px;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+      font-size: 0.97rem;
+      line-height: 1.62;
+    }
+
+    .wa-time {
+      display: block;
+      margin-top: 6px;
+      text-align: right;
+      font-size: 0.7rem;
+      color: rgba(31, 41, 55, 0.55);
+    }
+
+    .wa-inputbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px 12px 56px;
+      background: #f7f7f7;
+      border-top: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .wa-input-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      box-shadow: var(--shadow-soft);
+      flex-shrink: 0;
+    }
+
+    .wa-input {
+      flex: 1;
+      min-height: 40px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      box-shadow: var(--shadow-soft);
     }
 
     .chat-clue-row {
@@ -201,7 +393,7 @@
     }
 
     .modal-card {
-      width: min(100%, 760px);
+      width: min(100%, 720px);
       background: var(--white);
       border-radius: 24px;
       border: 1px solid var(--border);
@@ -212,7 +404,7 @@
     }
 
     .modal-title {
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
     }
@@ -234,9 +426,9 @@
       border-radius: 12px;
       background: var(--white);
       border: 1px solid rgba(31, 41, 55, 0.08);
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       color: var(--mid-gray);
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
     .option-feedback-item strong {
@@ -267,11 +459,19 @@
     }
 
     @media (max-width: 760px) {
-      .wa-stage .device-phone.landscape .device-screen {
-        min-height: 340px;
+      .phone-realistic {
+        width: 100%;
       }
 
-      .mock-whatsapp .chat-bubble {
+      .phone-screen {
+        min-height: 320px;
+      }
+
+      .wa-real {
+        min-height: 320px;
+      }
+
+      .wa-bubble-in {
         max-width: 88%;
       }
     }
@@ -291,6 +491,13 @@
       .hero-actions-inline .btn,
       .footer-actions .btn {
         width: 100%;
+      }
+
+      .wa-statusbar,
+      .wa-header,
+      .wa-body,
+      .wa-inputbar {
+        padding-left: 52px;
       }
     }
   </style>
@@ -325,15 +532,15 @@
           <div class="hero-mini-strip">
             <div class="metric">
               <h3>Fokus</h3>
-              <p>Membaca psychological triggers yang sering dimanfaatkan dalam social engineering.</p>
+              <p>Membaca faktor psikologis yang paling jelas digunakan dalam pesan.</p>
             </div>
             <div class="metric">
               <h3>Format</h3>
-              <p>Peserta memilih lebih dari satu faktor yang paling mungkin sedang dimainkan.</p>
+              <p>Peserta dapat memilih lebih dari satu jawaban.</p>
             </div>
             <div class="metric">
               <h3>Output</h3>
-              <p>Membedakan faktor utama yang dimainkan dari dampak psikologis lanjutan.</p>
+              <p>Membedakan faktor utama dari reaksi lanjutan yang mungkin muncul.</p>
             </div>
           </div>
         </div>
@@ -345,49 +552,57 @@
         <div class="section-head fade-in">
           <h2>Studi Kasus Singkat</h2>
           <p>
-            Perhatikan skenario berikut. Pilih semua faktor yang menurut Anda paling mungkin
-            sedang dimainkan dari isi pesan tersebut.
+            Perhatikan pesan berikut. Pilih semua faktor yang menurut Anda paling mungkin
+            sedang dimainkan.
           </p>
         </div>
 
         <div class="question-card fade-in">
-          <span class="pill">WhatsApp-like Scenario</span>
+          <span class="pill">Simulasi Percakapan</span>
 
           <div class="scenario-block">
-            <div class="wa-stage">
-              <div class="device device-phone landscape device-glare">
-                <div class="device-screen">
-                  <div class="chat-app mock-whatsapp">
-                    <div class="chat-header">
-                      <div class="chat-header-left">
-                        <div class="mock-avatar">PB</div>
-                        <div class="chat-contact">
-                          <div class="chat-name">Pak Bos</div>
-                          <div class="chat-number">0813-7284-xxxx</div>
+            <div class="phone-stage">
+              <div class="phone-realistic">
+                <div class="phone-screen">
+                  <div class="phone-camera"></div>
+                  <div class="phone-speaker"></div>
+
+                  <div class="wa-real">
+                    <div class="wa-statusbar">
+                      <span>09.14</span>
+                      <span>4G • 88%</span>
+                    </div>
+
+                    <div class="wa-header">
+                      <div class="wa-header-left">
+                        <div class="wa-avatar">PB</div>
+                        <div class="wa-contact">
+                          <div class="wa-name">Pak Bos</div>
+                          <div class="wa-number">0813-7284-xxxx</div>
                         </div>
                       </div>
 
-                      <div class="chat-header-right">
-                        <div class="mock-chip" style="background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.12); color: #fff;">
-                          online
-                        </div>
+                      <div class="wa-header-right">
+                        <div class="wa-icon"></div>
+                        <div class="wa-icon"></div>
+                        <div class="wa-icon"></div>
                       </div>
                     </div>
 
-                    <div class="chat-body">
-                      <div class="chat-date-divider">Hari ini</div>
+                    <div class="wa-body">
+                      <div class="wa-date">Hari ini</div>
 
-                      <div class="chat-bubble in">
+                      <div class="wa-bubble-in">
                         Pak/Bu, mohon segera kirim file yang kemarin. Saya butuh sekarang untuk rapat.
                         Jangan kirim ke grup ya, langsung ke saya saja.
-                        <span class="chat-time">09.14</span>
+                        <span class="wa-time">09.14</span>
                       </div>
                     </div>
 
-                    <div class="chat-inputbar">
-                      <div class="mock-icon-btn"></div>
-                      <div class="chat-input"></div>
-                      <div class="mock-icon-btn"></div>
+                    <div class="wa-inputbar">
+                      <div class="wa-input-icon"></div>
+                      <div class="wa-input"></div>
+                      <div class="wa-input-icon"></div>
                     </div>
                   </div>
                 </div>
@@ -395,9 +610,9 @@
             </div>
 
             <div class="scenario-note">
-              Skenario di atas menggambarkan pesan yang tampak wajar dalam konteks kerja,
-              tetapi tetap perlu dibaca dengan cermat. Fokuskan perhatian pada faktor
-              yang paling jelas sedang dimainkan oleh isi pesan.
+              Pesan seperti ini bisa terlihat wajar dalam konteks kerja. Karena itu,
+              peserta perlu membaca isi pesan dengan cermat dan fokus pada faktor
+              yang paling jelas sedang dimainkan.
             </div>
           </div>
 
@@ -408,7 +623,7 @@
             <div class="chat-clue-row">
               <span class="clue-chip">Konteks kerja</span>
               <span class="clue-chip">Permintaan langsung</span>
-              <span class="clue-chip">Perlu prioritas</span>
+              <span class="clue-chip">Tekanan waktu</span>
             </div>
           </div>
 
@@ -427,9 +642,8 @@
           </div>
 
           <div class="note-box">
-            <strong>Catatan:</strong> Dalam latihan seperti ini, yang dicari bukan hanya jawaban yang terasa masuk akal,
-            tetapi faktor yang paling jelas terlihat dari isi pesan. Ini membantu peserta membedakan
-            faktor utama yang sedang dimainkan dari reaksi psikologis yang bisa muncul setelahnya.
+            <strong>Catatan:</strong> Fokus utama latihan ini adalah membaca faktor yang paling jelas
+            terlihat dari isi pesan, bukan sekadar menebak reaksi yang mungkin muncul pada korban.
           </div>
         </div>
       </div>
@@ -473,32 +687,32 @@
       A: {
         title: 'A. Rasa ingin tahu',
         correct: false,
-        text: 'Pilihan ini belum tepat karena isi pesan tidak sedang memancing korban membuka sesuatu karena penasaran. Fokus utamanya bukan curiosity, melainkan tekanan agar korban segera patuh.'
+        text: 'Belum tepat. Isi pesan tidak sedang memancing rasa penasaran.'
       },
       B: {
         title: 'B. Otoritas',
         correct: true,
-        text: 'Pilihan ini benar karena pesan tersebut terasa seperti datang dari pihak yang perlu diprioritaskan. Kesan otoritas membuat korban lebih cenderung patuh tanpa banyak bertanya.'
+        text: 'Tepat. Pesan terasa datang dari pihak yang perlu diprioritaskan.'
       },
       C: {
         title: 'C. Urgensi',
         correct: true,
-        text: 'Pilihan ini benar karena frasa seperti “segera” dan “butuh sekarang” menekan korban agar bertindak cepat sebelum sempat memverifikasi.'
+        text: 'Tepat. Kata seperti “segera” dan “butuh sekarang” mendorong korban bertindak cepat.'
       },
       D: {
         title: 'D. Rasa sungkan',
         correct: false,
-        text: 'Pilihan ini belum tepat sebagai jawaban utama. Rasa sungkan bisa muncul sebagai dampak lanjutan pada korban, tetapi bukan faktor paling jelas yang sedang dimainkan dari isi pesan ini.'
+        text: 'Belum tepat sebagai faktor utama. Ini bisa muncul sebagai efek lanjutan.'
       },
       E: {
         title: 'E. Panik',
         correct: false,
-        text: 'Pilihan ini belum tepat karena pesan tersebut tidak membangun ancaman atau konsekuensi eksplisit yang mendorong korban panik.'
+        text: 'Belum tepat. Pesan ini tidak memberi ancaman langsung yang memicu panik.'
       },
       F: {
         title: 'F. Overconfidence',
         correct: false,
-        text: 'Pilihan ini belum tepat karena overconfidence adalah kondisi internal korban, bukan faktor yang secara langsung dimainkan oleh isi pesan.'
+        text: 'Belum tepat. Ini lebih merupakan kondisi internal korban, bukan faktor utama dari isi pesan.'
       }
     };
 
@@ -518,7 +732,7 @@
 
       if (selectedChoices.length === 0) {
         modalTitle.innerHTML = '<span class="danger">Anda belum memilih jawaban.</span>';
-        modalText.innerHTML = 'Silakan pilih satu atau lebih jawaban terlebih dahulu, lalu tekan cek jawaban kembali.';
+        modalText.innerHTML = 'Silakan pilih satu atau lebih jawaban terlebih dahulu.';
         openModal();
         return;
       }
@@ -530,11 +744,11 @@
       if (isExactlyCorrect) {
         modalTitle.innerHTML = '<span class="success">Jawaban Anda benar.</span>';
         modalText.innerHTML =
-          'Pada kasus ini, faktor yang paling jelas dimainkan adalah <strong>otoritas</strong> dan <strong>urgensi</strong>. Permintaan dibuat terdengar penting dan mendesak agar korban segera bertindak tanpa verifikasi. Ini menunjukkan bahwa dalam social engineering, pelaku sering memainkan <strong>lebih dari satu faktor sekaligus</strong>.';
+          'Faktor yang paling jelas dimainkan adalah <strong>otoritas</strong> dan <strong>urgensi</strong>. Pesan dibuat terdengar penting dan mendesak agar korban segera merespons tanpa verifikasi.';
       } else {
         modalTitle.innerHTML = '<span class="danger">Jawaban Anda belum tepat.</span>';
         modalText.innerHTML =
-          'Perhatikan kembali isi pesan, terutama bagian yang menunjukkan tekanan dan posisi pengirim. Fokuskan perhatian pada faktor yang paling jelas terlihat dari teks, bukan hanya dampak psikologis yang mungkin muncul setelahnya.';
+          'Perhatikan kembali isi pesan, terutama bagian yang menunjukkan tekanan waktu dan posisi pengirim.';
       }
 
       selectedChoices.forEach((choice) => {
@@ -545,7 +759,7 @@
         item.innerHTML =
           '<strong>' +
           meta.title +
-          (meta.correct ? ' — alasan mengapa ini tepat.' : ' — alasan mengapa ini belum tepat.') +
+          (meta.correct ? ' — alasan singkat.' : ' — alasan singkat.') +
           '</strong>' +
           meta.text;
 
