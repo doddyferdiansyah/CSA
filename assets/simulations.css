@@ -1018,8 +1018,9 @@
   .mock-facebook .fb-layout {
     padding: 14px;
   }
+}
 
-  /* =========================
+/* =========================
    REALISTIC PHONE LANDSCAPE
 ========================= */
 .device-phone-realistic {
@@ -1165,16 +1166,6 @@
   height: 4px;
   border-radius: 999px;
   background: rgba(255,255,255,0.08);
-}
-
-@media (max-width: 760px) {
-  .device-phone-realistic {
-    width: 100%;
-  }
-
-  .device-phone-realistic .device-screen {
-    min-height: 320px;
-  }
 }
 
 /* =========================
@@ -1564,5 +1555,4 @@
   .mock-whatsapp-real .wa-inputbar {
     padding-left: 94px;
   }
-}
 }
