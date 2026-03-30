@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aktivitas Interaktif | Cybersecurity Awareness Training</title>
+  <title>Modul Interaktif | Cybersecurity Awareness Training</title>
   <meta
     name="description"
-    content="Kumpulan workshop interaktif untuk membantu peserta memahami social engineering awareness secara lebih aplikatif."
+    content="Serangkaian modul simulatif untuk membantu peserta memahami social engineering awareness dan mengambil keputusan yang lebih aman dalam konteks kerja."
   />
   <link rel="stylesheet" href="../assets/main.css" />
   <style>
@@ -20,7 +20,7 @@
 
     .sub-hero p {
       color: var(--mid-gray);
-      max-width: 900px;
+      max-width: 920px;
       margin-bottom: 0;
     }
 
@@ -57,13 +57,67 @@
       color: var(--mid-gray);
     }
 
+    .learning-flow {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .learning-flow h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .flow-item {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--white);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .flow-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+    }
+
+    .flow-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--dark-gray);
+    }
+
+    .flow-item span {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
     .page-section {
       padding: 18px 0 54px;
     }
 
     .section-stack {
       display: grid;
-      gap: 22px;
+      gap: 24px;
     }
 
     .group-card {
@@ -84,7 +138,7 @@
     }
 
     .group-title {
-      font-size: 1.26rem;
+      font-size: 1.28rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 6px;
@@ -102,11 +156,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border-radius: 999px;
-      background: var(--sky-blue-soft);
+      background: rgba(77, 163, 255, 0.10);
       color: var(--sky-blue-deep);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 800;
       flex-shrink: 0;
     }
@@ -134,9 +188,9 @@
     }
 
     .activity-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(77, 163, 255, 0.28);
-      box-shadow: 0 18px 34px rgba(31, 41, 55, 0.08);
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.24);
+      box-shadow: 0 16px 28px rgba(31, 41, 55, 0.08);
       background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
     }
 
@@ -170,7 +224,7 @@
       background: #f8fafc;
       border: 1px solid rgba(31, 41, 55, 0.08);
       color: var(--mid-gray);
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       font-weight: 700;
       flex-shrink: 0;
     }
@@ -202,7 +256,7 @@
       justify-content: center;
       padding: 6px 10px;
       border-radius: 999px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
       background: #f8fafc;
       border: 1px solid rgba(31, 41, 55, 0.08);
@@ -236,6 +290,7 @@
 
     @media (max-width: 980px) {
       .hero-info-strip,
+      .flow-grid,
       .activity-grid {
         grid-template-columns: 1fr;
       }
@@ -276,41 +331,61 @@
     <section class="sub-hero">
       <div class="container">
         <div class="hero-card fade-in">
-          <div class="eyebrow">Aktivitas Interaktif</div>
-          <h1 class="hero-title">Workshop Simulatif Social Engineering Awareness</h1>
+          <div class="eyebrow">Modul Interaktif</div>
+          <h1 class="hero-title">Interactive Learning Modules for Social Engineering Awareness</h1>
           <p>
-            Halaman ini menjadi pusat seluruh aktivitas interaktif dalam program
-            <strong>Cybersecurity Awareness Training</strong>. Seluruh workshop dirancang
-            untuk membantu peserta memahami social engineering secara lebih aktif melalui
-            skenario, pengambilan keputusan, dan simulasi situasi kerja yang relevan.
+            Serangkaian modul simulatif yang dirancang untuk membantu peserta mengenali pola
+            manipulasi, memahami faktor manusia, dan mengambil keputusan yang lebih aman dalam
+            konteks kerja sehari-hari.
           </p>
 
           <div class="hero-actions-inline">
             <a class="btn btn-secondary" href="../index.html">Kembali ke Landing Page</a>
-            <a class="btn btn-primary" href="#bagian-b">Mulai dari Bagian B</a>
+            <a class="btn btn-primary" href="#modul-b">Mulai Modul</a>
           </div>
 
           <div class="hero-info-strip">
             <div class="hero-info-card">
-              <h3>Fungsi Halaman</h3>
+              <h3>Structured Learning</h3>
               <p>
-                Menjadi hub untuk seluruh workshop interaktif, terpisah dari halaman resource
-                agar materi dan aktivitas tidak tercampur.
+                Disusun sebagai modul bertahap agar peserta mengikuti alur belajar yang lebih jelas,
+                terarah, dan mudah diikuti.
               </p>
             </div>
             <div class="hero-info-card">
-              <h3>Bentuk Aktivitas</h3>
+              <h3>Scenario-Based</h3>
               <p>
-                Mulai dari membaca trigger psikologis, matching activity, penyusunan alur serangan,
-                hingga simulasi konteks kerja yang lebih aplikatif.
+                Menggunakan simulasi dan exercise berbasis situasi kerja agar pembelajaran terasa
+                relevan dan aplikatif.
               </p>
             </div>
             <div class="hero-info-card">
-              <h3>Tujuan Pembelajaran</h3>
+              <h3>Workplace Context</h3>
               <p>
-                Membantu peserta belajar secara aktif, tidak hanya membaca materi, tetapi juga
-                melatih cara berpikir dan respons yang lebih aman.
+                Difokuskan pada pola interaksi, kebiasaan, dan keputusan yang umum muncul di
+                lingkungan kerja modern.
               </p>
+            </div>
+          </div>
+
+          <div class="learning-flow">
+            <h3>Learning Flow</h3>
+            <div class="flow-grid">
+              <div class="flow-item">
+                <div class="flow-step">1</div>
+                <strong>Modul B — Human Factors</strong>
+                <span>Memahami faktor manusia yang membuat social engineering efektif.</span>
+              </div>
+              <div class="flow-item">
+                <div class="flow-step">2</div>
+                <strong>Modul C — Response & Bias</strong>
+                <span>Mengenali emosi, bias penilaian, dan respons yang berisiko.</span>
+              </div>
+              <div class="flow-item">
+                <div class="flow-step">3</div>
+                <strong>Modul D — Applied Scenarios</strong>
+                <span>Melatih keputusan aman dalam skenario serangan yang lebih konkret.</span>
+              </div>
             </div>
           </div>
         </div>
@@ -320,171 +395,170 @@
     <section class="page-section">
       <div class="container section-stack">
 
-        <div class="group-card fade-in" id="bagian-b">
+        <div class="group-card fade-in" id="modul-b">
           <div class="group-header">
             <div>
-              <div class="group-title">Workshop Bagian B</div>
+              <div class="group-title">Modul B — Human Factors in Social Engineering</div>
               <div class="group-desc">
-                Aktivitas untuk membantu peserta memahami mengapa social engineering efektif,
-                terutama dari sisi pola pikir, respons spontan, dan konteks interaksi yang
-                terlihat wajar dalam keseharian kerja.
+                Modul ini menyoroti bagaimana tekanan psikologis, konteks kerja, dan kebiasaan
+                sehari-hari dimanfaatkan untuk mendorong keputusan yang tidak aman.
               </div>
             </div>
-            <span class="group-pill">Bagian B</span>
+            <span class="group-pill">Module B</span>
           </div>
 
           <div class="activity-grid">
             <a class="activity-card" href="../games/bagian-b-soal-1.html">
               <div class="activity-top">
                 <div class="activity-code">B1</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Scenario Reading</div>
               </div>
               <div class="activity-title">Apa yang Sedang Dimainkan?</div>
               <div class="activity-desc">
-                Membantu peserta membaca faktor manusia yang sedang dimainkan dalam satu pesan
-                kerja yang tampak sederhana.
+                Simulasi singkat untuk membaca faktor psikologis yang paling jelas dimainkan
+                dalam sebuah pesan kerja.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Awareness</span>
-                <span class="meta-chip">Psychological Trigger</span>
+                <span class="meta-chip">Human Factor</span>
+                <span class="meta-chip">Trigger Analysis</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
 
             <a class="activity-card" href="../games/bagian-b-soal-2.html">
               <div class="activity-top">
                 <div class="activity-code">B2</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Scenario Matching</div>
               </div>
               <div class="activity-title">Cocokkan Faktor Kelemahan dengan Situasinya</div>
               <div class="activity-desc">
-                Aktivitas matching untuk membantu peserta melihat bahwa faktor manusia sering
-                muncul melalui kebiasaan kerja yang tampak normal.
+                Exercise untuk memetakan faktor kelemahan manusia ke situasi kerja yang paling
+                sesuai secara logis.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Matching</span>
-                <span class="meta-chip">Human Factor</span>
+                <span class="meta-chip">Matching Exercise</span>
+                <span class="meta-chip">Behavior Mapping</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
 
             <a class="activity-card" href="../games/bagian-b-soal-3.html">
               <div class="activity-top">
                 <div class="activity-code">B3</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Process Mapping</div>
               </div>
               <div class="activity-title">Urutkan Cara Kerja Social Engineering</div>
               <div class="activity-desc">
-                Aktivitas untuk membantu peserta memahami bahwa social engineering bekerja
-                melalui rangkaian langkah yang saling terhubung.
+                Exercise untuk memahami bagaimana serangan berkembang dari observasi awal hingga
+                hasil akhir.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Sequence</span>
                 <span class="meta-chip">Attack Flow</span>
+                <span class="meta-chip">Process Logic</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
           </div>
 
           <div class="section-note">
-            <strong>Catatan:</strong> Bagian B dirancang untuk membangun fondasi berpikir peserta,
-            agar mereka tidak hanya mengenali modus, tetapi juga memahami mengapa serangan seperti
-            ini dapat bekerja pada manusia.
+            <strong>Module Insight:</strong> Modul B membangun fondasi berpikir peserta agar mereka
+            tidak hanya mengenali modus, tetapi juga memahami mengapa manipulasi seperti ini dapat
+            bekerja secara efektif pada manusia.
           </div>
         </div>
 
         <div class="group-card fade-in">
           <div class="group-header">
             <div>
-              <div class="group-title">Workshop Bagian C</div>
+              <div class="group-title">Modul C — Response, Emotion & Judgment Bias</div>
               <div class="group-desc">
-                Kumpulan simulasi untuk melatih peserta mengenali pengaruh emosi, relasi sosial,
-                kebiasaan kerja, dan bias penilaian dalam pengambilan keputusan.
+                Modul ini berfokus pada bagaimana emosi, relasi sosial, kebiasaan kerja, dan bias
+                penilaian memengaruhi kualitas keputusan dalam situasi yang ambigu.
               </div>
             </div>
-            <span class="group-pill">Bagian C</span>
+            <span class="group-pill">Module C</span>
           </div>
 
           <div class="activity-grid">
             <a class="activity-card" href="bagian-c-workshop-1.html">
               <div class="activity-top">
                 <div class="activity-code">C1</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Chat Simulation</div>
               </div>
               <div class="activity-title">Emosi yang Ditekan</div>
               <div class="activity-desc">
-                Simulasi berbasis chat untuk membantu peserta mengenali emosi apa yang sedang
-                dimainkan dan perilaku apa yang ingin didorong oleh pelaku.
+                Simulasi untuk mengidentifikasi emosi yang sedang dimainkan dan respons yang ingin
+                didorong oleh pelaku.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Emosi</span>
-                <span class="meta-chip">Chat Simulation</span>
+                <span class="meta-chip">Emotion Reading</span>
+                <span class="meta-chip">Behavior Trigger</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
 
             <a class="activity-card" href="bagian-c-workshop-2.html">
               <div class="activity-top">
                 <div class="activity-code">C2</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Decision Exercise</div>
               </div>
               <div class="activity-title">Relasi Sosial & Respons Komunikasi</div>
               <div class="activity-desc">
-                Simulasi percakapan untuk melatih peserta menilai respons yang aman dalam konteks
-                hubungan kerja, kedekatan, dan familiaritas.
+                Exercise untuk menilai respons yang aman dalam konteks hubungan kerja, kedekatan,
+                dan rasa familiar.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Relasi Sosial</span>
-                <span class="meta-chip">Response Practice</span>
+                <span class="meta-chip">Social Context</span>
+                <span class="meta-chip">Safe Response</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
 
             <a class="activity-card" href="bagian-c-workshop-3.html">
               <div class="activity-top">
                 <div class="activity-code">C3</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Situational Exercise</div>
               </div>
               <div class="activity-title">Kondisi Kerja & Gangguan Konteks</div>
               <div class="activity-desc">
-                Simulasi situasi kerja yang menuntut fokus dan keputusan cepat di tengah distraksi
-                atau kondisi yang tidak ideal.
+                Simulasi untuk melihat bagaimana distraksi, tekanan kerja, dan kondisi tidak ideal
+                dapat menurunkan kualitas keputusan.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Kebiasaan Kerja</span>
-                <span class="meta-chip">Situational</span>
+                <span class="meta-chip">Workload Context</span>
+                <span class="meta-chip">Decision Risk</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
 
             <a class="activity-card" href="bagian-c-workshop-4.html">
               <div class="activity-top">
                 <div class="activity-code">C4</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Judgment Exercise</div>
               </div>
               <div class="activity-title">Bias Penilaian & Keputusan Aman</div>
               <div class="activity-desc">
-                Membantu peserta membedakan mana hal yang terlihat resmi atau wajar, dan mana yang
-                benar-benar aman setelah diverifikasi.
+                Exercise untuk membedakan mana yang tampak resmi atau wajar, dan mana yang benar-benar
+                aman setelah diverifikasi.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Bias Penilaian</span>
-                <span class="meta-chip">Decision Making</span>
+                <span class="meta-chip">Bias Awareness</span>
+                <span class="meta-chip">Judgment Quality</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
           </div>
@@ -493,78 +567,78 @@
         <div class="group-card fade-in">
           <div class="group-header">
             <div>
-              <div class="group-title">Workshop Bagian D</div>
+              <div class="group-title">Modul D — Applied Threat Scenarios</div>
               <div class="group-desc">
-                Aktivitas untuk melatih peserta menghadapi bentuk serangan yang lebih konkret melalui
-                simulasi kondisi nyata di kantor maupun ruang publik.
+                Modul ini mengarahkan peserta pada skenario yang lebih konkret untuk melatih
+                identifikasi risiko, pembacaan pola penipuan, dan keputusan aman dalam praktik.
               </div>
             </div>
-            <span class="group-pill">Bagian D</span>
+            <span class="group-pill">Module D</span>
           </div>
 
           <div class="activity-grid">
             <a class="activity-card" href="bagian-d-workshop-1.html">
               <div class="activity-top">
                 <div class="activity-code">D1</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Scenario Review</div>
               </div>
               <div class="activity-title">Membaca Skenario Serangan</div>
               <div class="activity-desc">
-                Simulasi berbasis kartu skenario untuk membantu peserta memilah situasi yang aman,
-                perlu verifikasi, atau harus dihentikan.
+                Simulasi untuk memilah situasi yang aman, perlu verifikasi, atau harus dihentikan
+                sebelum menjadi insiden.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Scenario Review</span>
-                <span class="meta-chip">Risk Reading</span>
+                <span class="meta-chip">Risk Review</span>
+                <span class="meta-chip">Scenario Analysis</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
 
             <a class="activity-card" href="bagian-d-workshop-2.html">
               <div class="activity-top">
                 <div class="activity-code">D2</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Interaction Analysis</div>
               </div>
               <div class="activity-title">Mengenali Pola Penipuan dalam Interaksi</div>
               <div class="activity-desc">
-                Simulasi untuk melatih peserta membaca sinyal manipulasi dalam interaksi yang tampak
-                biasa di lingkungan kerja maupun ruang publik.
+                Exercise untuk membaca sinyal manipulasi dalam interaksi yang tampak biasa di
+                lingkungan kerja maupun ruang publik.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Interaction</span>
-                <span class="meta-chip">Manipulation Pattern</span>
+                <span class="meta-chip">Pattern Recognition</span>
+                <span class="meta-chip">Interaction Risk</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
 
             <a class="activity-card" href="bagian-d-workshop-3.html">
               <div class="activity-top">
                 <div class="activity-code">D3</div>
-                <div class="activity-type">Workshop</div>
+                <div class="activity-type">Applied Response</div>
               </div>
               <div class="activity-title">Respons Aman dalam Situasi Serangan</div>
               <div class="activity-desc">
-                Workshop penutup untuk membantu peserta memilih langkah yang paling aman saat
-                menghadapi situasi yang berpotensi menjadi serangan.
+                Simulasi penutup untuk memilih langkah yang paling aman saat menghadapi situasi yang
+                berpotensi menjadi serangan.
               </div>
               <div class="activity-meta">
-                <span class="meta-chip">Response</span>
+                <span class="meta-chip">Safe Response</span>
                 <span class="meta-chip">Applied Practice</span>
               </div>
               <div class="activity-action">
-                <span class="btn btn-secondary">Buka Workshop</span>
+                <span class="btn btn-secondary">Mulai Modul</span>
               </div>
             </a>
           </div>
 
           <div class="section-note">
-            <strong>Penutup:</strong> Seluruh aktivitas pada halaman ini dirancang agar peserta tidak
-            hanya memahami konsep, tetapi juga mengalami proses berpikir yang lebih reflektif dan
-            aplikatif saat menghadapi skenario nyata.
+            <strong>Program Outcome:</strong> Seluruh modul pada halaman ini dirancang agar peserta
+            tidak hanya memahami konsep, tetapi juga membangun refleks berpikir yang lebih aman saat
+            menghadapi skenario nyata di lingkungan kerja.
           </div>
         </div>
 
@@ -574,7 +648,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      © 2026 Doddy Ferdiansyah · Aktivitas Interaktif Social Engineering Awareness
+      © 2026 Doddy Ferdiansyah · Interactive Learning Modules
     </div>
   </footer>
 
