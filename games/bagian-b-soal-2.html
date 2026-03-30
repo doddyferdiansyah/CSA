@@ -3,170 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Interaktif Bagian B | Soal 2</title>
-  <meta name="description" content="Game interaktif Bagian B untuk mencocokkan faktor kelemahan manusia dengan situasi kerja yang umum terjadi." />
+  <title>Workshop Bagian B · Soal 2 | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Aktivitas interaktif Bagian B untuk mencocokkan faktor kelemahan manusia dengan situasi kerja yang umum terjadi."
+  />
+  <link rel="stylesheet" href="../assets/main.css" />
   <style>
-    :root {
-      --white: #ffffff;
-      --sky-blue: #4da3ff;
-      --sky-blue-deep: #2b84e8;
-      --sky-blue-soft: #eaf4ff;
-      --dark-gray: #1f2937;
-      --mid-gray: #4b5563;
-      --border: rgba(31, 41, 55, 0.12);
-      --shadow: 0 14px 34px rgba(31, 41, 55, 0.10);
-      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --max-width: 1100px;
-      --success: #198754;
-      --danger: #dc3545;
-      --warning: #f59e0b;
+    .sub-hero {
+      padding: 76px 0 28px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-      color: var(--dark-gray);
-      line-height: 1.65;
+    .sub-hero .hero-card {
+      padding: 34px;
     }
 
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      backdrop-filter: blur(12px);
-      background: rgba(255,255,255,0.86);
-      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 0;
-    }
-
-    .brand { font-weight: 800; font-size: 1.02rem; }
-    .brand span { color: var(--sky-blue); }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .nav-links a {
+    .sub-hero p {
       color: var(--mid-gray);
-      font-size: 0.95rem;
+      max-width: 860px;
+      margin-bottom: 0;
     }
 
-    .nav-links a:hover { color: var(--sky-blue); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 700;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      cursor: pointer;
+    .hero-actions-inline {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
-    .btn:hover { transform: translateY(-2px); }
-
-    .btn-primary {
-      background: var(--sky-blue);
-      color: var(--white);
-      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    .hero-mini-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
     }
 
-    .btn-secondary {
-      background: var(--white);
-      border-color: var(--border);
-      color: var(--dark-gray);
-      box-shadow: var(--shadow-soft);
+    .hero-mini-strip .metric h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
     }
 
-    .hero { padding: 72px 0 34px; }
-
-    .hero-card {
-      background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
-      border: 1px solid rgba(77, 163, 255, 0.14);
-      border-radius: 28px;
-      padding: 32px;
-      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    .page-section {
+      padding: 18px 0 50px;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      background: var(--sky-blue-soft);
-      color: var(--sky-blue-deep);
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 4vw, 3.3rem);
-      line-height: 1.08;
-      margin-bottom: 14px;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-card p { color: var(--mid-gray); max-width: 860px; }
-    section { padding: 26px 0 40px; }
-
-    .section-head { margin-bottom: 20px; max-width: 820px; }
-    .section-head h2 {
-      font-size: clamp(1.55rem, 3vw, 2.25rem);
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-    .section-head p { color: var(--mid-gray); }
-
-    .card {
+    .question-card {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
+      border-radius: var(--radius-xl);
+      padding: 24px;
       box-shadow: var(--shadow);
     }
 
-    .pill {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--sky-blue-soft);
-      color: var(--sky-blue-deep);
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 10px;
+    .question-header {
+      margin-bottom: 18px;
     }
 
-    .instructions {
-      background: #fbfdff;
+    .question-header h2 {
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .question-header p {
+      color: var(--mid-gray);
+      max-width: 820px;
+    }
+
+    .instruction-box {
+      background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
       border: 1px solid rgba(77, 163, 255, 0.14);
       border-radius: var(--radius-md);
       padding: 18px;
-      margin: 16px 0 18px;
       color: var(--mid-gray);
+      margin: 16px 0 20px;
     }
 
     .match-grid {
@@ -178,7 +88,7 @@
 
     .panel {
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       background: #fbfdff;
       padding: 18px;
       box-shadow: var(--shadow-soft);
@@ -187,19 +97,25 @@
     .panel h3 {
       margin-bottom: 12px;
       font-size: 1.05rem;
+      letter-spacing: -0.01em;
     }
 
-    .factor-item, .case-item {
+    .factor-item,
+    .case-item {
       border: 1px solid rgba(31, 41, 55, 0.08);
       border-radius: 14px;
       background: var(--white);
-      padding: 14px 14px;
+      padding: 14px;
       margin-bottom: 12px;
     }
 
-    .factor-item:last-child, .case-item:last-child { margin-bottom: 0; }
+    .factor-item:last-child,
+    .case-item:last-child {
+      margin-bottom: 0;
+    }
 
-    .factor-code, .case-code {
+    .factor-code,
+    .case-code {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -214,8 +130,6 @@
       vertical-align: middle;
     }
 
-    .muted { color: var(--mid-gray); }
-
     .answer-area {
       margin-top: 22px;
       display: grid;
@@ -229,6 +143,18 @@
       align-items: center;
     }
 
+    .answer-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+    }
+
     select {
       width: 100%;
       border: 1px solid var(--border);
@@ -237,6 +163,14 @@
       background: var(--white);
       color: var(--dark-gray);
       font-size: 0.96rem;
+      box-shadow: var(--shadow-soft);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: rgba(77, 163, 255, 0.40);
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.12);
     }
 
     .footer-actions {
@@ -244,6 +178,16 @@
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 18px;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
     }
 
     .modal-overlay {
@@ -257,7 +201,9 @@
       z-index: 2000;
     }
 
-    .modal-overlay.show { display: flex; }
+    .modal-overlay.show {
+      display: flex;
+    }
 
     .modal-card {
       width: min(100%, 780px);
@@ -273,11 +219,13 @@
     .modal-title {
       font-size: 1.4rem;
       margin-bottom: 8px;
+      letter-spacing: -0.02em;
     }
 
     .modal-text {
       color: var(--mid-gray);
       margin-bottom: 14px;
+      line-height: 1.7;
     }
 
     .feedback-list {
@@ -287,39 +235,66 @@
     }
 
     .feedback-item {
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: 12px;
       background: var(--white);
       border: 1px solid rgba(31, 41, 55, 0.08);
       font-size: 0.95rem;
+      color: var(--mid-gray);
+      line-height: 1.6;
     }
 
-    .success { color: var(--success); }
-    .danger { color: var(--danger); }
+    .feedback-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
 
-    footer {
+    .success {
+      color: #198754;
+    }
+
+    .danger {
+      color: #dc3545;
+    }
+
+    .site-footer {
       padding: 32px 0 56px;
       color: var(--mid-gray);
       font-size: 0.94rem;
     }
 
     @media (max-width: 920px) {
-      .match-grid {
+      .match-grid,
+      .hero-mini-strip {
         grid-template-columns: 1fr;
       }
-
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links { justify-content: flex-start; }
     }
 
     @media (max-width: 640px) {
-      .btn { width: 100%; }
-      .footer-actions { flex-direction: column; }
-      .answer-row { grid-template-columns: 1fr; }
+      .sub-hero .hero-card,
+      .question-card,
+      .modal-card {
+        padding: 22px;
+      }
+
+      .hero-actions-inline,
+      .footer-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions-inline .btn,
+      .footer-actions .btn {
+        width: 100%;
+      }
+
+      .answer-row {
+        grid-template-columns: 1fr;
+      }
+
+      .answer-label {
+        justify-self: start;
+      }
     }
   </style>
 </head>
@@ -329,102 +304,203 @@
       <div class="brand">Doddy <span>Ferdiansyah</span></div>
       <nav class="nav-links">
         <a href="../workshop/latihan.html">Kembali ke Latihan</a>
-        <a href="../index.html">Kembali ke Landing Page</a>
+        <a href="../index.html">Landing Page</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="sub-hero">
       <div class="container">
-        <div class="hero-card">
-          <div class="eyebrow">Bagian B · Faktor Manusia dalam Social Engineering</div>
-          <h1>Game Interaktif — Soal 2</h1>
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Workshop Bagian B · Soal 2</div>
+          <h1 class="hero-title">Cocokkan Faktor Kelemahan dengan Situasinya</h1>
           <p>
-            Halaman ini berisi aktivitas mencocokkan faktor kelemahan manusia dengan situasi kerja yang umum terjadi. Tujuannya agar peserta melihat bahwa celah keamanan tidak selalu terlihat jelas, karena sering muncul dalam kebiasaan yang terasa normal.
+            Aktivitas ini membantu peserta memahami bahwa faktor manusia dalam social engineering
+            sering muncul melalui kebiasaan kerja yang tampak normal.
           </p>
+
+          <div class="hero-actions-inline">
+            <a class="btn btn-secondary" href="../workshop/latihan.html">Kembali ke Hub Aktivitas</a>
+            <a class="btn btn-primary" href="../games/bagian-b-soal-3.html">Lanjut ke Soal Berikutnya</a>
+          </div>
+
+          <div class="hero-mini-strip">
+            <div class="metric">
+              <h3>Fokus</h3>
+              <p>Mengenali faktor kelemahan manusia yang sering muncul di tempat kerja.</p>
+            </div>
+            <div class="metric">
+              <h3>Format</h3>
+              <p>Peserta mencocokkan faktor A–F dengan situasi kerja yang paling sesuai.</p>
+            </div>
+            <div class="metric">
+              <h3>Output</h3>
+              <p>Peserta melihat bahwa celah manusia sering muncul dari kebiasaan yang terlihat wajar.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="soal-2">
+    <section class="page-section" id="soal-2">
       <div class="container">
-        <div class="section-head">
-          <h2>Soal 2 — Cocokkan Faktor Kelemahan dengan Situasinya</h2>
-          <p>
-            Untuk setiap faktor A–F, pilih nomor situasi yang paling sesuai. Setelah itu, tekan tombol cek jawaban untuk melihat hasil dan pembahasan.
-          </p>
-        </div>
+        <div class="question-card fade-in">
+          <div class="question-header">
+            <h2>Soal 2 — Matching Activity</h2>
+            <p>
+              Untuk setiap faktor A–F, pilih nomor situasi yang paling sesuai. Setelah itu,
+              tekan tombol cek jawaban untuk melihat hasil dan pembahasan.
+            </p>
+          </div>
 
-        <div class="card">
           <span class="pill">Matching Activity</span>
-          <div class="instructions">
-            <strong>Petunjuk:</strong> cobalah mencocokkan setiap faktor kelemahan dengan contoh situasi kerja yang paling mendekati. Aktivitas ini membantu peserta memahami bahwa celah manusia tidak selalu berupa hal besar, tetapi sering muncul dari kebiasaan yang tampak sepele.
+
+          <div class="instruction-box">
+            <strong>Petunjuk:</strong> Cobalah mencocokkan setiap faktor kelemahan dengan situasi kerja
+            yang paling mendekati. Fokuskan pada pola perilaku yang paling jelas terlihat dalam tiap situasi.
           </div>
 
           <div class="match-grid">
             <div class="panel">
               <h3>Faktor Kelemahan</h3>
-              <div class="factor-item"><span class="factor-code">A</span><strong>Kebiasaan ingin cepat beres</strong></div>
-              <div class="factor-item"><span class="factor-code">B</span><strong>Rasa ingin tahu</strong></div>
-              <div class="factor-item"><span class="factor-code">C</span><strong>Takut dianggap tidak sigap</strong></div>
-              <div class="factor-item"><span class="factor-code">D</span><strong>Terlalu percaya pada tampilan yang resmi</strong></div>
-              <div class="factor-item"><span class="factor-code">E</span><strong>Overconfidence</strong></div>
-              <div class="factor-item"><span class="factor-code">F</span><strong>Multitasking / beban kerja tinggi</strong></div>
+
+              <div class="factor-item">
+                <span class="factor-code">A</span><strong>Kebiasaan ingin cepat beres</strong>
+              </div>
+
+              <div class="factor-item">
+                <span class="factor-code">B</span><strong>Rasa ingin tahu</strong>
+              </div>
+
+              <div class="factor-item">
+                <span class="factor-code">C</span><strong>Takut dianggap tidak sigap</strong>
+              </div>
+
+              <div class="factor-item">
+                <span class="factor-code">D</span><strong>Terlalu percaya pada tampilan yang resmi</strong>
+              </div>
+
+              <div class="factor-item">
+                <span class="factor-code">E</span><strong>Overconfidence</strong>
+              </div>
+
+              <div class="factor-item">
+                <span class="factor-code">F</span><strong>Multitasking / beban kerja tinggi</strong>
+              </div>
             </div>
 
             <div class="panel">
               <h3>Situasi Kerja</h3>
-              <div class="case-item"><span class="case-code">1</span>Seorang karyawan langsung membuka lampiran karena judul filenya terdengar menarik dan terasa penting untuk diketahui.</div>
-              <div class="case-item"><span class="case-code">2</span>Seorang staf merasa tidak perlu mengecek ulang email karena tampilannya rapi, ada logo, dan bahasanya terlihat formal.</div>
-              <div class="case-item"><span class="case-code">3</span>Saat sedang mengerjakan banyak hal sekaligus, seseorang langsung membalas pesan dan mengikuti instruksi tanpa membaca detail dengan teliti.</div>
-              <div class="case-item"><span class="case-code">4</span>Seorang pegawai segera merespons permintaan karena khawatir dianggap lambat atau tidak kooperatif oleh pihak lain.</div>
-              <div class="case-item"><span class="case-code">5</span>Seseorang merasa dirinya sudah cukup paham soal ancaman digital, sehingga jarang melakukan verifikasi tambahan.</div>
-              <div class="case-item"><span class="case-code">6</span>Karena ingin pekerjaan cepat selesai, seseorang memilih langsung klik dan memproses tanpa melewati pengecekan sederhana.</div>
+
+              <div class="case-item">
+                <span class="case-code">1</span>
+                Seorang karyawan langsung membuka lampiran karena judul filenya terdengar menarik dan terasa penting untuk diketahui.
+              </div>
+
+              <div class="case-item">
+                <span class="case-code">2</span>
+                Seorang staf merasa tidak perlu mengecek ulang email karena tampilannya rapi, ada logo, dan bahasanya terlihat formal.
+              </div>
+
+              <div class="case-item">
+                <span class="case-code">3</span>
+                Saat sedang mengerjakan banyak hal sekaligus, seseorang langsung membalas pesan dan mengikuti instruksi tanpa membaca detail dengan teliti.
+              </div>
+
+              <div class="case-item">
+                <span class="case-code">4</span>
+                Seorang pegawai segera merespons permintaan karena khawatir dianggap lambat atau tidak kooperatif oleh pihak lain.
+              </div>
+
+              <div class="case-item">
+                <span class="case-code">5</span>
+                Seseorang merasa dirinya sudah cukup paham soal ancaman digital, sehingga jarang melakukan verifikasi tambahan.
+              </div>
+
+              <div class="case-item">
+                <span class="case-code">6</span>
+                Karena ingin pekerjaan cepat selesai, seseorang memilih langsung klik dan memproses tanpa melewati pengecekan sederhana.
+              </div>
             </div>
           </div>
 
           <div class="answer-area">
             <div class="answer-row">
-              <label for="matchA"><strong>A</strong></label>
+              <div class="answer-label">A</div>
               <select id="matchA">
                 <option value="">Pilih pasangan untuk A</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
+
             <div class="answer-row">
-              <label for="matchB"><strong>B</strong></label>
+              <div class="answer-label">B</div>
               <select id="matchB">
                 <option value="">Pilih pasangan untuk B</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
+
             <div class="answer-row">
-              <label for="matchC"><strong>C</strong></label>
+              <div class="answer-label">C</div>
               <select id="matchC">
                 <option value="">Pilih pasangan untuk C</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
+
             <div class="answer-row">
-              <label for="matchD"><strong>D</strong></label>
+              <div class="answer-label">D</div>
               <select id="matchD">
                 <option value="">Pilih pasangan untuk D</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
+
             <div class="answer-row">
-              <label for="matchE"><strong>E</strong></label>
+              <div class="answer-label">E</div>
               <select id="matchE">
                 <option value="">Pilih pasangan untuk E</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
+
             <div class="answer-row">
-              <label for="matchF"><strong>F</strong></label>
+              <div class="answer-label">F</div>
               <select id="matchF">
                 <option value="">Pilih pasangan untuk F</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
           </div>
@@ -432,6 +508,11 @@
           <div class="footer-actions">
             <button class="btn btn-primary" onclick="checkMatching()">Cek Jawaban</button>
             <button class="btn btn-secondary" onclick="resetMatching()">Ulangi Soal 2</button>
+          </div>
+
+          <div class="note-box">
+            <strong>Catatan:</strong> Dalam aktivitas ini, yang dicari bukan sekadar kemiripan kata,
+            tetapi pola perilaku yang paling dekat dengan faktor kelemahan yang sedang dibahas.
           </div>
         </div>
       </div>
@@ -444,15 +525,16 @@
       <div class="modal-text" id="modalText"></div>
       <div class="feedback-list" id="feedbackList"></div>
       <div class="footer-actions">
-        <button class="btn btn-primary" onclick="closeModal()">Close</button>
+        <button class="btn btn-primary" onclick="closeModal()">Tutup</button>
       </div>
     </div>
   </div>
 
-  <footer>
-    <div class="container">© 2026 Doddy Ferdiansyah · Game Interaktif Bagian B · Soal 2</div>
+  <footer class="site-footer">
+    <div class="container">© 2026 Doddy Ferdiansyah · Workshop Bagian B · Soal 2</div>
   </footer>
 
+  <script src="../assets/main.js"></script>
   <script>
     const answers = {
       A: '6',
@@ -464,10 +546,10 @@
     };
 
     const explanations = {
-      A: 'Kebiasaan ingin cepat beres paling dekat dengan situasi nomor 6, karena orang cenderung memilih langsung klik atau langsung memproses agar pekerjaan terasa cepat selesai.',
-      B: 'Rasa ingin tahu paling dekat dengan situasi nomor 1, karena judul file yang menarik bisa memancing orang membuka lampiran hanya untuk melihat isinya.',
+      A: 'Kebiasaan ingin cepat beres paling dekat dengan situasi nomor 6, karena seseorang memilih langsung memproses agar pekerjaan terasa cepat selesai.',
+      B: 'Rasa ingin tahu paling dekat dengan situasi nomor 1, karena judul file yang menarik dapat memancing orang membuka lampiran hanya untuk melihat isinya.',
       C: 'Takut dianggap tidak sigap paling dekat dengan situasi nomor 4, karena seseorang merespons cepat agar tidak terlihat lambat atau tidak kooperatif.',
-      D: 'Terlalu percaya pada tampilan yang resmi paling dekat dengan situasi nomor 2, karena orang merasa email aman hanya karena formatnya rapi, berlogo, dan bahasanya formal.',
+      D: 'Terlalu percaya pada tampilan yang resmi paling dekat dengan situasi nomor 2, karena orang merasa email aman hanya karena formatnya terlihat rapi dan formal.',
       E: 'Overconfidence paling dekat dengan situasi nomor 5, karena seseorang merasa dirinya sudah cukup paham sehingga jarang melakukan verifikasi tambahan.',
       F: 'Multitasking atau beban kerja tinggi paling dekat dengan situasi nomor 3, karena saat banyak hal berjalan bersamaan, detail penting sering terlewat.'
     };
@@ -492,11 +574,11 @@
 
         if (selected === correct) {
           score += 1;
-          item.innerHTML = '<strong>' + key + ' benar.</strong> ' + explanations[key];
+          item.innerHTML = '<strong>' + key + ' benar.</strong>' + explanations[key];
         } else if (!selected) {
-          item.innerHTML = '<strong>' + key + ' belum diisi.</strong> Coba tentukan pasangan yang paling sesuai untuk faktor ini.';
+          item.innerHTML = '<strong>' + key + ' belum diisi.</strong> Pilih pasangan yang paling sesuai untuk faktor ini.';
         } else {
-          item.innerHTML = '<strong>' + key + ' belum tepat.</strong> Pilihan Anda masih kurang sesuai. Coba baca ulang faktor dan situasinya, lalu cari pasangan yang paling mendekati.';
+          item.innerHTML = '<strong>' + key + ' belum tepat.</strong> Coba baca ulang faktor dan situasinya, lalu cari pasangan yang paling mendekati.';
         }
 
         feedbackList.appendChild(item);
@@ -504,24 +586,24 @@
 
       if (filledCount === 0) {
         modalTitle.innerHTML = '<span class="danger">Anda belum memilih jawaban.</span>';
-        modalText.innerHTML = 'Silakan pilih pasangan untuk setiap faktor terlebih dahulu, lalu tekan cek jawaban kembali.';
+        modalText.innerHTML = 'Silakan pilih pasangan untuk setiap faktor terlebih dahulu.';
         openModal();
         return;
       }
 
       if (score === 6) {
         modalTitle.innerHTML = '<span class="success">Jawaban Anda benar.</span>';
-        modalText.innerHTML = 'Semua pasangan Anda sudah tepat. Aktivitas ini menunjukkan bahwa celah manusia dalam social engineering bisa muncul dalam banyak bentuk, mulai dari rasa ingin tahu sampai beban kerja yang tinggi.';
+        modalText.innerHTML = 'Semua pasangan Anda sudah tepat. Aktivitas ini menunjukkan bahwa faktor manusia dalam social engineering dapat muncul dalam banyak bentuk, bahkan dari kebiasaan kerja yang terlihat normal.';
       } else {
         modalTitle.innerHTML = '<span class="danger">Jawaban Anda belum sepenuhnya tepat.</span>';
-        modalText.innerHTML = 'Masih ada beberapa pasangan yang perlu diperhatikan lagi. Perhatikan bahwa faktor kelemahan manusia tidak selalu terlihat jelas, karena sering muncul sebagai kebiasaan yang terasa normal di tempat kerja.';
+        modalText.innerHTML = 'Masih ada beberapa pasangan yang perlu diperhatikan lagi. Coba lihat kembali faktor dan situasi yang paling mendekati.';
       }
 
       openModal();
     }
 
     function resetMatching() {
-      ['A','B','C','D','E','F'].forEach((key) => {
+      ['A', 'B', 'C', 'D', 'E', 'F'].forEach((key) => {
         document.getElementById('match' + key).value = '';
       });
       closeModal();
@@ -536,7 +618,9 @@
     }
 
     resultModal.addEventListener('click', (event) => {
-      if (event.target === resultModal) closeModal();
+      if (event.target === resultModal) {
+        closeModal();
+      }
     });
   </script>
 </body>
