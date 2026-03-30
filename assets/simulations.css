@@ -968,15 +968,15 @@
   gap: 14px;
 }
 
-/* =========================
-   REALISTIC PHONE LANDSCAPE
+ /* =========================
+   REALISTIC PHONE PORTRAIT
 ========================= */
-.device-phone-realistic {
-  width: min(100%, 760px);
+.device-phone-realistic-portrait {
+  width: min(100%, 390px);
   position: relative;
   margin: 0 auto;
   padding: 10px;
-  border-radius: 36px;
+  border-radius: 38px;
   background:
     linear-gradient(145deg, #566172 0%, #2a3442 18%, #121a24 60%, #0b1119 100%);
   border: 1px solid rgba(255,255,255,0.10);
@@ -987,35 +987,33 @@
     inset 0 -1px 0 rgba(255,255,255,0.03);
 }
 
-.device-phone-realistic::before {
+.device-phone-realistic-portrait::before {
   content: "";
   position: absolute;
-  left: 9px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: -1px;
+  top: 120px;
   width: 4px;
-  height: 78px;
+  height: 66px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08));
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
 }
 
-.device-phone-realistic::after {
+.device-phone-realistic-portrait::after {
   content: "";
   position: absolute;
-  right: 9px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -1px;
+  top: 140px;
   width: 4px;
-  height: 110px;
+  height: 46px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
 }
 
-.device-phone-realistic .device-screen {
+.device-phone-realistic-portrait .device-screen {
   position: relative;
-  min-height: 352px;
+  min-height: 720px;
   overflow: hidden;
-  border-radius: 26px;
+  border-radius: 30px;
   background: #000;
   border: 1px solid rgba(255,255,255,0.05);
   box-shadow:
@@ -1023,7 +1021,7 @@
     inset 0 18px 30px rgba(255,255,255,0.02);
 }
 
-.device-phone-realistic .device-screen::after {
+.device-phone-realistic-portrait .device-screen::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1031,129 +1029,79 @@
   background:
     linear-gradient(
       120deg,
-      rgba(255,255,255,0.08) 0%,
-      rgba(255,255,255,0.00) 24%,
+      rgba(255,255,255,0.06) 0%,
+      rgba(255,255,255,0.00) 22%,
       rgba(255,255,255,0.00) 72%,
-      rgba(255,255,255,0.04) 100%
+      rgba(255,255,255,0.03) 100%
     );
 }
 
-.device-phone-realistic .phone-camera {
+.device-phone-realistic-portrait .dynamic-island {
   position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  width: 116px;
+  height: 28px;
   border-radius: 999px;
-  background:
-    radial-gradient(circle at 35% 35%, #8fa1b8 0%, #425168 35%, #020617 78%);
+  background: rgba(0,0,0,0.92);
   box-shadow:
-    0 0 0 2px rgba(255,255,255,0.04),
-    inset 0 0 8px rgba(255,255,255,0.08);
+    inset 0 0 0 1px rgba(255,255,255,0.03),
+    0 0 0 1px rgba(255,255,255,0.04);
   z-index: 8;
 }
 
-.device-phone-realistic .phone-speaker {
-  position: absolute;
-  left: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 54px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
-  z-index: 8;
-}
-
-.device-phone-realistic .phone-sensor {
-  position: absolute;
-  left: 42px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.08);
-  z-index: 8;
-}
-
-.device-phone-realistic .dynamic-island-landscape {
-  position: absolute;
-  left: 50px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 74px;
-  border-radius: 999px;
-  background: rgba(0,0,0,0.88);
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.02),
-    0 0 0 1px rgba(255,255,255,0.03);
-  z-index: 7;
-}
-
-.device-phone-realistic .dynamic-island-landscape::before {
+.device-phone-realistic-portrait .dynamic-island::before {
   content: "";
   position: absolute;
-  left: 6px;
-  top: 12px;
-  width: 8px;
-  height: 8px;
+  left: 18px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
   background: radial-gradient(circle at 35% 35%, #64748b 0%, #0f172a 75%);
 }
 
-.device-phone-realistic .dynamic-island-landscape::after {
+.device-phone-realistic-portrait .dynamic-island::after {
   content: "";
   position: absolute;
-  left: 6px;
-  bottom: 12px;
-  width: 8px;
-  height: 3px;
+  right: 18px;
+  top: 11px;
+  width: 34px;
+  height: 6px;
   border-radius: 999px;
   background: rgba(255,255,255,0.08);
 }
 
 /* =========================
-   REALISTIC WHATSAPP LANDSCAPE
+   REALISTIC WHATSAPP PORTRAIT
 ========================= */
-.mock-whatsapp-real {
-  min-height: 352px;
+.mock-whatsapp-real-portrait {
+  min-height: 720px;
   display: grid;
-  grid-template-rows: 28px auto 1fr auto;
+  grid-template-rows: 42px auto 1fr auto;
   background: var(--wa-bg);
 }
 
-.mock-whatsapp-real .wa-statusbar {
+.mock-whatsapp-real-portrait .wa-statusbar {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 0 14px 0 86px;
+  padding: 0 16px 8px;
   background: #0b5f58;
   color: rgba(255,255,255,0.92);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.01em;
 }
 
-.mock-whatsapp-real .wa-status-icons {
+.mock-whatsapp-real-portrait .wa-status-icons {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.mock-whatsapp-real .wa-signal,
-.mock-whatsapp-real .wa-wifi,
-.mock-whatsapp-real .wa-battery {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.92);
-  font-size: 0.68rem;
-}
-
-.mock-whatsapp-real .wa-battery-box {
+.mock-whatsapp-real-portrait .wa-battery-box {
   width: 18px;
   height: 9px;
   border: 1.6px solid rgba(255,255,255,0.92);
@@ -1161,7 +1109,7 @@
   position: relative;
 }
 
-.mock-whatsapp-real .wa-battery-box::after {
+.mock-whatsapp-real-portrait .wa-battery-box::after {
   content: "";
   position: absolute;
   right: -3px;
@@ -1172,7 +1120,7 @@
   background: rgba(255,255,255,0.92);
 }
 
-.mock-whatsapp-real .wa-battery-level {
+.mock-whatsapp-real-portrait .wa-battery-level {
   position: absolute;
   left: 1px;
   top: 1px;
@@ -1182,32 +1130,32 @@
   background: rgba(255,255,255,0.92);
 }
 
-.mock-whatsapp-real .wa-header {
+.mock-whatsapp-real-portrait .wa-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 16px 12px 86px;
+  padding: 14px 16px;
   background: var(--wa-header);
   color: #fff;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-.mock-whatsapp-real .wa-header-left,
-.mock-whatsapp-real .wa-header-right {
+.mock-whatsapp-real-portrait .wa-header-left,
+.mock-whatsapp-real-portrait .wa-header-right {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.mock-whatsapp-real .wa-back {
+.mock-whatsapp-real-portrait .wa-back {
   width: 16px;
   height: 16px;
   position: relative;
   flex-shrink: 0;
 }
 
-.mock-whatsapp-real .wa-back::before {
+.mock-whatsapp-real-portrait .wa-back::before {
   content: "";
   position: absolute;
   left: 2px;
@@ -1219,9 +1167,9 @@
   transform: rotate(45deg);
 }
 
-.mock-whatsapp-real .wa-avatar {
-  width: 40px;
-  height: 40px;
+.mock-whatsapp-real-portrait .wa-avatar {
+  width: 42px;
+  height: 42px;
   border-radius: 999px;
   overflow: hidden;
   display: inline-flex;
@@ -1232,33 +1180,33 @@
   border: 1px solid rgba(255,255,255,0.28);
 }
 
-.mock-whatsapp-real .wa-avatar svg {
+.mock-whatsapp-real-portrait .wa-avatar svg {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.mock-whatsapp-real .wa-contact {
+.mock-whatsapp-real-portrait .wa-contact {
   display: grid;
   gap: 2px;
 }
 
-.mock-whatsapp-real .wa-name {
+.mock-whatsapp-real-portrait .wa-name {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.2;
 }
 
-.mock-whatsapp-real .wa-number {
-  font-size: 0.75rem;
+.mock-whatsapp-real-portrait .wa-number {
+  font-size: 0.76rem;
   color: rgba(255,255,255,0.86);
 }
 
-.mock-whatsapp-real .wa-header-right {
+.mock-whatsapp-real-portrait .wa-header-right {
   gap: 12px;
 }
 
-.mock-whatsapp-real .wa-icon {
+.mock-whatsapp-real-portrait .wa-icon {
   width: 18px;
   height: 18px;
   position: relative;
@@ -1266,14 +1214,14 @@
   opacity: 0.96;
 }
 
-.mock-whatsapp-real .wa-icon.call::before,
-.mock-whatsapp-real .wa-icon.video::before,
-.mock-whatsapp-real .wa-icon.menu::before {
+.mock-whatsapp-real-portrait .wa-icon.call::before,
+.mock-whatsapp-real-portrait .wa-icon.video::before,
+.mock-whatsapp-real-portrait .wa-icon.menu::before {
   content: "";
   position: absolute;
 }
 
-.mock-whatsapp-real .wa-icon.call::before {
+.mock-whatsapp-real-portrait .wa-icon.call::before {
   left: 4px;
   top: 4px;
   width: 9px;
@@ -1285,7 +1233,7 @@
   transform: rotate(45deg);
 }
 
-.mock-whatsapp-real .wa-icon.video::before {
+.mock-whatsapp-real-portrait .wa-icon.video::before {
   left: 2px;
   top: 5px;
   width: 9px;
@@ -1295,7 +1243,7 @@
   background: transparent;
 }
 
-.mock-whatsapp-real .wa-icon.video::after {
+.mock-whatsapp-real-portrait .wa-icon.video::after {
   content: "";
   position: absolute;
   right: 1px;
@@ -1307,7 +1255,7 @@
   border-bottom: 3px solid transparent;
 }
 
-.mock-whatsapp-real .wa-icon.menu::before {
+.mock-whatsapp-real-portrait .wa-icon.menu::before {
   right: 7px;
   top: 2px;
   width: 4px;
@@ -1319,8 +1267,8 @@
     0 10px 0 rgba(255,255,255,0.94);
 }
 
-.mock-whatsapp-real .wa-body {
-  padding: 18px 18px 18px 86px;
+.mock-whatsapp-real-portrait .wa-body {
+  padding: 18px 16px;
   display: grid;
   gap: 12px;
   align-content: start;
@@ -1332,7 +1280,7 @@
     var(--wa-bg);
 }
 
-.mock-whatsapp-real .wa-date {
+.mock-whatsapp-real-portrait .wa-date {
   justify-self: center;
   padding: 5px 10px;
   border-radius: 999px;
@@ -1343,19 +1291,19 @@
   font-weight: 700;
 }
 
-.mock-whatsapp-real .wa-bubble-in {
-  max-width: min(72%, 500px);
+.mock-whatsapp-real-portrait .wa-bubble-in {
+  max-width: 88%;
   background: #ffffff;
   color: var(--sim-text);
   padding: 13px 14px 10px;
   border-radius: 14px 14px 14px 5px;
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
-  font-size: 0.97rem;
+  font-size: 0.98rem;
   line-height: 1.62;
   position: relative;
 }
 
-.mock-whatsapp-real .wa-bubble-in::before {
+.mock-whatsapp-real-portrait .wa-bubble-in::before {
   content: "";
   position: absolute;
   left: -6px;
@@ -1366,7 +1314,7 @@
   clip-path: polygon(100% 0, 0 0, 100% 100%);
 }
 
-.mock-whatsapp-real .wa-time {
+.mock-whatsapp-real-portrait .wa-time {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
@@ -1377,15 +1325,15 @@
   color: rgba(31, 41, 55, 0.55);
 }
 
-.mock-whatsapp-real .wa-checks {
+.mock-whatsapp-real-portrait .wa-checks {
   position: relative;
   width: 14px;
   height: 8px;
   flex-shrink: 0;
 }
 
-.mock-whatsapp-real .wa-checks::before,
-.mock-whatsapp-real .wa-checks::after {
+.mock-whatsapp-real-portrait .wa-checks::before,
+.mock-whatsapp-real-portrait .wa-checks::after {
   content: "";
   position: absolute;
   width: 5px;
@@ -1395,26 +1343,26 @@
   transform: rotate(45deg);
 }
 
-.mock-whatsapp-real .wa-checks::before {
+.mock-whatsapp-real-portrait .wa-checks::before {
   left: 1px;
   top: -1px;
 }
 
-.mock-whatsapp-real .wa-checks::after {
+.mock-whatsapp-real-portrait .wa-checks::after {
   left: 6px;
   top: -1px;
 }
 
-.mock-whatsapp-real .wa-inputbar {
+.mock-whatsapp-real-portrait .wa-inputbar {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px 12px 86px;
+  padding: 12px 16px;
   background: #f7f7f7;
   border-top: 1px solid rgba(31, 41, 55, 0.06);
 }
 
-.mock-whatsapp-real .wa-input-icon {
+.mock-whatsapp-real-portrait .wa-input-icon {
   width: 34px;
   height: 34px;
   border-radius: 999px;
@@ -1425,7 +1373,7 @@
   position: relative;
 }
 
-.mock-whatsapp-real .wa-input-icon.emoji::before {
+.mock-whatsapp-real-portrait .wa-input-icon.emoji::before {
   content: "";
   position: absolute;
   inset: 8px;
@@ -1433,7 +1381,7 @@
   border-radius: 999px;
 }
 
-.mock-whatsapp-real .wa-input-icon.attach::before {
+.mock-whatsapp-real-portrait .wa-input-icon.attach::before {
   content: "";
   position: absolute;
   left: 12px;
@@ -1449,7 +1397,7 @@
   transform: rotate(20deg);
 }
 
-.mock-whatsapp-real .wa-input-icon.mic::before {
+.mock-whatsapp-real-portrait .wa-input-icon.mic::before {
   content: "";
   position: absolute;
   left: 13px;
@@ -1460,7 +1408,7 @@
   background: #94a3b8;
 }
 
-.mock-whatsapp-real .wa-input-icon.mic::after {
+.mock-whatsapp-real-portrait .wa-input-icon.mic::after {
   content: "";
   position: absolute;
   left: 16px;
@@ -1471,7 +1419,7 @@
   box-shadow: -4px 4px 0 -3px #94a3b8, 4px 4px 0 -3px #94a3b8;
 }
 
-.mock-whatsapp-real .wa-input {
+.mock-whatsapp-real-portrait .wa-input {
   flex: 1;
   min-height: 40px;
   border-radius: 999px;
@@ -1481,7 +1429,7 @@
   position: relative;
 }
 
-.mock-whatsapp-real .wa-input::before {
+.mock-whatsapp-real-portrait .wa-input::before {
   content: "Ketik pesan";
   position: absolute;
   left: 14px;
@@ -1491,76 +1439,13 @@
   font-size: 0.88rem;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 980px) {
-  .email-layout,
-  .site-layout,
-  .mock-facebook .fb-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .mock-discord {
-    grid-template-columns: 72px 1fr;
-  }
-
-  .mock-discord .discord-main {
-    grid-column: span 2;
-  }
-
-  .mock-grid-3 {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 760px) {
-  .device-phone.landscape,
-  .device-tablet.landscape,
-  .device-laptop,
-  .device-monitor {
-    max-width: 100%;
-  }
-
-  .device-phone.landscape .device-screen,
-  .device-tablet .device-screen,
-  .device-laptop .device-screen,
-  .device-monitor .device-screen {
-    min-height: auto;
-  }
-
-  .mock-grid-2,
-  .ig-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .chat-bubble {
-    max-width: 90%;
-  }
-
-  .mock-facebook .fb-layout {
-    padding: 14px;
-  }
-
-  .device-phone-realistic {
-    width: 100%;
-  }
-
-  .device-phone-realistic .device-screen,
-  .mock-whatsapp-real {
-    min-height: 320px;
-  }
-
-  .mock-whatsapp-real .wa-bubble-in {
-    max-width: 88%;
-  }
-}
-
 @media (max-width: 640px) {
-  .mock-whatsapp-real .wa-statusbar,
-  .mock-whatsapp-real .wa-header,
-  .mock-whatsapp-real .wa-body,
-  .mock-whatsapp-real .wa-inputbar {
-    padding-left: 78px;
+  .device-phone-realistic-portrait {
+    width: min(100%, 360px);
+  }
+
+  .device-phone-realistic-portrait .device-screen,
+  .mock-whatsapp-real-portrait {
+    min-height: 660px;
   }
 }
