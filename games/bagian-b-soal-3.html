@@ -156,20 +156,6 @@
       box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
     }
 
-    .step-card-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: var(--sky-blue-soft);
-      color: var(--sky-blue-deep);
-      font-weight: 800;
-      margin-bottom: 10px;
-      font-size: 0.95rem;
-    }
-
     .order-list {
       display: grid;
       gap: 12px;
@@ -422,27 +408,22 @@
 
                 <div class="cards-list" id="cardsList">
                   <div class="step-card" draggable="true" data-id="C">
-                    <div class="step-card-badge">C</div>
                     Nada pesan dibuat cukup menekan agar respons terasa perlu dilakukan saat itu juga.
                   </div>
 
                   <div class="step-card" draggable="true" data-id="A">
-                    <div class="step-card-badge">A</div>
                     Aktivitas lembur, rapat, dan kesibukan kerja seseorang cukup sering terlihat di status WhatsApp atau media sosialnya.
                   </div>
 
                   <div class="step-card" draggable="true" data-id="E">
-                    <div class="step-card-badge">E</div>
                     Akses, file, atau informasi yang sebelumnya tidak semestinya diberikan akhirnya berpindah ke pihak yang salah.
                   </div>
 
                   <div class="step-card" draggable="true" data-id="B">
-                    <div class="step-card-badge">B</div>
                     Pesan tentang kebutuhan file untuk rapat mendadak disusun dengan konteks yang terasa relevan dengan pekerjaan korban.
                   </div>
 
                   <div class="step-card" draggable="true" data-id="D">
-                    <div class="step-card-badge">D</div>
                     File atau informasi dikirim tanpa verifikasi ketika penerimanya sedang sibuk dan merasa konteksnya masih masuk akal.
                   </div>
                 </div>
@@ -555,12 +536,14 @@
     function addPlaceholderIfEmpty(zone) {
       const hasCard = zone.querySelector('.step-card');
       const hasPlaceholder = zone.querySelector('.placeholder');
+
       if (!hasCard && !hasPlaceholder) {
         const placeholder = document.createElement('span');
         placeholder.className = 'placeholder';
         placeholder.textContent = 'Tarik kartu ke sini';
         zone.appendChild(placeholder);
       }
+
       if (hasCard) {
         const placeholder = zone.querySelector('.placeholder');
         if (placeholder) placeholder.remove();
