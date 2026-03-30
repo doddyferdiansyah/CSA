@@ -91,6 +91,11 @@
       margin-top: 18px;
     }
 
+    .sticky-panel {
+      position: sticky;
+      top: 110px;
+    }
+
     .panel {
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
@@ -103,6 +108,13 @@
       margin-bottom: 12px;
       font-size: 1.05rem;
       letter-spacing: -0.01em;
+    }
+
+    .panel-desc {
+      color: var(--mid-gray);
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+      line-height: 1.6;
     }
 
     .factor-bank {
@@ -126,7 +138,8 @@
         transform 0.2s ease,
         border-color 0.2s ease,
         box-shadow 0.2s ease,
-        opacity 0.2s ease;
+        opacity 0.2s ease,
+        background 0.2s ease;
     }
 
     .factor-chip:hover {
@@ -226,7 +239,14 @@
       gap: 10px;
       transition:
         border-color 0.2s ease,
-        background 0.2s ease;
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .drop-zone.drag-over {
+      border-color: rgba(77, 163, 255, 0.40);
+      background: #f8fbff;
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
     }
 
     .drop-zone.filled {
@@ -364,6 +384,10 @@
       .board-layout {
         grid-template-columns: 1fr;
       }
+
+      .sticky-panel {
+        position: static;
+      }
     }
 
     @media (max-width: 640px) {
@@ -449,42 +473,48 @@
           <span class="pill">Drag and Drop</span>
 
           <div class="instruction-box">
-            <strong>Petunjuk:</strong> Anda dapat menyeret kartu faktor ke kotak jawaban yang tersedia.
-            Jika lebih nyaman, Anda juga bisa klik satu faktor terlebih dahulu, lalu klik area jawaban yang diinginkan.
+            <strong>Petunjuk:</strong> Panel faktor di kiri akan tetap terlihat saat Anda scroll.
+            Anda juga bisa klik satu faktor terlebih dahulu, lalu klik area jawaban yang diinginkan.
           </div>
 
           <div class="board-layout">
-            <div class="panel">
-              <h3>Faktor Kelemahan</h3>
-              <div class="factor-bank" id="factorBank">
-                <div class="factor-chip" draggable="true" data-factor="A">
-                  <div class="factor-code">A</div>
-                  <div class="factor-title">Kebiasaan ingin cepat beres</div>
+            <div class="sticky-panel">
+              <div class="panel">
+                <h3>Faktor Kelemahan</h3>
+                <div class="panel-desc">
+                  Seret salah satu faktor ke slot jawaban pada situasi yang paling sesuai.
                 </div>
 
-                <div class="factor-chip" draggable="true" data-factor="B">
-                  <div class="factor-code">B</div>
-                  <div class="factor-title">Rasa ingin tahu</div>
-                </div>
+                <div class="factor-bank" id="factorBank">
+                  <div class="factor-chip" draggable="true" data-factor="A">
+                    <div class="factor-code">A</div>
+                    <div class="factor-title">Kebiasaan ingin cepat beres</div>
+                  </div>
 
-                <div class="factor-chip" draggable="true" data-factor="C">
-                  <div class="factor-code">C</div>
-                  <div class="factor-title">Takut dianggap tidak sigap</div>
-                </div>
+                  <div class="factor-chip" draggable="true" data-factor="B">
+                    <div class="factor-code">B</div>
+                    <div class="factor-title">Rasa ingin tahu</div>
+                  </div>
 
-                <div class="factor-chip" draggable="true" data-factor="D">
-                  <div class="factor-code">D</div>
-                  <div class="factor-title">Terlalu percaya pada tampilan yang resmi</div>
-                </div>
+                  <div class="factor-chip" draggable="true" data-factor="C">
+                    <div class="factor-code">C</div>
+                    <div class="factor-title">Takut dianggap tidak sigap</div>
+                  </div>
 
-                <div class="factor-chip" draggable="true" data-factor="E">
-                  <div class="factor-code">E</div>
-                  <div class="factor-title">Overconfidence</div>
-                </div>
+                  <div class="factor-chip" draggable="true" data-factor="D">
+                    <div class="factor-code">D</div>
+                    <div class="factor-title">Terlalu percaya pada tampilan yang resmi</div>
+                  </div>
 
-                <div class="factor-chip" draggable="true" data-factor="F">
-                  <div class="factor-code">F</div>
-                  <div class="factor-title">Multitasking / beban kerja tinggi</div>
+                  <div class="factor-chip" draggable="true" data-factor="E">
+                    <div class="factor-code">E</div>
+                    <div class="factor-title">Overconfidence</div>
+                  </div>
+
+                  <div class="factor-chip" draggable="true" data-factor="F">
+                    <div class="factor-code">F</div>
+                    <div class="factor-title">Multitasking / beban kerja tinggi</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -651,13 +681,11 @@
     }
 
     function placeFactorInZone(factorCode, zone) {
-      // kembalikan faktor lama di zona ini ke bank jika ada
       const existingFactor = zone.dataset.factor;
       if (existingFactor && existingFactor !== factorCode) {
         returnFactorToBank(existingFactor);
       }
 
-      // kalau faktor ini sudah ada di zone lain, kosongkan dulu
       document.querySelectorAll('.drop-zone').forEach((z) => {
         if (z.dataset.factor === factorCode) {
           clearZone(z);
