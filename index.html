@@ -259,7 +259,7 @@
 
     .section-head {
       margin-bottom: 20px;
-      max-width: 860px;
+      max-width: 900px;
     }
 
     .section-head h2 {
@@ -307,6 +307,36 @@
     .speaker-card p {
       color: var(--mid-gray);
       font-size: 0.94rem;
+    }
+
+    .overview-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .overview-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+    }
+
+    .overview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      width: fit-content;
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
     .program-structure {
@@ -438,13 +468,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 999px;
       font-size: 0.75rem;
       font-weight: 700;
-      background: #f8fafc;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
     }
 
     .contact-grid {
@@ -674,21 +704,26 @@
         </div>
 
         <div class="grid-3 fade-in">
-          <div class="info-card">
-            <h3>Audience</h3>
+          <div class="info-card overview-card">
+            <div class="overview-badge">Audience</div>
+            <h3>Target Participant</h3>
             <p>
               Karyawan, staf administratif, tim operasional, dan fungsi bisnis lain yang
               berinteraksi dengan email, chat, file, tautan, dan permintaan kerja sehari-hari.
             </p>
           </div>
-          <div class="info-card">
+
+          <div class="info-card overview-card">
+            <div class="overview-badge">Focus</div>
             <h3>Learning Focus</h3>
             <p>
               Mengenali red flag, memahami faktor manusia yang dimanfaatkan pelaku, dan
               membangun keputusan yang lebih aman sebelum merespons.
             </p>
           </div>
-          <div class="info-card">
+
+          <div class="info-card overview-card">
+            <div class="overview-badge">Format</div>
             <h3>Delivery Style</h3>
             <p>
               Formal namun aplikatif, dikombinasikan dengan studi kasus, diskusi singkat,
@@ -851,8 +886,9 @@
               Kumpulan workshop simulatif untuk membantu peserta mempraktikkan materi
               yang telah dipelajari melalui skenario dan exercise interaktif.
             </p>
+            <div class="resource-status">Available for participants</div>
             <div class="assessment-foot">
-              <a class="btn btn-secondary" href="workshop/latihan.html">Buka Aktivitas</a>
+              <a class="btn btn-secondary" href="#">Buka Aktivitas</a>
             </div>
           </div>
 
