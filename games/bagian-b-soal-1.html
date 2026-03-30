@@ -81,241 +81,9 @@
       line-height: 1.65;
     }
 
-    /* =========================
-       REALISTIC PHONE LANDSCAPE
-    ========================= */
     .phone-stage {
       display: grid;
       justify-items: center;
-    }
-
-    .phone-realistic {
-      width: min(100%, 760px);
-      background: linear-gradient(180deg, #2c3440 0%, #111827 100%);
-      border-radius: 34px;
-      padding: 12px;
-      box-shadow:
-        0 26px 60px rgba(15, 23, 42, 0.18),
-        0 10px 20px rgba(15, 23, 42, 0.12);
-      position: relative;
-    }
-
-    .phone-realistic::before {
-      content: "";
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 74px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.16);
-    }
-
-    .phone-realistic::after {
-      content: "";
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 98px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.10);
-    }
-
-    .phone-screen {
-      position: relative;
-      overflow: hidden;
-      min-height: 350px;
-      border-radius: 24px;
-      background: #000;
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    .phone-camera {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 35% 35%, #64748b, #0f172a 70%);
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
-      z-index: 5;
-    }
-
-    .phone-speaker {
-      position: absolute;
-      left: 36px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 52px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      z-index: 5;
-    }
-
-    .wa-real {
-      min-height: 350px;
-      display: grid;
-      grid-template-rows: 28px auto 1fr auto;
-      background: var(--wa-bg);
-    }
-
-    .wa-statusbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 14px 0 56px;
-      background: #0b5f58;
-      color: rgba(255,255,255,0.92);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-
-    .wa-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 16px 12px 56px;
-      background: var(--wa-header);
-      color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .wa-header-left,
-    .wa-header-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .wa-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
-      color: #1d4ed8;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.9rem;
-      flex-shrink: 0;
-    }
-
-    .wa-contact {
-      display: grid;
-      gap: 2px;
-    }
-
-    .wa-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      line-height: 1.2;
-    }
-
-    .wa-number {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.86);
-    }
-
-    .wa-icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.15);
-    }
-
-    .wa-body {
-      padding: 18px 18px 18px 56px;
-      display: grid;
-      gap: 12px;
-      align-content: start;
-      background:
-        linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.05)),
-        var(--wa-bg);
-    }
-
-    .wa-date {
-      justify-self: center;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .wa-bubble-in {
-      max-width: min(72%, 500px);
-      background: #ffffff;
-      color: var(--dark-gray);
-      padding: 13px 14px 10px;
-      border-radius: 14px 14px 14px 5px;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
-      font-size: 0.97rem;
-      line-height: 1.62;
-    }
-
-    .wa-time {
-      display: block;
-      margin-top: 6px;
-      text-align: right;
-      font-size: 0.7rem;
-      color: rgba(31, 41, 55, 0.55);
-    }
-
-    .wa-inputbar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px 12px 56px;
-      background: #f7f7f7;
-      border-top: 1px solid rgba(31, 41, 55, 0.06);
-    }
-
-    .wa-input-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: #ffffff;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      box-shadow: var(--shadow-soft);
-      flex-shrink: 0;
-    }
-
-    .wa-input {
-      flex: 1;
-      min-height: 40px;
-      border-radius: 999px;
-      background: #ffffff;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .chat-clue-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .clue-chip {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      background: #f8fafc;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
     }
 
     .choice-grid {
@@ -458,24 +226,6 @@
       }
     }
 
-    @media (max-width: 760px) {
-      .phone-realistic {
-        width: 100%;
-      }
-
-      .phone-screen {
-        min-height: 320px;
-      }
-
-      .wa-real {
-        min-height: 320px;
-      }
-
-      .wa-bubble-in {
-        max-width: 88%;
-      }
-    }
-
     @media (max-width: 640px) {
       .sub-hero .hero-card,
       .question-card,
@@ -491,13 +241,6 @@
       .hero-actions-inline .btn,
       .footer-actions .btn {
         width: 100%;
-      }
-
-      .wa-statusbar,
-      .wa-header,
-      .wa-body,
-      .wa-inputbar {
-        padding-left: 52px;
       }
     }
   </style>
@@ -562,20 +305,45 @@
 
           <div class="scenario-block">
             <div class="phone-stage">
-              <div class="phone-realistic">
-                <div class="phone-screen">
+              <div class="device-phone-realistic">
+                <div class="device-screen">
                   <div class="phone-camera"></div>
                   <div class="phone-speaker"></div>
+                  <div class="phone-sensor"></div>
+                  <div class="dynamic-island-landscape"></div>
 
-                  <div class="wa-real">
+                  <div class="mock-whatsapp-real">
                     <div class="wa-statusbar">
                       <span>09.14</span>
-                      <span>4G • 88%</span>
+                      <div class="wa-status-icons">
+                        <span class="wa-signal">4G</span>
+                        <span class="wa-wifi">WiFi</span>
+                        <span class="wa-battery">
+                          <span class="wa-battery-box">
+                            <span class="wa-battery-level"></span>
+                          </span>
+                        </span>
+                      </div>
                     </div>
 
                     <div class="wa-header">
                       <div class="wa-header-left">
-                        <div class="wa-avatar">PB</div>
+                        <div class="wa-back"></div>
+
+                        <div class="wa-avatar" aria-hidden="true">
+                          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                              <linearGradient id="avatarBgBoss" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#e2e8f0"/>
+                                <stop offset="100%" stop-color="#cbd5e1"/>
+                              </linearGradient>
+                            </defs>
+                            <rect width="64" height="64" rx="32" fill="url(#avatarBgBoss)"/>
+                            <circle cx="32" cy="24" r="11" fill="#94a3b8"/>
+                            <path d="M14 56c3-11 12-17 18-17s15 6 18 17" fill="#94a3b8"/>
+                          </svg>
+                        </div>
+
                         <div class="wa-contact">
                           <div class="wa-name">Pak Bos</div>
                           <div class="wa-number">0813-7284-xxxx</div>
@@ -583,9 +351,9 @@
                       </div>
 
                       <div class="wa-header-right">
-                        <div class="wa-icon"></div>
-                        <div class="wa-icon"></div>
-                        <div class="wa-icon"></div>
+                        <div class="wa-icon call"></div>
+                        <div class="wa-icon video"></div>
+                        <div class="wa-icon menu"></div>
                       </div>
                     </div>
 
@@ -595,14 +363,18 @@
                       <div class="wa-bubble-in">
                         Pak/Bu, mohon segera kirim file yang kemarin. Saya butuh sekarang untuk rapat.
                         Jangan kirim ke grup ya, langsung ke saya saja.
-                        <span class="wa-time">09.14</span>
+                        <span class="wa-time">
+                          09.14
+                          <span class="wa-checks" aria-hidden="true"></span>
+                        </span>
                       </div>
                     </div>
 
                     <div class="wa-inputbar">
-                      <div class="wa-input-icon"></div>
+                      <div class="wa-input-icon emoji"></div>
                       <div class="wa-input"></div>
-                      <div class="wa-input-icon"></div>
+                      <div class="wa-input-icon attach"></div>
+                      <div class="wa-input-icon mic"></div>
                     </div>
                   </div>
                 </div>
@@ -619,12 +391,6 @@
           <div class="question-box">
             <strong>Menurut Anda, apa yang paling mungkin sedang dimainkan?</strong>
             <div class="muted">Anda boleh memilih lebih dari satu jawaban.</div>
-
-            <div class="chat-clue-row">
-              <span class="clue-chip">Konteks kerja</span>
-              <span class="clue-chip">Permintaan langsung</span>
-              <span class="clue-chip">Tekanan waktu</span>
-            </div>
           </div>
 
           <div class="choice-grid" id="choiceGrid">
@@ -757,11 +523,7 @@
 
         const meta = feedbackGame1[choice];
         item.innerHTML =
-          '<strong>' +
-          meta.title +
-          (meta.correct ? ' — alasan singkat.' : ' — alasan singkat.') +
-          '</strong>' +
-          meta.text;
+          '<strong>' + meta.title + ' — alasan singkat.</strong>' + meta.text;
 
         modalFeedbackList.appendChild(item);
       });
