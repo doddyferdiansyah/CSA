@@ -91,18 +91,26 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: 18px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .nav-links a {
       color: var(--mid-gray);
       font-size: 0.95rem;
-      transition: color var(--transition-fast);
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
     }
 
     .nav-links a:hover {
-      color: var(--sky-blue);
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
     }
 
     .btn {
@@ -119,7 +127,8 @@
         transform var(--transition-fast),
         box-shadow var(--transition-fast),
         background var(--transition-fast),
-        border-color var(--transition-fast);
+        border-color var(--transition-fast),
+        color var(--transition-fast);
     }
 
     .btn:hover {
@@ -351,12 +360,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 999px;
       width: fit-content;
-      background: #f8fafc;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
       font-size: 0.73rem;
       font-weight: 700;
     }
@@ -380,6 +389,17 @@
     .resource-btn {
       padding: 10px 14px;
       font-size: 0.9rem;
+      background: var(--white);
+      color: var(--dark-gray);
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      box-shadow: none;
+    }
+
+    .resource-btn:hover {
+      background: var(--sky-blue);
+      color: var(--white);
+      border-color: var(--sky-blue);
+      box-shadow: 0 12px 22px rgba(77, 163, 255, 0.22);
     }
 
     .speaker-card {
@@ -615,7 +635,7 @@
 
               <div class="hero-actions">
                 <a class="btn btn-primary" href="#program">Lihat Program</a>
-                <a class="btn btn-secondary" href="workshop/latihan.html">Buka Modul Interaktif</a>
+                <a class="btn btn-secondary" href="trial/index.html">Coba Simulasi</a>
               </div>
             </div>
 
@@ -700,33 +720,25 @@
             <div class="structure-card">
               <div class="structure-code">A</div>
               <h3>Awareness Foundation</h3>
-              <p>
-                Mengapa awareness penting dan mengapa manusia menjadi target utama.
-              </p>
+              <p>Mengapa awareness penting dan mengapa manusia menjadi target utama.</p>
             </div>
 
             <div class="structure-card">
               <div class="structure-code">B</div>
               <h3>Psychology & Human Factors</h3>
-              <p>
-                Emosi, relasi sosial, kondisi kerja, dan bias penilaian yang sering dimanfaatkan pelaku.
-              </p>
+              <p>Emosi, relasi sosial, kondisi kerja, dan bias penilaian yang sering dimanfaatkan pelaku.</p>
             </div>
 
             <div class="structure-card">
               <div class="structure-code">C</div>
               <h3>Threat Patterns & Red Flags</h3>
-              <p>
-                Bentuk serangan, pola manipulasi, dan tanda bahaya yang perlu dikenali lebih awal.
-              </p>
+              <p>Bentuk serangan, pola manipulasi, dan tanda bahaya yang perlu dikenali lebih awal.</p>
             </div>
 
             <div class="structure-card">
               <div class="structure-code">D</div>
               <h3>Practical Actions & Checklist</h3>
-              <p>
-                Langkah praktis, safe behavior, dan checklist sederhana untuk keseharian kerja.
-              </p>
+              <p>Langkah praktis, safe behavior, dan checklist sederhana untuk keseharian kerja.</p>
             </div>
           </div>
         </div>
@@ -747,60 +759,50 @@
           <div class="resource-card">
             <div class="resource-badge">Slide Deck</div>
             <h3>Slide Materi Utama</h3>
-            <p>
-              Materi utama yang menjelaskan alur pembelajaran dari awareness hingga langkah praktis.
-            </p>
+            <p>Materi utama yang menjelaskan alur pembelajaran dari awareness hingga langkah praktis.</p>
             <div class="resource-foot">
               <span class="resource-status">Access on request</span>
-              <a class="btn btn-secondary resource-btn" href="#">Download</a>
+              <a class="btn resource-btn" href="#">Download</a>
             </div>
           </div>
 
           <div class="resource-card">
             <div class="resource-badge">Handout</div>
             <h3>Handout Ringkas</h3>
-            <p>
-              Ringkasan materi inti yang memudahkan peserta melakukan review cepat setelah sesi selesai.
-            </p>
+            <p>Ringkasan materi inti yang memudahkan peserta melakukan review cepat setelah sesi selesai.</p>
             <div class="resource-foot">
               <span class="resource-status">Available for participants</span>
-              <a class="btn btn-secondary resource-btn" href="#">Download</a>
+              <a class="btn resource-btn" href="#">Download</a>
             </div>
           </div>
 
           <div class="resource-card">
             <div class="resource-badge">Checklist</div>
             <h3>Checklist Keamanan Pegawai</h3>
-            <p>
-              Checklist praktis untuk membantu peserta membangun kebiasaan kerja yang lebih aman.
-            </p>
+            <p>Checklist praktis untuk membantu peserta membangun kebiasaan kerja yang lebih aman.</p>
             <div class="resource-foot">
               <span class="resource-status">Available for participants</span>
-              <a class="btn btn-secondary resource-btn" href="#">Download</a>
+              <a class="btn resource-btn" href="#">Download</a>
             </div>
           </div>
 
           <div class="resource-card">
             <div class="resource-badge">Poster</div>
             <h3>Poster Checklist Keamanan</h3>
-            <p>
-              Materi visual ringkas yang siap digunakan untuk penguatan awareness di area kerja.
-            </p>
+            <p>Materi visual ringkas yang siap digunakan untuk penguatan awareness di area kerja.</p>
             <div class="resource-foot">
               <span class="resource-status">Access on request</span>
-              <a class="btn btn-secondary resource-btn" href="#">Download</a>
+              <a class="btn resource-btn" href="#">Download</a>
             </div>
           </div>
 
           <div class="resource-card">
             <div class="resource-badge">Case Brief</div>
             <h3>Studi Kasus & Ringkasan Modus</h3>
-            <p>
-              Ringkasan pola ancaman dan contoh kasus yang relevan untuk memperluas konteks pemahaman peserta.
-            </p>
+            <p>Ringkasan pola ancaman dan contoh kasus yang relevan untuk memperluas konteks pemahaman peserta.</p>
             <div class="resource-foot">
               <span class="resource-status">Included in program</span>
-              <a class="btn btn-secondary resource-btn" href="#">Download</a>
+              <a class="btn resource-btn" href="#">Download</a>
             </div>
           </div>
         </div>
@@ -990,13 +992,13 @@
 
           <a
             class="contact-link"
-            href="https://csa.doddyferdiansyah.web.id"
+            href="https://doddyferdiansyah.web.id"
             target="_blank"
             rel="noopener noreferrer"
           >
             <div>
-              <strong>Resource Page</strong>
-              <div class="notice">csa.doddyferdiansyah.web.id</div>
+              <strong>Website</strong>
+              <div class="notice">doddyferdiansyah.web.id</div>
             </div>
             <span>↗</span>
           </a>
@@ -1009,12 +1011,12 @@
         <div class="final-cta fade-in">
           <div class="final-cta-grid">
             <div>
-              <h2>Build a stronger human layer in your organization’s security posture</h2>
+              <h2>Strengthen your organization’s human layer against social engineering</h2>
               <p>
-                Jika organisasi Anda membutuhkan program awareness yang lebih terstruktur,
-                relevan untuk lingkungan kerja nyata, dan didukung oleh materi serta simulasi
-                yang dirancang secara profesional, program ini dapat menjadi pilihan yang tepat
-                untuk internal training maupun learning initiative perusahaan.
+                Jika Anda membutuhkan program awareness yang lebih terstruktur, relevan untuk
+                lingkungan kerja nyata, dan didukung oleh materi serta simulasi yang dirancang
+                secara profesional, program ini siap disesuaikan untuk kebutuhan internal
+                perusahaan, workshop tim, maupun corporate learning initiative.
               </p>
             </div>
             <div>
