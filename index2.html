@@ -24,15 +24,8 @@
       --max-width: 1140px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -41,20 +34,9 @@
       line-height: 1.65;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(92%, var(--max-width));
-      margin: 0 auto;
-    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
 
     header {
       position: sticky;
@@ -80,9 +62,7 @@
       white-space: nowrap;
     }
 
-    .brand span {
-      color: var(--sky-blue);
-    }
+    .brand span { color: var(--sky-blue); }
 
     .nav-links {
       display: flex;
@@ -98,9 +78,7 @@
       transition: color 0.2s ease;
     }
 
-    .nav-links a:hover {
-      color: var(--sky-blue);
-    }
+    .nav-links a:hover { color: var(--sky-blue); }
 
     .btn {
       display: inline-flex;
@@ -115,9 +93,7 @@
       cursor: pointer;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-    }
+    .btn:hover { transform: translateY(-2px); }
 
     .btn-primary {
       background: var(--sky-blue);
@@ -125,9 +101,7 @@
       box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
     }
 
-    .btn-primary:hover {
-      background: var(--sky-blue-deep);
-    }
+    .btn-primary:hover { background: var(--sky-blue-deep); }
 
     .btn-secondary {
       background: var(--white);
@@ -136,9 +110,7 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .hero {
-      padding: 92px 0 62px;
-    }
+    .hero { padding: 92px 0 62px; }
 
     .hero-grid {
       display: grid;
@@ -195,16 +167,8 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .metric h3 {
-      font-size: 1.4rem;
-      margin-bottom: 2px;
-    }
-
-    .metric p {
-      margin: 0;
-      font-size: 0.92rem;
-      color: var(--mid-gray);
-    }
+    .metric h3 { font-size: 1.4rem; margin-bottom: 2px; }
+    .metric p { margin: 0; font-size: 0.92rem; color: var(--mid-gray); }
 
     .hero-card {
       background: linear-gradient(145deg, #ffffff 0%, #eef6ff 100%);
@@ -225,19 +189,8 @@
       pointer-events: none;
     }
 
-    .hero-card::before {
-      width: 190px;
-      height: 190px;
-      right: -38px;
-      top: -38px;
-    }
-
-    .hero-card::after {
-      width: 126px;
-      height: 126px;
-      left: -26px;
-      bottom: -26px;
-    }
+    .hero-card::before { width: 190px; height: 190px; right: -38px; top: -38px; }
+    .hero-card::after { width: 126px; height: 126px; left: -26px; bottom: -26px; }
 
     .card-label {
       display: inline-block;
@@ -250,11 +203,7 @@
       margin-bottom: 14px;
     }
 
-    .session-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
+    .session-list { display: grid; gap: 12px; margin-top: 16px; }
 
     .session-item {
       background: rgba(255, 255, 255, 0.92);
@@ -265,29 +214,17 @@
       z-index: 1;
     }
 
-    .session-item strong {
-      display: block;
-      margin-bottom: 4px;
-    }
+    .session-item strong { display: block; margin-bottom: 4px; }
 
-    section {
-      padding: 38px 0;
-    }
+    section { padding: 38px 0; }
 
-    .section-head {
-      margin-bottom: 22px;
-      max-width: 760px;
-    }
-
+    .section-head { margin-bottom: 22px; max-width: 760px; }
     .section-head h2 {
       font-size: clamp(1.7rem, 3vw, 2.45rem);
       margin-bottom: 8px;
       letter-spacing: -0.02em;
     }
-
-    .section-head p {
-      color: var(--mid-gray);
-    }
+    .section-head p { color: var(--mid-gray); }
 
     .grid-3 {
       display: grid;
@@ -315,20 +252,9 @@
       box-shadow: 0 18px 38px rgba(31, 41, 55, 0.12);
     }
 
-    .card h3 {
-      font-size: 1.16rem;
-      margin-bottom: 10px;
-    }
-
-    .card p,
-    .card li {
-      color: var(--mid-gray);
-      font-size: 0.97rem;
-    }
-
-    .card ul {
-      padding-left: 18px;
-    }
+    .card h3 { font-size: 1.16rem; margin-bottom: 10px; }
+    .card p, .card li { color: var(--mid-gray); font-size: 0.97rem; }
+    .card ul { padding-left: 18px; }
 
     .pill {
       display: inline-block;
@@ -341,15 +267,9 @@
       margin-bottom: 10px;
     }
 
-    .overview-box {
-      background: linear-gradient(180deg, rgba(77, 163, 255, 0.06), rgba(255,255,255,0));
-      border-radius: var(--radius-xl);
-      padding: 28px;
-      border: 1px solid rgba(77, 163, 255, 0.12);
-    }
-
+    .overview-box,
     .resources {
-      background: linear-gradient(180deg, rgba(77, 163, 255, 0.07), rgba(255,255,255,0));
+      background: linear-gradient(180deg, rgba(77, 163, 255, 0.06), rgba(255,255,255,0));
       border-radius: var(--radius-xl);
       padding: 28px;
       border: 1px solid rgba(77, 163, 255, 0.12);
@@ -371,6 +291,9 @@
       transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
+    .resource-link:last-child,
+    .contact-link:last-child { margin-bottom: 0; }
+
     .resource-link:hover,
     .contact-link:hover {
       border-color: rgba(77, 163, 255, 0.38);
@@ -378,11 +301,7 @@
     }
 
     .notice,
-    .muted {
-      margin-top: 6px;
-      font-size: 0.92rem;
-      color: var(--mid-gray);
-    }
+    .muted { margin-top: 6px; font-size: 0.92rem; color: var(--mid-gray); }
 
     .assessment-grid .card {
       display: flex;
@@ -418,16 +337,8 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .speaker-info h3 {
-      font-size: 1.65rem;
-      margin-bottom: 6px;
-    }
-
-    .speaker-role {
-      color: var(--sky-blue-deep);
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
+    .speaker-info h3 { font-size: 1.65rem; margin-bottom: 6px; }
+    .speaker-role { color: var(--sky-blue-deep); font-weight: 700; margin-bottom: 14px; }
 
     .speaker-points {
       display: grid;
@@ -443,11 +354,7 @@
       background: #fbfdff;
     }
 
-    .speaker-point strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.98rem;
-    }
+    .speaker-point strong { display: block; margin-bottom: 4px; font-size: 0.98rem; }
 
     .cta {
       padding: 28px;
@@ -469,11 +376,7 @@
       max-width: 760px;
     }
 
-    footer {
-      padding: 34px 0 56px;
-      color: var(--mid-gray);
-      font-size: 0.94rem;
-    }
+    footer { padding: 34px 0 56px; color: var(--mid-gray); font-size: 0.94rem; }
 
     .fade-in {
       opacity: 0;
@@ -481,10 +384,7 @@
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    .fade-in.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in.show { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 980px) {
       .hero-grid,
@@ -495,42 +395,17 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-metrics {
-        grid-template-columns: 1fr;
-      }
-
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        justify-content: flex-start;
-      }
-
-      .speaker-avatar {
-        width: 140px;
-        height: 140px;
-        border-radius: 22px;
-      }
+      .hero-metrics { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: flex-start; }
+      .nav-links { justify-content: flex-start; }
+      .speaker-avatar { width: 140px; height: 140px; border-radius: 22px; }
     }
 
     @media (max-width: 640px) {
-      .hero {
-        padding-top: 56px;
-      }
-
-      .nav-links {
-        gap: 10px;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
+      .hero { padding-top: 56px; }
+      .nav-links { gap: 10px; }
+      .btn { width: 100%; }
+      .hero-actions { flex-direction: column; }
     }
   </style>
 </head>
@@ -693,43 +568,156 @@
         <div class="section-head fade-in">
           <h2>Resource</h2>
           <p>
-            Bagian ini menyediakan materi pendukung yang dapat membantu peserta meninjau kembali poin-poin penting sesi, memperkuat pemahaman, dan menerapkan praktik keamanan yang lebih baik setelah pelatihan.
+            Bagian ini menyediakan materi pendukung dan aktivitas interaktif yang dapat membantu peserta meninjau kembali poin-poin penting sesi, memperkuat pemahaman, dan berlatih mengenali pola ancaman dengan cara yang lebih aplikatif.
           </p>
         </div>
 
         <div class="resources fade-in">
-          <a class="resource-link" href="#" aria-label="Placeholder slide materi utama">
+          <!-- href asli: href="https://canva.link/5xeop2ufaf5968a"  -->
+          <a class="resource-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Lihat slide materi utama online">
             <div>
-              <strong>Slide Materi Utama</strong>
-              <div class="notice">Placeholder · Ganti dengan link PDF atau view-only slide final.</div>
+              <strong>Slide Materi Utama — Live View</strong>
+              <div class="notice">Buka versi online untuk melihat slide presentasi secara langsung.</div>
             </div>
-            <span>→</span>
+            <span>↗</span>
+          </a>
+        
+          <!-- href asli: href="https://drive.google.com/file/d/1cIae94PFHONecTj3Vet8uPqquNO5hMGP/view?usp=sharing"  -->
+          <a class="resource-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Download PDF slide materi utama">
+            <div>
+              <strong>Slide Materi Utama — Download PDF</strong>
+              <div class="notice">Unduh versi PDF materi utama untuk dibaca atau disimpan secara offline.</div>
+            </div>
+            <span>↗</span>
           </a>
 
-          <a class="resource-link" href="#" aria-label="Placeholder handout ringkas">
+          <!-- href asli: href="https://drive.google.com/file/d/1h-jLkn1ZWVA3hE9TcKUAepo1rR7181Bv/view?usp=sharing"  -->
+          <a class="resource-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Buka handout ringkas materi utama">
             <div>
               <strong>Handout Ringkas</strong>
-              <div class="notice">Placeholder · Ringkasan materi utama untuk peserta setelah sesi.</div>
+              <div class="notice">Buka atau unduh ringkasan materi utama sebagai pegangan peserta setelah sesi.</div>
             </div>
-            <span>→</span>
+            <span>↗</span>
           </a>
 
-          <a class="resource-link" href="#" aria-label="Placeholder checklist keamanan pegawai">
+          <!-- href asli: href="https://drive.google.com/file/d/1vc0bvLYcuHZfUtDMSMGCztDKcTsn05fO/view?usp=sharing"  -->
+          <a class="resource-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Buka checklist detail keamanan karyawan">
             <div>
               <strong>Checklist Keamanan Pegawai</strong>
-              <div class="notice">Placeholder · Checklist perilaku, perangkat, password, dan pengelolaan data kerja.</div>
+              <div class="notice">Buka atau unduh checklist praktis untuk membantu karyawan menghindari serangan social engineering di tempat kerja dan ruang publik.</div>
             </div>
-            <span>→</span>
+            <span>↗</span>
           </a>
+
+          <!-- href asli: href="https://drive.google.com/file/d/1eQzfxAVbmOIbaaPaZmZFGEOw33kvbjB9/view?usp=sharing"  -->
+          <a class="resource-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Buka poster checklist utama keamanan karyawan">
+          <div>
+            <strong>Poster Checklist Keamanan Karyawan</strong>
+            <div class="notice">Buka atau unduh poster 1 halaman yang siap dicetak dan ditempel di area kerja sebagai pengingat perilaku aman.</div>
+          </div>
+          <span>↗</span>
+        </a>
 
           <a class="resource-link" href="#" aria-label="Placeholder studi kasus">
             <div>
               <strong>Studi Kasus & Ringkasan Modus</strong>
-              <div class="notice">Placeholder · Kumpulan studi kasus dan pola ancaman yang relevan.</div>
+              <div class="notice">Kumpulan studi kasus dan pola ancaman yang relevan.</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <!-- href asli: href="ujian/ujian.html"  -->
+          <a class="resource-link" href="#" aria-label="Uji pemahaman social engineering dan serangannya">
+            <div>
+              <strong>Uji Pemahaman Social Engineering & Serangannya</strong>
+              <div class="notice">Masuk ke halaman ujian interaktif berisi 10 soal praktik berbasis simulasi untuk menguji pemahaman peserta.</div>
+            </div>
+            <span>↗</span>
+          </a>
+        </div>
+
+
+        <!-- Sementara di disable untuk umum. Akan dibuka ketika ada training.
+        <div class="section-head fade-in" style="margin-top: 30px;">
+          <h2>Aktivitas Interaktif</h2>
+          <p>
+            Selain materi utama, peserta juga dapat mengakses latihan singkat berbasis skenario untuk membantu memahami bagaimana faktor manusia dapat dimanfaatkan dalam social engineering.
+          </p>
+        </div>
+
+        <div class="resources fade-in">
+          <a class="resource-link" href="games/bagian-b-soal-1.html" aria-label="Game interaktif Bagian B soal 1">
+            <div>
+              <strong>Game Interaktif Bagian B — Soal 1</strong>
+              <div class="notice">Identifikasi faktor psikologis yang dimainkan dalam pesan kerja yang tampak sederhana.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="games/bagian-b-soal-2.html" aria-label="Game interaktif Bagian B soal 2">
+            <div>
+              <strong>Game Interaktif Bagian B — Soal 2</strong>
+              <div class="notice">Cocokkan faktor kelemahan manusia dengan situasi kerja yang umum terjadi.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="games/bagian-b-soal-3.html" aria-label="Game interaktif Bagian B soal 3">
+            <div>
+              <strong>Game Interaktif Bagian B — Soal 3</strong>
+              <div class="notice">Urutkan contoh nyata cara kerja social engineering dari awal hingga pelaku mendapatkan hasil.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="workshop/bagian-c-workshop-1.html" aria-label="Workshop interaktif Bagian C workshop 1">
+            <div>
+              <strong>Workshop Interaktif Bagian C — Workshop 1</strong>
+              <div class="notice">Identifikasi emosi yang dimainkan dan perilaku yang ingin didorong dari korban.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="workshop/bagian-c-workshop-2.html" aria-label="Workshop interaktif Bagian C workshop 2">
+            <div>
+              <strong>Workshop Interaktif Bagian C — Workshop 2</strong>
+              <div class="notice">Simulasi percakapan kerja untuk melihat bagaimana otoritas, familiaritas, dan tekanan sosial memengaruhi respons Anda.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="workshop/bagian-c-workshop-3.html" aria-label="Workshop interaktif Bagian C workshop 3">
+            <div>
+              <strong>Workshop Interaktif Bagian C — Workshop 3</strong>
+              <div class="notice">Simulasi inbox sibuk untuk melihat bagaimana multitasking, respons otomatis, dan dorongan ingin cepat beres memengaruhi keputusan Anda.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="workshop/bagian-c-workshop-4.html" aria-label="Workshop interaktif Bagian C workshop 4">
+            <div>
+              <strong>Workshop Interaktif Bagian C — Workshop 4</strong>
+              <div class="notice">Bandingkan dua email dan uji bagaimana bias penilaian memengaruhi rasa percaya Anda.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="workshop/bagian-d-workshop-1.html" aria-label="Workshop interaktif Bagian D workshop 1">
+            <div>
+              <strong>Workshop Interaktif Bagian D — Workshop 1</strong>
+              <div class="notice">Buka atau Lewati? Latihan keputusan cepat untuk mengenali pola serangan dalam situasi kerja dan ruang publik.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="workshop/bagian-d-workshop-2.html" aria-label="Workshop interaktif Bagian D workshop 2">
+            <div>
+              <strong>Workshop Interaktif Bagian D — Workshop 2</strong>
+              <div class="notice">Bantu atau Curiga? Latihan memilih bentuk bantuan yang tetap aman dalam situasi sosial di kantor dan ruang publik.</div>
+            </div>
+            <span>→</span>
+          </a>
+          <a class="resource-link" href="workshop/bagian-d-workshop-3.html" aria-label="Workshop interaktif Bagian D workshop 3">
+            <div>
+              <strong>Workshop Interaktif Bagian D — Workshop 3</strong>
+              <div class="notice">Lingkungan Aman atau Tidak? Latihan membaca risiko dari tempat, perangkat, dan kebiasaan kerja.</div>
             </div>
             <span>→</span>
           </a>
         </div>
+        -->
       </div>
     </section>
 
@@ -754,10 +742,10 @@
           <div class="card fade-in">
             <div>
               <span class="pill">Saat sesi</span>
-              <h3>Quiz Interaktif</h3>
-              <p>Aktivitas ringan untuk mengenali red flags, menilai skenario, dan menjaga partisipasi peserta tetap aktif.</p>
+              <h3>Aktivitas Interaktif</h3>
+              <p>Berisi kumpulan latihan soal dan workshop simulatif untuk membantu peserta mempraktikkan materi yang telah dipelajari.</p>
             </div>
-            <div style="margin-top: 16px;"><a class="btn btn-secondary" href="#">Mulai Quiz</a></div>
+            <div style="margin-top: 16px;"><a class="btn btn-secondary" href="workshop/latihan.html">Buka Aktivitas</a></div>
           </div>
           <div class="card fade-in">
             <div>
@@ -765,7 +753,7 @@
               <h3>Post-Test</h3>
               <p>Digunakan untuk melihat peningkatan pemahaman peserta setelah pembahasan materi dan aktivitas workshop selesai.</p>
             </div>
-            <div style="margin-top: 16px;"><a class="btn btn-secondary" href="#">Buka Post-Test</a></div>
+            <div style="margin-top: 16px;"><a class="btn btn-secondary" href="https://forms.gle/4NbVvJt4gj9QtkuK7" target="_blank" rel="noopener noreferrer">Buka Post-Test</a></div>
           </div>
         </div>
       </div>
