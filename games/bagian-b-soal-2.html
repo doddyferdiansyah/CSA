@@ -6,7 +6,7 @@
   <title>Workshop Bagian B · Soal 2 | Cybersecurity Awareness Training</title>
   <meta
     name="description"
-    content="Aktivitas interaktif Bagian B untuk mencocokkan faktor kelemahan manusia dengan situasi kerja yang umum terjadi."
+    content="Aktivitas drag and drop untuk mencocokkan faktor kelemahan manusia dengan situasi kerja yang umum terjadi."
   />
   <link rel="stylesheet" href="../assets/main.css" />
   <style>
@@ -79,10 +79,15 @@
       margin: 16px 0 20px;
     }
 
-    .match-grid {
+    .instruction-box strong {
+      color: var(--dark-gray);
+    }
+
+    .board-layout {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
+      grid-template-columns: 360px 1fr;
       gap: 18px;
+      align-items: start;
       margin-top: 18px;
     }
 
@@ -100,77 +105,167 @@
       letter-spacing: -0.01em;
     }
 
-    .factor-item,
-    .case-item {
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      border-radius: 14px;
-      background: var(--white);
+    .factor-bank {
+      display: grid;
+      gap: 12px;
+      min-height: 220px;
+    }
+
+    .factor-chip {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: center;
       padding: 14px;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 16px;
+      background: var(--white);
+      box-shadow: var(--shadow-soft);
+      cursor: grab;
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    .factor-chip:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.28);
+      box-shadow: 0 16px 30px rgba(31, 41, 55, 0.08);
+    }
+
+    .factor-chip.dragging {
+      opacity: 0.5;
+      transform: scale(0.98);
+    }
+
+    .factor-chip.selected {
+      border-color: rgba(77, 163, 255, 0.42);
+      background: rgba(77, 163, 255, 0.10);
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .factor-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .factor-title {
+      font-weight: 700;
+      color: var(--dark-gray);
+      line-height: 1.45;
+    }
+
+    .slot-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .slot-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: var(--shadow-soft);
+      padding: 16px;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .slot-card.drag-over {
+      border-color: rgba(77, 163, 255, 0.40);
+      background: #f8fbff;
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .slot-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
       margin-bottom: 12px;
     }
 
-    .factor-item:last-child,
-    .case-item:last-child {
-      margin-bottom: 0;
+    .slot-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: #eef6ff;
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      flex-shrink: 0;
     }
 
-    .factor-code,
-    .case-code {
+    .slot-text {
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    .drop-zone {
+      min-height: 72px;
+      border: 2px dashed rgba(31, 41, 55, 0.16);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .drop-zone.filled {
+      border-style: solid;
+      border-color: rgba(77, 163, 255, 0.28);
+      background: #f8fbff;
+    }
+
+    .drop-placeholder {
+      color: var(--mid-gray);
+      font-size: 0.92rem;
+    }
+
+    .drop-answer {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .remove-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-width: 34px;
       height: 34px;
       border-radius: 999px;
-      background: var(--sky-blue-soft);
-      color: var(--sky-blue-deep);
-      font-weight: 800;
-      margin-right: 10px;
-      font-size: 0.95rem;
-      vertical-align: middle;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      background: #fff;
+      color: var(--mid-gray);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0;
     }
 
-    .answer-area {
-      margin-top: 22px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .answer-row {
-      display: grid;
-      grid-template-columns: 70px 1fr;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .answer-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      background: var(--sky-blue-soft);
-      color: var(--sky-blue-deep);
-      font-weight: 800;
-    }
-
-    select {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
-      background: var(--white);
-      color: var(--dark-gray);
-      font-size: 0.96rem;
-      box-shadow: var(--shadow-soft);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: rgba(77, 163, 255, 0.40);
-      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.12);
+    .remove-btn:hover {
+      background: #f8fafc;
+      border-color: rgba(31, 41, 55, 0.20);
     }
 
     .footer-actions {
@@ -264,9 +359,9 @@
       font-size: 0.94rem;
     }
 
-    @media (max-width: 920px) {
-      .match-grid,
-      .hero-mini-strip {
+    @media (max-width: 980px) {
+      .hero-mini-strip,
+      .board-layout {
         grid-template-columns: 1fr;
       }
     }
@@ -288,12 +383,9 @@
         width: 100%;
       }
 
-      .answer-row {
-        grid-template-columns: 1fr;
-      }
-
-      .answer-label {
-        justify-self: start;
+      .factor-chip,
+      .drop-answer {
+        grid-template-columns: 38px 1fr;
       }
     }
   </style>
@@ -332,7 +424,7 @@
             </div>
             <div class="metric">
               <h3>Format</h3>
-              <p>Peserta mencocokkan faktor A–F dengan situasi kerja yang paling sesuai.</p>
+              <p>Peserta menyeret faktor ke situasi kerja yang paling sesuai.</p>
             </div>
             <div class="metric">
               <h3>Output</h3>
@@ -347,161 +439,131 @@
       <div class="container">
         <div class="question-card fade-in">
           <div class="question-header">
-            <h2>Soal 2 — Matching Activity</h2>
+            <h2>Soal 2 — Drag and Drop Matching</h2>
             <p>
-              Untuk setiap faktor A–F, pilih nomor situasi yang paling sesuai. Setelah itu,
+              Seret setiap faktor kelemahan ke situasi kerja yang paling sesuai. Setelah itu,
               tekan tombol cek jawaban untuk melihat hasil dan pembahasan.
             </p>
           </div>
 
-          <span class="pill">Matching Activity</span>
+          <span class="pill">Drag and Drop</span>
 
           <div class="instruction-box">
-            <strong>Petunjuk:</strong> Cobalah mencocokkan setiap faktor kelemahan dengan situasi kerja
-            yang paling mendekati. Fokuskan pada pola perilaku yang paling jelas terlihat dalam tiap situasi.
+            <strong>Petunjuk:</strong> Anda dapat menyeret kartu faktor ke kotak jawaban yang tersedia.
+            Jika lebih nyaman, Anda juga bisa klik satu faktor terlebih dahulu, lalu klik area jawaban yang diinginkan.
           </div>
 
-          <div class="match-grid">
+          <div class="board-layout">
             <div class="panel">
               <h3>Faktor Kelemahan</h3>
+              <div class="factor-bank" id="factorBank">
+                <div class="factor-chip" draggable="true" data-factor="A">
+                  <div class="factor-code">A</div>
+                  <div class="factor-title">Kebiasaan ingin cepat beres</div>
+                </div>
 
-              <div class="factor-item">
-                <span class="factor-code">A</span><strong>Kebiasaan ingin cepat beres</strong>
-              </div>
+                <div class="factor-chip" draggable="true" data-factor="B">
+                  <div class="factor-code">B</div>
+                  <div class="factor-title">Rasa ingin tahu</div>
+                </div>
 
-              <div class="factor-item">
-                <span class="factor-code">B</span><strong>Rasa ingin tahu</strong>
-              </div>
+                <div class="factor-chip" draggable="true" data-factor="C">
+                  <div class="factor-code">C</div>
+                  <div class="factor-title">Takut dianggap tidak sigap</div>
+                </div>
 
-              <div class="factor-item">
-                <span class="factor-code">C</span><strong>Takut dianggap tidak sigap</strong>
-              </div>
+                <div class="factor-chip" draggable="true" data-factor="D">
+                  <div class="factor-code">D</div>
+                  <div class="factor-title">Terlalu percaya pada tampilan yang resmi</div>
+                </div>
 
-              <div class="factor-item">
-                <span class="factor-code">D</span><strong>Terlalu percaya pada tampilan yang resmi</strong>
-              </div>
+                <div class="factor-chip" draggable="true" data-factor="E">
+                  <div class="factor-code">E</div>
+                  <div class="factor-title">Overconfidence</div>
+                </div>
 
-              <div class="factor-item">
-                <span class="factor-code">E</span><strong>Overconfidence</strong>
-              </div>
-
-              <div class="factor-item">
-                <span class="factor-code">F</span><strong>Multitasking / beban kerja tinggi</strong>
+                <div class="factor-chip" draggable="true" data-factor="F">
+                  <div class="factor-code">F</div>
+                  <div class="factor-title">Multitasking / beban kerja tinggi</div>
+                </div>
               </div>
             </div>
 
             <div class="panel">
               <h3>Situasi Kerja</h3>
+              <div class="slot-list">
+                <div class="slot-card">
+                  <div class="slot-top">
+                    <div class="slot-code">1</div>
+                    <div class="slot-text">
+                      Seorang karyawan langsung membuka lampiran karena judul filenya terdengar menarik dan terasa penting untuk diketahui.
+                    </div>
+                  </div>
+                  <div class="drop-zone" data-slot="1">
+                    <span class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</span>
+                  </div>
+                </div>
 
-              <div class="case-item">
-                <span class="case-code">1</span>
-                Seorang karyawan langsung membuka lampiran karena judul filenya terdengar menarik dan terasa penting untuk diketahui.
+                <div class="slot-card">
+                  <div class="slot-top">
+                    <div class="slot-code">2</div>
+                    <div class="slot-text">
+                      Seorang staf merasa tidak perlu mengecek ulang email karena tampilannya rapi, ada logo, dan bahasanya terlihat formal.
+                    </div>
+                  </div>
+                  <div class="drop-zone" data-slot="2">
+                    <span class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</span>
+                  </div>
+                </div>
+
+                <div class="slot-card">
+                  <div class="slot-top">
+                    <div class="slot-code">3</div>
+                    <div class="slot-text">
+                      Saat sedang mengerjakan banyak hal sekaligus, seseorang langsung membalas pesan dan mengikuti instruksi tanpa membaca detail dengan teliti.
+                    </div>
+                  </div>
+                  <div class="drop-zone" data-slot="3">
+                    <span class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</span>
+                  </div>
+                </div>
+
+                <div class="slot-card">
+                  <div class="slot-top">
+                    <div class="slot-code">4</div>
+                    <div class="slot-text">
+                      Seorang pegawai segera merespons permintaan karena khawatir dianggap lambat atau tidak kooperatif oleh pihak lain.
+                    </div>
+                  </div>
+                  <div class="drop-zone" data-slot="4">
+                    <span class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</span>
+                  </div>
+                </div>
+
+                <div class="slot-card">
+                  <div class="slot-top">
+                    <div class="slot-code">5</div>
+                    <div class="slot-text">
+                      Seseorang merasa dirinya sudah cukup paham soal ancaman digital, sehingga jarang melakukan verifikasi tambahan.
+                    </div>
+                  </div>
+                  <div class="drop-zone" data-slot="5">
+                    <span class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</span>
+                  </div>
+                </div>
+
+                <div class="slot-card">
+                  <div class="slot-top">
+                    <div class="slot-code">6</div>
+                    <div class="slot-text">
+                      Karena ingin pekerjaan cepat selesai, seseorang memilih langsung klik dan memproses tanpa melewati pengecekan sederhana.
+                    </div>
+                  </div>
+                  <div class="drop-zone" data-slot="6">
+                    <span class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</span>
+                  </div>
+                </div>
               </div>
-
-              <div class="case-item">
-                <span class="case-code">2</span>
-                Seorang staf merasa tidak perlu mengecek ulang email karena tampilannya rapi, ada logo, dan bahasanya terlihat formal.
-              </div>
-
-              <div class="case-item">
-                <span class="case-code">3</span>
-                Saat sedang mengerjakan banyak hal sekaligus, seseorang langsung membalas pesan dan mengikuti instruksi tanpa membaca detail dengan teliti.
-              </div>
-
-              <div class="case-item">
-                <span class="case-code">4</span>
-                Seorang pegawai segera merespons permintaan karena khawatir dianggap lambat atau tidak kooperatif oleh pihak lain.
-              </div>
-
-              <div class="case-item">
-                <span class="case-code">5</span>
-                Seseorang merasa dirinya sudah cukup paham soal ancaman digital, sehingga jarang melakukan verifikasi tambahan.
-              </div>
-
-              <div class="case-item">
-                <span class="case-code">6</span>
-                Karena ingin pekerjaan cepat selesai, seseorang memilih langsung klik dan memproses tanpa melewati pengecekan sederhana.
-              </div>
-            </div>
-          </div>
-
-          <div class="answer-area">
-            <div class="answer-row">
-              <div class="answer-label">A</div>
-              <select id="matchA">
-                <option value="">Pilih pasangan untuk A</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-
-            <div class="answer-row">
-              <div class="answer-label">B</div>
-              <select id="matchB">
-                <option value="">Pilih pasangan untuk B</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-
-            <div class="answer-row">
-              <div class="answer-label">C</div>
-              <select id="matchC">
-                <option value="">Pilih pasangan untuk C</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-
-            <div class="answer-row">
-              <div class="answer-label">D</div>
-              <select id="matchD">
-                <option value="">Pilih pasangan untuk D</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-
-            <div class="answer-row">
-              <div class="answer-label">E</div>
-              <select id="matchE">
-                <option value="">Pilih pasangan untuk E</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-
-            <div class="answer-row">
-              <div class="answer-label">F</div>
-              <select id="matchF">
-                <option value="">Pilih pasangan untuk F</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
             </div>
           </div>
 
@@ -554,39 +616,152 @@
       F: 'Multitasking atau beban kerja tinggi paling dekat dengan situasi nomor 3, karena saat banyak hal berjalan bersamaan, detail penting sering terlewat.'
     };
 
+    const factorBank = document.getElementById('factorBank');
+    const dropZones = document.querySelectorAll('.drop-zone');
+    const factorChips = document.querySelectorAll('.factor-chip');
+
     const resultModal = document.getElementById('resultModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalText = document.getElementById('modalText');
     const feedbackList = document.getElementById('feedbackList');
+
+    let draggedFactor = null;
+    let selectedFactor = null;
+
+    function createFactorMarkup(factorCode, title) {
+      return `
+        <div class="drop-answer">
+          <div class="factor-code">${factorCode}</div>
+          <div class="factor-title">${title}</div>
+        </div>
+        <button class="remove-btn" type="button" aria-label="Hapus pasangan">×</button>
+      `;
+    }
+
+    function getFactorTitle(factorCode) {
+      const chip = document.querySelector(`.factor-chip[data-factor="${factorCode}"]`);
+      if (!chip) return '';
+      return chip.querySelector('.factor-title').textContent;
+    }
+
+    function clearZone(zone) {
+      zone.innerHTML = '<span class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</span>';
+      zone.classList.remove('filled');
+      zone.dataset.factor = '';
+    }
+
+    function placeFactorInZone(factorCode, zone) {
+      // kembalikan faktor lama di zona ini ke bank jika ada
+      const existingFactor = zone.dataset.factor;
+      if (existingFactor && existingFactor !== factorCode) {
+        returnFactorToBank(existingFactor);
+      }
+
+      // kalau faktor ini sudah ada di zone lain, kosongkan dulu
+      document.querySelectorAll('.drop-zone').forEach((z) => {
+        if (z.dataset.factor === factorCode) {
+          clearZone(z);
+        }
+      });
+
+      zone.innerHTML = createFactorMarkup(factorCode, getFactorTitle(factorCode));
+      zone.classList.add('filled');
+      zone.dataset.factor = factorCode;
+
+      const chip = document.querySelector(`.factor-chip[data-factor="${factorCode}"]`);
+      if (chip) {
+        chip.style.display = 'none';
+        chip.classList.remove('selected');
+      }
+
+      const removeBtn = zone.querySelector('.remove-btn');
+      removeBtn.addEventListener('click', () => {
+        returnFactorToBank(factorCode);
+        clearZone(zone);
+      });
+    }
+
+    function returnFactorToBank(factorCode) {
+      const chip = document.querySelector(`.factor-chip[data-factor="${factorCode}"]`);
+      if (chip) {
+        chip.style.display = '';
+        chip.classList.remove('selected');
+      }
+    }
+
+    factorChips.forEach((chip) => {
+      chip.addEventListener('dragstart', () => {
+        draggedFactor = chip.dataset.factor;
+        chip.classList.add('dragging');
+      });
+
+      chip.addEventListener('dragend', () => {
+        draggedFactor = null;
+        chip.classList.remove('dragging');
+      });
+
+      chip.addEventListener('click', () => {
+        factorChips.forEach((item) => item.classList.remove('selected'));
+        chip.classList.add('selected');
+        selectedFactor = chip.dataset.factor;
+      });
+    });
+
+    dropZones.forEach((zone) => {
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('drag-over');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('drag-over');
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('drag-over');
+        if (!draggedFactor) return;
+        placeFactorInZone(draggedFactor, zone);
+      });
+
+      zone.addEventListener('click', () => {
+        if (!selectedFactor) return;
+        placeFactorInZone(selectedFactor, zone);
+        selectedFactor = null;
+        factorChips.forEach((item) => item.classList.remove('selected'));
+      });
+    });
 
     function checkMatching() {
       feedbackList.innerHTML = '';
       let score = 0;
       let filledCount = 0;
 
-      Object.keys(answers).forEach((key) => {
-        const selected = document.getElementById('match' + key).value;
-        const correct = answers[key];
+      Object.keys(answers).forEach((factorCode) => {
+        const correctSlot = answers[factorCode];
+        const placedZone = document.querySelector(`.drop-zone[data-factor="${factorCode}"]`);
+        const selectedSlot = placedZone ? placedZone.dataset.slot : '';
+
         const item = document.createElement('div');
         item.className = 'feedback-item';
 
-        if (selected) filledCount += 1;
+        if (selectedSlot) filledCount += 1;
 
-        if (selected === correct) {
+        if (selectedSlot === correctSlot) {
           score += 1;
-          item.innerHTML = '<strong>' + key + ' benar.</strong>' + explanations[key];
-        } else if (!selected) {
-          item.innerHTML = '<strong>' + key + ' belum diisi.</strong> Pilih pasangan yang paling sesuai untuk faktor ini.';
+          item.innerHTML = `<strong>${factorCode} benar.</strong>${explanations[factorCode]}`;
+        } else if (!selectedSlot) {
+          item.innerHTML = `<strong>${factorCode} belum dipasang.</strong>Pindahkan faktor ini ke situasi yang paling sesuai.`;
         } else {
-          item.innerHTML = '<strong>' + key + ' belum tepat.</strong> Coba baca ulang faktor dan situasinya, lalu cari pasangan yang paling mendekati.';
+          item.innerHTML = `<strong>${factorCode} belum tepat.</strong>Coba lihat kembali pasangan yang paling mendekati untuk faktor ini.`;
         }
 
         feedbackList.appendChild(item);
       });
 
       if (filledCount === 0) {
-        modalTitle.innerHTML = '<span class="danger">Anda belum memilih jawaban.</span>';
-        modalText.innerHTML = 'Silakan pilih pasangan untuk setiap faktor terlebih dahulu.';
+        modalTitle.innerHTML = '<span class="danger">Anda belum memasang jawaban.</span>';
+        modalText.innerHTML = 'Silakan seret atau pilih faktor ke situasi yang sesuai terlebih dahulu.';
         openModal();
         return;
       }
@@ -603,9 +778,13 @@
     }
 
     function resetMatching() {
-      ['A', 'B', 'C', 'D', 'E', 'F'].forEach((key) => {
-        document.getElementById('match' + key).value = '';
+      dropZones.forEach((zone) => clearZone(zone));
+      factorChips.forEach((chip) => {
+        chip.style.display = '';
+        chip.classList.remove('selected');
       });
+      draggedFactor = null;
+      selectedFactor = null;
       closeModal();
     }
 
