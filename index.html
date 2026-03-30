@@ -268,7 +268,7 @@
     }
 
     .info-card,
-    .module-card,
+    .structure-card,
     .resource-card,
     .assessment-card,
     .speaker-card,
@@ -281,7 +281,7 @@
     }
 
     .info-card h3,
-    .module-card h3,
+    .structure-card h3,
     .resource-card h3,
     .assessment-card h3,
     .speaker-card h3,
@@ -292,7 +292,7 @@
     }
 
     .info-card p,
-    .module-card p,
+    .structure-card p,
     .resource-card p,
     .assessment-card p,
     .speaker-card p,
@@ -301,132 +301,36 @@
       font-size: 0.94rem;
     }
 
-    .program-flow {
+    .program-structure {
       padding: 18px;
       border-radius: 18px;
       background: #fbfdff;
       border: 1px solid rgba(31, 41, 55, 0.08);
     }
 
-    .flow-grid {
+    .structure-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
       margin-top: 14px;
     }
 
-    .flow-item {
-      padding: 16px;
-      border-radius: 18px;
-      background: var(--white);
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      box-shadow: var(--shadow-soft);
+    .structure-card {
+      padding: 18px;
     }
 
-    .flow-step {
+    .structure-code {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 34px;
-      height: 34px;
+      min-width: 36px;
+      height: 36px;
       border-radius: 999px;
       background: var(--sky-blue-soft);
       color: var(--sky-blue-deep);
       font-weight: 800;
       font-size: 0.84rem;
       margin-bottom: 10px;
-    }
-
-    .flow-item strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--dark-gray);
-    }
-
-    .flow-item span {
-      display: block;
-      color: var(--mid-gray);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .module-card {
-      display: grid;
-      gap: 12px;
-      min-height: 220px;
-      transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast),
-        border-color var(--transition-fast);
-    }
-
-    .module-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 34px rgba(31, 41, 55, 0.08);
-      border-color: var(--border-strong);
-    }
-
-    .module-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .module-code {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 46px;
-      height: 46px;
-      border-radius: 999px;
-      background: var(--sky-blue-soft);
-      color: var(--sky-blue-deep);
-      font-weight: 800;
-      font-size: 0.96rem;
-      flex-shrink: 0;
-    }
-
-    .module-type {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #f8fafc;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
-      font-size: 0.73rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .module-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: auto;
-    }
-
-    .meta-chip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      background: #f8fafc;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
-    }
-
-    .module-action {
-      margin-top: 4px;
-    }
-
-    .module-action .btn {
-      width: fit-content;
     }
 
     .resource-grid,
@@ -440,6 +344,22 @@
     .assessment-card {
       display: grid;
       gap: 10px;
+      min-height: 200px;
+    }
+
+    .resource-badge,
+    .assessment-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      width: fit-content;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.73rem;
+      font-weight: 700;
     }
 
     .speaker-card {
@@ -456,6 +376,11 @@
       background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 100%);
       border: 1px solid rgba(31, 41, 55, 0.08);
       box-shadow: var(--shadow-soft);
+      display: grid;
+      place-items: center;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--sky-blue-deep);
     }
 
     .speaker-meta {
@@ -469,15 +394,48 @@
       gap: 8px;
     }
 
-    .contact-card {
-      display: grid;
-      gap: 14px;
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
     }
 
-    .contact-actions {
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .contact-link {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      flex-wrap: wrap;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      color: var(--dark-gray);
+      box-shadow: var(--shadow-soft);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .contact-link:hover {
+      border-color: rgba(77, 163, 255, 0.38);
+      transform: translateY(-2px);
+    }
+
+    .notice {
+      margin-top: 6px;
+      font-size: 0.92rem;
+      color: var(--mid-gray);
     }
 
     .note-box {
@@ -516,10 +474,11 @@
       .hero-grid,
       .grid-3,
       .grid-2,
-      .flow-grid,
+      .structure-grid,
       .resource-grid,
       .assessment-grid,
-      .speaker-card {
+      .speaker-card,
+      .contact-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -536,23 +495,22 @@
 
       .hero-card,
       .info-card,
-      .module-card,
+      .structure-card,
       .resource-card,
       .assessment-card,
       .speaker-card,
       .contact-card,
-      .program-flow {
+      .program-structure {
         padding: 22px;
       }
 
-      .hero-actions,
-      .contact-actions {
+      .hero-actions {
         flex-direction: column;
       }
 
       .hero-actions .btn,
-      .module-action .btn,
-      .contact-actions .btn {
+      .contact-link,
+      .assessment-card .btn {
         width: 100%;
       }
     }
@@ -585,10 +543,9 @@
                 Interactive Learning Program for Social Engineering Awareness
               </h1>
               <p class="hero-desc">
-                Program pelatihan dan modul simulatif yang dirancang untuk membantu organisasi
-                meningkatkan awareness terhadap social engineering, memahami faktor manusia yang
-                sering dimanfaatkan dalam serangan, dan membangun kualitas keputusan yang lebih aman
-                dalam konteks kerja sehari-hari.
+                Program pelatihan yang dirancang untuk membantu organisasi meningkatkan awareness
+                terhadap social engineering, memahami perilaku digital berisiko, dan membangun
+                kualitas keputusan yang lebih aman dalam konteks kerja sehari-hari.
               </p>
 
               <div class="hero-actions">
@@ -602,15 +559,15 @@
               <div class="hero-stat-grid">
                 <div class="hero-stat">
                   <strong>Workplace-Oriented</strong>
-                  <span>Dirancang berdasarkan konteks komunikasi dan perilaku yang umum muncul di lingkungan kerja.</span>
+                  <span>Disusun berdasarkan pola komunikasi, perilaku, dan keputusan yang umum terjadi di lingkungan kerja.</span>
                 </div>
                 <div class="hero-stat">
                   <strong>Scenario-Based</strong>
-                  <span>Menggunakan simulasi, exercise, dan interactive modules untuk memperkuat pemahaman.</span>
+                  <span>Menggabungkan materi utama, pre-test, post-test, dan simulasi interaktif berbasis konteks nyata.</span>
                 </div>
                 <div class="hero-stat">
                   <strong>Practical Takeaways</strong>
-                  <span>Mengarahkan peserta pada respons yang lebih aman, reflektif, dan aplikatif.</span>
+                  <span>Diarahkan pada langkah praktis, checklist keamanan, dan kebiasaan kerja yang lebih aman.</span>
                 </div>
               </div>
             </div>
@@ -624,9 +581,10 @@
         <div class="section-head fade-in">
           <h2>Program Overview</h2>
           <p>
-            Program ini difokuskan pada peningkatan awareness terhadap social engineering dan
-            perilaku digital berisiko, khususnya untuk peserta non-IT atau lintas fungsi yang
-            berinteraksi dengan email, chat, dokumen, tautan, dan permintaan kerja sehari-hari.
+            Sesi ini dirancang untuk membantu peserta memahami bagaimana social engineering
+            bekerja, mengapa manusia menjadi target utama, dan bagaimana organisasi dapat
+            memperkuat kebiasaan kerja yang lebih aman melalui awareness yang praktis,
+            relevan, dan dapat diterapkan di tempat kerja.
           </p>
         </div>
 
@@ -634,30 +592,30 @@
           <div class="info-card">
             <h3>Audience</h3>
             <p>
-              Karyawan, staf administratif, tim operasional, dan fungsi bisnis lain yang perlu
-              memahami risiko manipulasi berbasis interaksi manusia.
+              Karyawan, staf administratif, tim operasional, dan fungsi bisnis lain yang
+              berinteraksi dengan email, chat, file, tautan, dan permintaan kerja sehari-hari.
             </p>
           </div>
           <div class="info-card">
             <h3>Learning Focus</h3>
             <p>
-              Mengenali red flag, memahami trigger psikologis, membaca konteks manipulasi, dan
-              membangun keputusan yang lebih aman.
+              Mengenali red flag, memahami faktor manusia yang dimanfaatkan pelaku, dan
+              membangun keputusan yang lebih aman sebelum merespons.
             </p>
           </div>
           <div class="info-card">
             <h3>Delivery Style</h3>
             <p>
-              Formal namun aplikatif, dikombinasikan dengan penjelasan praktis, diskusi singkat,
-              dan modul simulatif interaktif.
+              Formal namun aplikatif, dikombinasikan dengan studi kasus, diskusi singkat,
+              dan interactive learning modules.
             </p>
           </div>
         </div>
 
         <div class="note-box fade-in">
-          <strong>Value Proposition:</strong> Program ini tidak hanya menjelaskan apa itu social
-          engineering, tetapi juga membantu peserta memahami mengapa serangan seperti ini efektif
-          dan bagaimana mereka dapat merespons secara lebih aman dalam praktik.
+          <strong>Value Proposition:</strong> Program ini tidak berhenti pada pengenalan istilah,
+          tetapi mengarahkan peserta pada pola berpikir, refleksi, dan tindakan yang lebih aman
+          saat menghadapi situasi yang mendesak, sopan, atau terlihat resmi.
         </div>
       </div>
     </section>
@@ -667,88 +625,50 @@
         <div class="section-head fade-in">
           <h2>Program Structure</h2>
           <p>
-            Struktur program disusun secara modular agar peserta dapat mengikuti alur pembelajaran
-            dari pemahaman dasar hingga latihan terapan.
+            Struktur program diselaraskan dengan alur materi utama agar peserta mengikuti
+            pembelajaran secara bertahap, dari fondasi awareness hingga langkah praktis
+            yang dapat diterapkan di lingkungan kerja.
           </p>
         </div>
 
-        <div class="program-flow fade-in">
-          <div class="flow-grid">
-            <div class="flow-item">
-              <div class="flow-step">1</div>
-              <strong>Module B — Human Factors</strong>
-              <span>Menyoroti faktor manusia, trigger psikologis, dan konteks yang membuat social engineering efektif.</span>
+        <div class="program-structure fade-in">
+          <div class="structure-grid">
+            <div class="structure-card">
+              <div class="structure-code">A</div>
+              <h3>Mengapa Awareness Penting</h3>
+              <p>
+                Menjelaskan mengapa social engineering relevan, mengapa manusia menjadi target,
+                dan bagaimana satu keputusan kecil dapat berdampak besar bagi organisasi.
+              </p>
             </div>
-            <div class="flow-item">
-              <div class="flow-step">2</div>
-              <strong>Module C — Response & Bias</strong>
-              <span>Membahas emosi, relasi sosial, gangguan konteks, dan bias penilaian dalam pengambilan keputusan.</span>
+
+            <div class="structure-card">
+              <div class="structure-code">B</div>
+              <h3>Psikologi di Balik Social Engineering</h3>
+              <p>
+                Membahas emosi, relasi sosial, kondisi kerja, dan bias penilaian yang sering
+                dimanfaatkan untuk mendorong keputusan cepat tanpa verifikasi.
+              </p>
             </div>
-            <div class="flow-item">
-              <div class="flow-step">3</div>
-              <strong>Module D — Applied Scenarios</strong>
-              <span>Melatih peserta menghadapi skenario yang lebih konkret dan memilih respons yang lebih aman.</span>
+
+            <div class="structure-card">
+              <div class="structure-code">C</div>
+              <h3>Bentuk Serangan & Tanda Bahaya</h3>
+              <p>
+                Mengulas pola modus yang umum, kanal ancaman yang sering dipakai, serta
+                red flag yang perlu dikenali sedini mungkin.
+              </p>
+            </div>
+
+            <div class="structure-card">
+              <div class="structure-code">D</div>
+              <h3>Langkah Praktis & Checklist Keamanan</h3>
+              <p>
+                Menurunkan materi ke tindakan nyata, safe behavior, dan checklist sederhana
+                yang dapat langsung dipraktikkan peserta setelah sesi selesai.
+              </p>
             </div>
           </div>
-        </div>
-
-        <div class="grid-3 fade-in" style="margin-top: 18px;">
-          <a class="module-card" href="workshop/latihan.html#modul-b">
-            <div class="module-top">
-              <div class="module-code">B</div>
-              <div class="module-type">Human Factors</div>
-            </div>
-            <h3>Module B — Human Factors in Social Engineering</h3>
-            <p>
-              Memahami bagaimana konteks kerja, trigger psikologis, dan kebiasaan sehari-hari dapat
-              dimanfaatkan untuk memengaruhi keputusan korban.
-            </p>
-            <div class="module-meta">
-              <span class="meta-chip">Trigger Analysis</span>
-              <span class="meta-chip">Behavior Mapping</span>
-            </div>
-            <div class="module-action">
-              <span class="btn btn-secondary">Lihat Modul</span>
-            </div>
-          </a>
-
-          <a class="module-card" href="workshop/latihan.html">
-            <div class="module-top">
-              <div class="module-code">C</div>
-              <div class="module-type">Response & Bias</div>
-            </div>
-            <h3>Module C — Response, Emotion & Judgment Bias</h3>
-            <p>
-              Membantu peserta mengenali bagaimana emosi, relasi sosial, workload, dan bias penilaian
-              memengaruhi kualitas respons.
-            </p>
-            <div class="module-meta">
-              <span class="meta-chip">Decision Quality</span>
-              <span class="meta-chip">Bias Awareness</span>
-            </div>
-            <div class="module-action">
-              <span class="btn btn-secondary">Lihat Modul</span>
-            </div>
-          </a>
-
-          <a class="module-card" href="workshop/latihan.html">
-            <div class="module-top">
-              <div class="module-code">D</div>
-              <div class="module-type">Applied Scenarios</div>
-            </div>
-            <h3>Module D — Applied Threat Scenarios</h3>
-            <p>
-              Mengarahkan peserta pada latihan terapan berbasis skenario untuk membaca risiko,
-              mengenali pola penipuan, dan memilih respons aman.
-            </p>
-            <div class="module-meta">
-              <span class="meta-chip">Scenario Review</span>
-              <span class="meta-chip">Applied Practice</span>
-            </div>
-            <div class="module-action">
-              <span class="btn btn-secondary">Lihat Modul</span>
-            </div>
-          </a>
         </div>
       </div>
     </section>
@@ -758,31 +678,51 @@
         <div class="section-head fade-in">
           <h2>Resources</h2>
           <p>
-            Materi pendukung disiapkan untuk memperkuat transfer pembelajaran dan memudahkan peserta
-            maupun organisasi dalam melakukan review pasca pelatihan.
+            Materi pendukung disiapkan untuk memperkuat transfer pembelajaran dan memudahkan
+            peserta maupun organisasi melakukan review pasca pelatihan.
           </p>
         </div>
 
         <div class="resource-grid fade-in">
           <div class="resource-card">
-            <h3>Slide Deck</h3>
-            <p>Materi utama yang terstruktur dan dirancang untuk menjelaskan konsep secara ringkas namun tetap aplikatif.</p>
+            <div class="resource-badge">Slide Deck</div>
+            <h3>Slide Materi Utama</h3>
+            <p>
+              Materi utama yang menjelaskan alur pembelajaran dari awareness, psikologi,
+              bentuk serangan, hingga langkah praktis dan checklist keamanan.
+            </p>
           </div>
+
           <div class="resource-card">
+            <div class="resource-badge">Handout</div>
             <h3>Handout Ringkas</h3>
-            <p>Ringkasan materi inti agar peserta dapat melakukan review cepat setelah sesi selesai.</p>
+            <p>
+              Ringkasan materi inti yang memudahkan peserta melakukan review cepat setelah sesi selesai.
+            </p>
           </div>
+
           <div class="resource-card">
-            <h3>Employee Security Checklist</h3>
-            <p>Checklist praktis yang dapat langsung dipakai sebagai pengingat perilaku aman di tempat kerja.</p>
+            <div class="resource-badge">Checklist</div>
+            <h3>Checklist Keamanan Pegawai</h3>
+            <p>
+              Checklist praktis untuk membantu peserta membangun kebiasaan kerja yang lebih aman.
+            </p>
           </div>
+
           <div class="resource-card">
-            <h3>Poster Checklist</h3>
-            <p>Materi visual ringkas untuk membantu penguatan pesan awareness di lingkungan organisasi.</p>
+            <div class="resource-badge">Poster</div>
+            <h3>Poster Checklist Keamanan</h3>
+            <p>
+              Materi visual ringkas yang siap digunakan untuk penguatan awareness di area kerja.
+            </p>
           </div>
+
           <div class="resource-card">
-            <h3>Case Summary</h3>
-            <p>Ringkasan studi kasus dan pola modus yang relevan untuk memperluas konteks pemahaman peserta.</p>
+            <div class="resource-badge">Case Brief</div>
+            <h3>Studi Kasus & Ringkasan Modus</h3>
+            <p>
+              Ringkasan pola ancaman dan contoh kasus yang relevan untuk memperluas konteks pemahaman peserta.
+            </p>
           </div>
         </div>
       </div>
@@ -793,36 +733,67 @@
         <div class="section-head fade-in">
           <h2>Assessment & Interactive Modules</h2>
           <p>
-            Proses pembelajaran diperkuat melalui pre-test, interactive modules, dan post-test
-            untuk membantu peserta merefleksikan pemahaman dan respons mereka.
+            Assessment digunakan untuk membantu peserta mengenali awareness awal,
+            berpartisipasi aktif selama sesi, dan merefleksikan pemahaman setelah pelatihan selesai.
           </p>
         </div>
 
         <div class="assessment-grid fade-in">
           <div class="assessment-card">
+            <div class="assessment-badge">Sebelum Sesi</div>
             <h3>Pre-Test</h3>
             <p>
-              Digunakan untuk memetakan baseline awareness peserta sebelum sesi dimulai.
+              Mengukur baseline awareness peserta sebelum materi dimulai dan membantu
+              memetakan tingkat pemahaman awal.
             </p>
+            <div style="margin-top: auto; padding-top: 8px;">
+              <a
+                class="btn btn-secondary"
+                href="https://forms.gle/Uj9BJSxiJmyVVxZj7"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Buka Pre-Test
+              </a>
+            </div>
           </div>
+
           <div class="assessment-card">
-            <h3>Interactive Modules</h3>
+            <div class="assessment-badge">Saat Sesi</div>
+            <h3>Latihan Simulasi</h3>
             <p>
-              Scenario-based modules untuk membantu peserta memahami pola manipulasi, bias, dan
-              keputusan aman secara lebih aktif.
+              Kumpulan workshop simulatif untuk membantu peserta mempraktikkan materi
+              yang telah dipelajari melalui skenario dan exercise interaktif.
             </p>
+            <div style="margin-top: auto; padding-top: 8px;">
+              <a class="btn btn-secondary" href="workshop/latihan.html">Buka Aktivitas</a>
+            </div>
           </div>
+
           <div class="assessment-card">
+            <div class="assessment-badge">Setelah Sesi</div>
             <h3>Post-Test</h3>
             <p>
-              Digunakan untuk menilai pemahaman peserta setelah sesi serta memperkuat refleksi pembelajaran.
+              Digunakan untuk melihat peningkatan pemahaman peserta setelah pembahasan
+              materi dan aktivitas workshop selesai.
             </p>
+            <div style="margin-top: auto; padding-top: 8px;">
+              <a
+                class="btn btn-secondary"
+                href="https://forms.gle/4NbVvJt4gj9QtkuK7"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Buka Post-Test
+              </a>
+            </div>
           </div>
         </div>
 
         <div class="note-box fade-in">
-          <strong>Assessment Logic:</strong> Pendekatan ini tidak hanya mengukur pengetahuan,
-          tetapi juga membantu peserta mengalami proses belajar yang lebih reflektif melalui simulasi.
+          <strong>Assessment Logic:</strong> Pre-test dan post-test hadir sebagai titik refleksi,
+          sementara latihan simulasi digunakan untuk membantu peserta mengalami proses belajar
+          yang lebih aktif dan aplikatif.
         </div>
       </div>
     </section>
@@ -832,19 +803,19 @@
         <div class="section-head fade-in">
           <h2>Speaker</h2>
           <p>
-            Sesi dibawakan oleh praktisi akademik yang berfokus pada cybersecurity, computer networks,
-            dan edukasi keamanan digital dengan pendekatan yang praktis dan komunikatif.
+            Sesi ini dibawakan oleh pembicara yang berfokus pada cybersecurity awareness,
+            social engineering, dan perilaku digital yang relevan dengan kebutuhan organisasi modern.
           </p>
         </div>
 
         <div class="speaker-card fade-in">
-          <div class="speaker-photo"></div>
+          <div class="speaker-photo">DF</div>
+
           <div class="speaker-meta">
             <h3>Doddy Ferdiansyah</h3>
             <p>
-              Dosen Teknik Informatika dengan fokus pada cybersecurity dan edukasi keamanan digital.
-              Berpengalaman mengembangkan materi pembelajaran, slide, dan modul interaktif yang
-              dirancang agar lebih mudah dipahami oleh peserta lintas fungsi.
+              Membawakan sesi pelatihan yang berfokus pada peningkatan awareness, pemahaman
+              ancaman digital, dan penerapan perilaku aman yang relevan untuk konteks kerja modern.
             </p>
 
             <div class="speaker-badges">
@@ -854,8 +825,8 @@
             </div>
 
             <div class="note-box" style="margin-top: 0;">
-              <strong>Approach:</strong> Formal, practical, and scenario-oriented — dengan fokus pada
-              keterkaitan antara konsep, perilaku, dan keputusan di lingkungan kerja.
+              <strong>Approach:</strong> Formal, practical, and scenario-oriented — dengan fokus
+              pada keterkaitan antara konsep, perilaku, dan keputusan di lingkungan kerja.
             </div>
           </div>
         </div>
@@ -867,22 +838,84 @@
         <div class="section-head fade-in">
           <h2>Contact</h2>
           <p>
-            Untuk diskusi lebih lanjut mengenai program, penyesuaian kebutuhan internal, atau
-            kolaborasi pelatihan, silakan hubungi melalui kanal komunikasi yang tersedia.
+            Untuk kebutuhan pelatihan, penyesuaian topik, atau diskusi program, silakan
+            hubungi melalui kanal komunikasi berikut.
           </p>
         </div>
 
-        <div class="contact-card fade-in">
-          <h3>Program Inquiry</h3>
-          <p>
-            Landing page ini dirancang sebagai template program yang dapat digunakan untuk kebutuhan
-            awareness training di berbagai organisasi dan konteks internal.
-          </p>
+        <div class="contact-grid fade-in">
+          <a class="contact-link" href="mailto:doddy@unpas.ac.id">
+            <div>
+              <strong>Email</strong>
+              <div class="notice">doddy@unpas.ac.id</div>
+            </div>
+            <span>↗</span>
+          </a>
 
-          <div class="contact-actions">
-            <a class="btn btn-primary" href="mailto:contoh@email.com">Hubungi Sekarang</a>
-            <a class="btn btn-secondary" href="workshop/latihan.html">Lihat Modul Interaktif</a>
-          </div>
+          <a
+            class="contact-link"
+            href="https://wa.me/6285141505120"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div>
+              <strong>WhatsApp</strong>
+              <div class="notice">0851-4150-5120</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a
+            class="contact-link"
+            href="https://www.instagram.com/doddyferdiansyah"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div>
+              <strong>Instagram</strong>
+              <div class="notice">@doddyferdiansyah</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a
+            class="contact-link"
+            href="https://www.youtube.com/@doddyferdiansyah"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div>
+              <strong>YouTube</strong>
+              <div class="notice">@doddyferdiansyah</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a
+            class="contact-link"
+            href="https://www.linkedin.com/in/doddyferdiansyah"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div>
+              <strong>LinkedIn</strong>
+              <div class="notice">doddyferdiansyah</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a
+            class="contact-link"
+            href="https://csa.doddyferdiansyah.web.id"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div>
+              <strong>Resource Page</strong>
+              <div class="notice">csa.doddyferdiansyah.web.id</div>
+            </div>
+            <span>↗</span>
+          </a>
         </div>
       </div>
     </section>
@@ -893,5 +926,20 @@
       © 2026 Doddy Ferdiansyah · Cybersecurity Awareness Training
     </div>
   </footer>
+
+  <script>
+    const faders = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationDelay = '0.05s';
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    faders.forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>
