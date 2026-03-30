@@ -9,7 +9,7 @@
     content="Aktivitas interaktif Bagian B untuk memahami faktor manusia yang dimainkan dalam social engineering."
   />
   <link rel="stylesheet" href="../assets/main.css" />
-  <link rel="stylesheet" href="../assets/simulations.css" />
+  <link rel="stylesheet" href="../assets/simulations.css?v=3" />
   <style>
     .sub-hero {
       padding: 76px 0 28px;
@@ -79,6 +79,9 @@
       color: var(--mid-gray);
       font-size: 0.93rem;
       line-height: 1.65;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
     }
 
     .phone-stage {
@@ -305,19 +308,16 @@
 
           <div class="scenario-block">
             <div class="phone-stage">
-              <div class="device-phone-realistic">
+              <div class="device-phone-realistic-portrait">
                 <div class="device-screen">
-                  <div class="phone-camera"></div>
-                  <div class="phone-speaker"></div>
-                  <div class="phone-sensor"></div>
-                  <div class="dynamic-island-landscape"></div>
+                  <div class="dynamic-island"></div>
 
-                  <div class="mock-whatsapp-real">
+                  <div class="mock-whatsapp-real-portrait">
                     <div class="wa-statusbar">
                       <span>09.14</span>
                       <div class="wa-status-icons">
-                        <span class="wa-signal">4G</span>
-                        <span class="wa-wifi">WiFi</span>
+                        <span>4G</span>
+                        <span>WiFi</span>
                         <span class="wa-battery">
                           <span class="wa-battery-box">
                             <span class="wa-battery-level"></span>
@@ -333,12 +333,12 @@
                         <div class="wa-avatar" aria-hidden="true">
                           <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                             <defs>
-                              <linearGradient id="avatarBgBoss" x1="0" y1="0" x2="0" y2="1">
+                              <linearGradient id="avatarBgBossPortrait" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stop-color="#e2e8f0"/>
                                 <stop offset="100%" stop-color="#cbd5e1"/>
                               </linearGradient>
                             </defs>
-                            <rect width="64" height="64" rx="32" fill="url(#avatarBgBoss)"/>
+                            <rect width="64" height="64" rx="32" fill="url(#avatarBgBossPortrait)"/>
                             <circle cx="32" cy="24" r="11" fill="#94a3b8"/>
                             <path d="M14 56c3-11 12-17 18-17s15 6 18 17" fill="#94a3b8"/>
                           </svg>
