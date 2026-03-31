@@ -1,1 +1,938 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trial Simulation 3 | Seret ke Kategori</title>
+  <meta
+    name="description"
+    content="Simulasi trial untuk mengelompokkan skenario ke kategori aman, perlu verifikasi, atau berisiko."
+  />
+  <link rel="stylesheet" href="../assets/main.css" />
+  <style>
+    :root {
+      --risk: #dc3545;
+      --risk-soft: rgba(220, 53, 69, 0.10);
+      --verify: #b26b00;
+      --verify-soft: #fff4e5;
+      --safe: #198754;
+      --safe-soft: rgba(25, 135, 84, 0.10);
+      --trial-bg: #f4f8fc;
+      --panel-bg: #ffffff;
+      --panel-line: rgba(31, 41, 55, 0.08);
+    }
 
+    body {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .trial-hero {
+      padding: 76px 0 28px;
+    }
+
+    .trial-hero .hero-card {
+      padding: 34px;
+    }
+
+    .trial-hero p {
+      color: var(--mid-gray);
+      max-width: 900px;
+      margin-bottom: 0;
+    }
+
+    .hero-actions-inline {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .hero-mini-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .hero-mini-card {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-mini-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .hero-mini-card p {
+      font-size: 0.92rem;
+      color: var(--mid-gray);
+    }
+
+    .page-section {
+      padding: 18px 0 56px;
+    }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head-local {
+      margin-bottom: 18px;
+    }
+
+    .section-head-local h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head-local p {
+      color: var(--mid-gray);
+      max-width: 860px;
+    }
+
+    .instruction-box {
+      background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      color: var(--mid-gray);
+      margin: 14px 0 20px;
+    }
+
+    .instruction-box strong {
+      color: var(--dark-gray);
+    }
+
+    .board-layout {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 18px;
+      align-items: start;
+      margin-top: 18px;
+    }
+
+    .sticky-panel {
+      position: sticky;
+      top: 110px;
+    }
+
+    .panel {
+      border: 1px solid var(--panel-line);
+      border-radius: 22px;
+      background: var(--panel-bg);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .panel h3 {
+      margin-bottom: 10px;
+      font-size: 1.04rem;
+      letter-spacing: -0.01em;
+    }
+
+    .panel-desc {
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .cards-list {
+      display: grid;
+      gap: 12px;
+      min-height: 240px;
+    }
+
+    .scenario-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      background: var(--white);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      cursor: grab;
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        opacity 0.2s ease;
+      line-height: 1.65;
+      color: var(--dark-gray);
+    }
+
+    .scenario-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.28);
+      box-shadow: 0 16px 30px rgba(31, 41, 55, 0.08);
+    }
+
+    .scenario-card.dragging {
+      opacity: 0.5;
+      transform: scale(0.98);
+    }
+
+    .scenario-card.selected {
+      border-color: rgba(77, 163, 255, 0.42);
+      background: rgba(77, 163, 255, 0.10);
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .scenario-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .category-column {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .category-head {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      background: #fbfdff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .category-head h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .category-head p {
+      font-size: 0.88rem;
+      color: var(--mid-gray);
+      line-height: 1.5;
+    }
+
+    .category-head.safe h4 { color: var(--safe); }
+    .category-head.verify h4 { color: var(--verify); }
+    .category-head.risk h4 { color: var(--risk); }
+
+    .drop-zone {
+      min-height: 240px;
+      border: 2px dashed rgba(31, 41, 55, 0.16);
+      border-radius: 18px;
+      background: #fbfdff;
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .drop-zone.active {
+      border-color: rgba(77, 163, 255, 0.40);
+      background: #f8fbff;
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .drop-zone.has-items {
+      border-style: solid;
+      border-color: rgba(77, 163, 255, 0.22);
+      background: #fcfeff;
+    }
+
+    .drop-placeholder {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .trial-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.52);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(100%, 980px);
+      background: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 54px rgba(17, 24, 39, 0.22);
+      padding: 24px;
+      max-height: 86vh;
+      overflow: auto;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-score {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .modal-text {
+      color: var(--mid-gray);
+      margin-bottom: 14px;
+      line-height: 1.75;
+    }
+
+    .feedback-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .feedback-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-card h4 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feedback-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .feedback-tag.correct {
+      background: var(--safe-soft);
+      color: var(--safe);
+    }
+
+    .feedback-tag.wrong {
+      background: var(--risk-soft);
+      color: var(--risk);
+    }
+
+    .feedback-block {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .feedback-block strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .success {
+      color: #198754;
+    }
+
+    .danger {
+      color: #dc3545;
+    }
+
+    .site-footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 1100px) {
+      .board-layout,
+      .category-grid,
+      .hero-mini-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-panel {
+        position: static;
+      }
+
+      .drop-zone {
+        min-height: 160px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .trial-hero .hero-card,
+      .section-card,
+      .modal-card {
+        padding: 22px;
+      }
+
+      .hero-actions-inline,
+      .trial-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions-inline .btn,
+      .trial-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../index.html">Landing Page</a>
+        <a href="index.html">Trial Simulation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="trial-hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Trial Simulation 2</div>
+          <h1 class="hero-title">Seret Skenario ke Kategori yang Paling Sesuai</h1>
+          <p>
+            Baca setiap skenario singkat di bawah ini, lalu seret ke kategori
+            <strong>Aman</strong>, <strong>Perlu Verifikasi</strong>, atau
+            <strong>Berisiko</strong>. Tidak semua situasi akan terasa jelas sejak awal.
+          </p>
+
+          <div class="hero-actions-inline">
+            <a class="btn btn-secondary" href="index.html">Kembali ke Trial</a>
+            <a class="btn btn-primary" href="#simulasi">Mulai Simulasi</a>
+          </div>
+
+          <div class="hero-mini-strip">
+            <div class="hero-mini-card">
+              <h3>Tujuan</h3>
+              <p>Menguji kualitas penilaian peserta terhadap skenario yang tampak ambigu atau “abu-abu”.</p>
+            </div>
+            <div class="hero-mini-card">
+              <h3>Format</h3>
+              <p>Setiap kartu skenario harus dikelompokkan ke kategori yang paling mendekati.</p>
+            </div>
+            <div class="hero-mini-card">
+              <h3>Twist</h3>
+              <p>Beberapa skenario sengaja dibuat terasa wajar agar peserta terdorong menilai terlalu cepat.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="simulasi">
+      <div class="container">
+        <div class="section-card fade-in">
+          <div class="section-head-local">
+            <h2>Kelompokkan Skenario</h2>
+            <p>
+              Jangan hanya melihat dari kesan pertama. Fokuskan penilaian Anda pada konteks,
+              jalur komunikasi, dan kebutuhan verifikasi sebelum bertindak.
+            </p>
+          </div>
+
+          <div class="instruction-box">
+            <strong>Instruksi:</strong> Seret setiap kartu ke kategori yang menurut Anda paling sesuai.
+            Anda juga bisa klik satu kartu terlebih dahulu, lalu klik area kategori tujuan.
+          </div>
+
+          <div class="board-layout">
+            <div class="sticky-panel">
+              <div class="panel">
+                <h3>Kartu Skenario</h3>
+                <div class="panel-desc">
+                  Semua skenario di bawah ini sengaja dibuat cukup realistis agar penilaian Anda
+                  benar-benar diuji, bukan hanya ditebak.
+                </div>
+
+                <div class="cards-list" id="cardsList">
+                  <div class="scenario-card" draggable="true" data-id="S1">
+                    <div class="scenario-badge">1</div>
+                    Vendor yang pernah bekerja sama tahun lalu mengirim revisi penawaran lewat nomor WhatsApp baru dan meminta agar balasan tidak usah melalui email dulu karena sedang di lapangan.
+                  </div>
+
+                  <div class="scenario-card" draggable="true" data-id="S2">
+                    <div class="scenario-badge">2</div>
+                    Rekan satu divisi mengirim file presentasi melalui Google Drive kantor dan membagikannya juga di grup internal yang biasa dipakai tim.
+                  </div>
+
+                  <div class="scenario-card" draggable="true" data-id="S3">
+                    <div class="scenario-badge">3</div>
+                    Anda menerima email undangan kolaborasi event dari pihak eksternal dengan domain perusahaan yang terlihat resmi, tetapi meminta respons cepat ke nomor pribadi karena “email admin lambat dibalas”.
+                  </div>
+
+                  <div class="scenario-card" draggable="true" data-id="S4">
+                    <div class="scenario-badge">4</div>
+                    Seorang kolega meminta Anda mengirim file tertentu lewat chat pribadi karena mengaku tidak bisa mengakses email kantor dari ponsel saat sedang di luar.
+                  </div>
+
+                  <div class="scenario-card" draggable="true" data-id="S5">
+                    <div class="scenario-badge">5</div>
+                    Tautan meeting dikirim oleh penyelenggara internal melalui kalender resmi perusahaan dan cocok dengan agenda yang memang sudah dijadwalkan sejak sebelumnya.
+                  </div>
+
+                  <div class="scenario-card" draggable="true" data-id="S6">
+                    <div class="scenario-badge">6</div>
+                    Seorang tamu datang ke resepsionis sambil menyebut nama salah satu manajer dan mengatakan hanya perlu “titip flashdisk sebentar” untuk rapat sore nanti.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>Kategori Penilaian</h3>
+
+              <div class="category-grid">
+                <div class="category-column">
+                  <div class="category-head safe">
+                    <h4>Aman</h4>
+                    <p>Masih selaras dengan kanal resmi dan konteks kerja yang bisa dipercaya.</p>
+                  </div>
+                  <div class="drop-zone" data-category="aman">
+                    <div class="drop-placeholder">Tarik kartu yang menurut Anda tergolong aman ke sini.</div>
+                  </div>
+                </div>
+
+                <div class="category-column">
+                  <div class="category-head verify">
+                    <h4>Perlu Verifikasi</h4>
+                    <p>Belum tentu berbahaya, tetapi ada hal yang perlu dicek lebih dulu.</p>
+                  </div>
+                  <div class="drop-zone" data-category="verifikasi">
+                    <div class="drop-placeholder">Tarik kartu yang menurut Anda masih perlu verifikasi ke sini.</div>
+                  </div>
+                </div>
+
+                <div class="category-column">
+                  <div class="category-head risk">
+                    <h4>Berisiko</h4>
+                    <p>Memiliki sinyal yang cukup kuat untuk dihentikan atau diwaspadai serius.</p>
+                  </div>
+                  <div class="drop-zone" data-category="berisiko">
+                    <div class="drop-placeholder">Tarik kartu yang menurut Anda berisiko ke sini.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trial-actions">
+            <button class="btn btn-primary" id="checkBtn">Cek Hasil</button>
+            <button class="btn btn-secondary" id="resetBtn">Reset Pilihan</button>
+          </div>
+
+          <div class="note-box">
+            <strong>Catatan:</strong> Dalam dunia kerja, banyak situasi tidak langsung terlihat
+            berbahaya. Justru karena terasa biasa atau familiar, orang cenderung terburu-buru menilai.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div
+    class="modal-overlay"
+    id="resultModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <div class="modal-score" id="modalScore"></div>
+      <div class="modal-text" id="modalText"></div>
+
+      <div class="feedback-stack" id="feedbackStack"></div>
+
+      <div class="trial-actions" style="margin-top: 18px;">
+        <button class="btn btn-primary" id="closeModalBtn">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Trial Simulation 2
+    </div>
+  </footer>
+
+  <script src="../assets/main.js"></script>
+  <script>
+    const scenarioData = {
+      S1: {
+        title: "Vendor lama menghubungi lewat nomor baru",
+        correctCategory: "verifikasi",
+        why: "Situasi ini tidak otomatis berbahaya karena vendor memang bisa berganti nomor atau sedang berada di lapangan. Namun, perubahan kanal komunikasi dan permintaan agar balasan tidak melalui email adalah sinyal yang perlu diverifikasi lebih dulu.",
+        proper: "Lakukan verifikasi balik melalui kontak resmi vendor yang sudah tersimpan sebelumnya, atau konfirmasi lewat email perusahaan yang biasa digunakan.",
+      },
+      S2: {
+        title: "File dibagikan lewat Google Drive kantor dan grup internal",
+        correctCategory: "aman",
+        why: "Skenario ini masih selaras dengan kanal resmi, konteks kerja, dan pola komunikasi internal yang wajar. Tidak terlihat adanya penyimpangan yang signifikan.",
+        proper: "Tetap lakukan kebiasaan aman seperti mengecek nama file dan memastikan memang relevan dengan pekerjaan, tetapi konteks ini masih tergolong aman.",
+      },
+      S3: {
+        title: "Email resmi tapi minta respons cepat ke nomor pribadi",
+        correctCategory: "verifikasi",
+        why: "Domain perusahaan terlihat resmi, tetapi permintaan untuk memindahkan respons ke nomor pribadi adalah penyimpangan yang perlu diperiksa. Ini belum otomatis berbahaya, tetapi cukup mencurigakan untuk tidak langsung dipercaya.",
+        proper: "Balas melalui kanal resmi yang ada di domain perusahaan atau cari kontak resmi dari website/komunikasi sebelumnya sebelum menindaklanjuti.",
+      },
+      S4: {
+        title: "Kolega minta file lewat chat pribadi",
+        correctCategory: "verifikasi",
+        why: "Konteks ini cukup umum terjadi, terutama saat seseorang sedang mobile. Namun, file yang diminta dan kanal yang dipakai perlu dipastikan dulu sebelum dikirim, apalagi jika file tersebut sensitif.",
+        proper: "Konfirmasi identitas dan kebutuhan file terlebih dahulu, misalnya dengan menelepon langsung atau meminta verifikasi dari kanal internal yang biasa digunakan.",
+      },
+      S5: {
+        title: "Tautan meeting dari kalender resmi perusahaan",
+        correctCategory: "aman",
+        why: "Skenario ini konsisten dengan kanal resmi, agenda yang sudah dijadwalkan, dan pola komunikasi yang normal. Tidak ada indikator kuat bahwa situasi ini menyimpang.",
+        proper: "Tetap cek detail meeting seperti biasa, tetapi dalam konteks ini skenarionya masih tergolong aman.",
+      },
+      S6: {
+        title: "Tamu menitip flashdisk untuk rapat",
+        correctCategory: "berisiko",
+        why: "Flashdisk dari pihak luar adalah risiko yang tinggi karena bisa menjadi media penyebaran malware. Meskipun orang tersebut menyebut nama manajer dan terdengar masuk akal, tindakan ini tidak boleh langsung diterima.",
+        proper: "Jangan colokkan perangkat asing. Verifikasi ke pihak internal yang disebut dan ikuti prosedur keamanan fisik maupun digital yang berlaku.",
+      }
+    };
+
+    const levelFeedback = {
+      6: {
+        title: '<span class="success">Penilaian Anda sangat baik.</span>',
+        text: 'Anda berhasil membedakan mana yang masih aman, mana yang perlu diverifikasi, dan mana yang jelas berisiko. Ini menunjukkan penilaian yang cukup matang terhadap konteks kerja.'
+      },
+      5: {
+        title: '<span class="success">Penilaian Anda cukup kuat.</span>',
+        text: 'Mayoritas klasifikasi Anda sudah tepat. Namun, masih ada satu skenario yang menunjukkan bahwa situasi abu-abu tetap bisa menimbulkan blind spot.'
+      },
+      3: {
+        title: '<span class="danger">Masih ada beberapa blind spot.</span>',
+        text: 'Beberapa skenario yang terlihat wajar ternyata tetap membutuhkan verifikasi. Ini menunjukkan bahwa persepsi awal masih cukup memengaruhi keputusan Anda.'
+      },
+      4: {
+        title: '<span class="danger">Masih ada beberapa blind spot.</span>',
+        text: 'Beberapa skenario yang terlihat wajar ternyata tetap membutuhkan verifikasi. Ini menunjukkan bahwa persepsi awal masih cukup memengaruhi keputusan Anda.'
+      },
+      2: {
+        title: '<span class="danger">Perlu lebih hati-hati dalam menilai konteks.</span>',
+        text: 'Beberapa klasifikasi Anda menunjukkan bahwa situasi yang ambigu masih mudah terbaca terlalu aman atau terlalu berbahaya. Inilah tantangan utama dalam awareness sehari-hari.'
+      },
+      1: {
+        title: '<span class="danger">Perlu lebih hati-hati dalam menilai konteks.</span>',
+        text: 'Beberapa klasifikasi Anda menunjukkan bahwa situasi yang ambigu masih mudah terbaca terlalu aman atau terlalu berbahaya. Inilah tantangan utama dalam awareness sehari-hari.'
+      },
+      0: {
+        title: '<span class="danger">Sebagian besar skenario masih terbaca terlalu cepat.</span>',
+        text: 'Simulasi ini menunjukkan bahwa konteks kerja yang tampak biasa bisa sangat memengaruhi penilaian. Verifikasi tetap penting, bahkan ketika situasi terasa familiar.'
+      }
+    };
+
+    const cardsList = document.getElementById('cardsList');
+    const scenarioCards = document.querySelectorAll('.scenario-card');
+    const dropZones = document.querySelectorAll('.drop-zone');
+
+    const resultModal = document.getElementById('resultModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalScore = document.getElementById('modalScore');
+    const modalText = document.getElementById('modalText');
+    const feedbackStack = document.getElementById('feedbackStack');
+
+    const checkBtn = document.getElementById('checkBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    let draggedCard = null;
+    let selectedCard = null;
+
+    function refreshCardEvents() {
+      document.querySelectorAll('.scenario-card').forEach((card) => {
+        card.addEventListener('dragstart', () => {
+          draggedCard = card;
+          card.classList.add('dragging');
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('dragging');
+          draggedCard = null;
+        });
+
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.scenario-card').forEach((item) => item.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedCard = card;
+        });
+      });
+    }
+
+    refreshCardEvents();
+
+    function updateDropZoneState(zone) {
+      const hasCard = zone.querySelector('.scenario-card');
+      const placeholder = zone.querySelector('.drop-placeholder');
+
+      if (hasCard) {
+        zone.classList.add('has-items');
+        if (placeholder) placeholder.style.display = 'none';
+      } else {
+        zone.classList.remove('has-items');
+        if (placeholder) placeholder.style.display = 'block';
+      }
+    }
+
+    function placeCardInZone(card, zone) {
+      const existingCard = zone.querySelector('.scenario-card');
+      if (existingCard && existingCard !== card) {
+        cardsList.appendChild(existingCard);
+        existingCard.classList.remove('selected');
+      }
+
+      document.querySelectorAll('.drop-zone').forEach((z) => {
+        if (z !== zone) {
+          const found = z.querySelector('.scenario-card');
+          if (found === card) {
+            z.removeChild(card);
+            updateDropZoneState(z);
+          }
+        }
+      });
+
+      zone.appendChild(card);
+      card.classList.remove('selected');
+      selectedCard = null;
+      updateDropZoneState(zone);
+    }
+
+    dropZones.forEach((zone) => {
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('active');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('active');
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('active');
+        if (!draggedCard) return;
+        placeCardInZone(draggedCard, zone);
+      });
+
+      zone.addEventListener('click', () => {
+        if (!selectedCard) return;
+        placeCardInZone(selectedCard, zone);
+      });
+    });
+
+    cardsList.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    cardsList.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (!draggedCard) return;
+      cardsList.appendChild(draggedCard);
+      draggedCard.classList.remove('selected');
+      selectedCard = null;
+      dropZones.forEach(updateDropZoneState);
+    });
+
+    function getUserPlacement() {
+      const placement = {};
+      dropZones.forEach((zone) => {
+        const cat = zone.dataset.category;
+        const cards = [...zone.querySelectorAll('.scenario-card')];
+        cards.forEach((card) => {
+          placement[card.dataset.id] = cat;
+        });
+      });
+      return placement;
+    }
+
+    function buildFeedbackCard(statusLabel, statusClass, title, selectedCategory, correctCategory, why, proper) {
+      const selectedText = selectedCategory
+        ? `Kategori pilihan Anda: <strong>${selectedCategory}</strong>`
+        : `Kategori pilihan Anda: <strong>Belum ditempatkan</strong>`;
+
+      const correctText = `Kategori yang paling tepat: <strong>${correctCategory}</strong>`;
+
+      return `
+        <div class="feedback-card">
+          <span class="feedback-tag ${statusClass}">${statusLabel}</span>
+          <h4>${title}</h4>
+          <div class="feedback-block">
+            <strong>Hasil penilaian:</strong>
+            <div>${selectedText}<br />${correctText}</div>
+          </div>
+          <div class="feedback-block">
+            <strong>Kenapa:</strong>
+            <div>${why}</div>
+          </div>
+          <div class="feedback-block">
+            <strong>Seharusnya bagaimana:</strong>
+            <div>${proper}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function labelCategory(cat) {
+      if (cat === "aman") return "Aman";
+      if (cat === "verifikasi") return "Perlu Verifikasi";
+      if (cat === "berisiko") return "Berisiko";
+      return "-";
+    }
+
+    function checkResult() {
+      const placement = getUserPlacement();
+      const totalCards = Object.keys(scenarioData).length;
+      const placedCount = Object.keys(placement).length;
+
+      if (placedCount < totalCards) {
+        modalTitle.innerHTML = '<span class="danger">Masih ada kartu yang belum ditempatkan.</span>';
+        modalScore.textContent = `${placedCount} / ${totalCards} ditempatkan`;
+        modalText.innerHTML = 'Silakan tempatkan semua kartu skenario ke salah satu kategori terlebih dahulu.';
+        feedbackStack.innerHTML = '';
+        openModal();
+        return;
+      }
+
+      let score = 0;
+      let html = '';
+
+      Object.keys(scenarioData).forEach((id) => {
+        const item = scenarioData[id];
+        const selectedCategory = placement[id];
+        const isCorrect = selectedCategory === item.correctCategory;
+        if (isCorrect) score += 1;
+
+        html += buildFeedbackCard(
+          isCorrect ? 'Klasifikasi Tepat' : 'Klasifikasi Belum Tepat',
+          isCorrect ? 'correct' : 'wrong',
+          item.title,
+          labelCategory(selectedCategory),
+          labelCategory(item.correctCategory),
+          item.why,
+          item.proper
+        );
+      });
+
+      const level = levelFeedback[score];
+      modalTitle.innerHTML = level.title;
+      modalScore.textContent = `${score} / ${totalCards}`;
+      modalText.innerHTML = level.text;
+      feedbackStack.innerHTML = html;
+
+      openModal();
+    }
+
+    function resetBoard() {
+      dropZones.forEach((zone) => {
+        const cards = [...zone.querySelectorAll('.scenario-card')];
+        cards.forEach((card) => {
+          cardsList.appendChild(card);
+          card.classList.remove('selected');
+        });
+      });
+
+      selectedCard = null;
+      draggedCard = null;
+      document.querySelectorAll('.scenario-card').forEach((c) => c.classList.remove('selected'));
+      dropZones.forEach((zone) => {
+        zone.classList.remove('active');
+        updateDropZoneState(zone);
+      });
+      closeModal();
+    }
+
+    checkBtn.addEventListener('click', checkResult);
+    resetBtn.addEventListener('click', resetBoard);
+
+    function openModal() {
+      resultModal.classList.add('show');
+    }
+
+    function closeModal() {
+      resultModal.classList.remove('show');
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    resultModal.addEventListener('click', (event) => {
+      if (event.target === resultModal) closeModal();
+    });
+
+    dropZones.forEach(updateDropZoneState);
+  </script>
+</body>
+</html>
