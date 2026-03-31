@@ -114,7 +114,7 @@
 
     .board-layout {
       display: grid;
-      grid-template-columns: 400px 1fr;
+      grid-template-columns: 380px 1fr;
       gap: 18px;
       align-items: start;
       margin-top: 18px;
@@ -122,7 +122,7 @@
 
     .sticky-panel {
       position: sticky;
-      top: 110px;
+      top: 100px;
     }
 
     .panel {
@@ -165,8 +165,9 @@
         box-shadow 0.2s ease,
         background 0.2s ease,
         opacity 0.2s ease;
-      line-height: 1.65;
+      line-height: 1.72;
       color: var(--dark-gray);
+      font-size: 0.98rem;
     }
 
     .scenario-card:hover {
@@ -184,20 +185,6 @@
       border-color: rgba(77, 163, 255, 0.42);
       background: rgba(77, 163, 255, 0.10);
       box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
-    }
-
-    .scenario-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: var(--sky-blue-soft);
-      color: var(--sky-blue-deep);
-      font-weight: 800;
-      font-size: 0.84rem;
-      margin-bottom: 10px;
     }
 
     .category-grid {
@@ -218,18 +205,12 @@
       border: 1px solid rgba(31, 41, 55, 0.08);
       background: #fbfdff;
       box-shadow: var(--shadow-soft);
+      text-align: center;
     }
 
     .category-head h4 {
-      font-size: 1rem;
-      margin-bottom: 4px;
+      font-size: 1.02rem;
       letter-spacing: -0.01em;
-    }
-
-    .category-head p {
-      font-size: 0.88rem;
-      color: var(--mid-gray);
-      line-height: 1.5;
     }
 
     .category-head.safe h4 { color: var(--safe); }
@@ -237,7 +218,7 @@
     .category-head.risk h4 { color: var(--risk); }
 
     .drop-zone {
-      min-height: 240px;
+      min-height: 320px;
       border: 2px dashed rgba(31, 41, 55, 0.16);
       border-radius: 18px;
       background: #fbfdff;
@@ -267,6 +248,12 @@
       color: var(--mid-gray);
       font-size: 0.9rem;
       line-height: 1.6;
+    }
+
+    .drop-zone .scenario-card {
+      margin: 0;
+      width: 100%;
+      cursor: grab;
     }
 
     .trial-actions {
@@ -420,7 +407,7 @@
       }
 
       .drop-zone {
-        min-height: 160px;
+        min-height: 150px;
       }
     }
 
@@ -474,15 +461,15 @@
           <div class="hero-mini-strip">
             <div class="hero-mini-card">
               <h3>Tujuan</h3>
-              <p>Menguji kualitas penilaian peserta terhadap skenario yang tampak ambigu atau “abu-abu”.</p>
+              <p>Menguji kualitas penilaian peserta terhadap skenario yang tampak ambigu atau abu-abu.</p>
             </div>
             <div class="hero-mini-card">
               <h3>Format</h3>
-              <p>Setiap kartu skenario harus dikelompokkan ke kategori yang paling mendekati.</p>
+              <p>Setiap skenario perlu dikelompokkan ke kategori yang paling mendekati.</p>
             </div>
             <div class="hero-mini-card">
               <h3>Twist</h3>
-              <p>Beberapa skenario sengaja dibuat terasa wajar agar peserta terdorong menilai terlalu cepat.</p>
+              <p>Beberapa situasi terasa wajar, padahal tetap membutuhkan kehati-hatian.</p>
             </div>
           </div>
         </div>
@@ -506,79 +493,69 @@
           </div>
 
           <div class="board-layout">
-            <div class="sticky-panel">
-              <div class="panel">
-                <h3>Kartu Skenario</h3>
-                <div class="panel-desc">
-                  Semua skenario di bawah ini sengaja dibuat cukup realistis agar penilaian Anda
-                  benar-benar diuji, bukan hanya ditebak.
+            <div class="panel">
+              <h3>Kartu Skenario</h3>
+              <div class="panel-desc">
+                Semua skenario di bawah ini sengaja dibuat cukup realistis agar penilaian Anda benar-benar diuji, bukan hanya ditebak.
+              </div>
+
+              <div class="cards-list" id="cardsList">
+                <div class="scenario-card" draggable="true" data-id="S1">
+                  Vendor lama menghubungi lewat nomor baru dan meminta balasan tidak usah lewat email dulu.
                 </div>
 
-                <div class="cards-list" id="cardsList">
-                  <div class="scenario-card" draggable="true" data-id="S1">
-                    <div class="scenario-badge">1</div>
-                    Vendor yang pernah bekerja sama tahun lalu mengirim revisi penawaran lewat nomor WhatsApp baru dan meminta agar balasan tidak usah melalui email dulu karena sedang di lapangan.
-                  </div>
+                <div class="scenario-card" draggable="true" data-id="S2">
+                  Rekan satu divisi membagikan file melalui Google Drive kantor dan grup internal tim.
+                </div>
 
-                  <div class="scenario-card" draggable="true" data-id="S2">
-                    <div class="scenario-badge">2</div>
-                    Rekan satu divisi mengirim file presentasi melalui Google Drive kantor dan membagikannya juga di grup internal yang biasa dipakai tim.
-                  </div>
+                <div class="scenario-card" draggable="true" data-id="S3">
+                  Email resmi perusahaan mengarahkan respons cepat ke nomor pribadi karena admin lambat membalas.
+                </div>
 
-                  <div class="scenario-card" draggable="true" data-id="S3">
-                    <div class="scenario-badge">3</div>
-                    Anda menerima email undangan kolaborasi event dari pihak eksternal dengan domain perusahaan yang terlihat resmi, tetapi meminta respons cepat ke nomor pribadi karena “email admin lambat dibalas”.
-                  </div>
+                <div class="scenario-card" draggable="true" data-id="S4">
+                  Kolega meminta file lewat chat pribadi karena mengaku tidak bisa membuka email kantor.
+                </div>
 
-                  <div class="scenario-card" draggable="true" data-id="S4">
-                    <div class="scenario-badge">4</div>
-                    Seorang kolega meminta Anda mengirim file tertentu lewat chat pribadi karena mengaku tidak bisa mengakses email kantor dari ponsel saat sedang di luar.
-                  </div>
+                <div class="scenario-card" draggable="true" data-id="S5">
+                  Tautan meeting dikirim lewat kalender resmi dan sesuai dengan agenda internal yang sudah ada.
+                </div>
 
-                  <div class="scenario-card" draggable="true" data-id="S5">
-                    <div class="scenario-badge">5</div>
-                    Tautan meeting dikirim oleh penyelenggara internal melalui kalender resmi perusahaan dan cocok dengan agenda yang memang sudah dijadwalkan sejak sebelumnya.
-                  </div>
-
-                  <div class="scenario-card" draggable="true" data-id="S6">
-                    <div class="scenario-badge">6</div>
-                    Seorang tamu datang ke resepsionis sambil menyebut nama salah satu manajer dan mengatakan hanya perlu “titip flashdisk sebentar” untuk rapat sore nanti.
-                  </div>
+                <div class="scenario-card" draggable="true" data-id="S6">
+                  Tamu menitip flashdisk untuk rapat dan menyebut nama salah satu manajer.
                 </div>
               </div>
             </div>
 
-            <div class="panel">
-              <h3>Kategori Penilaian</h3>
+            <div class="sticky-panel">
+              <div class="panel">
+                <h3>Kategori Penilaian</h3>
 
-              <div class="category-grid">
-                <div class="category-column">
-                  <div class="category-head safe">
-                    <h4>Aman</h4>
-                    <p>Masih selaras dengan kanal resmi dan konteks kerja yang bisa dipercaya.</p>
+                <div class="category-grid">
+                  <div class="category-column">
+                    <div class="category-head safe">
+                      <h4>Aman</h4>
+                    </div>
+                    <div class="drop-zone" data-category="aman">
+                      <div class="drop-placeholder">Tarik skenario ke sini</div>
+                    </div>
                   </div>
-                  <div class="drop-zone" data-category="aman">
-                    <div class="drop-placeholder">Tarik kartu yang menurut Anda tergolong aman ke sini.</div>
-                  </div>
-                </div>
 
-                <div class="category-column">
-                  <div class="category-head verify">
-                    <h4>Perlu Verifikasi</h4>
-                    <p>Belum tentu berbahaya, tetapi ada hal yang perlu dicek lebih dulu.</p>
+                  <div class="category-column">
+                    <div class="category-head verify">
+                      <h4>Perlu Verifikasi</h4>
+                    </div>
+                    <div class="drop-zone" data-category="verifikasi">
+                      <div class="drop-placeholder">Tarik skenario ke sini</div>
+                    </div>
                   </div>
-                  <div class="drop-zone" data-category="verifikasi">
-                    <div class="drop-placeholder">Tarik kartu yang menurut Anda masih perlu verifikasi ke sini.</div>
-                  </div>
-                </div>
 
-                <div class="category-column">
-                  <div class="category-head risk">
-                    <h4>Berisiko</h4>
-                    <p>Memiliki sinyal yang cukup kuat untuk dihentikan atau diwaspadai serius.</p>
-                  </div>
-                  <div class="drop-zone" data-category="berisiko">
-                    <div class="drop-placeholder">Tarik kartu yang menurut Anda berisiko ke sini.</div>
+                  <div class="category-column">
+                    <div class="category-head risk">
+                      <h4>Berisiko</h4>
+                    </div>
+                    <div class="drop-zone" data-category="berisiko">
+                      <div class="drop-placeholder">Tarik skenario ke sini</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -591,8 +568,8 @@
           </div>
 
           <div class="note-box">
-            <strong>Catatan:</strong> Dalam dunia kerja, banyak situasi tidak langsung terlihat
-            berbahaya. Justru karena terasa biasa atau familiar, orang cenderung terburu-buru menilai.
+            <strong>Catatan:</strong> Dalam dunia kerja, banyak situasi tidak langsung terlihat berbahaya.
+            Justru karena terasa biasa atau familiar, orang cenderung terburu-buru menilai.
           </div>
         </div>
       </div>
@@ -631,38 +608,38 @@
       S1: {
         title: "Vendor lama menghubungi lewat nomor baru",
         correctCategory: "verifikasi",
-        why: "Situasi ini tidak otomatis berbahaya karena vendor memang bisa berganti nomor atau sedang berada di lapangan. Namun, perubahan kanal komunikasi dan permintaan agar balasan tidak melalui email adalah sinyal yang perlu diverifikasi lebih dulu.",
-        proper: "Lakukan verifikasi balik melalui kontak resmi vendor yang sudah tersimpan sebelumnya, atau konfirmasi lewat email perusahaan yang biasa digunakan.",
+        why: "Situasi ini tidak otomatis berbahaya karena vendor memang bisa berganti nomor. Namun, perubahan kanal komunikasi dan permintaan agar balasan tidak melalui email adalah sinyal yang perlu diverifikasi lebih dulu.",
+        proper: "Verifikasi kembali melalui kontak resmi vendor yang sudah tersimpan sebelumnya atau lewat email perusahaan yang biasa digunakan."
       },
       S2: {
         title: "File dibagikan lewat Google Drive kantor dan grup internal",
         correctCategory: "aman",
-        why: "Skenario ini masih selaras dengan kanal resmi, konteks kerja, dan pola komunikasi internal yang wajar. Tidak terlihat adanya penyimpangan yang signifikan.",
-        proper: "Tetap lakukan kebiasaan aman seperti mengecek nama file dan memastikan memang relevan dengan pekerjaan, tetapi konteks ini masih tergolong aman.",
+        why: "Skenario ini masih selaras dengan kanal resmi, konteks kerja, dan pola komunikasi internal yang wajar. Tidak terlihat penyimpangan yang signifikan.",
+        proper: "Tetap cek nama file dan relevansinya, tetapi konteks ini masih tergolong aman."
       },
       S3: {
-        title: "Email resmi tapi minta respons cepat ke nomor pribadi",
+        title: "Email resmi tapi minta respons ke nomor pribadi",
         correctCategory: "verifikasi",
-        why: "Domain perusahaan terlihat resmi, tetapi permintaan untuk memindahkan respons ke nomor pribadi adalah penyimpangan yang perlu diperiksa. Ini belum otomatis berbahaya, tetapi cukup mencurigakan untuk tidak langsung dipercaya.",
-        proper: "Balas melalui kanal resmi yang ada di domain perusahaan atau cari kontak resmi dari website/komunikasi sebelumnya sebelum menindaklanjuti.",
+        why: "Domain terlihat resmi, tetapi permintaan untuk memindahkan respons ke nomor pribadi adalah penyimpangan yang perlu diperiksa. Ini belum otomatis berbahaya, tetapi cukup mencurigakan untuk tidak langsung dipercaya.",
+        proper: "Balas melalui kanal resmi di domain perusahaan atau cari kontak resmi dari website/komunikasi sebelumnya."
       },
       S4: {
         title: "Kolega minta file lewat chat pribadi",
         correctCategory: "verifikasi",
         why: "Konteks ini cukup umum terjadi, terutama saat seseorang sedang mobile. Namun, file yang diminta dan kanal yang dipakai perlu dipastikan dulu sebelum dikirim, apalagi jika file tersebut sensitif.",
-        proper: "Konfirmasi identitas dan kebutuhan file terlebih dahulu, misalnya dengan menelepon langsung atau meminta verifikasi dari kanal internal yang biasa digunakan.",
+        proper: "Konfirmasi identitas dan kebutuhan file terlebih dahulu, misalnya dengan menelepon langsung atau meminta verifikasi dari kanal internal."
       },
       S5: {
         title: "Tautan meeting dari kalender resmi perusahaan",
         correctCategory: "aman",
-        why: "Skenario ini konsisten dengan kanal resmi, agenda yang sudah dijadwalkan, dan pola komunikasi yang normal. Tidak ada indikator kuat bahwa situasi ini menyimpang.",
-        proper: "Tetap cek detail meeting seperti biasa, tetapi dalam konteks ini skenarionya masih tergolong aman.",
+        why: "Skenario ini konsisten dengan kanal resmi, agenda yang sudah dijadwalkan, dan pola komunikasi normal. Tidak ada indikator kuat bahwa situasi ini menyimpang.",
+        proper: "Tetap cek detail meeting seperti biasa, tetapi dalam konteks ini skenarionya masih tergolong aman."
       },
       S6: {
         title: "Tamu menitip flashdisk untuk rapat",
         correctCategory: "berisiko",
-        why: "Flashdisk dari pihak luar adalah risiko yang tinggi karena bisa menjadi media penyebaran malware. Meskipun orang tersebut menyebut nama manajer dan terdengar masuk akal, tindakan ini tidak boleh langsung diterima.",
-        proper: "Jangan colokkan perangkat asing. Verifikasi ke pihak internal yang disebut dan ikuti prosedur keamanan fisik maupun digital yang berlaku.",
+        why: "Flashdisk dari pihak luar adalah risiko tinggi karena bisa menjadi media penyebaran malware. Meskipun orang tersebut menyebut nama manajer dan terdengar masuk akal, tindakan ini tidak boleh langsung diterima.",
+        proper: "Jangan colokkan perangkat asing. Verifikasi ke pihak internal yang disebut dan ikuti prosedur keamanan fisik maupun digital yang berlaku."
       }
     };
 
@@ -675,21 +652,21 @@
         title: '<span class="success">Penilaian Anda cukup kuat.</span>',
         text: 'Mayoritas klasifikasi Anda sudah tepat. Namun, masih ada satu skenario yang menunjukkan bahwa situasi abu-abu tetap bisa menimbulkan blind spot.'
       },
-      3: {
+      4: {
         title: '<span class="danger">Masih ada beberapa blind spot.</span>',
         text: 'Beberapa skenario yang terlihat wajar ternyata tetap membutuhkan verifikasi. Ini menunjukkan bahwa persepsi awal masih cukup memengaruhi keputusan Anda.'
       },
-      4: {
+      3: {
         title: '<span class="danger">Masih ada beberapa blind spot.</span>',
         text: 'Beberapa skenario yang terlihat wajar ternyata tetap membutuhkan verifikasi. Ini menunjukkan bahwa persepsi awal masih cukup memengaruhi keputusan Anda.'
       },
       2: {
         title: '<span class="danger">Perlu lebih hati-hati dalam menilai konteks.</span>',
-        text: 'Beberapa klasifikasi Anda menunjukkan bahwa situasi yang ambigu masih mudah terbaca terlalu aman atau terlalu berbahaya. Inilah tantangan utama dalam awareness sehari-hari.'
+        text: 'Beberapa klasifikasi Anda menunjukkan bahwa situasi ambigu masih mudah terbaca terlalu aman atau terlalu berbahaya.'
       },
       1: {
         title: '<span class="danger">Perlu lebih hati-hati dalam menilai konteks.</span>',
-        text: 'Beberapa klasifikasi Anda menunjukkan bahwa situasi yang ambigu masih mudah terbaca terlalu aman atau terlalu berbahaya. Inilah tantangan utama dalam awareness sehari-hari.'
+        text: 'Beberapa klasifikasi Anda menunjukkan bahwa situasi ambigu masih mudah terbaca terlalu aman atau terlalu berbahaya.'
       },
       0: {
         title: '<span class="danger">Sebagian besar skenario masih terbaca terlalu cepat.</span>',
@@ -698,7 +675,6 @@
     };
 
     const cardsList = document.getElementById('cardsList');
-    const scenarioCards = document.querySelectorAll('.scenario-card');
     const dropZones = document.querySelectorAll('.drop-zone');
 
     const resultModal = document.getElementById('resultModal');
@@ -749,23 +725,17 @@
       }
     }
 
-    function placeCardInZone(card, zone) {
-      const existingCard = zone.querySelector('.scenario-card');
-      if (existingCard && existingCard !== card) {
-        cardsList.appendChild(existingCard);
-        existingCard.classList.remove('selected');
-      }
-
-      document.querySelectorAll('.drop-zone').forEach((z) => {
-        if (z !== zone) {
-          const found = z.querySelector('.scenario-card');
-          if (found === card) {
-            z.removeChild(card);
-            updateDropZoneState(z);
-          }
+    function removeCardFromOtherZones(card) {
+      document.querySelectorAll('.drop-zone').forEach((zone) => {
+        if (zone.contains(card)) {
+          zone.removeChild(card);
+          updateDropZoneState(zone);
         }
       });
+    }
 
+    function placeCardInZone(card, zone) {
+      removeCardFromOtherZones(card);
       zone.appendChild(card);
       card.classList.remove('selected');
       selectedCard = null;
@@ -802,6 +772,7 @@
     cardsList.addEventListener('drop', (e) => {
       e.preventDefault();
       if (!draggedCard) return;
+      removeCardFromOtherZones(draggedCard);
       cardsList.appendChild(draggedCard);
       draggedCard.classList.remove('selected');
       selectedCard = null;
@@ -821,19 +792,13 @@
     }
 
     function buildFeedbackCard(statusLabel, statusClass, title, selectedCategory, correctCategory, why, proper) {
-      const selectedText = selectedCategory
-        ? `Kategori pilihan Anda: <strong>${selectedCategory}</strong>`
-        : `Kategori pilihan Anda: <strong>Belum ditempatkan</strong>`;
-
-      const correctText = `Kategori yang paling tepat: <strong>${correctCategory}</strong>`;
-
       return `
         <div class="feedback-card">
           <span class="feedback-tag ${statusClass}">${statusLabel}</span>
           <h4>${title}</h4>
           <div class="feedback-block">
             <strong>Hasil penilaian:</strong>
-            <div>${selectedText}<br />${correctText}</div>
+            <div>Kategori pilihan Anda: <strong>${selectedCategory}</strong><br />Kategori yang paling tepat: <strong>${correctCategory}</strong></div>
           </div>
           <div class="feedback-block">
             <strong>Kenapa:</strong>
@@ -851,7 +816,7 @@
       if (cat === "aman") return "Aman";
       if (cat === "verifikasi") return "Perlu Verifikasi";
       if (cat === "berisiko") return "Berisiko";
-      return "-";
+      return "Belum ditempatkan";
     }
 
     function checkResult() {
@@ -860,9 +825,9 @@
       const placedCount = Object.keys(placement).length;
 
       if (placedCount < totalCards) {
-        modalTitle.innerHTML = '<span class="danger">Masih ada kartu yang belum ditempatkan.</span>';
+        modalTitle.innerHTML = '<span class="danger">Masih ada skenario yang belum ditempatkan.</span>';
         modalScore.textContent = `${placedCount} / ${totalCards} ditempatkan`;
-        modalText.innerHTML = 'Silakan tempatkan semua kartu skenario ke salah satu kategori terlebih dahulu.';
+        modalText.innerHTML = 'Silakan tempatkan semua skenario ke salah satu kategori terlebih dahulu.';
         feedbackStack.innerHTML = '';
         openModal();
         return;
@@ -908,11 +873,16 @@
 
       selectedCard = null;
       draggedCard = null;
-      document.querySelectorAll('.scenario-card').forEach((c) => c.classList.remove('selected'));
+
+      document.querySelectorAll('.scenario-card').forEach((card) => {
+        card.classList.remove('selected');
+      });
+
       dropZones.forEach((zone) => {
         zone.classList.remove('active');
         updateDropZoneState(zone);
       });
+
       closeModal();
     }
 
