@@ -36,8 +36,6 @@
       --success-soft: rgba(25, 135, 84, 0.10);
       --danger: #dc3545;
       --danger-soft: rgba(220, 53, 69, 0.10);
-      --warning: #b26b00;
-      --warning-soft: #fff4e5;
     }
 
     * {
@@ -333,7 +331,7 @@
 
     .board-layout {
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 360px 1fr;
       gap: 22px;
       align-items: start;
     }
@@ -359,29 +357,18 @@
       line-height: 1.72;
     }
 
-    .note-box {
-      margin-top: 16px;
-      padding: 16px 18px;
-      border-radius: 16px;
-      background: #fbfdff;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
-      font-size: 0.93rem;
-      line-height: 1.68;
-    }
-
     .factor-list {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       margin-top: 18px;
       min-height: 220px;
     }
 
     .factor-card {
       border: 1px solid rgba(31, 41, 55, 0.08);
-      border-radius: 18px;
+      border-radius: 16px;
       background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-      padding: 14px;
+      padding: 13px 14px;
       box-shadow: var(--shadow-soft);
       cursor: grab;
       transition:
@@ -389,8 +376,9 @@
         box-shadow var(--transition-fast),
         border-color var(--transition-fast),
         background var(--transition-fast);
-      display: grid;
-      gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .factor-card:hover {
@@ -415,19 +403,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: fit-content;
-      padding: 6px 10px;
+      min-width: 28px;
+      height: 28px;
       border-radius: 999px;
       background: var(--sky-blue-soft);
       color: var(--sky-blue-deep);
       font-size: 0.76rem;
       font-weight: 800;
+      flex-shrink: 0;
     }
 
     .factor-text {
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 600;
-      line-height: 1.6;
+      line-height: 1.5;
       color: var(--dark-gray);
     }
 
@@ -449,39 +438,28 @@
 
     .scenario-top {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
-      flex-wrap: wrap;
     }
 
     .scenario-number {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 36px;
-      height: 36px;
+      min-width: 30px;
+      height: 30px;
       border-radius: 999px;
       background: var(--sky-blue-soft);
       color: var(--sky-blue-deep);
       font-weight: 800;
-      font-size: 0.84rem;
+      font-size: 0.8rem;
       flex-shrink: 0;
-    }
-
-    .scenario-label {
-      display: inline-flex;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #f8fafc;
-      border: 1px solid rgba(31, 41, 55, 0.08);
-      color: var(--mid-gray);
-      font-size: 0.73rem;
-      font-weight: 700;
+      margin-top: 2px;
     }
 
     .scenario-text {
       color: var(--dark-gray);
-      line-height: 1.72;
+      line-height: 1.68;
       font-size: 0.95rem;
     }
 
@@ -528,6 +506,17 @@
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 18px;
+    }
+
+    .note-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
     }
 
     .feedback-box {
@@ -756,15 +745,6 @@
           <div class="sticky-panel">
             <div class="board-panel">
               <h3>Faktor Kelemahan</h3>
-              <p>
-                Seret satu faktor ke slot jawaban pada situasi kerja yang paling sesuai. Anda juga bisa
-                klik satu faktor terlebih dahulu, lalu klik slot jawaban yang diinginkan.
-              </p>
-
-              <div class="note-box">
-                <strong>Petunjuk:</strong> Panel faktor ini tetap terlihat saat Anda scroll agar proses matching
-                lebih nyaman, terutama saat membaca seluruh situasi kerja di sisi kanan.
-              </div>
 
               <div class="factor-list" id="factorList">
                 <div class="factor-card" draggable="true" data-id="A">
@@ -803,7 +783,7 @@
           <div class="board-panel">
             <h3>Situasi Kerja</h3>
             <p>
-              Seret setiap faktor ke situasi yang paling sesuai. Setelah itu, tekan tombol cek jawaban
+              Cocokkan setiap faktor dengan situasi kerja yang paling sesuai, lalu tekan tombol cek jawaban
               untuk melihat hasil dan pembahasan.
             </p>
 
@@ -811,10 +791,9 @@
               <div class="scenario-card">
                 <div class="scenario-top">
                   <span class="scenario-number">1</span>
-                  <span class="scenario-label">Workplace Scenario</span>
-                </div>
-                <div class="scenario-text">
-                  Seorang karyawan langsung membuka lampiran karena judul filenya terdengar menarik dan terasa penting untuk diketahui.
+                  <div class="scenario-text">
+                    Seorang karyawan langsung membuka lampiran karena judul filenya terdengar menarik dan terasa penting untuk diketahui.
+                  </div>
                 </div>
                 <div class="drop-slot" data-slot="1">
                   <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
@@ -824,10 +803,9 @@
               <div class="scenario-card">
                 <div class="scenario-top">
                   <span class="scenario-number">2</span>
-                  <span class="scenario-label">Workplace Scenario</span>
-                </div>
-                <div class="scenario-text">
-                  Seorang staf merasa tidak perlu mengecek ulang email karena tampilannya rapi, ada logo, dan bahasanya terlihat formal.
+                  <div class="scenario-text">
+                    Seorang staf merasa tidak perlu mengecek ulang email karena tampilannya rapi, ada logo, dan bahasanya terlihat formal.
+                  </div>
                 </div>
                 <div class="drop-slot" data-slot="2">
                   <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
@@ -837,10 +815,9 @@
               <div class="scenario-card">
                 <div class="scenario-top">
                   <span class="scenario-number">3</span>
-                  <span class="scenario-label">Workplace Scenario</span>
-                </div>
-                <div class="scenario-text">
-                  Saat sedang mengerjakan banyak hal sekaligus, seseorang langsung membalas pesan dan mengikuti instruksi tanpa membaca detail dengan teliti.
+                  <div class="scenario-text">
+                    Saat sedang mengerjakan banyak hal sekaligus, seseorang langsung membalas pesan dan mengikuti instruksi tanpa membaca detail dengan teliti.
+                  </div>
                 </div>
                 <div class="drop-slot" data-slot="3">
                   <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
@@ -850,10 +827,9 @@
               <div class="scenario-card">
                 <div class="scenario-top">
                   <span class="scenario-number">4</span>
-                  <span class="scenario-label">Workplace Scenario</span>
-                </div>
-                <div class="scenario-text">
-                  Seorang pegawai segera merespons permintaan karena khawatir dianggap lambat atau tidak kooperatif oleh pihak lain.
+                  <div class="scenario-text">
+                    Seorang pegawai segera merespons permintaan karena khawatir dianggap lambat atau tidak kooperatif oleh pihak lain.
+                  </div>
                 </div>
                 <div class="drop-slot" data-slot="4">
                   <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
@@ -863,10 +839,9 @@
               <div class="scenario-card">
                 <div class="scenario-top">
                   <span class="scenario-number">5</span>
-                  <span class="scenario-label">Workplace Scenario</span>
-                </div>
-                <div class="scenario-text">
-                  Seseorang merasa dirinya sudah cukup paham soal ancaman digital, sehingga jarang melakukan verifikasi tambahan.
+                  <div class="scenario-text">
+                    Seseorang merasa dirinya sudah cukup paham soal ancaman digital, sehingga jarang melakukan verifikasi tambahan.
+                  </div>
                 </div>
                 <div class="drop-slot" data-slot="5">
                   <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
@@ -876,10 +851,9 @@
               <div class="scenario-card">
                 <div class="scenario-top">
                   <span class="scenario-number">6</span>
-                  <span class="scenario-label">Workplace Scenario</span>
-                </div>
-                <div class="scenario-text">
-                  Karena ingin pekerjaan cepat selesai, seseorang memilih langsung klik dan memproses tanpa melewati pengecekan sederhana.
+                  <div class="scenario-text">
+                    Karena ingin pekerjaan cepat selesai, seseorang memilih langsung klik dan memproses tanpa melewati pengecekan sederhana.
+                  </div>
                 </div>
                 <div class="drop-slot" data-slot="6">
                   <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
@@ -987,18 +961,6 @@
       } else {
         slot.classList.remove("has-item");
         if (placeholder) placeholder.style.display = "block";
-      }
-    }
-
-    function removeCardFromCurrentParent(card) {
-      dropSlots.forEach((slot) => {
-        if (slot.contains(card)) {
-          slot.removeChild(card);
-          updateSlotState(slot);
-        }
-      });
-      if (factorList.contains(card)) {
-        factorList.removeChild(card);
       }
     }
 
