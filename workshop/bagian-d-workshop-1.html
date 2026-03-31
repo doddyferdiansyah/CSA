@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian D · Membaca Skenario Serangan | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Workshop interaktif untuk membantu peserta menilai situasi yang tampak biasa dan memutuskan kapan harus lanjut, kapan harus jeda, dan kapan harus verifikasi."
+  />
+  <style>
+    :root {
+      --white: #ffffff;
+      --bg-soft: #f8fbff;
+      --bg-soft-2: #eef6ff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --navy: #0f2747;
+      --navy-deep: #0b1d35;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #6b7280;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 16px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+      --transition-fast: 0.22s ease;
+
+      --success: #198754;
+      --success-soft: rgba(25, 135, 84, 0.10);
+      --danger: #dc3545;
+      --danger-soft: rgba(220, 53, 69, 0.10);
+      --warning: #b26b00;
+      --warning-soft: #fff4e5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--sky-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--dark-gray);
+      border-color: var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-success {
+      background: var(--white);
+      color: var(--success);
+      border-color: rgba(25, 135, 84, 0.22);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-warning {
+      background: var(--white);
+      color: var(--warning);
+      border-color: rgba(178, 107, 0, 0.22);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 84px 0 34px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--bg-soft-2) 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-title {
+      font-size: clamp(2.05rem, 4vw, 3.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .hero-desc {
+      color: var(--mid-gray);
+      max-width: 760px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-panel h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 52px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+      max-width: 920px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--mid-gray);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .overview-card,
+    .sim-panel,
+    .scenario-card,
+    .result-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .overview-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .overview-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+    }
+
+    .overview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .overview-card h3 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .overview-card p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .sim-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .sticky-panel {
+      position: sticky;
+      top: 102px;
+    }
+
+    .sim-panel {
+      padding: 20px;
+    }
+
+    .sim-panel h3 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .sim-panel p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .focus-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+    }
+
+    .progress-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      display: grid;
+      gap: 10px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .progress-top strong {
+      font-size: 0.96rem;
+      color: var(--dark-gray);
+    }
+
+    .progress-top span {
+      font-size: 0.86rem;
+      color: var(--mid-gray);
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(31, 41, 55, 0.08);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+      transition: width 0.25s ease;
+    }
+
+    .note-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
+    }
+
+    .deck-area {
+      display: grid;
+      gap: 18px;
+    }
+
+    .scenario-card {
+      overflow: hidden;
+    }
+
+    .scenario-visual {
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      background: linear-gradient(180deg, #f9fbff 0%, #f4f8fd 100%);
+      padding: 18px;
+    }
+
+    .scenario-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.74rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .mockup-box {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .mockup-top {
+      background: #f5f7fb;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      color: var(--mid-gray);
+      font-weight: 700;
+    }
+
+    .mockup-content {
+      padding: 14px;
+      font-size: 0.92rem;
+      line-height: 1.68;
+      color: var(--dark-gray);
+    }
+
+    .mockup-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .wifi-card .mockup-content,
+    .usb-card .mockup-content,
+    .qr-card .mockup-content,
+    .email-card .mockup-content {
+      display: grid;
+      gap: 10px;
+    }
+
+    .scenario-body {
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .scenario-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .scenario-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--dark-gray);
+    }
+
+    .scenario-desc {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .decision-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .feedback-inline {
+      display: none;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      background: #fbfdff;
+      line-height: 1.68;
+      color: var(--mid-gray);
+    }
+
+    .feedback-inline.show {
+      display: block;
+    }
+
+    .feedback-inline strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--dark-gray);
+      font-size: 0.95rem;
+    }
+
+    .feedback-inline.safe {
+      background: var(--success-soft);
+      border-color: rgba(25, 135, 84, 0.14);
+    }
+
+    .feedback-inline.mid {
+      background: var(--warning-soft);
+      border-color: rgba(178, 107, 0, 0.16);
+    }
+
+    .feedback-inline.risk {
+      background: var(--danger-soft);
+      border-color: rgba(220, 53, 69, 0.16);
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 18px;
+      padding: 20px;
+      gap: 14px;
+    }
+
+    .result-box.show {
+      display: grid;
+    }
+
+    .result-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .result-pill.safe {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .result-pill.mid {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .result-pill.risk {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .result-box h4 {
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+
+    .result-box p {
+      color: var(--mid-gray);
+      line-height: 1.72;
+    }
+
+    .feedback-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .feedback-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .site-footer {
+      padding: 34px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .overview-grid,
+      .sim-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .overview-card,
+      .sim-panel,
+      .scenario-body,
+      .scenario-visual,
+      .result-box {
+        padding: 22px;
+      }
+
+      .hero-actions,
+      .decision-row,
+      .action-row {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn,
+      .decision-row .btn,
+      .action-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="latihan.html">Kembali ke Latihan</a>
+        <a href="../index.html">Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Workshop Bagian D · Workshop 1</div>
+
+          <div class="hero-grid">
+            <div>
+              <h1 class="hero-title">Membaca Skenario Serangan</h1>
+              <p class="hero-desc">
+                Workshop ini membantu Anda menilai situasi yang terlihat biasa, lalu memutuskan apakah
+                tindakan itu layak dilanjutkan atau justru perlu dijeda terlebih dahulu untuk verifikasi.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#workshop">Mulai Workshop</a>
+                <a class="btn btn-secondary" href="bagian-d-workshop-2.html">Lanjut ke Workshop Berikutnya</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Workshop Snapshot</h3>
+              <div class="hero-stat-grid">
+                <div class="hero-stat">
+                  <strong>Fokus</strong>
+                  <span>Menentukan kapan sebuah situasi boleh dilanjutkan dan kapan sebaiknya dijeda.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Format</strong>
+                  <span>Lima skenario cepat dengan dua opsi keputusan: lanjutkan atau jeda dulu.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Output</strong>
+                  <span>Peserta belajar membaca konteks dan tidak bergerak terlalu cepat pada situasi yang tampak biasa.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Learning Context</h2>
+          <p>
+            Tidak semua situasi yang terlihat biasa benar-benar aman. Workshop ini melatih kebiasaan
+            sederhana: kapan boleh lanjut, kapan perlu jeda, dan kapan verifikasi minimum harus dilakukan.
+          </p>
+        </div>
+
+        <div class="overview-grid fade-in">
+          <div class="overview-card">
+            <div class="overview-badge">Fast Judgment</div>
+            <h3>Yang Diuji Adalah Penilaian Awal</h3>
+            <p>
+              Workshop ini menguji keputusan awal Anda saat menghadapi situasi yang tampak biasa dan masuk akal.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Applied Context</div>
+            <h3>Skenario Dibuat Senyata Mungkin</h3>
+            <p>
+              Setiap kartu dibuat menyerupai kondisi yang mungkin muncul di kantor, area publik, atau perangkat kerja.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Reflection</div>
+            <h3>Jeda Bukan Berarti Takut</h3>
+            <p>
+              Dalam banyak kasus, keputusan aman justru dimulai dari jeda singkat sebelum bertindak.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop">
+      <div class="container">
+        <div class="sim-layout fade-in">
+          <div class="sticky-panel">
+            <div class="sim-panel">
+              <h3>Petunjuk Singkat</h3>
+              <p>
+                Baca setiap skenario, lalu pilih keputusan yang paling mendekati respons Anda.
+              </p>
+
+              <div class="focus-strip">
+                <span class="meta-chip">QR code</span>
+                <span class="meta-chip">USB drive</span>
+                <span class="meta-chip">Wi-Fi publik</span>
+                <span class="meta-chip">Email file</span>
+                <span class="meta-chip">Pop-up update</span>
+              </div>
+
+              <div class="progress-box">
+                <div class="progress-top">
+                  <strong>Progress Workshop</strong>
+                  <span id="progressText">0 / 5 selesai</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" id="progressFill"></div>
+                </div>
+              </div>
+
+              <div class="note-box">
+                <strong>Catatan:</strong> “Lanjutkan” tidak selalu salah dan “Jeda dulu” tidak selalu berarti takut.
+                Fokus workshop ini adalah melihat apakah Anda memberi ruang yang cukup untuk verifikasi.
+              </div>
+
+              <div class="action-row">
+                <button class="btn btn-secondary" id="resetBtn">Ulangi Workshop 1</button>
+              </div>
+
+              <div class="result-box" id="resultBox">
+                <span class="result-pill" id="resultPill"></span>
+                <h4 id="resultTitle"></h4>
+                <p id="resultText"></p>
+                <div class="feedback-list" id="resultDetails"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="deck-area" id="deckArea"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Workshop Bagian D · Workshop 1
+    </div>
+  </footer>
+
+  <script>
+    const scenarios = [
+      {
+        id: 1,
+        tag: "Poster Event",
+        title: "QR Code di Area Kantor",
+        desc: "Anda melihat poster kegiatan internal di area pantry dengan QR code untuk klaim merchandise peserta.",
+        mockupType: "qr",
+        mockupTop: "Poster Internal Event",
+        mockupHtml: `
+          <div><strong>Employee Appreciation Week</strong></div>
+          <div>Scan QR untuk klaim merchandise peserta.</div>
+          <div style="margin-top:8px; font-size:1.5rem;">▦</div>
+          <div style="font-size:0.84rem; color:#6b7280;">Tersedia sampai hari ini</div>
+        `,
+        safeChoice: "pause",
+        feedbackSafe: "Keputusan ini lebih aman. QR code yang terlihat resmi tetap perlu dipastikan sumber dan kanal resminya sebelum dipindai.",
+        feedbackRisk: "Keputusan ini lebih berisiko. QR code yang tampak sah sering mendorong respons cepat tanpa verifikasi.",
+        rationale: "Visual yang resmi dan konteks internal bisa membuat peserta cepat merasa aman."
+      },
+      {
+        id: 2,
+        tag: "Found Device",
+        title: "USB Drive Ditemukan di Ruang Meeting",
+        desc: "Setelah rapat selesai, Anda menemukan USB drive tanpa label tertinggal di meja ruang meeting.",
+        mockupType: "usb",
+        mockupTop: "Item Ditemukan",
+        mockupHtml: `
+          <div><strong>USB drive tanpa label</strong></div>
+          <div>Ditemukan di meja ruang meeting setelah sesi internal.</div>
+          <div style="margin-top:8px; font-size:1.4rem;">▭</div>
+        `,
+        safeChoice: "pause",
+        feedbackSafe: "Keputusan ini lebih aman. Perangkat yang tidak jelas asal-usulnya sebaiknya tidak langsung dipasang ke laptop kerja.",
+        feedbackRisk: "Keputusan ini berisiko. Keinginan untuk mengetahui isi USB bisa membuka celah yang tidak perlu.",
+        rationale: "Rasa ingin tahu sering muncul lebih dulu daripada kebiasaan verifikasi."
+      },
+      {
+        id: 3,
+        tag: "Public Network",
+        title: "Wi-Fi Gratis di Area Publik",
+        desc: "Saat menunggu meeting eksternal, Anda melihat jaringan Wi-Fi gratis dengan nama yang terdengar resmi dan mudah dikenali.",
+        mockupType: "wifi",
+        mockupTop: "Available Networks",
+        mockupHtml: `
+          <div><strong>Lobby-Guest-Free</strong></div>
+          <div>Open network · no password required</div>
+          <div style="margin-top:8px; font-size:0.84rem; color:#6b7280;">Signal strong</div>
+        `,
+        safeChoice: "pause",
+        feedbackSafe: "Keputusan ini lebih aman. Jaringan terbuka yang terdengar resmi tetap perlu diperlakukan hati-hati, terutama untuk aktivitas kerja.",
+        feedbackRisk: "Keputusan ini berisiko. Nama jaringan yang terlihat wajar bisa membuat orang cepat terhubung tanpa berpikir ulang.",
+        rationale: "Konteks publik dan kebutuhan koneksi cepat sering menurunkan kewaspadaan."
+      },
+      {
+        id: 4,
+        tag: "Email Attachment",
+        title: "File Vendor yang Perlu Ditinjau",
+        desc: "Ada email masuk dengan lampiran revisi dokumen vendor yang dikatakan perlu ditinjau sebelum siang ini.",
+        mockupType: "email",
+        mockupTop: "Inbox Preview",
+        mockupHtml: `
+          <div><strong>From:</strong> vendor.support@procure-update.co</div>
+          <div><strong>Subject:</strong> Revised pricing file</div>
+          <div style="margin-top:8px;">Lampiran: revised_price_list.xlsm</div>
+        `,
+        safeChoice: "pause",
+        feedbackSafe: "Keputusan ini lebih aman. Lampiran file yang mendesak tetap perlu dicek pengirim, konteks, dan kebutuhannya sebelum dibuka.",
+        feedbackRisk: "Keputusan ini berisiko. Tekanan deadline membuat lampiran lebih mudah dibuka tanpa pemeriksaan awal.",
+        rationale: "File yang relevan dengan pekerjaan sering terasa paling sah saat konteks kerja sedang padat."
+      },
+      {
+        id: 5,
+        tag: "System Pop-up",
+        title: "Pop-up Pembaruan Mendadak",
+        desc: "Saat membuka browser, muncul pop-up yang meminta pembaruan plugin agar dokumen internal dapat ditampilkan.",
+        mockupType: "popup",
+        mockupTop: "Browser Prompt",
+        mockupHtml: `
+          <div><strong>Update Required</strong></div>
+          <div>This plugin must be updated before continuing.</div>
+          <div style="margin-top:8px; color:#2b84e8; font-weight:700;">Install update now</div>
+        `,
+        safeChoice: "pause",
+        feedbackSafe: "Keputusan ini lebih aman. Pop-up seperti ini sebaiknya diverifikasi dulu ke jalur resmi sistem atau tim IT.",
+        feedbackRisk: "Keputusan ini berisiko. Notifikasi sistem yang muncul tiba-tiba sering mendorong klik cepat tanpa konfirmasi sumbernya.",
+        rationale: "Pesan teknis dan hambatan kerja sering memicu keputusan cepat agar pekerjaan bisa lanjut."
+      }
+    ];
+
+    const deckArea = document.getElementById("deckArea");
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const resultBox = document.getElementById("resultBox");
+    const resultPill = document.getElementById("resultPill");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const resultDetails = document.getElementById("resultDetails");
+
+    let answers = {};
+
+    function mockupClass(type) {
+      if (type === "wifi") return "wifi-card";
+      if (type === "usb") return "usb-card";
+      if (type === "qr") return "qr-card";
+      if (type === "email") return "email-card";
+      return "";
+    }
+
+    function renderScenarios() {
+      deckArea.innerHTML = "";
+      scenarios.forEach((scenario) => {
+        const chosen = answers[scenario.id];
+        const card = document.createElement("div");
+        card.className = "scenario-card";
+        card.innerHTML = `
+          <div class="scenario-visual">
+            <span class="scenario-tag">${scenario.tag}</span>
+            <div class="mockup-box ${mockupClass(scenario.mockupType)}">
+              <div class="mockup-top">${scenario.mockupTop}</div>
+              <div class="mockup-content">${scenario.mockupHtml}</div>
+            </div>
+          </div>
+
+          <div class="scenario-body">
+            <div class="scenario-head">
+              <div>
+                <div class="scenario-title">${scenario.title}</div>
+                <div class="scenario-desc">${scenario.desc}</div>
+              </div>
+            </div>
+
+            <div class="decision-row">
+              <button class="btn btn-success" data-id="${scenario.id}" data-choice="continue" ${chosen ? "disabled" : ""}>Lanjutkan</button>
+              <button class="btn btn-warning" data-id="${scenario.id}" data-choice="pause" ${chosen ? "disabled" : ""}>Jeda Dulu</button>
+            </div>
+
+            <div class="feedback-inline ${chosen ? "show " + chosen.level : ""}" id="feedback-${scenario.id}">
+              ${chosen ? `<strong>${chosen.title}</strong>${chosen.text}` : ""}
+            </div>
+          </div>
+        `;
+        deckArea.appendChild(card);
+      });
+
+      document.querySelectorAll("[data-choice]").forEach((btn) => {
+        btn.addEventListener("click", handleChoice);
+      });
+
+      updateProgress();
+    }
+
+    function handleChoice(e) {
+      const id = Number(e.currentTarget.dataset.id);
+      const choice = e.currentTarget.dataset.choice;
+      const scenario = scenarios.find((s) => s.id === id);
+
+      const isSafe = choice === scenario.safeChoice;
+      const level = isSafe ? "safe" : "risk";
+      const title = isSafe ? "Keputusan Lebih Aman" : "Keputusan Lebih Berisiko";
+      const text = isSafe ? scenario.feedbackSafe : scenario.feedbackRisk;
+
+      answers[id] = {
+        choice,
+        level,
+        title,
+        text
+      };
+
+      renderScenarios();
+
+      if (Object.keys(answers).length === scenarios.length) {
+        showFinalSummary();
+      }
+    }
+
+    function updateProgress() {
+      const done = Object.keys(answers).length;
+      const total = scenarios.length;
+      progressText.textContent = `${done} / ${total} selesai`;
+      progressFill.style.width = `${(done / total) * 100}%`;
+    }
+
+    function showFinalSummary() {
+      let safeCount = 0;
+      let riskCount = 0;
+
+      scenarios.forEach((scenario) => {
+        const selected = answers[scenario.id];
+        if (!selected) return;
+        if (selected.choice === scenario.safeChoice) safeCount++;
+        else riskCount++;
+      });
+
+      resultBox.classList.add("show");
+
+      if (safeCount >= 4) {
+        resultPill.className = "result-pill safe";
+        resultPill.textContent = "Penilaian Lebih Aman";
+        resultTitle.textContent = "Anda cenderung memberi ruang yang cukup untuk verifikasi.";
+        resultText.textContent = "Keputusan Anda menunjukkan kecenderungan untuk tidak langsung bergerak pada situasi yang terlihat biasa tetapi berpotensi berisiko.";
+      } else if (safeCount >= 2) {
+        resultPill.className = "result-pill mid";
+        resultPill.textContent = "Perlu Penguatan";
+        resultTitle.textContent = "Sebagian keputusan Anda sudah cukup baik, tetapi masih ada konteks yang mendorong respons terlalu cepat.";
+        resultText.textContent = "Dalam beberapa situasi, Anda masih cukup mudah terdorong oleh rasa ingin tahu, tekanan cepat, atau tampilan yang terlihat masuk akal.";
+      } else {
+        resultPill.className = "result-pill risk";
+        resultPill.textContent = "Area Risiko Tinggi";
+        resultTitle.textContent = "Anda cenderung terlalu cepat melanjutkan tindakan pada situasi yang belum tervalidasi.";
+        resultText.textContent = "Workshop ini menunjukkan bahwa konteks yang terlihat biasa dapat dengan mudah mendorong tindakan tanpa jeda verifikasi yang cukup.";
+      }
+
+      resultDetails.innerHTML = `
+        <div class="feedback-item">
+          <strong>Ringkasan Hasil</strong>
+          <div>Keputusan lebih aman: <strong>${safeCount}</strong> · Keputusan lebih berisiko: <strong>${riskCount}</strong></div>
+        </div>
+        <div class="feedback-item">
+          <strong>Refleksi Utama</strong>
+          <div>
+            Dalam praktiknya, keputusan aman sering dimulai bukan dari pengetahuan teknis yang rumit,
+            tetapi dari kebiasaan sederhana untuk memberi jeda sebelum lanjut.
+          </div>
+        </div>
+        <div class="feedback-item">
+          <strong>Insight dari Workshop</strong>
+          <div>
+            QR code, file lampiran, pop-up sistem, Wi-Fi terbuka, dan perangkat yang ditemukan sering terasa biasa.
+            Justru karena itulah situasi-situasi tersebut perlu dibaca lebih hati-hati.
+          </div>
+        </div>
+      `;
+
+      resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetWorkshop() {
+      answers = {};
+      resultBox.classList.remove("show");
+      resultPill.className = "result-pill";
+      resultPill.textContent = "";
+      resultTitle.textContent = "";
+      resultText.textContent = "";
+      resultDetails.innerHTML = "";
+      renderScenarios();
+      window.scrollTo({ top: document.getElementById("workshop").offsetTop - 90, behavior: "smooth" });
+    }
+
+    resetBtn.addEventListener("click", resetWorkshop);
+
+    renderScenarios();
+  </script>
+</body>
+</html>
