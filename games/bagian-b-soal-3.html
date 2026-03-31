@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian B · Soal 3 | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Aktivitas drag and drop untuk membantu peserta memahami urutan logis bagaimana social engineering bekerja dari observasi awal hingga hasil akhir."
+  />
+  <style>
+    :root {
+      --white: #ffffff;
+      --bg-soft: #f8fbff;
+      --bg-soft-2: #eef6ff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --navy: #0f2747;
+      --navy-deep: #0b1d35;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #6b7280;
+      --border: rgba(31, 41, 55, 0.12);
+      --border-strong: rgba(77, 163, 255, 0.22);
+      --shadow: 0 16px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+      --transition-fast: 0.22s ease;
+
+      --success: #198754;
+      --success-soft: rgba(25, 135, 84, 0.10);
+      --danger: #dc3545;
+      --danger-soft: rgba(220, 53, 69, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--sky-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--dark-gray);
+      border-color: var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 84px 0 34px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--bg-soft-2) 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-title {
+      font-size: clamp(2.05rem, 4vw, 3.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .hero-desc {
+      color: var(--mid-gray);
+      max-width: 760px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-panel h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 52px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+      max-width: 900px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--mid-gray);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .overview-card,
+    .board-panel,
+    .feedback-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .overview-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .overview-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+    }
+
+    .overview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .overview-card h3 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .overview-card p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .board-layout {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .sticky-panel {
+      position: sticky;
+      top: 102px;
+    }
+
+    .board-panel {
+      padding: 20px;
+    }
+
+    .board-panel h3 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .board-panel p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .card-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+      min-height: 240px;
+    }
+
+    .process-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      padding: 14px 15px;
+      box-shadow: var(--shadow-soft);
+      cursor: grab;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .process-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.24);
+      box-shadow: 0 16px 28px rgba(31, 41, 55, 0.08);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .process-card.dragging {
+      opacity: 0.55;
+      transform: scale(0.98);
+    }
+
+    .process-card.selected {
+      border-color: rgba(77, 163, 255, 0.34);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .card-handle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.76rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-text {
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.58;
+      color: var(--dark-gray);
+    }
+
+    .slot-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .slot-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 12px;
+    }
+
+    .slot-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .slot-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 0.84rem;
+      flex-shrink: 0;
+    }
+
+    .slot-label {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .drop-slot {
+      min-height: 84px;
+      border: 2px dashed rgba(31, 41, 55, 0.16);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 10px;
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .drop-slot.active {
+      border-color: rgba(77, 163, 255, 0.38);
+      background: #f7fbff;
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .drop-slot.has-item {
+      border-style: solid;
+      border-color: rgba(77, 163, 255, 0.22);
+      background: #fcfeff;
+    }
+
+    .drop-placeholder {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .drop-slot .process-card {
+      margin: 0;
+      cursor: grab;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .note-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
+    }
+
+    .feedback-box {
+      display: none;
+      padding: 20px;
+      margin-top: 18px;
+      gap: 14px;
+    }
+
+    .feedback-box.show {
+      display: grid;
+    }
+
+    .feedback-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .feedback-pill.correct {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .feedback-pill.partial {
+      background: rgba(77, 163, 255, 0.10);
+      color: var(--sky-blue-deep);
+    }
+
+    .feedback-pill.wrong {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .feedback-box h4 {
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feedback-box p {
+      color: var(--mid-gray);
+      line-height: 1.72;
+    }
+
+    .feedback-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .feedback-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .site-footer {
+      padding: 34px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .overview-grid,
+      .board-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .overview-card,
+      .board-panel,
+      .feedback-box {
+        padding: 22px;
+      }
+
+      .hero-actions,
+      .action-row {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn,
+      .action-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../workshop/latihan.html">Kembali ke Latihan</a>
+        <a href="../index.html">Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Workshop Bagian B · Soal 3</div>
+
+          <div class="hero-grid">
+            <div>
+              <h1 class="hero-title">Urutkan Cara Kerja Social Engineering</h1>
+              <p class="hero-desc">
+                Aktivitas ini membantu peserta memahami bahwa social engineering bekerja melalui
+                rangkaian langkah yang saling terhubung, bukan terjadi secara tiba-tiba dalam satu momen.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#soal">Mulai Soal</a>
+                <a class="btn btn-secondary" href="../workshop/latihan.html">Selesai Bagian B</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Activity Snapshot</h3>
+              <div class="hero-stat-grid">
+                <div class="hero-stat">
+                  <strong>Fokus</strong>
+                  <span>Memahami alur logis bagaimana pelaku membangun dan menjalankan serangan.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Format</strong>
+                  <span>Peserta menyusun kartu dari tahap awal sampai hasil akhir.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Output</strong>
+                  <span>Peserta melihat bahwa konteks, tekanan, dan keputusan cepat saling terhubung.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Learning Context</h2>
+          <p>
+            Dalam social engineering, serangan jarang dimulai langsung dari permintaan terakhir.
+            Biasanya pelaku mengamati dulu, membangun konteks yang terasa masuk akal, memberi tekanan,
+            lalu memancing keputusan cepat sebelum akhirnya memperoleh hasil.
+          </p>
+        </div>
+
+        <div class="overview-grid fade-in">
+          <div class="overview-card">
+            <div class="overview-badge">Process Logic</div>
+            <h3>Observasi Lebih Dulu</h3>
+            <p>
+              Banyak serangan bermula dari pengamatan terhadap kebiasaan, situasi kerja, atau rutinitas korban.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Context Building</div>
+            <h3>Konteks Dibangun</h3>
+            <p>
+              Pelaku biasanya menyiapkan cerita yang terasa relevan agar korban tidak langsung curiga.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Final Outcome</div>
+            <h3>Hasil Baru Terjadi di Akhir</h3>
+            <p>
+              File, akses, atau informasi berpindah ke pihak yang salah setelah beberapa tahap berjalan berurutan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="soal">
+      <div class="container">
+        <div class="board-layout fade-in">
+          <div class="sticky-panel">
+            <div class="board-panel">
+              <h3>Kartu yang Diacak</h3>
+              <p>
+                Susun kartu dari langkah pertama sampai langkah terakhir. Fokuskan pada logika proses,
+                bukan pada kalimat yang terasa seperti petunjuk urutan.
+              </p>
+
+              <div class="card-list" id="cardList">
+                <div class="process-card" draggable="true" data-id="C2">
+                  <span class="card-handle">•</span>
+                  <span class="card-text">
+                    Nada pesan dibuat cukup menekan agar respons terasa perlu dilakukan saat itu juga.
+                  </span>
+                </div>
+
+                <div class="process-card" draggable="true" data-id="C1">
+                  <span class="card-handle">•</span>
+                  <span class="card-text">
+                    Aktivitas lembur, rapat, dan kesibukan kerja seseorang cukup sering terlihat di status WhatsApp atau media sosialnya.
+                  </span>
+                </div>
+
+                <div class="process-card" draggable="true" data-id="C5">
+                  <span class="card-handle">•</span>
+                  <span class="card-text">
+                    Akses, file, atau informasi yang sebelumnya tidak semestinya diberikan akhirnya berpindah ke pihak yang salah.
+                  </span>
+                </div>
+
+                <div class="process-card" draggable="true" data-id="C3">
+                  <span class="card-handle">•</span>
+                  <span class="card-text">
+                    Pesan tentang kebutuhan file untuk rapat mendadak disusun dengan konteks yang terasa relevan dengan pekerjaan korban.
+                  </span>
+                </div>
+
+                <div class="process-card" draggable="true" data-id="C4">
+                  <span class="card-handle">•</span>
+                  <span class="card-text">
+                    File atau informasi dikirim tanpa verifikasi ketika penerimanya sedang sibuk dan merasa konteksnya masih masuk akal.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="board-panel">
+            <h3>Susun Urutannya</h3>
+            <p>
+              Letakkan kartu ke posisi 1 sampai 5 sesuai urutan proses yang paling logis dalam alur serangan.
+            </p>
+
+            <div class="slot-grid">
+              <div class="slot-card">
+                <div class="slot-top">
+                  <span class="slot-number">1</span>
+                  <span class="slot-label">Langkah pertama</span>
+                </div>
+                <div class="drop-slot" data-slot="1">
+                  <div class="drop-placeholder">Tarik kartu ke sini</div>
+                </div>
+              </div>
+
+              <div class="slot-card">
+                <div class="slot-top">
+                  <span class="slot-number">2</span>
+                  <span class="slot-label">Langkah kedua</span>
+                </div>
+                <div class="drop-slot" data-slot="2">
+                  <div class="drop-placeholder">Tarik kartu ke sini</div>
+                </div>
+              </div>
+
+              <div class="slot-card">
+                <div class="slot-top">
+                  <span class="slot-number">3</span>
+                  <span class="slot-label">Langkah ketiga</span>
+                </div>
+                <div class="drop-slot" data-slot="3">
+                  <div class="drop-placeholder">Tarik kartu ke sini</div>
+                </div>
+              </div>
+
+              <div class="slot-card">
+                <div class="slot-top">
+                  <span class="slot-number">4</span>
+                  <span class="slot-label">Langkah keempat</span>
+                </div>
+                <div class="drop-slot" data-slot="4">
+                  <div class="drop-placeholder">Tarik kartu ke sini</div>
+                </div>
+              </div>
+
+              <div class="slot-card">
+                <div class="slot-top">
+                  <span class="slot-number">5</span>
+                  <span class="slot-label">Langkah terakhir</span>
+                </div>
+                <div class="drop-slot" data-slot="5">
+                  <div class="drop-placeholder">Tarik kartu ke sini</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button class="btn btn-primary" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" id="resetBtn">Ulangi Soal 3</button>
+            </div>
+
+            <div class="note-box">
+              <strong>Catatan:</strong> Dalam social engineering, pelaku biasanya mengamati dulu,
+              lalu membangun konteks, memberi tekanan, memancing keputusan cepat, dan baru memperoleh hasil.
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <span class="feedback-pill" id="feedbackPill"></span>
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackText"></p>
+
+              <div class="feedback-list">
+                <div class="feedback-item">
+                  <strong>Urutan yang paling tepat</strong>
+                  <div>1 Observasi → 2 Bangun konteks → 3 Tekanan → 4 Tindakan korban → 5 Hasil akhir</div>
+                </div>
+                <div class="feedback-item">
+                  <strong>Inti Pembelajaran</strong>
+                  <div>
+                    Social engineering biasanya bekerja sebagai rangkaian proses. Pelaku jarang langsung meminta hasil akhir tanpa lebih dulu membangun peluang keberhasilan.
+                  </div>
+                </div>
+                <div class="feedback-item">
+                  <strong>Refleksi</strong>
+                  <div>
+                    Memahami urutan proses membantu peserta melihat bahwa serangan sering kali dimulai jauh sebelum permintaan yang terasa mencurigakan itu muncul.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Workshop Bagian B · Soal 3
+    </div>
+  </footer>
+
+  <script>
+    const answerKey = {
+      "1": "C1",
+      "2": "C3",
+      "3": "C2",
+      "4": "C4",
+      "5": "C5"
+    };
+
+    const cardList = document.getElementById("cardList");
+    const processCards = () => document.querySelectorAll(".process-card");
+    const dropSlots = document.querySelectorAll(".drop-slot");
+
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackPill = document.getElementById("feedbackPill");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackText = document.getElementById("feedbackText");
+
+    let draggedCard = null;
+    let selectedCard = null;
+
+    function refreshCardEvents() {
+      processCards().forEach((card) => {
+        card.addEventListener("dragstart", () => {
+          draggedCard = card;
+          card.classList.add("dragging");
+        });
+
+        card.addEventListener("dragend", () => {
+          card.classList.remove("dragging");
+          draggedCard = null;
+        });
+
+        card.addEventListener("click", () => {
+          processCards().forEach((item) => item.classList.remove("selected"));
+          card.classList.add("selected");
+          selectedCard = card;
+        });
+      });
+    }
+
+    refreshCardEvents();
+
+    function updateSlotState(slot) {
+      const hasCard = slot.querySelector(".process-card");
+      const placeholder = slot.querySelector(".drop-placeholder");
+
+      if (hasCard) {
+        slot.classList.add("has-item");
+        if (placeholder) placeholder.style.display = "none";
+      } else {
+        slot.classList.remove("has-item");
+        if (placeholder) placeholder.style.display = "block";
+      }
+    }
+
+    function placeCardInSlot(card, slot) {
+      const existing = slot.querySelector(".process-card");
+      if (existing && existing !== card) {
+        cardList.appendChild(existing);
+        existing.classList.remove("selected");
+      }
+
+      dropSlots.forEach((s) => {
+        if (s !== slot && s.contains(card)) {
+          s.removeChild(card);
+          updateSlotState(s);
+        }
+      });
+
+      if (cardList.contains(card)) {
+        cardList.removeChild(card);
+      }
+
+      slot.appendChild(card);
+      card.classList.remove("selected");
+      selectedCard = null;
+      updateSlotState(slot);
+    }
+
+    dropSlots.forEach((slot) => {
+      slot.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        slot.classList.add("active");
+      });
+
+      slot.addEventListener("dragleave", () => {
+        slot.classList.remove("active");
+      });
+
+      slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slot.classList.remove("active");
+        if (!draggedCard) return;
+        placeCardInSlot(draggedCard, slot);
+      });
+
+      slot.addEventListener("click", () => {
+        if (!selectedCard) return;
+        placeCardInSlot(selectedCard, slot);
+      });
+    });
+
+    cardList.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+
+    cardList.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!draggedCard) return;
+
+      dropSlots.forEach((slot) => {
+        if (slot.contains(draggedCard)) {
+          slot.removeChild(draggedCard);
+          updateSlotState(slot);
+        }
+      });
+
+      cardList.appendChild(draggedCard);
+      draggedCard.classList.remove("selected");
+      selectedCard = null;
+    });
+
+    function getUserAnswers() {
+      const answers = {};
+      dropSlots.forEach((slot) => {
+        const card = slot.querySelector(".process-card");
+        if (card) answers[slot.dataset.slot] = card.dataset.id;
+      });
+      return answers;
+    }
+
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      const userAnswers = getUserAnswers();
+      const total = Object.keys(answerKey).length;
+      const answered = Object.keys(userAnswers).length;
+
+      if (answered < total) {
+        feedbackBox.classList.add("show");
+        feedbackPill.className = "feedback-pill wrong";
+        feedbackPill.textContent = "Belum Lengkap";
+        feedbackTitle.textContent = "Masih ada urutan yang belum terisi.";
+        feedbackText.textContent = "Silakan lengkapi seluruh urutan proses terlebih dahulu sebelum melihat hasil.";
+        feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      let score = 0;
+      Object.keys(answerKey).forEach((slot) => {
+        if (userAnswers[slot] === answerKey[slot]) score += 1;
+      });
+
+      feedbackBox.classList.add("show");
+
+      if (score === total) {
+        feedbackPill.className = "feedback-pill correct";
+        feedbackPill.textContent = "Jawaban Tepat";
+        feedbackTitle.textContent = "Urutan yang Anda susun sudah sesuai.";
+        feedbackText.textContent = "Anda berhasil memahami alur logis bagaimana social engineering berkembang dari observasi awal hingga hasil akhir.";
+      } else if (score >= 3) {
+        feedbackPill.className = "feedback-pill partial";
+        feedbackPill.textContent = "Sebagian Tepat";
+        feedbackTitle.textContent = "Sebagian besar urutan sudah sesuai, tetapi masih ada tahap yang perlu ditinjau ulang.";
+        feedbackText.textContent = `Anda menempatkan benar ${score} dari ${total} tahap. Coba fokus lagi pada perbedaan antara observasi, konteks, tekanan, tindakan, dan hasil.`;
+      } else {
+        feedbackPill.className = "feedback-pill wrong";
+        feedbackPill.textContent = "Perlu Ditinjau Ulang";
+        feedbackTitle.textContent = "Urutan proses masih belum banyak yang tepat.";
+        feedbackText.textContent = `Anda menempatkan benar ${score} dari ${total} tahap. Coba baca kembali alur serangan sebagai proses yang dibangun secara bertahap, bukan kejadian yang muncul sekaligus.`;
+      }
+
+      feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      dropSlots.forEach((slot) => {
+        const card = slot.querySelector(".process-card");
+        if (card) {
+          cardList.appendChild(card);
+          card.classList.remove("selected");
+        }
+        slot.classList.remove("active");
+        updateSlotState(slot);
+      });
+
+      selectedCard = null;
+      draggedCard = null;
+      processCards().forEach((card) => card.classList.remove("selected"));
+      feedbackBox.classList.remove("show");
+      feedbackPill.className = "feedback-pill";
+      feedbackPill.textContent = "";
+      feedbackTitle.textContent = "";
+      feedbackText.textContent = "";
+
+      window.scrollTo({ top: document.getElementById("soal").offsetTop - 90, behavior: "smooth" });
+    });
+
+    dropSlots.forEach(updateSlotState);
+  </script>
+</body>
+</html>
