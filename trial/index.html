@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trial Simulation | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Preview simulasi interaktif untuk memperlihatkan bagaimana program Cybersecurity Awareness Training menghadirkan pengalaman belajar yang realistis, aplikatif, dan relevan untuk konteks kerja."
+  />
+  <style>
+    :root {
+      --white: #ffffff;
+      --bg-soft: #f8fbff;
+      --bg-soft-2: #eef6ff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --navy: #0f2747;
+      --navy-deep: #0b1d35;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #6b7280;
+      --border: rgba(31, 41, 55, 0.12);
+      --border-strong: rgba(77, 163, 255, 0.22);
+      --shadow: 0 16px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+      --transition-fast: 0.22s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--sky-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--dark-gray);
+      border-color: var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 84px 0 42px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--bg-soft-2) 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-title {
+      font-size: clamp(2.15rem, 4vw, 3.3rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .hero-desc {
+      color: var(--mid-gray);
+      max-width: 780px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-panel h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 52px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+      max-width: 900px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--mid-gray);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .overview-card,
+    .flow-item,
+    .simulation-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .overview-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .overview-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+    }
+
+    .overview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .overview-card h3 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .overview-card p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .flow-card {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .flow-card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .flow-item {
+      padding: 16px;
+    }
+
+    .flow-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+    }
+
+    .flow-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--dark-gray);
+    }
+
+    .flow-item span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .simulation-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .simulation-card {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: start;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .simulation-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.22);
+      box-shadow: 0 18px 34px rgba(31, 41, 55, 0.08);
+    }
+
+    .simulation-number {
+      width: 70px;
+      height: 70px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, var(--sky-blue-soft) 0%, #f4f9ff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .simulation-content {
+      display: grid;
+      gap: 12px;
+    }
+
+    .simulation-topline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .simulation-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .simulation-card h3 {
+      font-size: 1.16rem;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
+    }
+
+    .simulation-card p {
+      color: var(--mid-gray);
+      line-height: 1.72;
+      font-size: 0.95rem;
+    }
+
+    .simulation-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+    }
+
+    .simulation-actions {
+      display: grid;
+      gap: 10px;
+      min-width: 170px;
+    }
+
+    .simulation-actions .btn {
+      width: 100%;
+    }
+
+    .note-box {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
+      margin-top: 18px;
+    }
+
+    .final-cta {
+      padding: 30px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+      color: var(--white);
+      box-shadow: 0 24px 48px rgba(11, 29, 53, 0.24);
+    }
+
+    .final-cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(1.6rem, 3vw, 2.35rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .final-cta p {
+      color: rgba(255,255,255,0.84);
+      max-width: 760px;
+      line-height: 1.75;
+    }
+
+    .site-footer {
+      padding: 34px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .grid-3,
+      .flow-grid,
+      .simulation-card,
+      .final-cta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .simulation-actions {
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .overview-card,
+      .flow-card,
+      .flow-item,
+      .simulation-card,
+      .final-cta {
+        padding: 22px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn,
+      .simulation-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../index.html">Landing Page</a>
+        <a href="#overview">Overview</a>
+        <a href="#simulations">Simulations</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Trial Simulation</div>
+
+          <div class="hero-grid">
+            <div>
+              <h1 class="hero-title">
+                Preview Interactive Simulation Experience
+              </h1>
+              <p class="hero-desc">
+                Halaman ini menampilkan preview simulasi interaktif yang dirancang untuk
+                memperlihatkan bagaimana peserta dapat belajar mengenali pola social engineering
+                melalui pengalaman yang realistis, aplikatif, dan relevan untuk konteks kerja.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#simulations">Lihat Simulasi</a>
+                <a class="btn btn-secondary" href="../index.html">Kembali ke Landing Page</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>What This Trial Shows</h3>
+              <div class="hero-stat-grid">
+                <div class="hero-stat">
+                  <strong>Scenario-Based Learning</strong>
+                  <span>Peserta tidak hanya membaca teori, tetapi berinteraksi langsung dengan skenario yang menyerupai situasi nyata.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Workplace Relevance</strong>
+                  <span>Seluruh preview dirancang dengan konteks komunikasi dan keputusan yang umum muncul di lingkungan kerja.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Professional Delivery</strong>
+                  <span>Tampilan, interaksi, dan struktur pembelajaran disusun agar tetap terasa premium, profesional, dan mudah diikuti.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Trial Overview</h2>
+          <p>
+            Preview ini tidak dimaksudkan sebagai akses penuh ke program, tetapi sebagai gambaran
+            bagaimana simulasi awareness dapat dibangun secara lebih engaging, realistis, dan
+            relevan untuk kebutuhan organisasi.
+          </p>
+        </div>
+
+        <div class="grid-3 fade-in">
+          <div class="overview-card">
+            <div class="overview-badge">Simple</div>
+            <h3>Mudah Digunakan</h3>
+            <p>
+              Interaksi dibuat sederhana agar peserta dari latar belakang non-IT tetap dapat
+              mengikuti simulasi dengan nyaman.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Realistic</div>
+            <h3>Konteks yang Masuk Akal</h3>
+            <p>
+              Setiap simulasi dirancang menyerupai situasi yang mungkin terjadi dalam aktivitas
+              kerja sehari-hari, bukan sekadar soal teori.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Experience</div>
+            <h3>Belajar Lewat Pengalaman</h3>
+            <p>
+              Peserta diajak merasakan langsung proses membaca risiko, mengambil keputusan,
+              dan merefleksikan respons yang dipilih.
+            </p>
+          </div>
+        </div>
+
+        <div class="flow-card fade-in">
+          <h3>Simulation Flow</h3>
+          <div class="flow-grid">
+            <div class="flow-item">
+              <div class="flow-step">1</div>
+              <strong>Email Simulation</strong>
+              <span>Menguji ketelitian peserta dalam mengenali red flag pada email kerja yang terlihat meyakinkan.</span>
+            </div>
+
+            <div class="flow-item">
+              <div class="flow-step">2</div>
+              <strong>Scenario Classification</strong>
+              <span>Menguji kualitas penilaian terhadap situasi yang tampak ambigu, familiar, atau abu-abu.</span>
+            </div>
+
+            <div class="flow-item">
+              <div class="flow-step">3</div>
+              <strong>Interactive Chat Branching</strong>
+              <span>Menguji respons peserta dalam percakapan yang menyentuh konteks internal dan sensitif secara personal.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulations">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Available Trial Simulations</h2>
+          <p>
+            Tiga preview di bawah ini disusun untuk menunjukkan variasi bentuk simulasi yang dapat
+            diterapkan dalam program awareness berbasis social engineering.
+          </p>
+        </div>
+
+        <div class="simulation-grid">
+          <div class="simulation-card fade-in">
+            <div class="simulation-number">01</div>
+
+            <div class="simulation-content">
+              <div class="simulation-topline">
+                <span class="simulation-tag">Email Simulation</span>
+                <span class="simulation-tag">Red Flag Detection</span>
+              </div>
+
+              <h3>Email Partnership Request</h3>
+              <p>
+                Peserta diminta membaca email yang tampak profesional dan menarik secara bisnis,
+                lalu mengidentifikasi bagian-bagian yang paling patut dicurigai tanpa petunjuk visual
+                selama proses berlangsung.
+              </p>
+
+              <div class="simulation-meta">
+                <span class="meta-chip">Corporate Email</span>
+                <span class="meta-chip">Phishing Context</span>
+                <span class="meta-chip">Click Interaction</span>
+              </div>
+            </div>
+
+            <div class="simulation-actions">
+              <a class="btn btn-primary" href="soal-trial-1.html">Buka Simulasi</a>
+            </div>
+          </div>
+
+          <div class="simulation-card fade-in">
+            <div class="simulation-number">02</div>
+
+            <div class="simulation-content">
+              <div class="simulation-topline">
+                <span class="simulation-tag">Scenario Review</span>
+                <span class="simulation-tag">Decision Framing</span>
+              </div>
+
+              <h3>Risk Classification Exercise</h3>
+              <p>
+                Peserta membaca beberapa skenario singkat yang sengaja dibuat ambigu, lalu
+                mengelompokkannya ke kategori Aman, Perlu Verifikasi, atau Berisiko sebelum
+                melihat alasan penilaian yang sebenarnya.
+              </p>
+
+              <div class="simulation-meta">
+                <span class="meta-chip">Drag & Drop</span>
+                <span class="meta-chip">Ambiguous Scenarios</span>
+                <span class="meta-chip">Reflection</span>
+              </div>
+            </div>
+
+            <div class="simulation-actions">
+              <a class="btn btn-primary" href="soal-trial-3.html">Buka Simulasi</a>
+            </div>
+          </div>
+
+          <div class="simulation-card fade-in">
+            <div class="simulation-number">03</div>
+
+            <div class="simulation-content">
+              <div class="simulation-topline">
+                <span class="simulation-tag">Chat Branching</span>
+                <span class="simulation-tag">Response Simulation</span>
+              </div>
+
+              <h3>Payroll Update Chat</h3>
+              <p>
+                Peserta mengikuti percakapan WhatsApp dari nomor tak dikenal yang mengaku terkait
+                update penggajian dan bonus, lalu memilih respons yang paling tepat sampai mencapai
+                hasil akhir simulasi.
+              </p>
+
+              <div class="simulation-meta">
+                <span class="meta-chip">WhatsApp Mockup</span>
+                <span class="meta-chip">Branching Logic</span>
+                <span class="meta-chip">Behavioral Trigger</span>
+              </div>
+            </div>
+
+            <div class="simulation-actions">
+              <a class="btn btn-primary" href="soal-trial-2.html">Buka Simulasi</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box fade-in">
+          <strong>Catatan:</strong> Trial ini disiapkan sebagai preview pengalaman belajar.
+          Versi lengkap program dapat mencakup skenario tambahan, pembahasan yang lebih mendalam,
+          serta penyesuaian konteks sesuai kebutuhan organisasi.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="final-cta fade-in">
+          <div class="final-cta-grid">
+            <div>
+              <h2>Explore how simulation-based awareness can work in your organization</h2>
+              <p>
+                Jika organisasi Anda membutuhkan program awareness yang tidak hanya informatif,
+                tetapi juga mampu menghadirkan pengalaman belajar yang lebih nyata, simulasi seperti
+                ini dapat menjadi fondasi yang kuat untuk workshop, training internal, maupun
+                corporate learning initiative yang lebih engaging.
+              </p>
+            </div>
+
+            <div>
+              <a class="btn btn-primary" href="../index.html#contact">Diskusikan Program</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Trial Simulation Preview
+    </div>
+  </footer>
+</body>
+</html>
