@@ -1,1 +1,913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trial Simulation 1 | Email Partnership Request</title>
+  <meta
+    name="description"
+    content="Simulasi trial untuk mengenali red flag pada email partnership request yang terlihat meyakinkan."
+  />
+  <link rel="stylesheet" href="../assets/main.css" />
+  <style>
+    :root {
+      --danger: #dc3545;
+      --danger-soft: rgba(220, 53, 69, 0.10);
+      --success: #198754;
+      --success-soft: rgba(25, 135, 84, 0.10);
+      --warning-soft: #fff8e8;
+      --ink-soft: #667085;
+      --email-bg: #f4f7fb;
+      --email-panel: #ffffff;
+      --email-line: rgba(31, 41, 55, 0.10);
+      --email-toolbar: #eef4fb;
+      --email-subtle: #f8fbff;
+    }
 
+    body {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .trial-hero {
+      padding: 76px 0 28px;
+    }
+
+    .trial-hero .hero-card {
+      padding: 34px;
+    }
+
+    .trial-hero p {
+      color: var(--mid-gray);
+      max-width: 900px;
+      margin-bottom: 0;
+    }
+
+    .hero-actions-inline {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .hero-mini-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .hero-mini-card {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-mini-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .hero-mini-card p {
+      font-size: 0.92rem;
+      color: var(--mid-gray);
+    }
+
+    .page-section {
+      padding: 18px 0 56px;
+    }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head-local {
+      margin-bottom: 18px;
+    }
+
+    .section-head-local h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head-local p {
+      color: var(--mid-gray);
+      max-width: 860px;
+    }
+
+    .instruction-box {
+      background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      color: var(--mid-gray);
+      margin: 14px 0 20px;
+    }
+
+    .instruction-box strong {
+      color: var(--dark-gray);
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .pick-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .email-shell {
+      background: var(--email-bg);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .email-window {
+      background: var(--email-panel);
+      border: 1px solid var(--email-line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .email-topbar {
+      background: var(--email-toolbar);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--email-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .email-top-left,
+    .email-top-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .email-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #cbd5e1;
+    }
+
+    .email-dot.red { background: #f87171; }
+    .email-dot.yellow { background: #fbbf24; }
+    .email-dot.green { background: #34d399; }
+
+    .email-top-title {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .email-toolbar-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      font-size: 0.8rem;
+      color: var(--mid-gray);
+    }
+
+    .email-content {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .email-header-block {
+      border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+      padding-bottom: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .email-subject {
+      font-size: 1.18rem;
+      font-weight: 800;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      color: var(--dark-gray);
+    }
+
+    .email-meta {
+      display: grid;
+      gap: 10px;
+    }
+
+    .email-meta-row {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 12px;
+      align-items: start;
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+    }
+
+    .email-meta-label {
+      font-weight: 700;
+      color: var(--dark-gray);
+    }
+
+    .email-body {
+      display: grid;
+      gap: 16px;
+      color: var(--dark-gray);
+      font-size: 0.98rem;
+      line-height: 1.78;
+    }
+
+    .email-body p {
+      margin: 0;
+    }
+
+    .email-signature {
+      margin-top: 6px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(31, 41, 55, 0.10);
+    }
+
+    .clickable {
+      position: relative;
+      border-radius: 8px;
+      transition: background 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+      cursor: pointer;
+      padding: 1px 2px;
+    }
+
+    .clickable.locked {
+      cursor: default;
+    }
+
+    .clickable.correct-selected {
+      background: var(--danger-soft);
+      box-shadow: inset 0 0 0 1.5px var(--danger);
+      color: var(--dark-gray);
+    }
+
+    .clickable.wrong-selected {
+      background: var(--success-soft);
+      box-shadow: inset 0 0 0 1.5px var(--success);
+      color: var(--dark-gray);
+    }
+
+    .clickable.correct-selected::after,
+    .clickable.wrong-selected::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+    }
+
+    .clickable.correct-selected::after {
+      background: var(--danger);
+      box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.14);
+    }
+
+    .clickable.wrong-selected::after {
+      background: var(--success);
+      box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.14);
+    }
+
+    .trial-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.52);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(100%, 920px);
+      background: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 54px rgba(17, 24, 39, 0.22);
+      padding: 24px;
+      max-height: 86vh;
+      overflow: auto;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-score {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .modal-text {
+      color: var(--mid-gray);
+      margin-bottom: 14px;
+      line-height: 1.75;
+    }
+
+    .feedback-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .feedback-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-card h4 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feedback-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .feedback-tag.correct {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .feedback-tag.wrong {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .feedback-tag.missed {
+      background: #fff4e5;
+      color: #b26b00;
+    }
+
+    .feedback-block {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .feedback-block strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .success {
+      color: #198754;
+    }
+
+    .danger {
+      color: #dc3545;
+    }
+
+    .site-footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-mini-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .email-meta-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .email-content {
+        padding: 18px;
+      }
+
+      .email-subject {
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .trial-hero .hero-card,
+      .section-card,
+      .modal-card {
+        padding: 22px;
+      }
+
+      .hero-actions-inline,
+      .trial-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions-inline .btn,
+      .trial-actions .btn {
+        width: 100%;
+      }
+
+      .progress-row {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../index.html">Landing Page</a>
+        <a href="index.html">Trial Simulation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="trial-hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Trial Simulation 1</div>
+          <h1 class="hero-title">Email Partnership Request</h1>
+          <p>
+            Bayangkan Anda sedang memeriksa inbox kerja. Di bawah ini ada satu email
+            yang terlihat profesional dan menarik secara bisnis. Klik bagian yang menurut
+            Anda paling patut dicurigai.
+          </p>
+
+          <div class="hero-actions-inline">
+            <a class="btn btn-secondary" href="index.html">Kembali ke Trial</a>
+            <a class="btn btn-primary" href="#simulasi">Mulai Simulasi</a>
+          </div>
+
+          <div class="hero-mini-strip">
+            <div class="hero-mini-card">
+              <h3>Tujuan</h3>
+              <p>Menguji kemampuan peserta mengenali red flag pada email kerja yang tampak meyakinkan.</p>
+            </div>
+            <div class="hero-mini-card">
+              <h3>Aturan</h3>
+              <p>Ada 7 area yang bisa diklik, tetapi hanya 4 yang merupakan jawaban benar.</p>
+            </div>
+            <div class="hero-mini-card">
+              <h3>Catatan</h3>
+              <p>Tidak ada petunjuk saat hover. Anda hanya dapat memilih maksimal 4 bagian.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="simulasi">
+      <div class="container">
+        <div class="section-card fade-in">
+          <div class="section-head-local">
+            <h2>Klik Bagian Email yang Mencurigakan</h2>
+            <p>
+              Tidak semua bagian yang bisa diklik adalah red flag. Fokuskan perhatian Anda
+              pada elemen yang benar-benar memengaruhi validitas dan keamanan email.
+            </p>
+          </div>
+
+          <div class="instruction-box">
+            <strong>Instruksi:</strong> Klik bagian email yang menurut Anda mencurigakan.
+            Anda hanya dapat memilih maksimal <strong>4 bagian</strong>. Setelah selesai,
+            tekan tombol <strong>Cek Hasil</strong>.
+          </div>
+
+          <div class="progress-row">
+            <div class="pick-counter">
+              Pilihan digunakan:
+              <span id="pickCounter">0 / 4</span>
+            </div>
+          </div>
+
+          <div class="email-shell">
+            <div class="email-window">
+              <div class="email-topbar">
+                <div class="email-top-left">
+                  <span class="email-dot red"></span>
+                  <span class="email-dot yellow"></span>
+                  <span class="email-dot green"></span>
+                  <span class="email-top-title">Inbox · Partnership Request</span>
+                </div>
+                <div class="email-top-right">
+                  <span class="email-toolbar-chip">Archive</span>
+                  <span class="email-toolbar-chip">Reply</span>
+                  <span class="email-toolbar-chip">Forward</span>
+                </div>
+              </div>
+
+              <div class="email-content">
+                <div class="email-header-block">
+                  <div class="email-subject">
+                    Ajuan Kerja Sama Pengadaan Kopi 10.000 pcs untuk Kegiatan Makan Besar Bersama Chef Bobon
+                  </div>
+
+                  <div class="email-meta">
+                    <div class="email-meta-row">
+                      <div class="email-meta-label">From</div>
+                      <div>
+                        <span class="clickable" data-id="display-name">
+                          Dita Rahma — Tim Bobon Santoso Official
+                        </span>
+                        &lt;<span class="clickable" data-id="gmail-address">timbobonproject@gmail.com</span>&gt;
+                      </div>
+                    </div>
+
+                    <div class="email-meta-row">
+                      <div class="email-meta-label">To</div>
+                      <div>marketing@berkahselalu.co.id</div>
+                    </div>
+
+                    <div class="email-meta-row">
+                      <div class="email-meta-label">Date</div>
+                      <div>Senin, 10.14 WIB</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="email-body">
+                  <p>Yth. Tim Marketing PT. Berkah Selalu,</p>
+
+                  <p>
+                    Perkenalkan, saya Dita Rahma dari Tim Bobon Santoso Official. Saat ini
+                    kami sedang menyiapkan kegiatan makan besar bersama Chef Bobon yang akan
+                    diselenggarakan <span class="clickable" data-id="event-context">sekitar 3 minggu lagi di Semarang</span>.
+                  </p>
+
+                  <p>
+                    Untuk mendukung kebutuhan konsumsi pada kegiatan tersebut, kami sedang
+                    mencari partner pengadaan kopi sebanyak <span class="clickable" data-id="quantity">10.000 pcs</span>
+                    dan tertarik menjajaki kemungkinan kerja sama dengan produk Anda.
+                  </p>
+
+                  <p>
+                    Jika berkenan, mohon pelajari kebutuhan awal kami melalui tautan berikut
+                    agar tim kami dapat segera menindaklanjuti detail teknis dan penyesuaian
+                    aktivasi brand:
+                  </p>
+
+                  <p>
+                    <span class="clickable" data-id="shortlink">bit.ly/collab-request</span>
+                  </p>
+
+                  <p>
+                    <span class="clickable" data-id="urgency">
+                      Mengingat persiapan acara sudah berjalan, kami berharap bisa memperoleh
+                      respons awal hari ini agar proses internal kami tidak tertunda.
+                    </span>
+                  </p>
+
+                  <p>Terima kasih atas perhatian dan kerja samanya.</p>
+
+                  <div class="email-signature">
+                    <p>Salam,</p>
+                    <p>
+                      <span class="clickable" data-id="signature">
+                        Dita Rahma<br />
+                        Tim Bobon Santoso Official
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trial-actions">
+            <button class="btn btn-primary" id="checkBtn">Cek Hasil</button>
+            <button class="btn btn-secondary" id="resetBtn">Reset Pilihan</button>
+          </div>
+
+          <div class="note-box">
+            <strong>Catatan:</strong> Email ini sengaja dibuat tampak menarik dan relevan secara bisnis.
+            Dalam situasi nyata, konteks yang masuk akal sering membuat proses verifikasi menjadi terlewat.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div
+    class="modal-overlay"
+    id="resultModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <div class="modal-score" id="modalScore"></div>
+      <div class="modal-text" id="modalText"></div>
+
+      <div class="feedback-stack" id="feedbackStack"></div>
+
+      <div class="trial-actions" style="margin-top: 18px;">
+        <button class="btn btn-primary" id="closeModalBtn">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Trial Simulation 1
+    </div>
+  </footer>
+
+  <script src="../assets/main.js"></script>
+  <script>
+    const MAX_PICKS = 4;
+
+    const hotspotData = {
+      "display-name": {
+        title: "Nama Pengirim",
+        correct: false,
+        why: "Nama pengirim yang terlihat meyakinkan belum cukup menjadi red flag utama. Display name dapat ditulis apa saja dan sering dipakai untuk membangun kesan resmi.",
+        proper: "Verifikasi tidak boleh berhenti pada nama tampilan. Periksa alamat email, domain, link, dan identitas organisasi yang mendukungnya."
+      },
+      "gmail-address": {
+        title: "Alamat Email Gmail",
+        correct: true,
+        why: "Untuk komunikasi kerja sama resmi yang mengatasnamakan tim official figur publik, penggunaan Gmail sangat patut dicurigai. Domain ini tidak menunjukkan identitas organisasi yang jelas, mudah dibuat siapa saja, dan tidak konsisten dengan konteks kerja sama formal.",
+        proper: "Komunikasi formal idealnya menggunakan domain organisasi resmi, misalnya domain agency, management, atau domain event yang dapat diverifikasi."
+      },
+      "event-context": {
+        title: "Konteks Waktu dan Lokasi",
+        correct: false,
+        why: "Informasi waktu dan lokasi masih wajar sebagai konteks acara. Bagian ini tidak cukup kuat untuk dijadikan indikator bahwa email berbahaya.",
+        proper: "Tetap fokus pada elemen validitas: domain, link, tekanan komunikasi, dan identitas pengirim yang bisa diverifikasi."
+      },
+      "quantity": {
+        title: "Jumlah Permintaan 10.000 pcs",
+        correct: false,
+        why: "Jumlah besar memang menarik perhatian dan bisa memicu respons cepat, tetapi angka ini sendiri bukan red flag keamanan.",
+        proper: "Jangan langsung menganggap volume besar sebagai tanda bahaya. Yang perlu diverifikasi adalah identitas pengirim, kanal komunikasi, dan tujuan link."
+      },
+      "shortlink": {
+        title: "Link bit.ly/collab-request",
+        correct: true,
+        why: "Shortlink seperti bit.ly menyembunyikan alamat tujuan sebenarnya. Penerima tidak dapat melihat domain akhir sebelum klik, sehingga verifikasi menjadi lebih sulit. Ini adalah teknik yang sangat umum dalam phishing.",
+        proper: "Dalam komunikasi formal B2B, link seharusnya transparan dan menggunakan domain resmi yang dapat dilihat serta diverifikasi sebelum dibuka."
+      },
+      "urgency": {
+        title: "Kalimat Urgensi",
+        correct: true,
+        why: "Kalimat ini memberi tekanan waktu agar penerima segera bertindak. Teknik urgensi sering dipakai dalam social engineering untuk mendorong keputusan cepat sebelum verifikasi dilakukan.",
+        proper: "Follow-up formal boleh dilakukan, tetapi tidak seharusnya menekan secara tidak proporsional di tahap awal, terlebih sebelum identitas dan tujuan komunikasi tervalidasi."
+      },
+      "signature": {
+        title: "Signature Tidak Profesional",
+        correct: true,
+        why: "Untuk konteks kerja sama formal, signature ini terlalu minim. Tidak ada jabatan, nama organisasi yang jelas, domain resmi, website, ataupun kanal komunikasi resmi yang dapat diverifikasi.",
+        proper: "Signature formal idealnya mencantumkan nama lengkap, jabatan, nama organisasi, website resmi, dan kontak kerja yang dapat diverifikasi."
+      }
+    };
+
+    const levelFeedback = {
+      4: {
+        title: '<span class="success">Awareness sangat baik.</span>',
+        text: 'Anda berhasil mengenali seluruh red flag utama. Ini menunjukkan bahwa Anda tidak hanya melihat peluang bisnisnya, tetapi juga memeriksa identitas pengirim, link, tekanan waktu, dan kualitas signature secara kritis.'
+      },
+      3: {
+        title: '<span class="success">Cukup baik.</span>',
+        text: 'Anda sudah menangkap mayoritas red flag utama, tetapi masih ada satu elemen penting yang terlewat. Dalam situasi nyata, satu blind spot saja bisa cukup untuk membuat email seperti ini terasa aman.'
+      },
+      2: {
+        title: '<span class="danger">Perlu lebih hati-hati.</span>',
+        text: 'Anda menangkap sebagian tanda bahaya, tetapi konteks email yang terlihat menarik masih cukup kuat memengaruhi penilaian. Ini adalah pola umum dalam social engineering berbasis peluang kerja sama.'
+      },
+      1: {
+        title: '<span class="danger">Perlu lebih hati-hati.</span>',
+        text: 'Anda menangkap sebagian tanda bahaya, tetapi konteks email yang terlihat menarik masih cukup kuat memengaruhi penilaian. Ini adalah pola umum dalam social engineering berbasis peluang kerja sama.'
+      },
+      0: {
+        title: '<span class="danger">Sangat rentan terhadap konteks palsu yang terlihat meyakinkan.</span>',
+        text: 'Email ini berhasil mengalihkan perhatian Anda ke konteks bisnis dan peluang kerja sama, bukan ke proses verifikasi. Inilah salah satu alasan mengapa social engineering sering berhasil, bahkan pada konteks yang terlihat profesional.'
+      }
+    };
+
+    const clickableEls = document.querySelectorAll('.clickable');
+    const pickCounter = document.getElementById('pickCounter');
+    const checkBtn = document.getElementById('checkBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    const resultModal = document.getElementById('resultModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalScore = document.getElementById('modalScore');
+    const modalText = document.getElementById('modalText');
+    const feedbackStack = document.getElementById('feedbackStack');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    let selectedIds = [];
+
+    function updateCounter() {
+      pickCounter.textContent = `${selectedIds.length} / ${MAX_PICKS}`;
+    }
+
+    function lockState() {
+      if (selectedIds.length >= MAX_PICKS) {
+        clickableEls.forEach((el) => {
+          if (!selectedIds.includes(el.dataset.id)) {
+            el.classList.add('locked');
+          }
+        });
+      } else {
+        clickableEls.forEach((el) => el.classList.remove('locked'));
+      }
+    }
+
+    function applySelection(el, id) {
+      const meta = hotspotData[id];
+      if (!meta) return;
+
+      if (meta.correct) {
+        el.classList.add('correct-selected');
+      } else {
+        el.classList.add('wrong-selected');
+      }
+    }
+
+    clickableEls.forEach((el) => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.id;
+
+        if (selectedIds.includes(id)) return;
+        if (selectedIds.length >= MAX_PICKS) return;
+
+        selectedIds.push(id);
+        applySelection(el, id);
+        updateCounter();
+        lockState();
+      });
+    });
+
+    resetBtn.addEventListener('click', () => {
+      selectedIds = [];
+      clickableEls.forEach((el) => {
+        el.classList.remove('correct-selected', 'wrong-selected', 'locked');
+      });
+      updateCounter();
+    });
+
+    function buildFeedbackCard(tagLabel, tagClass, title, why, proper) {
+      return `
+        <div class="feedback-card">
+          <span class="feedback-tag ${tagClass}">${tagLabel}</span>
+          <h4>${title}</h4>
+          <div class="feedback-block">
+            <strong>Kenapa bagian ini ${tagClass === 'correct' ? 'mencurigakan' : tagClass === 'wrong' ? 'belum tepat sebagai red flag utama' : 'perlu diperhatikan'}:</strong>
+            <div>${why}</div>
+          </div>
+          <div class="feedback-block">
+            <strong>Seharusnya bagaimana:</strong>
+            <div>${proper}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function checkResult() {
+      if (selectedIds.length === 0) {
+        modalTitle.innerHTML = '<span class="danger">Anda belum memilih bagian email.</span>';
+        modalScore.textContent = '0 / 4';
+        modalText.innerHTML = 'Silakan klik bagian email yang menurut Anda mencurigakan terlebih dahulu.';
+        feedbackStack.innerHTML = '';
+        openModal();
+        return;
+      }
+
+      const correctIds = Object.keys(hotspotData).filter((id) => hotspotData[id].correct);
+      const score = selectedIds.filter((id) => hotspotData[id].correct).length;
+      const level = levelFeedback[score];
+
+      modalTitle.innerHTML = level.title;
+      modalScore.textContent = `${score} / 4`;
+      modalText.innerHTML = level.text;
+
+      let html = '';
+
+      selectedIds.forEach((id) => {
+        const item = hotspotData[id];
+        html += buildFeedbackCard(
+          item.correct ? 'Pilihan Anda · Benar' : 'Pilihan Anda · Belum Tepat',
+          item.correct ? 'correct' : 'wrong',
+          item.title,
+          item.why,
+          item.proper
+        );
+      });
+
+      const missedCorrect = correctIds.filter((id) => !selectedIds.includes(id));
+      missedCorrect.forEach((id) => {
+        const item = hotspotData[id];
+        html += buildFeedbackCard(
+          'Red Flag yang Terlewat',
+          'missed',
+          item.title,
+          item.why,
+          item.proper
+        );
+      });
+
+      feedbackStack.innerHTML = html;
+      openModal();
+    }
+
+    checkBtn.addEventListener('click', checkResult);
+
+    function openModal() {
+      resultModal.classList.add('show');
+    }
+
+    function closeModal() {
+      resultModal.classList.remove('show');
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    resultModal.addEventListener('click', (event) => {
+      if (event.target === resultModal) closeModal();
+    });
+
+    updateCounter();
+  </script>
+</body>
+</html>
