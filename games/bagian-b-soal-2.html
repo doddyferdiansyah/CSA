@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian B · Soal 2 | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Aktivitas drag and drop untuk mencocokkan faktor kelemahan manusia dengan situasi kerja yang paling sesuai."
+  />
+  <style>
+    :root {
+      --white: #ffffff;
+      --bg-soft: #f8fbff;
+      --bg-soft-2: #eef6ff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --navy: #0f2747;
+      --navy-deep: #0b1d35;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #6b7280;
+      --border: rgba(31, 41, 55, 0.12);
+      --border-strong: rgba(77, 163, 255, 0.22);
+      --shadow: 0 16px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+      --transition-fast: 0.22s ease;
+
+      --success: #198754;
+      --success-soft: rgba(25, 135, 84, 0.10);
+      --danger: #dc3545;
+      --danger-soft: rgba(220, 53, 69, 0.10);
+      --warning: #b26b00;
+      --warning-soft: #fff4e5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--sky-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--dark-gray);
+      border-color: var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 84px 0 34px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--bg-soft-2) 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-title {
+      font-size: clamp(2.05rem, 4vw, 3.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .hero-desc {
+      color: var(--mid-gray);
+      max-width: 760px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-panel h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 52px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+      max-width: 900px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--mid-gray);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .overview-card,
+    .board-panel,
+    .feedback-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .overview-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .overview-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+    }
+
+    .overview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .overview-card h3 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .overview-card p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .board-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .sticky-panel {
+      position: sticky;
+      top: 102px;
+    }
+
+    .board-panel {
+      padding: 20px;
+    }
+
+    .board-panel h3 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .board-panel p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .note-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
+    }
+
+    .factor-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+      min-height: 220px;
+    }
+
+    .factor-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+      cursor: grab;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+      display: grid;
+      gap: 8px;
+    }
+
+    .factor-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.24);
+      box-shadow: 0 16px 28px rgba(31, 41, 55, 0.08);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .factor-card.dragging {
+      opacity: 0.55;
+      transform: scale(0.98);
+    }
+
+    .factor-card.selected {
+      border-color: rgba(77, 163, 255, 0.34);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .factor-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .factor-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--dark-gray);
+    }
+
+    .scenario-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .scenario-card {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 12px;
+    }
+
+    .scenario-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scenario-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 0.84rem;
+      flex-shrink: 0;
+    }
+
+    .scenario-label {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+
+    .scenario-text {
+      color: var(--dark-gray);
+      line-height: 1.72;
+      font-size: 0.95rem;
+    }
+
+    .drop-slot {
+      min-height: 76px;
+      border: 2px dashed rgba(31, 41, 55, 0.16);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 10px;
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .drop-slot.active {
+      border-color: rgba(77, 163, 255, 0.38);
+      background: #f7fbff;
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .drop-slot.has-item {
+      border-style: solid;
+      border-color: rgba(77, 163, 255, 0.22);
+      background: #fcfeff;
+    }
+
+    .drop-placeholder {
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .drop-slot .factor-card {
+      margin: 0;
+      cursor: grab;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .feedback-box {
+      display: none;
+      padding: 20px;
+      margin-top: 18px;
+      gap: 14px;
+    }
+
+    .feedback-box.show {
+      display: grid;
+    }
+
+    .feedback-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .feedback-pill.correct {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .feedback-pill.partial {
+      background: rgba(77, 163, 255, 0.10);
+      color: var(--sky-blue-deep);
+    }
+
+    .feedback-pill.wrong {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .feedback-box h4 {
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feedback-box p {
+      color: var(--mid-gray);
+      line-height: 1.72;
+    }
+
+    .feedback-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .feedback-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .site-footer {
+      padding: 34px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .overview-grid,
+      .board-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .overview-card,
+      .board-panel,
+      .feedback-box {
+        padding: 22px;
+      }
+
+      .hero-actions,
+      .action-row {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn,
+      .action-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../workshop/latihan.html">Kembali ke Latihan</a>
+        <a href="../index.html">Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Workshop Bagian B · Soal 2</div>
+
+          <div class="hero-grid">
+            <div>
+              <h1 class="hero-title">Cocokkan Faktor Kelemahan dengan Situasinya</h1>
+              <p class="hero-desc">
+                Aktivitas ini membantu peserta memahami bahwa faktor manusia dalam social engineering
+                sering muncul melalui kebiasaan kerja yang terlihat normal, tetapi tetap dapat membuka celah risiko.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#soal">Mulai Soal</a>
+                <a class="btn btn-secondary" href="../games/bagian-b-soal-3.html">Lanjut ke Soal Berikutnya</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Activity Snapshot</h3>
+              <div class="hero-stat-grid">
+                <div class="hero-stat">
+                  <strong>Fokus</strong>
+                  <span>Mengenali faktor kelemahan manusia yang sering muncul di tempat kerja.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Format</strong>
+                  <span>Peserta menyeret faktor ke situasi kerja yang paling sesuai.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Output</strong>
+                  <span>Peserta melihat bahwa celah manusia sering muncul dari kebiasaan yang terlihat wajar.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Learning Context</h2>
+          <p>
+            Dalam banyak situasi kerja, risiko tidak muncul karena niat buruk, tetapi karena kebiasaan,
+            asumsi, dan keputusan cepat yang terasa wajar. Latihan ini membantu peserta membaca pola itu
+            secara lebih reflektif.
+          </p>
+        </div>
+
+        <div class="overview-grid fade-in">
+          <div class="overview-card">
+            <div class="overview-badge">Human Factor</div>
+            <h3>Kebiasaan Kerja</h3>
+            <p>
+              Banyak celah keamanan muncul dari kebiasaan sehari-hari yang dianggap normal dan efisien.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Pattern Reading</div>
+            <h3>Perilaku yang Berulang</h3>
+            <p>
+              Peserta diajak melihat bahwa faktor kelemahan sering muncul melalui pola keputusan yang berulang.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Reflection</div>
+            <h3>Asosiasi yang Tepat</h3>
+            <p>
+              Tujuan latihan ini bukan sekadar mencocokkan kata, tetapi memahami hubungan logis antara faktor dan situasi.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="soal">
+      <div class="container">
+        <div class="board-layout fade-in">
+          <div class="sticky-panel">
+            <div class="board-panel">
+              <h3>Faktor Kelemahan</h3>
+              <p>
+                Seret satu faktor ke slot jawaban pada situasi kerja yang paling sesuai. Anda juga bisa
+                klik satu faktor terlebih dahulu, lalu klik slot jawaban yang diinginkan.
+              </p>
+
+              <div class="note-box">
+                <strong>Petunjuk:</strong> Panel faktor ini tetap terlihat saat Anda scroll agar proses matching
+                lebih nyaman, terutama saat membaca seluruh situasi kerja di sisi kanan.
+              </div>
+
+              <div class="factor-list" id="factorList">
+                <div class="factor-card" draggable="true" data-id="A">
+                  <span class="factor-code">A</span>
+                  <span class="factor-text">Kebiasaan ingin cepat beres</span>
+                </div>
+
+                <div class="factor-card" draggable="true" data-id="B">
+                  <span class="factor-code">B</span>
+                  <span class="factor-text">Rasa ingin tahu</span>
+                </div>
+
+                <div class="factor-card" draggable="true" data-id="C">
+                  <span class="factor-code">C</span>
+                  <span class="factor-text">Takut dianggap tidak sigap</span>
+                </div>
+
+                <div class="factor-card" draggable="true" data-id="D">
+                  <span class="factor-code">D</span>
+                  <span class="factor-text">Terlalu percaya pada tampilan yang resmi</span>
+                </div>
+
+                <div class="factor-card" draggable="true" data-id="E">
+                  <span class="factor-code">E</span>
+                  <span class="factor-text">Overconfidence</span>
+                </div>
+
+                <div class="factor-card" draggable="true" data-id="F">
+                  <span class="factor-code">F</span>
+                  <span class="factor-text">Multitasking / beban kerja tinggi</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="board-panel">
+            <h3>Situasi Kerja</h3>
+            <p>
+              Seret setiap faktor ke situasi yang paling sesuai. Setelah itu, tekan tombol cek jawaban
+              untuk melihat hasil dan pembahasan.
+            </p>
+
+            <div class="scenario-grid">
+              <div class="scenario-card">
+                <div class="scenario-top">
+                  <span class="scenario-number">1</span>
+                  <span class="scenario-label">Workplace Scenario</span>
+                </div>
+                <div class="scenario-text">
+                  Seorang karyawan langsung membuka lampiran karena judul filenya terdengar menarik dan terasa penting untuk diketahui.
+                </div>
+                <div class="drop-slot" data-slot="1">
+                  <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
+                </div>
+              </div>
+
+              <div class="scenario-card">
+                <div class="scenario-top">
+                  <span class="scenario-number">2</span>
+                  <span class="scenario-label">Workplace Scenario</span>
+                </div>
+                <div class="scenario-text">
+                  Seorang staf merasa tidak perlu mengecek ulang email karena tampilannya rapi, ada logo, dan bahasanya terlihat formal.
+                </div>
+                <div class="drop-slot" data-slot="2">
+                  <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
+                </div>
+              </div>
+
+              <div class="scenario-card">
+                <div class="scenario-top">
+                  <span class="scenario-number">3</span>
+                  <span class="scenario-label">Workplace Scenario</span>
+                </div>
+                <div class="scenario-text">
+                  Saat sedang mengerjakan banyak hal sekaligus, seseorang langsung membalas pesan dan mengikuti instruksi tanpa membaca detail dengan teliti.
+                </div>
+                <div class="drop-slot" data-slot="3">
+                  <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
+                </div>
+              </div>
+
+              <div class="scenario-card">
+                <div class="scenario-top">
+                  <span class="scenario-number">4</span>
+                  <span class="scenario-label">Workplace Scenario</span>
+                </div>
+                <div class="scenario-text">
+                  Seorang pegawai segera merespons permintaan karena khawatir dianggap lambat atau tidak kooperatif oleh pihak lain.
+                </div>
+                <div class="drop-slot" data-slot="4">
+                  <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
+                </div>
+              </div>
+
+              <div class="scenario-card">
+                <div class="scenario-top">
+                  <span class="scenario-number">5</span>
+                  <span class="scenario-label">Workplace Scenario</span>
+                </div>
+                <div class="scenario-text">
+                  Seseorang merasa dirinya sudah cukup paham soal ancaman digital, sehingga jarang melakukan verifikasi tambahan.
+                </div>
+                <div class="drop-slot" data-slot="5">
+                  <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
+                </div>
+              </div>
+
+              <div class="scenario-card">
+                <div class="scenario-top">
+                  <span class="scenario-number">6</span>
+                  <span class="scenario-label">Workplace Scenario</span>
+                </div>
+                <div class="scenario-text">
+                  Karena ingin pekerjaan cepat selesai, seseorang memilih langsung klik dan memproses tanpa melewati pengecekan sederhana.
+                </div>
+                <div class="drop-slot" data-slot="6">
+                  <div class="drop-placeholder">Letakkan faktor yang paling sesuai di sini</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button class="btn btn-primary" id="checkBtn">Cek Jawaban</button>
+              <button class="btn btn-secondary" id="resetBtn">Ulangi Soal 2</button>
+            </div>
+
+            <div class="note-box">
+              <strong>Catatan:</strong> Dalam aktivitas ini, yang dicari bukan sekadar kemiripan kata,
+              tetapi pola perilaku yang paling dekat dengan faktor kelemahan yang sedang dibahas.
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+              <span class="feedback-pill" id="feedbackPill"></span>
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackText"></p>
+
+              <div class="feedback-list">
+                <div class="feedback-item">
+                  <strong>Kunci Jawaban</strong>
+                  <div>1-B, 2-D, 3-F, 4-C, 5-E, 6-A</div>
+                </div>
+                <div class="feedback-item">
+                  <strong>Inti Pembelajaran</strong>
+                  <div>
+                    Faktor kelemahan manusia sering tidak muncul dalam bentuk yang ekstrem, tetapi melalui pola kerja yang terasa biasa, cepat, atau terlihat wajar.
+                  </div>
+                </div>
+                <div class="feedback-item">
+                  <strong>Refleksi</strong>
+                  <div>
+                    Semakin familiar sebuah situasi terasa, semakin penting bagi peserta untuk tetap melakukan jeda verifikasi sebelum bertindak.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Workshop Bagian B · Soal 2
+    </div>
+  </footer>
+
+  <script>
+    const answerKey = {
+      "1": "B",
+      "2": "D",
+      "3": "F",
+      "4": "C",
+      "5": "E",
+      "6": "A"
+    };
+
+    const factorList = document.getElementById("factorList");
+    const factorCards = () => document.querySelectorAll(".factor-card");
+    const dropSlots = document.querySelectorAll(".drop-slot");
+
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackPill = document.getElementById("feedbackPill");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackText = document.getElementById("feedbackText");
+
+    let draggedCard = null;
+    let selectedCard = null;
+
+    function refreshFactorEvents() {
+      factorCards().forEach((card) => {
+        card.addEventListener("dragstart", () => {
+          draggedCard = card;
+          card.classList.add("dragging");
+        });
+
+        card.addEventListener("dragend", () => {
+          card.classList.remove("dragging");
+          draggedCard = null;
+        });
+
+        card.addEventListener("click", () => {
+          factorCards().forEach((item) => item.classList.remove("selected"));
+          card.classList.add("selected");
+          selectedCard = card;
+        });
+      });
+    }
+
+    refreshFactorEvents();
+
+    function updateSlotState(slot) {
+      const hasCard = slot.querySelector(".factor-card");
+      const placeholder = slot.querySelector(".drop-placeholder");
+
+      if (hasCard) {
+        slot.classList.add("has-item");
+        if (placeholder) placeholder.style.display = "none";
+      } else {
+        slot.classList.remove("has-item");
+        if (placeholder) placeholder.style.display = "block";
+      }
+    }
+
+    function removeCardFromCurrentParent(card) {
+      dropSlots.forEach((slot) => {
+        if (slot.contains(card)) {
+          slot.removeChild(card);
+          updateSlotState(slot);
+        }
+      });
+      if (factorList.contains(card)) {
+        factorList.removeChild(card);
+      }
+    }
+
+    function placeCardInSlot(card, slot) {
+      const existing = slot.querySelector(".factor-card");
+      if (existing && existing !== card) {
+        factorList.appendChild(existing);
+        existing.classList.remove("selected");
+      }
+
+      dropSlots.forEach((s) => {
+        if (s !== slot && s.contains(card)) {
+          s.removeChild(card);
+          updateSlotState(s);
+        }
+      });
+
+      if (factorList.contains(card)) {
+        factorList.removeChild(card);
+      }
+
+      slot.appendChild(card);
+      card.classList.remove("selected");
+      selectedCard = null;
+      updateSlotState(slot);
+    }
+
+    dropSlots.forEach((slot) => {
+      slot.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        slot.classList.add("active");
+      });
+
+      slot.addEventListener("dragleave", () => {
+        slot.classList.remove("active");
+      });
+
+      slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slot.classList.remove("active");
+        if (!draggedCard) return;
+        placeCardInSlot(draggedCard, slot);
+      });
+
+      slot.addEventListener("click", () => {
+        if (!selectedCard) return;
+        placeCardInSlot(selectedCard, slot);
+      });
+    });
+
+    factorList.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+
+    factorList.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!draggedCard) return;
+
+      dropSlots.forEach((slot) => {
+        if (slot.contains(draggedCard)) {
+          slot.removeChild(draggedCard);
+          updateSlotState(slot);
+        }
+      });
+
+      factorList.appendChild(draggedCard);
+      draggedCard.classList.remove("selected");
+      selectedCard = null;
+    });
+
+    function getUserAnswers() {
+      const answers = {};
+      dropSlots.forEach((slot) => {
+        const card = slot.querySelector(".factor-card");
+        if (card) answers[slot.dataset.slot] = card.dataset.id;
+      });
+      return answers;
+    }
+
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      const userAnswers = getUserAnswers();
+      const total = Object.keys(answerKey).length;
+      const answered = Object.keys(userAnswers).length;
+
+      if (answered < total) {
+        feedbackBox.classList.add("show");
+        feedbackPill.className = "feedback-pill wrong";
+        feedbackPill.textContent = "Belum Lengkap";
+        feedbackTitle.textContent = "Masih ada slot jawaban yang belum terisi.";
+        feedbackText.textContent = "Silakan lengkapi seluruh situasi kerja terlebih dahulu sebelum melihat hasil.";
+        feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      let score = 0;
+      Object.keys(answerKey).forEach((slot) => {
+        if (userAnswers[slot] === answerKey[slot]) score += 1;
+      });
+
+      feedbackBox.classList.add("show");
+
+      if (score === total) {
+        feedbackPill.className = "feedback-pill correct";
+        feedbackPill.textContent = "Jawaban Tepat";
+        feedbackTitle.textContent = "Seluruh pasangan yang Anda buat sudah sesuai.";
+        feedbackText.textContent = "Anda berhasil membaca hubungan logis antara faktor kelemahan dan situasi kerja dengan sangat baik.";
+      } else if (score >= 3) {
+        feedbackPill.className = "feedback-pill partial";
+        feedbackPill.textContent = "Sebagian Tepat";
+        feedbackTitle.textContent = "Sebagian besar pasangan sudah sesuai, tetapi masih ada yang perlu ditinjau ulang.";
+        feedbackText.textContent = `Anda menjawab benar ${score} dari ${total} pasangan. Coba perhatikan lagi hubungan antara perilaku utama dan konteks situasi yang muncul.`;
+      } else {
+        feedbackPill.className = "feedback-pill wrong";
+        feedbackPill.textContent = "Perlu Ditinjau Ulang";
+        feedbackTitle.textContent = "Hubungan antara faktor dan situasi masih belum banyak yang tepat.";
+        feedbackText.textContent = `Anda menjawab benar ${score} dari ${total} pasangan. Fokuskan perhatian pada pola perilaku utama yang paling dominan dalam tiap situasi.`;
+      }
+
+      feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      dropSlots.forEach((slot) => {
+        const card = slot.querySelector(".factor-card");
+        if (card) {
+          factorList.appendChild(card);
+          card.classList.remove("selected");
+        }
+        slot.classList.remove("active");
+        updateSlotState(slot);
+      });
+
+      selectedCard = null;
+      draggedCard = null;
+      factorCards().forEach((card) => card.classList.remove("selected"));
+      feedbackBox.classList.remove("show");
+      feedbackPill.className = "feedback-pill";
+      feedbackPill.textContent = "";
+      feedbackTitle.textContent = "";
+      feedbackText.textContent = "";
+
+      window.scrollTo({ top: document.getElementById("soal").offsetTop - 90, behavior: "smooth" });
+    });
+
+    dropSlots.forEach(updateSlotState);
+  </script>
+</body>
+</html>
