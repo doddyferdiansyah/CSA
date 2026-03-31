@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian B · Soal 1 | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Aktivitas interaktif untuk membantu peserta membaca faktor manusia yang dimainkan dalam sebuah pesan kerja yang terlihat sederhana."
+  />
+  <style>
+    :root {
+      --white: #ffffff;
+      --bg-soft: #f8fbff;
+      --bg-soft-2: #eef6ff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --navy: #0f2747;
+      --navy-deep: #0b1d35;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #6b7280;
+      --border: rgba(31, 41, 55, 0.12);
+      --border-strong: rgba(77, 163, 255, 0.22);
+      --shadow: 0 16px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+      --transition-fast: 0.22s ease;
+
+      --wa-green: #0f8f7a;
+      --wa-green-deep: #0b6f5f;
+      --wa-bg: #ece5dd;
+      --wa-bubble-in: #ffffff;
+      --wa-meta: #6b7280;
+      --success: #198754;
+      --success-soft: rgba(25, 135, 84, 0.10);
+      --danger: #dc3545;
+      --danger-soft: rgba(220, 53, 69, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--sky-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--dark-gray);
+      border-color: var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 84px 0 34px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--bg-soft-2) 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-title {
+      font-size: clamp(2.05rem, 4vw, 3.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .hero-desc {
+      color: var(--mid-gray);
+      max-width: 760px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-panel h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 52px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+      max-width: 900px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--mid-gray);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .overview-card,
+    .question-card,
+    .phone-panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .overview-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .overview-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+    }
+
+    .overview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .overview-card h3 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .overview-card p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .question-card {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .question-head h3 {
+      font-size: 1.18rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .question-head p {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .note-box {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choice-item {
+      position: relative;
+    }
+
+    .choice-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice-label {
+      display: grid;
+      gap: 6px;
+      min-height: 96px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .choice-label:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.24);
+      box-shadow: 0 16px 28px rgba(31, 41, 55, 0.08);
+    }
+
+    .choice-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .choice-text {
+      font-size: 0.95rem;
+      color: var(--dark-gray);
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .choice-input:checked + .choice-label {
+      border-color: rgba(77, 163, 255, 0.34);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .feedback-box {
+      display: none;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .feedback-box.show {
+      display: grid;
+    }
+
+    .feedback-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .feedback-pill.correct {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .feedback-pill.partial {
+      background: rgba(77, 163, 255, 0.10);
+      color: var(--sky-blue-deep);
+    }
+
+    .feedback-pill.wrong {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .feedback-box h4 {
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feedback-box p {
+      color: var(--mid-gray);
+      line-height: 1.72;
+    }
+
+    .feedback-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .feedback-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .phone-panel {
+      padding: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 390px;
+      margin: 0 auto;
+      border-radius: 34px;
+      background: linear-gradient(145deg, #283444 0%, #0f172a 55%, #08111f 100%);
+      padding: 12px;
+      box-shadow:
+        0 26px 56px rgba(15, 23, 42, 0.22),
+        inset 0 0 0 1px rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+
+    .screen {
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--wa-bg);
+      border: 1px solid rgba(15, 23, 42, 0.55);
+      position: relative;
+    }
+
+    .statusbar {
+      height: 30px;
+      background: linear-gradient(180deg, #0b121d 0%, #101a28 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px 0 18px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .battery {
+      width: 20px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1.5px solid rgba(255,255,255,0.9);
+      position: relative;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 2px;
+      width: 2px;
+      height: 4px;
+      border-radius: 1px;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .battery-level {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      height: 6px;
+      width: 12px;
+      border-radius: 2px;
+      background: #ffffff;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 112px;
+      height: 24px;
+      border-radius: 999px;
+      background: #05070a;
+      z-index: 3;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.05);
+    }
+
+    .wa-header {
+      height: 70px;
+      background: linear-gradient(180deg, var(--wa-green) 0%, var(--wa-green-deep) 100%);
+      color: #ffffff;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 0 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .wa-left,
+    .wa-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wa-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #dbe5f0 0%, #b9c7d8 100%);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .wa-avatar::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      background: #97a6ba;
+    }
+
+    .wa-avatar::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 14px;
+      border-radius: 14px 14px 8px 8px;
+      background: #97a6ba;
+    }
+
+    .wa-contact {
+      display: grid;
+      gap: 2px;
+    }
+
+    .wa-contact strong {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      font-weight: 800;
+    }
+
+    .wa-contact span {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .wa-icon {
+      color: #ffffff;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .wa-body {
+      padding: 16px 14px 18px;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(255,255,255,0.28) 0, rgba(255,255,255,0.28) 1px, transparent 1px) 0 0 / 26px 26px,
+        radial-gradient(circle at 72% 18%, rgba(255,255,255,0.18) 0, rgba(255,255,255,0.18) 1px, transparent 1px) 0 0 / 34px 34px,
+        linear-gradient(180deg, #efe8df 0%, #ece5dd 100%);
+      display: grid;
+      gap: 12px;
+    }
+
+    .date-pill {
+      justify-self: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .bubble-row {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .bubble {
+      max-width: 84%;
+      padding: 11px 12px 18px;
+      border-radius: 16px;
+      border-top-left-radius: 6px;
+      background: var(--wa-bubble-in);
+      color: var(--dark-gray);
+      position: relative;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+    }
+
+    .bubble-time {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+      font-size: 0.72rem;
+      color: var(--wa-meta);
+    }
+
+    .site-footer {
+      padding: 34px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .overview-grid,
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-panel {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .overview-card,
+      .question-card,
+      .phone-panel {
+        padding: 22px;
+      }
+
+      .hero-actions,
+      .action-row,
+      .choices-grid {
+        flex-direction: column;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions .btn,
+      .action-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../workshop/latihan.html">Kembali ke Latihan</a>
+        <a href="../index.html">Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Workshop Bagian B · Soal 1</div>
+
+          <div class="hero-grid">
+            <div>
+              <h1 class="hero-title">Apa yang Sedang Dimainkan?</h1>
+              <p class="hero-desc">
+                Aktivitas singkat untuk membantu peserta membaca faktor manusia yang dimainkan
+                dalam sebuah pesan kerja yang terlihat sederhana, tetapi berpotensi mendorong
+                respons yang tidak aman.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#soal">Mulai Soal</a>
+                <a class="btn btn-secondary" href="../games/bagian-b-soal-2.html">Lanjut ke Soal Berikutnya</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Activity Snapshot</h3>
+              <div class="hero-stat-grid">
+                <div class="hero-stat">
+                  <strong>Fokus</strong>
+                  <span>Membaca faktor psikologis yang paling jelas digunakan dalam sebuah pesan.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Format</strong>
+                  <span>Peserta dapat memilih lebih dari satu jawaban berdasarkan isi pesan yang terlihat.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Output</strong>
+                  <span>Membedakan faktor utama yang sedang dimainkan dari reaksi lanjutan yang mungkin muncul.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Learning Context</h2>
+          <p>
+            Pesan seperti ini sering terlihat wajar dalam konteks kerja. Karena itu, peserta
+            perlu membaca isi pesan dengan cermat dan fokus pada faktor yang paling jelas
+            sedang dimainkan.
+          </p>
+        </div>
+
+        <div class="overview-grid fade-in">
+          <div class="overview-card">
+            <div class="overview-badge">Human Factor</div>
+            <h3>Otoritas</h3>
+            <p>
+              Pesan yang datang dari figur yang lebih tinggi sering membuat orang lebih cepat patuh.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Behavior Trigger</div>
+            <h3>Urgensi</h3>
+            <p>
+              Tekanan waktu dapat membuat peserta lebih fokus pada kecepatan daripada verifikasi.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Reflection</div>
+            <h3>Keputusan yang Aman</h3>
+            <p>
+              Tujuan latihan ini adalah membangun kebiasaan membaca pesan dengan lebih reflektif.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="soal">
+      <div class="container">
+        <div class="work-grid fade-in">
+          <div class="question-card">
+            <div class="question-head">
+              <h3>Studi Kasus Singkat</h3>
+              <p>
+                Perhatikan pesan berikut. Pilih semua faktor yang menurut Anda paling mungkin
+                sedang dimainkan.
+              </p>
+            </div>
+
+            <div class="note-box">
+              <strong>Instruksi:</strong> Fokus utama latihan ini adalah membaca faktor yang paling
+              jelas terlihat dari isi pesan, bukan sekadar menebak reaksi yang mungkin muncul
+              pada korban.
+            </div>
+
+            <div class="question-head" style="margin-top: -4px;">
+              <h3>Menurut Anda, apa yang paling mungkin sedang dimainkan?</h3>
+              <p>Anda boleh memilih lebih dari satu jawaban.</p>
+            </div>
+
+            <form id="quizForm">
+              <div class="choices-grid">
+                <div class="choice-item">
+                  <input class="choice-input" type="checkbox" id="optA" value="A" />
+                  <label class="choice-label" for="optA">
+                    <span class="choice-code">A</span>
+                    <span class="choice-text">Rasa ingin tahu</span>
+                  </label>
+                </div>
+
+                <div class="choice-item">
+                  <input class="choice-input" type="checkbox" id="optB" value="B" />
+                  <label class="choice-label" for="optB">
+                    <span class="choice-code">B</span>
+                    <span class="choice-text">Otoritas</span>
+                  </label>
+                </div>
+
+                <div class="choice-item">
+                  <input class="choice-input" type="checkbox" id="optC" value="C" />
+                  <label class="choice-label" for="optC">
+                    <span class="choice-code">C</span>
+                    <span class="choice-text">Urgensi</span>
+                  </label>
+                </div>
+
+                <div class="choice-item">
+                  <input class="choice-input" type="checkbox" id="optD" value="D" />
+                  <label class="choice-label" for="optD">
+                    <span class="choice-code">D</span>
+                    <span class="choice-text">Rasa sungkan</span>
+                  </label>
+                </div>
+
+                <div class="choice-item">
+                  <input class="choice-input" type="checkbox" id="optE" value="E" />
+                  <label class="choice-label" for="optE">
+                    <span class="choice-code">E</span>
+                    <span class="choice-text">Panik</span>
+                  </label>
+                </div>
+
+                <div class="choice-item">
+                  <input class="choice-input" type="checkbox" id="optF" value="F" />
+                  <label class="choice-label" for="optF">
+                    <span class="choice-code">F</span>
+                    <span class="choice-text">Overconfidence</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="action-row" style="margin-top: 18px;">
+                <button type="button" class="btn btn-primary" id="checkBtn">Cek Jawaban</button>
+                <button type="button" class="btn btn-secondary" id="resetBtn">Ulangi Soal</button>
+              </div>
+            </form>
+
+            <div class="feedback-box" id="feedbackBox">
+              <span class="feedback-pill" id="feedbackPill"></span>
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackText"></p>
+
+              <div class="feedback-list">
+                <div class="feedback-item">
+                  <strong>Jawaban yang paling tepat</strong>
+                  <div><strong>B. Otoritas</strong> dan <strong>C. Urgensi</strong></div>
+                </div>
+                <div class="feedback-item">
+                  <strong>Kenapa</strong>
+                  <div>
+                    Pesan ini datang dari figur yang diposisikan lebih tinggi (“Pak Bos”) dan
+                    disertai tekanan waktu (“saya butuh sekarang untuk rapat”). Dua faktor itu
+                    yang paling jelas terlihat sedang dimainkan.
+                  </div>
+                </div>
+                <div class="feedback-item">
+                  <strong>Catatan refleksi</strong>
+                  <div>
+                    Faktor seperti rasa sungkan atau panik bisa saja muncul sebagai reaksi lanjutan,
+                    tetapi bukan faktor utama yang paling jelas terlihat dari isi pesan.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phone-panel">
+            <div class="phone">
+              <div class="dynamic-island"></div>
+
+              <div class="screen">
+                <div class="statusbar">
+                  <span>09.14</span>
+                  <div class="status-right">
+                    <span>4G</span>
+                    <span>WiFi</span>
+                    <div class="battery"><div class="battery-level"></div></div>
+                  </div>
+                </div>
+
+                <div class="wa-header">
+                  <div class="wa-left">
+                    <span class="wa-icon">‹</span>
+                    <div class="wa-avatar"></div>
+                  </div>
+
+                  <div class="wa-contact">
+                    <strong>Pak Bos</strong>
+                    <span>0813-7284-xxxx</span>
+                  </div>
+
+                  <div class="wa-right">
+                    <span class="wa-icon">📞</span>
+                    <span class="wa-icon">⋮</span>
+                  </div>
+                </div>
+
+                <div class="wa-body">
+                  <div class="date-pill">Hari ini</div>
+                  <div class="bubble-row">
+                    <div class="bubble">
+                      Pak/Bu, mohon segera kirim file yang kemarin. Saya butuh sekarang untuk rapat.
+                      Jangan kirim ke grup ya, langsung ke saya saja.
+                      <div class="bubble-time">09.14</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box" style="margin-top: 16px;">
+              <strong>Simulasi Percakapan:</strong> Pesan dibuat sederhana dan terlihat wajar agar
+              peserta benar-benar fokus membaca faktor psikologis yang paling jelas sedang dimainkan.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Workshop Bagian B · Soal 1
+    </div>
+  </footer>
+
+  <script>
+    const correctAnswers = ["B", "C"];
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackPill = document.getElementById("feedbackPill");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackText = document.getElementById("feedbackText");
+
+    function getSelectedValues() {
+      return [...document.querySelectorAll('.choice-input:checked')].map(el => el.value).sort();
+    }
+
+    function arraysEqual(a, b) {
+      return a.length === b.length && a.every((v, i) => v === b[i]);
+    }
+
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      const selected = getSelectedValues();
+
+      if (selected.length === 0) {
+        feedbackBox.classList.add("show");
+        feedbackPill.className = "feedback-pill wrong";
+        feedbackPill.textContent = "Belum Ada Jawaban";
+        feedbackTitle.textContent = "Silakan pilih minimal satu jawaban.";
+        feedbackText.textContent = "Coba baca ulang pesan dan fokus pada faktor yang paling jelas terlihat dari isi pesan tersebut.";
+        feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      if (arraysEqual(selected, correctAnswers)) {
+        feedbackBox.classList.add("show");
+        feedbackPill.className = "feedback-pill correct";
+        feedbackPill.textContent = "Jawaban Tepat";
+        feedbackTitle.textContent = "Anda berhasil menangkap faktor utama yang paling jelas dimainkan.";
+        feedbackText.textContent = "Pesan ini terutama memainkan otoritas dan urgensi. Itulah dua faktor yang paling kuat terlihat dari isi pesan.";
+      } else {
+        const hasAnyCorrect = selected.some(v => correctAnswers.includes(v));
+        feedbackBox.classList.add("show");
+
+        if (hasAnyCorrect) {
+          feedbackPill.className = "feedback-pill partial";
+          feedbackPill.textContent = "Sebagian Tepat";
+          feedbackTitle.textContent = "Anda sudah menangkap sebagian faktor, tetapi masih ada yang perlu diperjelas.";
+          feedbackText.textContent = "Beberapa pilihan Anda bisa menjadi reaksi lanjutan, tetapi faktor yang paling jelas terlihat dari isi pesan tetap otoritas dan urgensi.";
+        } else {
+          feedbackPill.className = "feedback-pill wrong";
+          feedbackPill.textContent = "Perlu Ditinjau Ulang";
+          feedbackTitle.textContent = "Fokus Anda masih belum pada faktor utama yang paling jelas terlihat.";
+          feedbackText.textContent = "Coba perhatikan kembali siapa yang mengirim pesan, nada instruksi, dan tekanan waktu yang digunakan di dalamnya.";
+        }
+      }
+
+      feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.querySelectorAll('.choice-input').forEach(el => el.checked = false);
+      feedbackBox.classList.remove("show");
+      feedbackPill.className = "feedback-pill";
+      feedbackPill.textContent = "";
+      feedbackTitle.textContent = "";
+      feedbackText.textContent = "";
+      window.scrollTo({ top: document.getElementById("soal").offsetTop - 90, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
