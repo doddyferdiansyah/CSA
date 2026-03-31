@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modul Interaktif | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Serangkaian modul simulatif untuk membantu peserta memahami social engineering awareness dan mengambil keputusan yang lebih aman dalam konteks kerja."
+  />
+  <style>
+    :root {
+      --white: #ffffff;
+      --bg-soft: #f8fbff;
+      --bg-soft-2: #eef6ff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --navy: #0f2747;
+      --navy-deep: #0b1d35;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #6b7280;
+      --border: rgba(31, 41, 55, 0.12);
+      --border-strong: rgba(77, 163, 255, 0.22);
+      --shadow: 0 16px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+      --transition-fast: 0.22s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--sky-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--dark-gray);
+      border-color: var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 84px 0 34px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--bg-soft-2) 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .hero-desc {
+      color: var(--mid-gray);
+      max-width: 780px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-panel h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 52px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+      max-width: 900px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--mid-gray);
+    }
+
+    .flow-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .flow-card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .flow-item {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--white);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .flow-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+    }
+
+    .flow-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--dark-gray);
+    }
+
+    .flow-item span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .module-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .module-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .module-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .module-title {
+      font-size: 1.28rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      color: var(--dark-gray);
+    }
+
+    .module-desc {
+      color: var(--mid-gray);
+      max-width: 860px;
+      line-height: 1.68;
+      font-size: 0.95rem;
+    }
+
+    .module-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(77, 163, 255, 0.10);
+      color: var(--sky-blue-deep);
+      font-size: 0.76rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .activity-card {
+      display: grid;
+      gap: 12px;
+      min-height: 228px;
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      box-shadow: var(--shadow-soft);
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .activity-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.24);
+      box-shadow: 0 16px 28px rgba(31, 41, 55, 0.08);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .activity-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .activity-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-weight: 800;
+      font-size: 0.96rem;
+      flex-shrink: 0;
+    }
+
+    .activity-type {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.73rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .activity-title {
+      font-size: 1.04rem;
+      font-weight: 800;
+      color: var(--dark-gray);
+      line-height: 1.38;
+      letter-spacing: -0.01em;
+    }
+
+    .activity-desc {
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
+    }
+
+    .activity-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+    }
+
+    .activity-action {
+      margin-top: 4px;
+    }
+
+    .activity-action .btn {
+      width: fit-content;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .site-footer {
+      padding: 34px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .flow-grid,
+      .activity-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .module-card,
+      .flow-card {
+        padding: 22px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn,
+      .activity-action .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../index.html">Landing Page</a>
+        <a href="#overview">Overview</a>
+        <a href="#modules">Modules</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Modul Interaktif</div>
+
+          <div class="hero-grid">
+            <div>
+              <h1 class="hero-title">
+                Interactive Learning Modules for Social Engineering Awareness
+              </h1>
+              <p class="hero-desc">
+                Serangkaian modul simulatif yang dirancang untuk membantu peserta mengenali pola
+                manipulasi, memahami faktor manusia, dan mengambil keputusan yang lebih aman
+                dalam konteks kerja sehari-hari.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#modules">Mulai Modul</a>
+                <a class="btn btn-secondary" href="../index.html">Kembali ke Landing Page</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Module Highlights</h3>
+              <div class="hero-stat-grid">
+                <div class="hero-stat">
+                  <strong>Structured Learning</strong>
+                  <span>Disusun sebagai modul bertahap agar peserta mengikuti alur belajar yang lebih jelas, terarah, dan mudah diikuti.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Scenario-Based</strong>
+                  <span>Menggunakan simulasi dan exercise berbasis situasi kerja agar pembelajaran terasa relevan dan aplikatif.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Workplace Context</strong>
+                  <span>Difokuskan pada pola interaksi, kebiasaan, dan keputusan yang umum muncul di lingkungan kerja modern.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Learning Flow</h2>
+          <p>
+            Modul interaktif ini disusun untuk membantu peserta bergerak dari pemahaman dasar
+            tentang faktor manusia hingga pengambilan keputusan yang lebih aman pada skenario
+            yang semakin konkret.
+          </p>
+        </div>
+
+        <div class="flow-card fade-in">
+          <h3>Simulation Path</h3>
+          <div class="flow-grid">
+            <div class="flow-item">
+              <div class="flow-step">1</div>
+              <strong>Modul B — Human Factors</strong>
+              <span>Memahami faktor manusia yang membuat social engineering efektif.</span>
+            </div>
+            <div class="flow-item">
+              <div class="flow-step">2</div>
+              <strong>Modul C — Response & Bias</strong>
+              <span>Mengenali emosi, bias penilaian, dan respons yang berisiko.</span>
+            </div>
+            <div class="flow-item">
+              <div class="flow-step">3</div>
+              <strong>Modul D — Applied Scenarios</strong>
+              <span>Melatih keputusan aman dalam skenario serangan yang lebih konkret.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="container">
+        <div class="module-stack">
+          <div class="module-card fade-in">
+            <div class="module-header">
+              <div>
+                <div class="module-title">Modul B — Human Factors in Social Engineering</div>
+                <div class="module-desc">
+                  Modul ini menyoroti bagaimana tekanan psikologis, konteks kerja, dan kebiasaan
+                  sehari-hari dimanfaatkan untuk mendorong keputusan yang tidak aman.
+                </div>
+              </div>
+              <span class="module-pill">Module B</span>
+            </div>
+
+            <div class="activity-grid">
+              <a class="activity-card" href="../games/bagian-b-soal-1.html">
+                <div class="activity-top">
+                  <div class="activity-code">B1</div>
+                  <div class="activity-type">Scenario Reading</div>
+                </div>
+                <div class="activity-title">Apa yang Sedang Dimainkan?</div>
+                <div class="activity-desc">
+                  Simulasi singkat untuk membaca faktor psikologis yang paling jelas dimainkan
+                  dalam sebuah pesan kerja.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Human Factor</span>
+                  <span class="meta-chip">Trigger Analysis</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+
+              <a class="activity-card" href="../games/bagian-b-soal-2.html">
+                <div class="activity-top">
+                  <div class="activity-code">B2</div>
+                  <div class="activity-type">Scenario Matching</div>
+                </div>
+                <div class="activity-title">Cocokkan Faktor Kelemahan dengan Situasinya</div>
+                <div class="activity-desc">
+                  Exercise untuk memetakan faktor kelemahan manusia ke situasi kerja yang paling
+                  sesuai secara logis.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Matching Exercise</span>
+                  <span class="meta-chip">Behavior Mapping</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+
+              <a class="activity-card" href="../games/bagian-b-soal-3.html">
+                <div class="activity-top">
+                  <div class="activity-code">B3</div>
+                  <div class="activity-type">Process Mapping</div>
+                </div>
+                <div class="activity-title">Urutkan Cara Kerja Social Engineering</div>
+                <div class="activity-desc">
+                  Exercise untuk memahami bagaimana serangan berkembang dari observasi awal
+                  hingga hasil akhir.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Attack Flow</span>
+                  <span class="meta-chip">Process Logic</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="note-box">
+              <strong>Module Insight:</strong> Modul B membangun fondasi berpikir peserta agar
+              mereka tidak hanya mengenali modus, tetapi juga memahami mengapa manipulasi seperti
+              ini dapat bekerja secara efektif pada manusia.
+            </div>
+          </div>
+
+          <div class="module-card fade-in">
+            <div class="module-header">
+              <div>
+                <div class="module-title">Modul C — Response, Emotion & Judgment Bias</div>
+                <div class="module-desc">
+                  Modul ini berfokus pada bagaimana emosi, relasi sosial, kebiasaan kerja,
+                  dan bias penilaian memengaruhi kualitas keputusan dalam situasi yang ambigu.
+                </div>
+              </div>
+              <span class="module-pill">Module C</span>
+            </div>
+
+            <div class="activity-grid">
+              <a class="activity-card" href="bagian-c-workshop-1.html">
+                <div class="activity-top">
+                  <div class="activity-code">C1</div>
+                  <div class="activity-type">Chat Simulation</div>
+                </div>
+                <div class="activity-title">Emosi yang Ditekan</div>
+                <div class="activity-desc">
+                  Simulasi untuk mengidentifikasi emosi yang sedang dimainkan dan respons yang
+                  ingin didorong oleh pelaku.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Emotion Reading</span>
+                  <span class="meta-chip">Behavior Trigger</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+
+              <a class="activity-card" href="bagian-c-workshop-2.html">
+                <div class="activity-top">
+                  <div class="activity-code">C2</div>
+                  <div class="activity-type">Decision Exercise</div>
+                </div>
+                <div class="activity-title">Relasi Sosial & Respons Komunikasi</div>
+                <div class="activity-desc">
+                  Exercise untuk menilai respons yang aman dalam konteks hubungan kerja,
+                  kedekatan, dan rasa familiar.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Social Context</span>
+                  <span class="meta-chip">Safe Response</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+
+              <a class="activity-card" href="bagian-c-workshop-3.html">
+                <div class="activity-top">
+                  <div class="activity-code">C3</div>
+                  <div class="activity-type">Situational Exercise</div>
+                </div>
+                <div class="activity-title">Kondisi Kerja & Gangguan Konteks</div>
+                <div class="activity-desc">
+                  Simulasi untuk melihat bagaimana distraksi, tekanan kerja, dan kondisi
+                  tidak ideal dapat menurunkan kualitas keputusan.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Workload Context</span>
+                  <span class="meta-chip">Decision Risk</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+
+              <a class="activity-card" href="bagian-c-workshop-4.html">
+                <div class="activity-top">
+                  <div class="activity-code">C4</div>
+                  <div class="activity-type">Judgment Exercise</div>
+                </div>
+                <div class="activity-title">Bias Penilaian & Keputusan Aman</div>
+                <div class="activity-desc">
+                  Exercise untuk membedakan mana yang tampak resmi atau wajar, dan mana yang
+                  benar-benar aman setelah diverifikasi.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Bias Awareness</span>
+                  <span class="meta-chip">Judgment Quality</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="module-card fade-in">
+            <div class="module-header">
+              <div>
+                <div class="module-title">Modul D — Applied Threat Scenarios</div>
+                <div class="module-desc">
+                  Modul ini mengarahkan peserta pada skenario yang lebih konkret untuk melatih
+                  identifikasi risiko, pembacaan pola penipuan, dan keputusan aman dalam praktik.
+                </div>
+              </div>
+              <span class="module-pill">Module D</span>
+            </div>
+
+            <div class="activity-grid">
+              <a class="activity-card" href="bagian-d-workshop-1.html">
+                <div class="activity-top">
+                  <div class="activity-code">D1</div>
+                  <div class="activity-type">Scenario Review</div>
+                </div>
+                <div class="activity-title">Membaca Skenario Serangan</div>
+                <div class="activity-desc">
+                  Simulasi untuk memilah situasi yang aman, perlu verifikasi, atau harus
+                  dihentikan sebelum menjadi insiden.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Risk Review</span>
+                  <span class="meta-chip">Scenario Analysis</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+
+              <a class="activity-card" href="bagian-d-workshop-2.html">
+                <div class="activity-top">
+                  <div class="activity-code">D2</div>
+                  <div class="activity-type">Interaction Analysis</div>
+                </div>
+                <div class="activity-title">Mengenali Pola Penipuan dalam Interaksi</div>
+                <div class="activity-desc">
+                  Exercise untuk membaca sinyal manipulasi dalam interaksi yang tampak biasa
+                  di lingkungan kerja maupun ruang publik.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Pattern Recognition</span>
+                  <span class="meta-chip">Interaction Risk</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+
+              <a class="activity-card" href="bagian-d-workshop-3.html">
+                <div class="activity-top">
+                  <div class="activity-code">D3</div>
+                  <div class="activity-type">Applied Response</div>
+                </div>
+                <div class="activity-title">Respons Aman dalam Situasi Serangan</div>
+                <div class="activity-desc">
+                  Simulasi penutup untuk memilih langkah yang paling aman saat menghadapi
+                  situasi yang berpotensi menjadi serangan.
+                </div>
+                <div class="activity-meta">
+                  <span class="meta-chip">Safe Response</span>
+                  <span class="meta-chip">Applied Practice</span>
+                </div>
+                <div class="activity-action">
+                  <span class="btn btn-secondary">Mulai Modul</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="note-box">
+              <strong>Program Outcome:</strong> Seluruh modul pada halaman ini dirancang agar
+              peserta tidak hanya memahami konsep, tetapi juga membangun refleks berpikir yang
+              lebih aman saat menghadapi skenario nyata di lingkungan kerja.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Interactive Learning Modules
+    </div>
+  </footer>
+</body>
+</html>
