@@ -1,1 +1,1167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trial Simulation 2 | Respons Aman di Chat Terkait Gaji dan Bonus</title>
+  <meta
+    name="description"
+    content="Simulasi trial berbasis WhatsApp untuk melatih respons aman terhadap chat mendesak terkait update penggajian dan bonus."
+  />
+  <link rel="stylesheet" href="../assets/main.css" />
+  <style>
+    :root {
+      --wa-green: #0f8f7a;
+      --wa-green-deep: #0b6f5f;
+      --wa-bg: #ece5dd;
+      --wa-panel: #f7f5f2;
+      --wa-bubble-in: #ffffff;
+      --wa-bubble-out: #dcf8c6;
+      --wa-meta: #6b7280;
+      --wa-line: rgba(31, 41, 55, 0.08);
+      --risk: #dc3545;
+      --risk-soft: rgba(220, 53, 69, 0.10);
+      --safe: #198754;
+      --safe-soft: rgba(25, 135, 84, 0.10);
+      --mid: #b26b00;
+      --mid-soft: #fff4e5;
+    }
 
+    body {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .trial-hero {
+      padding: 76px 0 28px;
+    }
+
+    .trial-hero .hero-card {
+      padding: 34px;
+    }
+
+    .trial-hero p {
+      color: var(--mid-gray);
+      max-width: 900px;
+      margin-bottom: 0;
+    }
+
+    .hero-actions-inline {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .hero-mini-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .hero-mini-card {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-mini-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .hero-mini-card p {
+      font-size: 0.92rem;
+      color: var(--mid-gray);
+    }
+
+    .page-section {
+      padding: 18px 0 56px;
+    }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head-local {
+      margin-bottom: 18px;
+    }
+
+    .section-head-local h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head-local p {
+      color: var(--mid-gray);
+      max-width: 860px;
+    }
+
+    .instruction-box {
+      background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      color: var(--mid-gray);
+      margin: 14px 0 20px;
+    }
+
+    .instruction-box strong {
+      color: var(--dark-gray);
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 22px;
+      align-items: start;
+      margin-top: 18px;
+    }
+
+    .sim-panel {
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      background: #ffffff;
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .sim-panel h3 {
+      margin-bottom: 10px;
+      font-size: 1.04rem;
+      letter-spacing: -0.01em;
+    }
+
+    .sim-panel p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .sim-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .sim-point {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .sim-point strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+      color: var(--dark-gray);
+    }
+
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 390px;
+      height: 760px;
+      border-radius: 38px;
+      background:
+        linear-gradient(145deg, #283444 0%, #0f172a 55%, #08111f 100%);
+      padding: 12px;
+      box-shadow:
+        0 26px 56px rgba(15, 23, 42, 0.28),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+
+    .screen {
+      height: 100%;
+      border-radius: 30px;
+      overflow: hidden;
+      background: var(--wa-bg);
+      border: 1px solid rgba(15, 23, 42, 0.55);
+      position: relative;
+    }
+
+    .statusbar {
+      height: 30px;
+      background: linear-gradient(180deg, #0b121d 0%, #101a28 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px 0 18px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .battery {
+      width: 20px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1.5px solid rgba(255,255,255,0.9);
+      position: relative;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 2px;
+      width: 2px;
+      height: 4px;
+      border-radius: 1px;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .battery-level {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      height: 6px;
+      width: 12px;
+      border-radius: 2px;
+      background: #ffffff;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 118px;
+      height: 26px;
+      border-radius: 999px;
+      background: #05070a;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.05);
+      z-index: 3;
+    }
+
+    .wa-header {
+      height: 70px;
+      background: linear-gradient(180deg, var(--wa-green) 0%, var(--wa-green-deep) 100%);
+      color: #ffffff;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 0 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .wa-left,
+    .wa-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wa-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #dbe5f0 0%, #b9c7d8 100%);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .wa-avatar::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      background: #97a6ba;
+    }
+
+    .wa-avatar::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 14px;
+      border-radius: 14px 14px 8px 8px;
+      background: #97a6ba;
+    }
+
+    .wa-contact {
+      display: grid;
+      gap: 2px;
+    }
+
+    .wa-contact strong {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      font-weight: 800;
+    }
+
+    .wa-contact span {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .wa-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      opacity: 0.95;
+      font-size: 1rem;
+    }
+
+    .wa-body {
+      height: calc(100% - 30px - 70px);
+      display: grid;
+      grid-template-rows: 1fr auto;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(255,255,255,0.28) 0, rgba(255,255,255,0.28) 1px, transparent 1px) 0 0 / 26px 26px,
+        radial-gradient(circle at 72% 18%, rgba(255,255,255,0.18) 0, rgba(255,255,255,0.18) 1px, transparent 1px) 0 0 / 34px 34px,
+        linear-gradient(180deg, #efe8df 0%, #ece5dd 100%);
+    }
+
+    .wa-chat-scroll {
+      overflow-y: auto;
+      padding: 16px 14px 14px;
+      scroll-behavior: smooth;
+    }
+
+    .wa-chat-stack {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .date-pill {
+      justify-self: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .bubble-row {
+      display: flex;
+    }
+
+    .bubble-row.incoming {
+      justify-content: flex-start;
+    }
+
+    .bubble-row.outgoing {
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      max-width: 82%;
+      padding: 11px 12px 18px;
+      border-radius: 16px;
+      position: relative;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+      word-break: break-word;
+    }
+
+    .bubble.incoming {
+      background: var(--wa-bubble-in);
+      color: var(--dark-gray);
+      border-top-left-radius: 6px;
+    }
+
+    .bubble.outgoing {
+      background: var(--wa-bubble-out);
+      color: var(--dark-gray);
+      border-top-right-radius: 6px;
+    }
+
+    .bubble-time {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+      font-size: 0.72rem;
+      color: var(--wa-meta);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .double-check {
+      color: #3b82f6;
+      font-size: 0.82rem;
+      line-height: 1;
+    }
+
+    .typing-wrap {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .typing {
+      background: #ffffff;
+      border-radius: 16px;
+      border-top-left-radius: 6px;
+      padding: 12px 14px;
+      width: fit-content;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .typing span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #94a3b8;
+      display: inline-block;
+      animation: blink 1.2s infinite ease-in-out;
+    }
+
+    .typing span:nth-child(2) { animation-delay: 0.15s; }
+    .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.35; transform: translateY(0); }
+      40% { opacity: 1; transform: translateY(-2px); }
+    }
+
+    .wa-response-area {
+      border-top: 1px solid rgba(31, 41, 55, 0.08);
+      background: rgba(247,245,242,0.98);
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .response-title {
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding-left: 2px;
+    }
+
+    .response-options {
+      display: grid;
+      gap: 8px;
+    }
+
+    .response-option {
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      color: var(--dark-gray);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      font-weight: 600;
+      cursor: pointer;
+      transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .response-option:hover {
+      transform: translateY(-1px);
+      border-color: rgba(77, 163, 255, 0.24);
+      background: #fbfdff;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .response-option:disabled {
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+    }
+
+    .trial-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .result-box {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+      display: none;
+      gap: 14px;
+    }
+
+    .result-box.show {
+      display: grid;
+    }
+
+    .result-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .result-pill.safe {
+      background: var(--safe-soft);
+      color: var(--safe);
+    }
+
+    .result-pill.mid {
+      background: var(--mid-soft);
+      color: var(--mid);
+    }
+
+    .result-pill.risk {
+      background: var(--risk-soft);
+      color: var(--risk);
+    }
+
+    .result-box h3 {
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .result-box p {
+      color: var(--mid-gray);
+      line-height: 1.75;
+    }
+
+    .insight-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .insight-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .insight-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .site-footer {
+      padding: 32px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 1080px) {
+      .sim-grid,
+      .hero-mini-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-wrap {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .trial-hero .hero-card,
+      .section-card {
+        padding: 22px;
+      }
+
+      .hero-actions-inline,
+      .trial-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions-inline .btn,
+      .trial-actions .btn {
+        width: 100%;
+      }
+
+      .phone {
+        width: 100%;
+        max-width: 390px;
+        height: 720px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="../index.html">Landing Page</a>
+        <a href="index.html">Trial Simulation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="trial-hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Trial Simulation 3</div>
+          <h1 class="hero-title">Respons Aman di Chat Terkait Gaji dan Bonus</h1>
+          <p>
+            Bayangkan Anda menerima chat WhatsApp dari nomor tidak dikenal yang mengaku
+            terkait update penggajian dan penyesuaian bonus. Pilih respons yang menurut Anda
+            paling tepat pada setiap tahap percakapan.
+          </p>
+
+          <div class="hero-actions-inline">
+            <a class="btn btn-secondary" href="index.html">Kembali ke Trial</a>
+            <a class="btn btn-primary" href="#simulasi">Mulai Simulasi</a>
+          </div>
+
+          <div class="hero-mini-strip">
+            <div class="hero-mini-card">
+              <h3>Tujuan</h3>
+              <p>Menguji kualitas respons peserta saat menghadapi chat internal yang sensitif secara personal.</p>
+            </div>
+            <div class="hero-mini-card">
+              <h3>Format</h3>
+              <p>Pilih salah satu respons, lalu jawaban Anda akan muncul sebagai balasan chat di dalam WhatsApp.</p>
+            </div>
+            <div class="hero-mini-card">
+              <h3>Twist</h3>
+              <p>Topik gaji dan bonus dibuat untuk memancing rasa penasaran, urgensi, dan ketakutan kehilangan hak.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="simulasi">
+      <div class="container">
+        <div class="section-card fade-in">
+          <div class="section-head-local">
+            <h2>Ikuti Percakapan Sampai Selesai</h2>
+            <p>
+              Fokus pada konteks, identitas pengirim, jalur komunikasi, dan jenis informasi
+              yang diminta. Tidak semua pilihan yang terlihat paling kooperatif adalah pilihan yang aman.
+            </p>
+          </div>
+
+          <div class="instruction-box">
+            <strong>Instruksi:</strong> Pilih satu respons pada setiap tahap percakapan. Tidak ada indikator
+            benar atau salah di tengah jalan. Evaluasi baru akan muncul di akhir simulasi.
+          </div>
+
+          <div class="sim-grid">
+            <div class="sim-panel">
+              <h3>Simulation Notes</h3>
+              <p>
+                Chat seperti ini bekerja karena menyentuh konteks yang sensitif secara personal.
+                Banyak orang menjadi lebih cepat merespons ketika topiknya menyangkut gaji,
+                bonus, atau hak internal yang terasa mendesak.
+              </p>
+
+              <div class="sim-points">
+                <div class="sim-point">
+                  <strong>Yang sedang diuji</strong>
+                  Kemampuan Anda menjaga verifikasi meskipun konteksnya terasa penting dan mendesak.
+                </div>
+                <div class="sim-point">
+                  <strong>Yang sering menjebak</strong>
+                  Otoritas internal, rasa sungkan, ancaman halus, dan takut kehilangan bonus.
+                </div>
+                <div class="sim-point">
+                  <strong>Tujuan akhir</strong>
+                  Menemukan respons yang tetap sopan, kooperatif, tetapi tidak gegabah membagikan data.
+                </div>
+              </div>
+
+              <div class="note-box">
+                <strong>Catatan:</strong> Nomor di atas tidak menggunakan nama kontak internal,
+                hanya tampil sebagai nomor tidak dikenal. Itu sengaja dibuat agar Anda benar-benar
+                menilai situasinya, bukan hanya mempercayai label nama.
+              </div>
+
+              <div class="trial-actions">
+                <button class="btn btn-secondary" id="resetBtn">Reset Simulasi</button>
+              </div>
+            </div>
+
+            <div class="phone-wrap">
+              <div class="phone">
+                <div class="dynamic-island"></div>
+
+                <div class="screen">
+                  <div class="statusbar">
+                    <span>09.14</span>
+                    <div class="status-right">
+                      <span>4G</span>
+                      <span>WiFi</span>
+                      <div class="battery">
+                        <div class="battery-level"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="wa-header">
+                    <div class="wa-left">
+                      <span class="wa-icon">‹</span>
+                      <div class="wa-avatar"></div>
+                    </div>
+
+                    <div class="wa-contact">
+                      <strong>0812-1234-5XXX</strong>
+                      <span>online</span>
+                    </div>
+
+                    <div class="wa-right">
+                      <span class="wa-icon">📞</span>
+                      <span class="wa-icon">⋮</span>
+                    </div>
+                  </div>
+
+                  <div class="wa-body">
+                    <div class="wa-chat-scroll" id="chatScroll">
+                      <div class="wa-chat-stack" id="chatStack">
+                        <div class="date-pill">Hari ini</div>
+                      </div>
+                    </div>
+
+                    <div class="wa-response-area">
+                      <div class="response-title">Pilih respons Anda</div>
+                      <div class="response-options" id="responseOptions"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-box" id="resultBox">
+            <div class="result-pill" id="resultPill"></div>
+            <h3 id="resultTitle"></h3>
+            <p id="resultText"></p>
+
+            <div class="insight-list" id="insightList"></div>
+
+            <div class="trial-actions">
+              <a class="btn btn-secondary" href="index.html">Kembali ke Trial</a>
+              <button class="btn btn-primary" id="resetBtnBottom">Ulangi Simulasi</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Trial Simulation 3
+    </div>
+  </footer>
+
+  <script src="../assets/main.js"></script>
+  <script>
+    const chatFlow = {
+      start: {
+        sender: "other",
+        message:
+          "Pagi. Ini saya dari HR. Lagi ada penyesuaian untuk update penggajian dan bonus. Bisa dibantu cek data sebentar?",
+        delay: 900,
+        options: [
+          {
+            text: "Baik, terkait data apa ya?",
+            next: "node2",
+            score: 1
+          },
+          {
+            text: "Ini dengan siapa ya?",
+            next: "node2",
+            score: 2
+          },
+          {
+            text: "Bisa, saya cek dulu.",
+            next: "node2",
+            score: 0
+          }
+        ]
+      },
+
+      node2: {
+        sender: "other",
+        message:
+          "Saya Furi dari HR. Ini lagi disinkronkan untuk penyesuaian bonus dan komponen gaji bulan ini. Jadi saya butuh rekap data Anda dulu supaya tidak ada yang tertinggal.",
+        delay: 1100,
+        options: [
+          {
+            text: "Baik Bu, data apa yang perlu saya kirim?",
+            next: "node3A",
+            score: -1
+          },
+          {
+            text: "Sebelum lanjut, saya mau pastikan dulu ini nomor resmi HR ya Bu.",
+            next: "node3B",
+            score: 2
+          },
+          {
+            text: "Kalau urusan penggajian, saya lebih nyaman lewat email atau kanal resmi kantor ya Bu.",
+            next: "node3B",
+            score: 2
+          }
+        ]
+      },
+
+      node3A: {
+        sender: "other",
+        message:
+          "Tolong kirim ulang rekap data Anda yang biasa dipakai untuk update administrasi. Soalnya data yang lama belum terbaca jelas di sistem kami dan ini mau ditutup hari ini.",
+        delay: 1200,
+        options: [
+          {
+            text: "Baik Bu, saya kirim sekarang lewat sini.",
+            next: "ending_risk",
+            score: -2
+          },
+          {
+            text: "Sebelum saya kirim, saya mau konfirmasi dulu ke HR resmi atau atasan saya ya Bu.",
+            next: "ending_mid",
+            score: 1
+          },
+          {
+            text: "Saya kirim sebagian dulu Bu yang penting masuk.",
+            next: "ending_risk",
+            score: -1
+          }
+        ]
+      },
+
+      node3B: {
+        sender: "other",
+        message:
+          "Iya, ini saya lagi di luar kantor jadi pakai nomor ini dulu. Soalnya datanya harus masuk sebelum penutupan hari ini. Kalau telat, penyesuaian bonus Anda bisa ikut tertunda.",
+        delay: 1200,
+        options: [
+          {
+            text: "Baik, saya tetap perlu verifikasi dulu sebelum kirim data.",
+            next: "ending_safe",
+            score: 2
+          },
+          {
+            text: "Kalau begitu saya kirim saja sekarang biar tidak terlambat.",
+            next: "ending_risk",
+            score: -2
+          },
+          {
+            text: "Saya akan hubungi HR lewat kanal resmi dulu ya.",
+            next: "ending_safe",
+            score: 2
+          }
+        ]
+      }
+    };
+
+    const endings = {
+      ending_safe: {
+        type: "safe",
+        pill: "Aware / Aman",
+        title: "Anda tetap tenang meskipun topiknya sensitif.",
+        text:
+          "Anda tidak langsung percaya hanya karena konteksnya terkait gaji dan bonus. Ini menunjukkan bahwa Anda tetap menjaga verifikasi meskipun pesan menyentuh kepentingan pribadi dan terlihat mendesak.",
+        insights: [
+          {
+            title: "Apa yang sudah tepat",
+            text: "Anda tidak langsung membagikan data pribadi melalui nomor tak dikenal dan tetap mengarahkan komunikasi ke kanal resmi."
+          },
+          {
+            title: "Pola manipulasi yang dimainkan",
+            text: "Pengirim mencoba memakai kombinasi otoritas internal, urgensi, dan ketakutan bahwa bonus bisa tertunda."
+          },
+          {
+            title: "Kebiasaan yang seharusnya dijaga",
+            text: "Untuk urusan gaji, bonus, atau data pribadi, selalu lakukan verifikasi ke HR resmi atau kanal internal yang memang digunakan perusahaan."
+          }
+        ]
+      },
+
+      ending_mid: {
+        type: "mid",
+        pill: "Setengah Aman",
+        title: "Anda sempat terdorong, tetapi belum terlalu jauh.",
+        text:
+          "Anda sempat bergerak ke arah yang berisiko karena konteksnya terasa mendesak dan relevan. Namun, Anda masih berhasil menahan diri sebelum benar-benar mengirim data.",
+        insights: [
+          {
+            title: "Apa yang hampir membuat Anda lengah",
+            text: "Topik bonus dan penggajian sangat mudah memicu rasa takut kehilangan hak atau peluang."
+          },
+          {
+            title: "Pola manipulasi yang dimainkan",
+            text: "Pengirim memadukan status internal, alasan teknis, dan deadline agar Anda merasa harus cepat kooperatif."
+          },
+          {
+            title: "Kebiasaan yang seharusnya dijaga",
+            text: "Saat topik terasa sangat personal, justru jeda verifikasi harus lebih kuat sebelum mengambil tindakan."
+          }
+        ]
+      },
+
+      ending_risk: {
+        type: "risk",
+        pill: "Rentan / Tidak Aware",
+        title: "Anda terlalu cepat percaya pada konteks yang sensitif.",
+        text:
+          "Anda menurunkan kewaspadaan karena topik yang dibawa menyangkut gaji dan bonus. Inilah pola yang sering dipakai dalam social engineering: membuat orang fokus pada rasa takut rugi, bukan pada proses verifikasi.",
+        insights: [
+          {
+            title: "Apa yang membuat respons Anda berisiko",
+            text: "Anda bersedia melanjutkan atau mengirim data melalui chat dari nomor tak dikenal tanpa memastikan legitimasi jalur komunikasinya."
+          },
+          {
+            title: "Pola manipulasi yang dimainkan",
+            text: "Pengirim memanfaatkan otoritas HR, urgensi, dan ancaman halus bahwa penyesuaian bonus bisa tertunda."
+          },
+          {
+            title: "Kebiasaan yang seharusnya dijaga",
+            text: "Untuk informasi pribadi, penggajian, bonus, atau data administratif, jangan mengirimkan apa pun sebelum verifikasi ke kanal resmi perusahaan."
+          }
+        ]
+      }
+    };
+
+    const chatStack = document.getElementById("chatStack");
+    const chatScroll = document.getElementById("chatScroll");
+    const responseOptions = document.getElementById("responseOptions");
+    const resetBtn = document.getElementById("resetBtn");
+    const resetBtnBottom = document.getElementById("resetBtnBottom");
+
+    const resultBox = document.getElementById("resultBox");
+    const resultPill = document.getElementById("resultPill");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const insightList = document.getElementById("insightList");
+
+    let totalScore = 0;
+    let currentNode = "start";
+    let isTyping = false;
+    let simulationEnded = false;
+
+    function getCurrentTime() {
+      return "09.14";
+    }
+
+    function scrollChatToBottom() {
+      requestAnimationFrame(() => {
+        chatScroll.scrollTop = chatScroll.scrollHeight;
+      });
+    }
+
+    function createBubbleRow(text, type, showCheck = false) {
+      const row = document.createElement("div");
+      row.className = `bubble-row ${type === "other" ? "incoming" : "outgoing"}`;
+
+      const bubble = document.createElement("div");
+      bubble.className = `bubble ${type === "other" ? "incoming" : "outgoing"}`;
+      bubble.innerHTML = `${text}
+        <div class="bubble-time">
+          ${getCurrentTime()}
+          ${showCheck ? '<span class="double-check">✓✓</span>' : ''}
+        </div>
+      `;
+
+      row.appendChild(bubble);
+      return row;
+    }
+
+    function showTyping() {
+      if (isTyping) return;
+      isTyping = true;
+
+      const wrap = document.createElement("div");
+      wrap.className = "typing-wrap";
+      wrap.id = "typingWrap";
+      wrap.innerHTML = `
+        <div class="typing">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      `;
+      chatStack.appendChild(wrap);
+      scrollChatToBottom();
+    }
+
+    function hideTyping() {
+      isTyping = false;
+      const typingWrap = document.getElementById("typingWrap");
+      if (typingWrap) typingWrap.remove();
+    }
+
+    function renderOptions(options) {
+      responseOptions.innerHTML = "";
+      options.forEach((option) => {
+        const btn = document.createElement("button");
+        btn.className = "response-option";
+        btn.textContent = option.text;
+        btn.addEventListener("click", () => handleOptionSelect(option));
+        responseOptions.appendChild(btn);
+      });
+    }
+
+    function disableOptions() {
+      [...responseOptions.querySelectorAll(".response-option")].forEach((btn) => {
+        btn.disabled = true;
+      });
+    }
+
+    function appendOtherMessage(text) {
+      chatStack.appendChild(createBubbleRow(text, "other", false));
+      scrollChatToBottom();
+    }
+
+    function appendUserMessage(text) {
+      chatStack.appendChild(createBubbleRow(text, "user", true));
+      scrollChatToBottom();
+    }
+
+    function startNode(nodeKey) {
+      if (simulationEnded) return;
+
+      const node = chatFlow[nodeKey];
+      if (!node) {
+        if (endings[nodeKey]) {
+          showEnding(nodeKey);
+        }
+        return;
+      }
+
+      currentNode = nodeKey;
+      responseOptions.innerHTML = "";
+      showTyping();
+
+      setTimeout(() => {
+        hideTyping();
+        appendOtherMessage(node.message);
+        renderOptions(node.options);
+      }, node.delay || 900);
+    }
+
+    function handleOptionSelect(option) {
+      if (simulationEnded) return;
+
+      disableOptions();
+      appendUserMessage(option.text);
+      totalScore += option.score;
+
+      setTimeout(() => {
+        if (chatFlow[option.next]) {
+          startNode(option.next);
+        } else if (endings[option.next]) {
+          showEnding(option.next);
+        }
+      }, 900);
+    }
+
+    function showEnding(endingKey) {
+      simulationEnded = true;
+      responseOptions.innerHTML = `
+        <button class="response-option" disabled>Simulasi selesai</button>
+      `;
+
+      const ending = endings[endingKey];
+
+      resultBox.classList.add("show");
+      resultPill.className = `result-pill ${ending.type}`;
+      resultPill.textContent = ending.pill;
+      resultTitle.textContent = ending.title;
+      resultText.textContent = ending.text;
+
+      insightList.innerHTML = "";
+      ending.insights.forEach((item) => {
+        const el = document.createElement("div");
+        el.className = "insight-item";
+        el.innerHTML = `<strong>${item.title}</strong><div>${item.text}</div>`;
+        insightList.appendChild(el);
+      });
+
+      resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetSimulation() {
+      totalScore = 0;
+      currentNode = "start";
+      simulationEnded = false;
+      isTyping = false;
+
+      chatStack.innerHTML = `<div class="date-pill">Hari ini</div>`;
+      responseOptions.innerHTML = "";
+      resultBox.classList.remove("show");
+      resultPill.className = "result-pill";
+      resultPill.textContent = "";
+      resultTitle.textContent = "";
+      resultText.textContent = "";
+      insightList.innerHTML = "";
+
+      startNode("start");
+    }
+
+    resetBtn.addEventListener("click", resetSimulation);
+    resetBtnBottom.addEventListener("click", resetSimulation);
+
+    startNode("start");
+  </script>
+</body>
+</html>
