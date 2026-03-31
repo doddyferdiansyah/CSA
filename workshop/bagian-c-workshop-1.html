@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Bagian C · Emosi yang Ditekan | Cybersecurity Awareness Training</title>
+  <meta
+    name="description"
+    content="Workshop interaktif untuk membantu peserta membaca emosi yang dimainkan dalam pesan dan memahami perilaku apa yang ingin didorong dari korban."
+  />
+  <style>
+    :root {
+      --white: #ffffff;
+      --bg-soft: #f8fbff;
+      --bg-soft-2: #eef6ff;
+      --sky-blue: #4da3ff;
+      --sky-blue-deep: #2b84e8;
+      --sky-blue-soft: #eaf4ff;
+      --navy: #0f2747;
+      --navy-deep: #0b1d35;
+      --dark-gray: #1f2937;
+      --mid-gray: #4b5563;
+      --light-gray: #6b7280;
+      --border: rgba(31, 41, 55, 0.12);
+      --shadow: 0 16px 34px rgba(31, 41, 55, 0.10);
+      --shadow-soft: 0 10px 24px rgba(31, 41, 55, 0.07);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+      --transition-fast: 0.22s ease;
+
+      --success: #198754;
+      --success-soft: rgba(25, 135, 84, 0.10);
+      --danger: #dc3545;
+      --danger-soft: rgba(220, 53, 69, 0.10);
+      --warning-soft: #fff4e5;
+      --warning: #b26b00;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--sky-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--mid-gray);
+      font-size: 0.95rem;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky-blue-deep);
+      background: var(--sky-blue-soft);
+      border-color: rgba(77, 163, 255, 0.16);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--sky-blue);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(77, 163, 255, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--dark-gray);
+      border-color: var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 84px 0 34px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--bg-soft-2) 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: 0 22px 48px rgba(31, 41, 55, 0.10);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-title {
+      font-size: clamp(2.05rem, 4vw, 3.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .hero-desc {
+      color: var(--mid-gray);
+      max-width: 760px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-panel h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 52px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+      max-width: 920px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--mid-gray);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .overview-card,
+    .case-card,
+    .feedback-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .overview-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .overview-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky-blue) 0%, #9acbff 100%);
+    }
+
+    .overview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--sky-blue-deep);
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .overview-card h3 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .overview-card p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.72;
+    }
+
+    .case-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .case-card {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .case-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .case-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: var(--sky-blue-soft);
+      color: var(--sky-blue-deep);
+      font-size: 0.84rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .case-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .case-desc {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+      line-height: 1.68;
+    }
+
+    .message-box {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
+      border: 1px solid rgba(77, 163, 255, 0.14);
+      color: var(--dark-gray);
+      font-size: 1rem;
+      line-height: 1.72;
+      font-weight: 600;
+    }
+
+    .question-block {
+      display: grid;
+      gap: 12px;
+    }
+
+    .question-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--dark-gray);
+      letter-spacing: -0.01em;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .option-item {
+      position: relative;
+    }
+
+    .option-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-label {
+      display: grid;
+      gap: 6px;
+      min-height: 74px;
+      padding: 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border: 1px solid rgba(31, 41, 55, 0.10);
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+      box-shadow: var(--shadow-soft);
+      align-content: center;
+      text-align: center;
+    }
+
+    .option-label:hover {
+      transform: translateY(-2px);
+      border-color: rgba(77, 163, 255, 0.24);
+      box-shadow: 0 16px 28px rgba(31, 41, 55, 0.08);
+    }
+
+    .option-input:checked + .option-label {
+      border-color: rgba(77, 163, 255, 0.34);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+      box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.10);
+    }
+
+    .progress-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .note-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      color: var(--mid-gray);
+      font-size: 0.93rem;
+      line-height: 1.68;
+    }
+
+    .feedback-box {
+      display: none;
+      padding: 20px;
+      margin-top: 18px;
+      gap: 14px;
+    }
+
+    .feedback-box.show {
+      display: grid;
+    }
+
+    .feedback-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .feedback-pill.correct {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .feedback-pill.partial {
+      background: rgba(77, 163, 255, 0.10);
+      color: var(--sky-blue-deep);
+    }
+
+    .feedback-pill.wrong {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .feedback-box h4 {
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feedback-box p {
+      color: var(--mid-gray);
+      line-height: 1.72;
+    }
+
+    .feedback-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(31, 41, 55, 0.06);
+    }
+
+    .feedback-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--dark-gray);
+      font-size: 0.94rem;
+    }
+
+    .site-footer {
+      padding: 34px 0 56px;
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .overview-grid,
+      .option-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .overview-card,
+      .case-card,
+      .feedback-box {
+        padding: 22px;
+      }
+
+      .hero-actions,
+      .action-row {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn,
+      .action-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Doddy <span>Ferdiansyah</span></div>
+      <nav class="nav-links">
+        <a href="latihan.html">Kembali ke Latihan</a>
+        <a href="../index.html">Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-in">
+          <div class="eyebrow">Workshop Bagian C · Workshop 1</div>
+
+          <div class="hero-grid">
+            <div>
+              <h1 class="hero-title">Emosi yang Ditekan</h1>
+              <p class="hero-desc">
+                Workshop ini membantu peserta membaca emosi dominan yang dimainkan dalam sebuah pesan
+                dan memahami perilaku apa yang paling ingin didorong dari korban.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#workshop">Mulai Workshop</a>
+                <a class="btn btn-secondary" href="bagian-c-workshop-2.html">Lanjut ke Workshop Berikutnya</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Workshop Snapshot</h3>
+              <div class="hero-stat-grid">
+                <div class="hero-stat">
+                  <strong>Fokus</strong>
+                  <span>Membaca emosi dominan yang paling mungkin sedang dimainkan dalam pesan.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Format</strong>
+                  <span>Setiap kasus meminta satu pilihan emosi dan satu perilaku yang ditargetkan.</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>Output</strong>
+                  <span>Peserta memahami hubungan antara trigger emosional dan tindakan yang ingin dipancing.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-head fade-in">
+          <h2>Learning Context</h2>
+          <p>
+            Dalam social engineering, pelaku sering tidak langsung meminta tindakan secara kasar.
+            Mereka lebih dulu menekan emosi tertentu agar korban bergerak ke perilaku yang diinginkan.
+          </p>
+        </div>
+
+        <div class="overview-grid fade-in">
+          <div class="overview-card">
+            <div class="overview-badge">Emotion Reading</div>
+            <h3>Pesan Bukan Hanya Informasi</h3>
+            <p>
+              Dalam banyak kasus, pesan dirancang untuk memicu reaksi emosional tertentu, bukan sekadar menyampaikan isi.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Behavior Target</div>
+            <h3>Tindakan Adalah Tujuannya</h3>
+            <p>
+              Emosi digunakan untuk mendorong perilaku yang cepat, impulsif, dan minim verifikasi.
+            </p>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-badge">Reflection</div>
+            <h3>Hubungan Emosi dan Respons</h3>
+            <p>
+              Peserta diajak melihat hubungan logis antara trigger emosional dan keputusan yang ingin dipancing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop">
+      <div class="container">
+        <div class="case-stack fade-in">
+          <div class="case-card" data-case="1">
+            <div class="case-head">
+              <div>
+                <div class="case-title">Kasus 1</div>
+                <div class="case-desc">
+                  Baca pesan berikut, lalu tentukan emosi dominan yang paling mungkin dimainkan
+                  dan perilaku yang paling ingin didorong.
+                </div>
+              </div>
+              <span class="progress-pill">Pilih 2 jawaban</span>
+            </div>
+
+            <div class="message-box">
+              “Mohon segera cek file ini. Dibutuhkan hari ini juga untuk keperluan rapat.”
+            </div>
+
+            <div class="question-block">
+              <div class="question-title">Emosi apa yang paling mungkin dimainkan?</div>
+              <div class="option-grid">
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-1" id="emotion1-a" value="urgensi" />
+                  <label class="option-label" for="emotion1-a">Urgensi</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-1" id="emotion1-b" value="takut" />
+                  <label class="option-label" for="emotion1-b">Rasa takut</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-1" id="emotion1-c" value="ingin-tahu" />
+                  <label class="option-label" for="emotion1-c">Rasa ingin tahu</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-1" id="emotion1-d" value="familiar" />
+                  <label class="option-label" for="emotion1-d">Familiaritas</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-block">
+              <div class="question-title">Perilaku apa yang paling ingin didorong?</div>
+              <div class="option-grid">
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-1" id="behavior1-a" value="abaikan" />
+                  <label class="option-label" for="behavior1-a">Mengabaikan pesan</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-1" id="behavior1-b" value="buka-file" />
+                  <label class="option-label" for="behavior1-b">Langsung membuka file</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-1" id="behavior1-c" value="verifikasi" />
+                  <label class="option-label" for="behavior1-c">Memverifikasi lewat kanal lain</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-1" id="behavior1-d" value="lapor-it" />
+                  <label class="option-label" for="behavior1-d">Melapor ke tim IT</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-card" data-case="2">
+            <div class="case-head">
+              <div>
+                <div class="case-title">Kasus 2</div>
+                <div class="case-desc">
+                  Baca pesan berikut, lalu tentukan emosi dominan dan perilaku yang paling mungkin ingin dipancing.
+                </div>
+              </div>
+              <span class="progress-pill">Pilih 2 jawaban</span>
+            </div>
+
+            <div class="message-box">
+              “Akun Anda terdeteksi bermasalah. Mohon konfirmasi agar tidak terjadi kendala akses.”
+            </div>
+
+            <div class="question-block">
+              <div class="question-title">Emosi apa yang paling mungkin dimainkan?</div>
+              <div class="option-grid">
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-2" id="emotion2-a" value="urgensi" />
+                  <label class="option-label" for="emotion2-a">Urgensi</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-2" id="emotion2-b" value="takut" />
+                  <label class="option-label" for="emotion2-b">Rasa takut</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-2" id="emotion2-c" value="ingin-tahu" />
+                  <label class="option-label" for="emotion2-c">Rasa ingin tahu</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-2" id="emotion2-d" value="membantu" />
+                  <label class="option-label" for="emotion2-d">Keinginan membantu</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-block">
+              <div class="question-title">Perilaku apa yang paling ingin didorong?</div>
+              <div class="option-grid">
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-2" id="behavior2-a" value="ikuti" />
+                  <label class="option-label" for="behavior2-a">Cepat mengikuti instruksi</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-2" id="behavior2-b" value="diam" />
+                  <label class="option-label" for="behavior2-b">Diam dan menunggu</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-2" id="behavior2-c" value="hapus" />
+                  <label class="option-label" for="behavior2-c">Menghapus pesan</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-2" id="behavior2-d" value="tanya-rekan" />
+                  <label class="option-label" for="behavior2-d">Bertanya ke rekan tanpa cek isi</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-card" data-case="3">
+            <div class="case-head">
+              <div>
+                <div class="case-title">Kasus 3</div>
+                <div class="case-desc">
+                  Baca pesan berikut, lalu tentukan emosi dominan dan perilaku yang paling mungkin dituju.
+                </div>
+              </div>
+              <span class="progress-pill">Pilih 2 jawaban</span>
+            </div>
+
+            <div class="message-box">
+              “Ada dokumen penting untuk Anda. Lihat detailnya di sini.”
+            </div>
+
+            <div class="question-block">
+              <div class="question-title">Emosi apa yang paling mungkin dimainkan?</div>
+              <div class="option-grid">
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-3" id="emotion3-a" value="urgensi" />
+                  <label class="option-label" for="emotion3-a">Urgensi</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-3" id="emotion3-b" value="takut" />
+                  <label class="option-label" for="emotion3-b">Rasa takut</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-3" id="emotion3-c" value="ingin-tahu" />
+                  <label class="option-label" for="emotion3-c">Rasa ingin tahu</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="emotion-3" id="emotion3-d" value="otoritas" />
+                  <label class="option-label" for="emotion3-d">Otoritas</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-block">
+              <div class="question-title">Perilaku apa yang paling ingin didorong?</div>
+              <div class="option-grid">
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-3" id="behavior3-a" value="klik" />
+                  <label class="option-label" for="behavior3-a">Langsung klik atau buka</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-3" id="behavior3-b" value="abaikan" />
+                  <label class="option-label" for="behavior3-b">Mengabaikan pesan</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-3" id="behavior3-c" value="verifikasi" />
+                  <label class="option-label" for="behavior3-c">Memverifikasi lewat prosedur resmi</label>
+                </div>
+                <div class="option-item">
+                  <input class="option-input" type="radio" name="behavior-3" id="behavior3-d" value="cetak" />
+                  <label class="option-label" for="behavior3-d">Mencetak dokumen</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-primary" id="checkBtn">Cek Jawaban</button>
+            <button class="btn btn-secondary" id="resetBtn">Ulangi Workshop</button>
+          </div>
+
+          <div class="note-box">
+            <strong>Catatan:</strong> Fokus latihan ini adalah membaca trigger emosional yang paling dominan
+            dan menghubungkannya dengan perilaku yang ingin dipancing, bukan sekadar menebak kata yang terasa paling kuat.
+          </div>
+
+          <div class="feedback-box" id="feedbackBox">
+            <span class="feedback-pill" id="feedbackPill"></span>
+            <h4 id="feedbackTitle"></h4>
+            <p id="feedbackText"></p>
+
+            <div class="feedback-list">
+              <div class="feedback-item">
+                <strong>Kunci Jawaban</strong>
+                <div>
+                  Kasus 1: <strong>Urgensi</strong> + <strong>Langsung membuka file</strong><br />
+                  Kasus 2: <strong>Rasa takut</strong> + <strong>Cepat mengikuti instruksi</strong><br />
+                  Kasus 3: <strong>Rasa ingin tahu</strong> + <strong>Langsung klik atau buka</strong>
+                </div>
+              </div>
+              <div class="feedback-item">
+                <strong>Inti Pembelajaran</strong>
+                <div>
+                  Pesan yang berbeda dapat memainkan emosi yang berbeda pula, tetapi tujuannya tetap sama:
+                  mendorong korban bergerak cepat tanpa cukup waktu untuk verifikasi.
+                </div>
+              </div>
+              <div class="feedback-item">
+                <strong>Refleksi</strong>
+                <div>
+                  Semakin cepat Anda bisa membaca emosi yang sedang dimainkan, semakin besar peluang
+                  untuk menahan respons impulsif dan memilih jalur yang lebih aman.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Doddy Ferdiansyah · Workshop Bagian C · Emosi yang Ditekan
+    </div>
+  </footer>
+
+  <script>
+    const answerKey = {
+      case1: { emotion: "urgensi", behavior: "buka-file" },
+      case2: { emotion: "takut", behavior: "ikuti" },
+      case3: { emotion: "ingin-tahu", behavior: "klik" }
+    };
+
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackPill = document.getElementById("feedbackPill");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackText = document.getElementById("feedbackText");
+
+    function getCaseAnswer(caseNumber) {
+      const emotion = document.querySelector(`input[name="emotion-${caseNumber}"]:checked`);
+      const behavior = document.querySelector(`input[name="behavior-${caseNumber}"]:checked`);
+      return {
+        emotion: emotion ? emotion.value : null,
+        behavior: behavior ? behavior.value : null
+      };
+    }
+
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      const case1 = getCaseAnswer(1);
+      const case2 = getCaseAnswer(2);
+      const case3 = getCaseAnswer(3);
+
+      const allComplete =
+        case1.emotion && case1.behavior &&
+        case2.emotion && case2.behavior &&
+        case3.emotion && case3.behavior;
+
+      if (!allComplete) {
+        feedbackBox.classList.add("show");
+        feedbackPill.className = "feedback-pill wrong";
+        feedbackPill.textContent = "Belum Lengkap";
+        feedbackTitle.textContent = "Masih ada kasus yang belum dijawab lengkap.";
+        feedbackText.textContent = "Silakan pilih satu emosi dan satu perilaku untuk setiap kasus sebelum melihat hasil.";
+        feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      let score = 0;
+
+      if (case1.emotion === answerKey.case1.emotion) score++;
+      if (case1.behavior === answerKey.case1.behavior) score++;
+      if (case2.emotion === answerKey.case2.emotion) score++;
+      if (case2.behavior === answerKey.case2.behavior) score++;
+      if (case3.emotion === answerKey.case3.emotion) score++;
+      if (case3.behavior === answerKey.case3.behavior) score++;
+
+      feedbackBox.classList.add("show");
+
+      if (score === 6) {
+        feedbackPill.className = "feedback-pill correct";
+        feedbackPill.textContent = "Jawaban Tepat";
+        feedbackTitle.textContent = "Anda berhasil membaca emosi dan perilaku target dengan sangat baik.";
+        feedbackText.textContent = "Anda sudah mampu menangkap hubungan antara trigger emosional dan tindakan yang ingin didorong dalam tiap pesan.";
+      } else if (score >= 4) {
+        feedbackPill.className = "feedback-pill partial";
+        feedbackPill.textContent = "Sebagian Tepat";
+        feedbackTitle.textContent = "Sebagian besar jawaban Anda sudah tepat, tetapi masih ada beberapa hubungan yang perlu diperjelas.";
+        feedbackText.textContent = `Anda menjawab benar ${score} dari 6 pilihan. Coba perhatikan kembali emosi dominan yang paling kuat terlihat dalam tiap pesan.`;
+      } else {
+        feedbackPill.className = "feedback-pill wrong";
+        feedbackPill.textContent = "Perlu Ditinjau Ulang";
+        feedbackTitle.textContent = "Hubungan antara emosi dan perilaku target masih belum banyak yang tepat.";
+        feedbackText.textContent = `Anda menjawab benar ${score} dari 6 pilihan. Coba fokus kembali pada pertanyaan: emosi apa yang ditekan, dan tindakan apa yang ingin dipancing.`;
+      }
+
+      feedbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.querySelectorAll('input[type="radio"]').forEach((input) => {
+        input.checked = false;
+      });
+
+      feedbackBox.classList.remove("show");
+      feedbackPill.className = "feedback-pill";
+      feedbackPill.textContent = "";
+      feedbackTitle.textContent = "";
+      feedbackText.textContent = "";
+
+      window.scrollTo({ top: document.getElementById("workshop").offsetTop - 90, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
