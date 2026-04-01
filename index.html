@@ -78,12 +78,31 @@
     }
 
     .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-weight: 800;
       font-size: 1.02rem;
       letter-spacing: -0.01em;
+      color: var(--dark-gray);
+      text-decoration: none;
     }
 
-    .brand span {
+    .brand-logo {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+    
+    .brand-text {
+      display: inline-block;
+      line-height: 1;
+      color: var(--dark-gray);
+    }
+    
+    .brand-text span {
       color: var(--sky-blue);
     }
 
@@ -682,18 +701,7 @@
       .hero-actions {
         flex-direction: column;
       }
-
-                    
-      .brand-logo {
-        width: 34px;
-        height: 34px;
-        object-fit: contain;
-        display: block;
-        flex-shrink: 0;
-      }
-      
-    
-
+       
       .hero-actions .btn,
       .assessment-card .btn,
       .resource-btn {
