@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SixSafe Framework - Modul Phishing</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #ca8a04;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-800: #1f2937;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gray-200);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Toggle Mode */
+        .mode-switch {
+            display: flex;
+            background: var(--gray-200);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .mode-btn {
+            padding: 8px 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .mode-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Sections */
+        .section-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none; /* Disembunyikan dulu, dimunculkan via JS */
+        }
+        .section-card.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h3 { margin-top: 0; color: var(--primary); border-bottom: 1px solid var(--gray-200); padding-bottom: 10px;}
+
+        /* Video Placeholder */
+        .video-placeholder {
+            background: var(--gray-800);
+            color: var(--white);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* Simulasi Email */
+        .email-mockup {
+            border: 1px solid var(--gray-200);
+            padding: 15px;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+        .email-header { margin-bottom: 15px; font-size: 0.9rem; }
+        .email-body { background: white; padding: 15px; border: 1px solid var(--gray-200); }
+        .phishing-link { color: blue; text-decoration: underline; cursor: pointer; }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: 0.2s;
+            color: var(--white);
+        }
+        .btn-primary { background: var(--primary); }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-danger { background: var(--danger); }
+        .btn-success { background: var(--success); }
+        .btn-warning { background: var(--warning); color: var(--gray-800); }
+
+        .hint-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Feedback Diagnostik */
+        .feedback-box {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .feedback-box.error { background: #fee2e2; border-left: 4px solid var(--danger); }
+        .feedback-box.correct { background: #dcfce7; border-left: 4px solid var(--success); }
+        
+        .detail-content {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--gray-100);
+            border-radius: 5px;
+        }
+
+        /* Refleksi & Checklist */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .checklist-item input { margin-right: 10px; margin-top: 5px;}
+        textarea { width: 100%; height: 80px; padding: 10px; border: 1px solid var(--gray-200); border-radius: 5px; margin-top: 10px;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="brand">SixSafe Framework</div>
+        <div class="mode-switch">
+            <button class="mode-btn active" id="btn-latihan" onclick="setMode('latihan')">Mode Latihan</button>
+            <button class="mode-btn" id="btn-uji" onclick="setMode('uji')">Mode Uji Mandiri</button>
+        </div>
+    </div>
+
+    <div class="section-card visible" id="sec-microlesson">
+        <h3>1. Micro-lesson: Kenali Ciri Phishing</h3>
+        <div class="video-placeholder">
+            [ Tempat Aset Video/Animasi Singkat tentang Phishing akan diletakkan di sini ]
+        </div>
+        <p>Phishing adalah teknik manipulasi psikologis untuk mencuri data sensitif. Pelaku sering menyamar sebagai institusi resmi. Mari kita uji pemahaman Anda dengan simulasi di bawah ini.</p>
+        <button class="btn btn-primary" onclick="showSection('sec-simulasi')">Mulai Simulasi</button>
+    </div>
+
+    <div class="section-card" id="sec-simulasi">
+        <h3>2. Simulasi & Keputusan</h3>
+        <p>Anda baru saja menerima email berikut di komputer kantor Anda. Apa yang akan Anda lakukan?</p>
+        
+        <div class="email-mockup">
+            <div class="email-header">
+                <strong>Dari:</strong> IT Support &lt;it-update@perusahaan-anda-update.com&gt;<br>
+                <strong>Subjek:</strong> PENTING: Wajib Update Password Sistem HRD<br>
+                <strong>Kepada:</strong> Karyawan<br>
+            </div>
+            <div class="email-body">
+                Halo Tim,<br><br>
+                Kami mendeteksi adanya aktivitas mencurigakan di akun HRD Anda. Untuk mencegah pemblokiran akun, harap segera verifikasi dan update password Anda melalui portal aman kami di bawah ini:<br><br>
+                <span class="phishing-link">https://portal-hrd-secure-update.com/login</span><br><br>
+                Abaikan email ini jika Anda ingin akun Anda dinonaktifkan secara permanen dalam 24 jam.<br><br>
+                Salam,<br>Tim IT Support
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button class="btn btn-danger" onclick="makeDecision('klik')">Klik Link & Login</button>
+            <button class="btn btn-warning" onclick="makeDecision('abaikan')">Abaikan Saja</button>
+            <button class="btn btn-success" onclick="makeDecision('lapor')">Laporkan ke Tim IT</button>
+        </div>
+
+        <div style="margin-top: 15px;" id="hint-container">
+            <button class="btn" style="background: var(--gray-200); color: var(--gray-800);" onclick="toggleHint()">💡 Butuh Petunjuk?</button>
+            <div class="hint-box" id="hint-box">
+                <strong>Petunjuk:</strong> Coba perhatikan baik-baik alamat email pengirim (domain setelah lambang @). Apakah itu benar-benar domain resmi perusahaan kita? Perhatikan juga nada urgensi pada pesan tersebut.
+            </div>
+        </div>
+    </div>
+
+    <div class="section-card" id="sec-feedback">
+        <h3>3. Feedback Diagnostik</h3>
+        <div id="feedback-content"></div>
+        
+        <button class="btn" style="background: var(--gray-800); margin-top: 10px;" onclick="toggleDetail()">📚 Pembahasan Lebih Detail</button>
+        <div class="detail-content" id="detail-box">
+            <strong>Analisis Anatomi Serangan:</strong><br>
+            1. <strong>Domain Palsu:</strong> `perusahaan-anda-update.com` bukanlah domain resmi. Penipu sering menambahkan kata "update", "secure", atau "support" pada nama perusahaan untuk mengecoh.<br>
+            2. <strong>Rasa Urgensi:</strong> Mengancam akun akan "dinonaktifkan dalam 24 jam" memicu kepanikan (fear-mongering) agar korban bertindak impulsif tanpa berpikir.<br>
+            3. <strong>Link Manipulatif:</strong> Teks link mungkin terlihat meyakinkan, tapi jika diarahkan (hover), URL aslinya akan membawa Anda ke situs pencuri kredensial.
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 20px;" onclick="showSection('sec-refleksi')">Lanjut ke Refleksi</button>
+    </div>
+
+    <div class="section-card" id="sec-refleksi">
+        <h3>4. Self-Diagnosis Perilaku Kerja (Refleksi)</h3>
+        <p>Mari kaitkan dengan rutinitas pekerjaan Anda di kantor. Jawab pertanyaan berikut dengan jujur:</p>
+        
+        <div>
+            <label><strong>Seberapa sering Anda secara otomatis mengklik link dari email berlabel "Penting/Urgent" tanpa mengecek domain pengirim terlebih dahulu saat sedang sibuk?</strong></label>
+            <select style="display: block; width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px;">
+                <option disabled selected>Pilih kondisi Anda...</option>
+                <option>Sering, saya fokus menyelesaikan pekerjaan secepatnya.</option>
+                <option>Kadang-kadang, jika emailnya terlihat dari atasan/tim IT.</option>
+                <option>Jarang, saya selalu curiga dengan email mendadak.</option>
+                <option>Tidak pernah, saya punya SOP sendiri untuk verifikasi.</option>
+            </select>
+        </div>
+        
+        <div>
+            <label><strong>Berdasarkan simulasi tadi, apa satu kebiasaan kecil yang harus Anda ubah mulai besok saat membuka email kantor?</strong></label>
+            <textarea placeholder="Contoh: Saya akan selalu menyorot (hover) link sebelum mengklik untuk melihat URL aslinya..."></textarea>
+        </div>
+
+        <button class="btn btn-primary" onclick="showSection('sec-checklist')">Lanjut ke Checklist</button>
+    </div>
+
+    <div class="section-card" id="sec-checklist">
+        <h3>5. Mastery Checklist Terapan</h3>
+        <p>Gunakan checklist ini sebagai panduan (SOP harian) saat Anda menerima instruksi via email yang meminta data atau login.</p>
+        
+        <div class="checklist-item">
+            <input type="checkbox" id="chk1">
+            <label for="chk1"><strong>Verifikasi Pengirim:</strong> Saya telah memastikan domain email pengirim (setelah logo @) adalah 100% domain resmi perusahaan, bukan domain mirip atau gratis (Gmail/Yahoo).</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="chk2">
+            <label for="chk2"><strong>Cek Nada Pesan:</strong> Saya waspada jika email tersebut menuntut tindakan cepat, mengancam pemblokiran, atau menjanjikan hadiah mendadak.</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="chk3">
+            <label for="chk3"><strong>Inspeksi Link (Hover Rule):</strong> Saya telah menyorot kursor (hover) di atas tombol/link tanpa mengkliknya, dan memastikan URL yang muncul di pojok layar sesuai dengan tujuan resmi.</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="chk4">
+            <label for="chk4"><strong>Jalur Alternatif:</strong> Daripada mengklik link di email, saya memilih membuka browser dan mengetik alamat sistem (misal: HRD portal) secara manual.</label>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <button class="btn btn-success" onclick="alert('Selamat! Anda telah menyelesaikan alur SixSafe Framework.')">Selesaikan Modul</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let currentMode = 'latihan'; // Default mode
+
+    function setMode(mode) {
+        currentMode = mode;
+        document.getElementById('btn-latihan').classList.remove('active');
+        document.getElementById('btn-uji').classList.remove('active');
+        
+        if (mode === 'latihan') {
+            document.getElementById('btn-latihan').classList.add('active');
+            document.getElementById('hint-container').style.display = 'block';
+        } else {
+            document.getElementById('btn-uji').classList.add('active');
+            document.getElementById('hint-container').style.display = 'none'; // Sembunyikan hint di mode uji
+            document.getElementById('hint-box').style.display = 'none';
+        }
+    }
+
+    function showSection(id) {
+        document.getElementById(id).classList.add('visible');
+        // Scroll mulus ke bagian yang baru dibuka
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function toggleHint() {
+        const hintBox = document.getElementById('hint-box');
+        hintBox.style.display = hintBox.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleDetail() {
+        const detailBox = document.getElementById('detail-box');
+        detailBox.style.display = detailBox.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function makeDecision(choice) {
+        const feedbackBox = document.getElementById('feedback-content');
+        let html = '';
+
+        if (choice === 'klik') {
+            html = `<div class="feedback-box error">
+                        <strong>❌ Keputusan Kritis (Diagnostic):</strong> Anda memilih untuk mengklik link.<br><br>
+                        <strong>Kenapa ini berbahaya?</strong> Tindakan ini menunjukkan Anda rentan terhadap taktik <em>Urgency</em> (desakan). Dengan mengklik link tersebut, Anda akan dibawa ke halaman login palsu yang dirancang untuk merekam username dan password Anda. Mengingat email ini tidak berasal dari domain resmi (perhatikan kata '-update.com'), ini adalah indikator kuat serangan Phishing.
+                    </div>`;
+        } else if (choice === 'abaikan') {
+            html = `<div class="feedback-box error">
+                        <strong>⚠️ Kurang Tepat (Diagnostic):</strong> Anda memilih untuk mengabaikan email.<br><br>
+                        <strong>Kenapa ini kurang tepat?</strong> Mengabaikan memang menyelamatkan Anda secara pribadi, tapi perilaku ini menunjukkan kurangnya kewaspadaan kolegial (collective security). Serangan ini kemungkinan dikirim secara massal ke rekan kerja Anda yang lain. Jika Anda hanya diam, rekan Anda yang kurang teliti bisa menjadi korban dan membahayakan jaringan seluruh perusahaan.
+                    </div>`;
+        } else if (choice === 'lapor') {
+            html = `<div class="feedback-box correct">
+                        <strong>✅ Tepat Sekali (Diagnostic):</strong> Anda melaporkan ke Tim IT.<br><br>
+                        <strong>Kenapa ini tepat?</strong> Anda tidak hanya melindungi diri sendiri, tapi menunjukkan pemahaman <em>Active Defense</em>. Dengan melapor, Tim IT bisa segera memblokir domain pengirim di level server perusahaan dan mengirimkan peringatan ke seluruh karyawan lain sebelum ada yang menjadi korban. Ini adalah standar emas dalam keamanan siber.
+                    </div>`;
+        }
+
+        feedbackBox.innerHTML = html;
+        showSection('sec-feedback');
+    }
+</script>
+
+</body>
+</html>
