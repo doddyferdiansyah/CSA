@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latihan Phishing Email</title>
+  <style>
+    :root {
+      --bg: #f4f8fc;
+      --card: #ffffff;
+      --text: #1f2a37;
+      --muted: #6b7280;
+      --line: #dbe6f1;
+      --primary: #2f80ed;
+      --primary-dark: #1f5fb5;
+      --soft: #eaf3ff;
+      --success: #0f766e;
+      --success-bg: #ecfdf5;
+      --warn: #b45309;
+      --warn-bg: #fff7ed;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --shadow: 0 18px 42px rgba(31, 42, 55, 0.08);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f8fbff 0%, #f2f6fb 100%);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 28px 0 18px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+      border: 1px solid #e0eaf5;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    h1, h2, h3 { margin: 0 0 12px; }
+    h1 { font-size: clamp(28px, 4vw, 42px); line-height: 1.12; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 18px; }
+
+    .lead {
+      color: #46566b;
+      font-size: 16px;
+      margin-bottom: 18px;
+      max-width: 700px;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-point {
+      background: rgba(255,255,255,0.84);
+      border: 1px solid #deebf8;
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .hero-point strong { display: block; margin-bottom: 4px; }
+    .muted { color: var(--muted); }
+
+    .mode-card {
+      background: #fff;
+      border: 1px solid #e0eaf5;
+      border-radius: 22px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: space-between;
+    }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      background: #eef4fb;
+      padding: 5px;
+      border-radius: 14px;
+    }
+
+    .mode-btn,
+    .nav-btn,
+    .primary-btn,
+    .secondary-btn,
+    .ghost-btn,
+    .choice-btn,
+    .check-toggle {
+      border: none;
+      font: inherit;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .mode-btn {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: transparent;
+      color: #4e5d72;
+      font-weight: 800;
+    }
+
+    .mode-btn.active {
+      background: #fff;
+      color: var(--primary-dark);
+      box-shadow: 0 8px 20px rgba(47,128,237,0.14);
+    }
+
+    .mode-note {
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px dashed #c8daf2;
+      background: #f8fbff;
+      color: #405064;
+      font-size: 14px;
+    }
+
+    .status-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eff5fb;
+      color: #53667a;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 22px;
+      padding-bottom: 42px;
+    }
+
+    .sidebar, .panel {
+      background: var(--card);
+      border: 1px solid #e1e9f3;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      padding: 20px;
+      position: sticky;
+      top: 18px;
+      height: fit-content;
+    }
+
+    .sidebar-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #738398;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #dce7f2;
+      background: #fbfdff;
+      color: #334255;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .nav-btn.active {
+      background: #edf5ff;
+      border-color: #b8d5ff;
+      color: var(--primary-dark);
+      font-weight: 800;
+    }
+
+    .nav-index {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #eaf2fc;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .sidebar-box {
+      padding: 14px;
+      border-radius: 16px;
+      background: #f9fbfd;
+      border: 1px dashed #d4deea;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .panel-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .panel {
+      display: none;
+      padding: 24px;
+    }
+
+    .panel.active { display: block; }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #edf5ff;
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .ghost-btn {
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    .primary-btn {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(47,128,237,0.22);
+    }
+
+    .primary-btn:hover { background: var(--primary-dark); }
+
+    .secondary-btn {
+      background: #eaf3ff;
+      color: var(--primary-dark);
+    }
+
+    .secondary-btn:hover { background: #dbeaff; }
+
+    .ghost-btn {
+      background: transparent;
+      color: #556578;
+      border: 1px solid #d5e1ee;
+    }
+
+    .ghost-btn:hover { background: #f6f9fc; }
+
+    .video-card,
+    .info-box,
+    .scenario-card,
+    .result-card,
+    .reflection-card,
+    .checklist-card,
+    .detail-card,
+    .score-card {
+      border-radius: 18px;
+      border: 1px solid #dce7f2;
+      background: #fbfdff;
+      padding: 20px;
+    }
+
+    .video-card {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, #f9fcff 0%, #edf5ff 100%);
+    }
+
+    .video-placeholder {
+      min-height: 230px;
+      border-radius: 18px;
+      border: 2px dashed #c3d9f5;
+      background: linear-gradient(135deg, #f1f7ff 0%, #dfeeff 100%);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      color: #43607f;
+    }
+
+    .video-placeholder strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .video-copy ul,
+    .info-box ul,
+    .result-grid ul,
+    .detail-card ul { padding-left: 20px; }
+
+    .scenario-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef4fb;
+      color: #516176;
+      font-weight: 700;
+    }
+
+    .mock-mail {
+      border: 1px solid #d9e3ee;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+      margin-bottom: 18px;
+    }
+
+    .mail-head {
+      background: #f6f9fc;
+      border-bottom: 1px solid #e0e8f1;
+      padding: 16px 18px;
+      display: grid;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    .mail-body {
+      padding: 18px;
+    }
+
+    .mail-cta {
+      display: inline-block;
+      margin: 14px 0;
+      background: #2f80ed;
+      color: white;
+      text-decoration: none;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .mail-footer {
+      margin-top: 18px;
+      color: #6c7b8e;
+      font-size: 14px;
+    }
+
+    .choice-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .choice-btn {
+      width: 100%;
+      text-align: left;
+      padding: 16px 16px 16px 18px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid #d9e4f0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      color: var(--text);
+    }
+
+    .choice-btn:hover {
+      background: #f8fbff;
+      border-color: #bdd6f7;
+      transform: translateY(-1px);
+    }
+
+    .choice-btn.selected {
+      border-color: #7cb3ff;
+      background: #edf5ff;
+    }
+
+    .choice-letter {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: #eaf2fc;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #385170;
+      flex-shrink: 0;
+    }
+
+    .support-actions,
+    .step-footer {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .step-footer { justify-content: space-between; }
+
+    .result-card.hidden,
+    .detail-card.hidden,
+    .hint-card.hidden { display: none; }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .result-badge.good { background: var(--success-bg); color: var(--success); }
+    .result-badge.warn { background: var(--warn-bg); color: var(--warn); }
+    .result-badge.risk { background: var(--danger-bg); color: var(--danger); }
+
+    .result-grid,
+    .reflection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .reflection-card textarea {
+      width: 100%;
+      min-height: 130px;
+      border-radius: 14px;
+      border: 1px solid #d7e2ee;
+      padding: 14px;
+      font: inherit;
+      resize: vertical;
+      margin-top: 12px;
+    }
+
+    .reflection-prompt {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid #dbe5f0;
+      background: #ffffff;
+    }
+
+    .checklist-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .check-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #dbe5f0;
+    }
+
+    .check-bullet {
+      width: 24px;
+      height: 24px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #eaf3ff;
+      color: var(--primary-dark);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .check-toggle {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 1px solid #cddbeb;
+      background: #fff;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+    }
+
+    .check-toggle.done {
+      background: #2f80ed;
+      border-color: #2f80ed;
+    }
+
+    .check-toggle.done::after {
+      content: "✓";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .score-card {
+      background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+      margin-top: 18px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #6b7684;
+      font-size: 13px;
+      padding: 16px 0 34px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-card,
+      .content-grid,
+      .video-card,
+      .result-grid,
+      .reflection-grid { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 20px, 100%); }
+      .hero-card, .panel, .sidebar { padding: 18px; }
+      .hero-points { grid-template-columns: 1fr; }
+      .panel-header, .scenario-top, .step-footer { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container hero">
+    <div class="hero-card">
+      <div>
+        <div class="eyebrow">Latihan Topik • Phishing Email</div>
+        <h1>Kenali sinyal, ambil keputusan, lalu cek apakah respons Anda sudah aman.</h1>
+        <p class="lead">
+          Pada latihan ini Anda akan menghadapi satu skenario email yang tampak wajar dalam konteks kerja. Bacalah dengan teliti,
+          pilih tindakan yang menurut Anda paling tepat, lalu pelajari penjelasan diagnostiknya.
+        </p>
+        <div class="hero-points">
+          <div class="hero-point">
+            <strong>Fokus latihan</strong>
+            Mendeteksi phishing yang memanfaatkan tekanan waktu, konteks internal, dan nada formal.
+          </div>
+          <div class="hero-point">
+            <strong>Yang dinilai</strong>
+            Cara Anda membaca konteks, bukan sekadar menghafal istilah atau definisi.
+          </div>
+          <div class="hero-point">
+            <strong>Durasi</strong>
+            Sekitar 8–12 menit, tergantung seberapa dalam Anda membaca feedback dan refleksi.
+          </div>
+          <div class="hero-point">
+            <strong>Tujuan akhir</strong>
+            Membentuk kebiasaan verifikasi yang lebih aman untuk situasi kerja sehari-hari.
+          </div>
+        </div>
+      </div>
+
+      <div class="mode-card">
+        <div>
+          <h3>Pilih mode</h3>
+          <p class="muted">Gunakan mode latihan jika ingin dibantu petunjuk. Gunakan mode uji mandiri jika ingin mencoba tanpa bantuan.</p>
+        </div>
+
+        <div class="mode-switch" role="tablist" aria-label="Pilih mode latihan">
+          <button class="mode-btn active" data-mode="latihan" aria-selected="true">Mode Latihan</button>
+          <button class="mode-btn" data-mode="uji" aria-selected="false">Mode Uji Mandiri</button>
+        </div>
+
+        <div class="mode-note" id="modeNote">
+          <strong>Mode Latihan aktif.</strong><br>
+          Petunjuk tersedia selama Anda mengerjakan skenario dan pembahasan detail dapat dibuka setelah melihat feedback.
+        </div>
+
+        <div class="status-row">
+          <span class="status-pill">1 Skenario Email</span>
+          <span class="status-pill">4 Pilihan Respons</span>
+          <span class="status-pill">Checklist Praktis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container content-grid">
+    <aside class="sidebar">
+      <div class="sidebar-title">Navigasi</div>
+      <div class="nav-list">
+        <button class="nav-btn active" data-target="pembuka"><span class="nav-index">1</span><span>Pembuka</span></button>
+        <button class="nav-btn" data-target="skenario"><span class="nav-index">2</span><span>Skenario</span></button>
+        <button class="nav-btn" data-target="keputusan"><span class="nav-index">3</span><span>Keputusan</span></button>
+        <button class="nav-btn" data-target="feedback"><span class="nav-index">4</span><span>Feedback</span></button>
+        <button class="nav-btn" data-target="refleksi"><span class="nav-index">5</span><span>Refleksi</span></button>
+        <button class="nav-btn" data-target="checklist"><span class="nav-index">6</span><span>Checklist</span></button>
+      </div>
+
+      <div class="sidebar-box">
+        <strong>Butuh bantuan?</strong>
+        <div class="muted">Anda bisa membuka petunjuk selama berada di mode latihan.</div>
+        <button class="secondary-btn" id="sidebarHintBtn">Butuh Petunjuk?</button>
+        <button class="ghost-btn" id="sidebarDetailBtn">Pembahasan Lebih Detail</button>
+      </div>
+    </aside>
+
+    <main class="panel-wrap">
+      <section class="panel active" id="panel-pembuka">
+        <div class="panel-header">
+          <div>
+            <div class="tag">Pembuka</div>
+            <h2>Sebelum mulai, perhatikan satu hal penting.</h2>
+            <p class="muted">Phishing tidak selalu datang dalam bentuk pesan yang kacau, penuh typo, atau terlalu mencolok. Dalam banyak kasus, ia justru terasa wajar.</p>
+          </div>
+          <div class="actions">
+            <button class="secondary-btn next-btn" data-next="skenario">Mulai Skenario</button>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-placeholder">
+            <div>
+              <strong>Video Pembuka</strong>
+              Area ini dapat diisi video singkat pengantar topik phishing.
+            </div>
+          </div>
+          <div class="video-copy">
+            <h3>Arah perhatian Anda</h3>
+            <ul>
+              <li>Jangan terpaku pada satu indikator saja.</li>
+              <li>Lihat hubungan antara pengirim, tindakan yang diminta, dan tekanan waktu yang digunakan.</li>
+              <li>Fokus pada respons yang paling aman untuk konteks kerja, bukan yang paling cepat.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h3>Yang perlu Anda lakukan</h3>
+          <ul>
+            <li>Baca skenario email sampai selesai.</li>
+            <li>Pilih satu tindakan yang paling mungkin Anda ambil.</li>
+            <li>Pelajari feedback diagnostik untuk melihat pola berpikir yang muncul di balik keputusan Anda.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-skenario">
+        <div class="panel-header">
+          <div>
+            <div class="tag">Skenario</div>
+            <h2>Bayangkan Anda menerima email berikut saat pekerjaan sedang padat.</h2>
+            <p class="muted">Bacalah seperti Anda benar-benar sedang berada di situasi tersebut.</p>
+          </div>
+          <div class="actions">
+            <button class="ghost-btn prev-btn" data-prev="pembuka">Kembali</button>
+            <button class="secondary-btn next-btn" data-next="keputusan">Lanjut ke Keputusan</button>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-top">
+            <div>
+              <h3>Email masuk</h3>
+              <div class="muted">Posisi Anda: pegawai non-IT yang aktif memakai email kantor untuk koordinasi harian.</div>
+            </div>
+            <div class="chips">
+              <span class="chip">Nada Formal</span>
+              <span class="chip">Tekanan Waktu</span>
+              <span class="chip">Akses Akun</span>
+            </div>
+          </div>
+
+          <div class="mock-mail" aria-label="Skenario email phishing">
+            <div class="mail-head">
+              <div><strong>From:</strong> IT Service Desk &lt;it-support@company-securitydesk.com&gt;</div>
+              <div><strong>To:</strong> Anda</div>
+              <div><strong>Subject:</strong> Segera Reset Password untuk Menghindari Suspend Akun Email</div>
+            </div>
+            <div class="mail-body">
+              <p>Yth. Karyawan,</p>
+              <p>
+                Kami mendeteksi aktivitas login tidak biasa pada akun email perusahaan Anda. Untuk mencegah suspend sementara,
+                Anda diwajibkan melakukan verifikasi ulang password <strong>hari ini sebelum pukul 17.30</strong>.
+              </p>
+              <p>
+                Silakan klik tombol berikut dan login menggunakan email kantor Anda agar akun tetap aktif.
+              </p>
+              <a href="javascript:void(0)" class="mail-cta">Verifikasi Akun Sekarang</a>
+              <p>
+                Jika tidak dilakukan hari ini, akses email perusahaan Anda dapat dibatasi sementara sampai proses verifikasi selesai.
+              </p>
+              <div class="mail-footer">
+                Hormat kami,<br>
+                IT Service Desk<br>
+                Security Operations Unit
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <strong>Catatan singkat</strong>
+            <p class="muted">Dalam situasi kerja nyata, email seperti ini sering berhasil bukan karena korbannya tidak paham, tetapi karena ritme kerja membuat proses verifikasi dilompati.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-keputusan">
+        <div class="panel-header">
+          <div>
+            <div class="tag">Keputusan</div>
+            <h2>Apa tindakan paling tepat yang akan Anda ambil?</h2>
+            <p class="muted">Pilih satu respons yang paling mendekati kebiasaan atau keputusan Anda.</p>
+          </div>
+          <div class="actions">
+            <button class="ghost-btn prev-btn" data-prev="skenario">Kembali</button>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="choice-grid" role="radiogroup" aria-label="Pilihan keputusan phishing">
+            <button class="choice-btn" data-choice="a" role="radio" aria-checked="false">
+              <span class="choice-letter">A</span>
+              <span>
+                <strong>Klik tombol verifikasi sekarang</strong><br>
+                Email terlihat formal dan saya khawatir akses email kantor saya terganggu bila tidak segera merespons.
+              </span>
+            </button>
+
+            <button class="choice-btn" data-choice="b" role="radio" aria-checked="false">
+              <span class="choice-letter">B</span>
+              <span>
+                <strong>Balas email tersebut untuk meminta konfirmasi</strong><br>
+                Saya tidak klik dulu, tetapi saya tetap menanyakan kebenarannya lewat email yang sama.
+              </span>
+            </button>
+
+            <button class="choice-btn" data-choice="c" role="radio" aria-checked="false">
+              <span class="choice-letter">C</span>
+              <span>
+                <strong>Verifikasi lewat kanal resmi lain</strong><br>
+                Saya tidak klik tautan, lalu menghubungi PIC IT resmi atau membuka portal internal yang memang biasa dipakai perusahaan.
+              </span>
+            </button>
+
+            <button class="choice-btn" data-choice="d" role="radio" aria-checked="false">
+              <span class="choice-letter">D</span>
+              <span>
+                <strong>Abaikan tanpa tindak lanjut</strong><br>
+                Saya anggap ini spam lalu lanjut kerja tanpa melakukan verifikasi atau pelaporan apa pun.
+              </span>
+            </button>
+          </div>
+
+          <div class="support-actions" id="hintArea">
+            <button class="secondary-btn" id="hintBtn">Butuh Petunjuk?</button>
+          </div>
+
+          <div class="detail-card hint-card hidden" id="hintCard">
+            <h3>Petunjuk</h3>
+            <ul>
+              <li>Lihat apakah tindakan yang diminta sesuai dengan prosedur kerja yang biasa digunakan.</li>
+              <li>Perhatikan apakah Anda diminta masuk lewat jalur baru yang datang mendadak.</li>
+              <li>Respons yang aman tidak berhenti pada rasa curiga, tetapi bergerak ke cara verifikasi yang benar.</li>
+            </ul>
+          </div>
+
+          <div class="step-footer">
+            <div class="muted" id="decisionStatus">Pilih satu respons untuk melihat feedback.</div>
+            <button class="primary-btn" id="submitDecisionBtn" disabled>Lihat Feedback</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-feedback">
+        <div class="panel-header">
+          <div>
+            <div class="tag">Feedback</div>
+            <h2>Lihat diagnosis dari keputusan Anda.</h2>
+            <p class="muted">Feedback berikut menjelaskan pola pikir, sinyal yang terlewat, dan dampaknya bagi kebiasaan kerja sehari-hari.</p>
+          </div>
+          <div class="actions">
+            <button class="ghost-btn prev-btn" data-prev="keputusan">Kembali</button>
+            <button class="secondary-btn next-btn" data-next="refleksi">Lanjut ke Refleksi</button>
+          </div>
+        </div>
+
+        <div class="result-card hidden" id="feedbackCard">
+          <div id="feedbackContent"></div>
+          <div class="support-actions" id="detailActionWrap">
+            <button class="ghost-btn" id="detailBtn">Pembahasan Lebih Detail</button>
+          </div>
+        </div>
+
+        <div class="detail-card hidden" id="detailCard">
+          <h3>Pembahasan lebih detail</h3>
+          <div id="detailContent"></div>
+        </div>
+
+        <div class="score-card">
+          <h3>Hal yang perlu diingat</h3>
+          <p class="muted">
+            Phishing modern sering menang bukan karena pesannya sangat canggih, tetapi karena ia datang pada saat korban sibuk, ingin cepat selesai,
+            dan merasa konteksnya cukup masuk akal untuk tidak diverifikasi lebih jauh.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-refleksi">
+        <div class="panel-header">
+          <div>
+            <div class="tag">Refleksi</div>
+            <h2>Coba cek kebiasaan kerja Anda sendiri.</h2>
+            <p class="muted">Tuliskan jawaban yang paling jujur agar latihan ini benar-benar membantu Anda membaca pola risiko dalam pekerjaan.</p>
+          </div>
+          <div class="actions">
+            <button class="ghost-btn prev-btn" data-prev="feedback">Kembali</button>
+            <button class="secondary-btn next-btn" data-next="checklist">Lanjut ke Checklist</button>
+          </div>
+        </div>
+
+        <div class="reflection-card">
+          <div class="reflection-grid">
+            <div class="reflection-prompt">
+              <strong>Pertanyaan 1</strong>
+              <p class="muted">Dalam situasi kerja seperti apa Anda paling mungkin merespons email dengan tergesa-gesa?</p>
+            </div>
+            <div class="reflection-prompt">
+              <strong>Pertanyaan 2</strong>
+              <p class="muted">Prosedur apa yang paling sering dilewati tim Anda ketika pekerjaan sedang padat?</p>
+            </div>
+            <div class="reflection-prompt">
+              <strong>Pertanyaan 3</strong>
+              <p class="muted">Siapa PIC resmi yang seharusnya Anda hubungi bila ada permintaan sensitif terkait akun atau akses?</p>
+            </div>
+            <div class="reflection-prompt">
+              <strong>Pertanyaan 4</strong>
+              <p class="muted">Kebiasaan kecil apa yang perlu Anda ubah agar tidak mudah terdorong oleh rasa buru-buru?</p>
+            </div>
+          </div>
+
+          <textarea placeholder="Tulis refleksi atau catatan pribadi Anda di sini..."></textarea>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-checklist">
+        <div class="panel-header">
+          <div>
+            <div class="tag">Checklist</div>
+            <h2>Checklist aman saat menghadapi email mencurigakan.</h2>
+            <p class="muted">Gunakan daftar ini sebagai pengingat praktis untuk situasi kerja sehari-hari.</p>
+          </div>
+          <div class="actions">
+            <button class="ghost-btn prev-btn" data-prev="refleksi">Kembali</button>
+          </div>
+        </div>
+
+        <div class="checklist-card">
+          <h3>Tindakan operasional</h3>
+          <div class="checklist-list">
+            <div class="check-item"><button class="check-toggle" aria-label="Tandai checklist 1"></button><div><strong>Berhenti sejenak sebelum klik.</strong><br><span class="muted">Saat email bernada mendesak datang, jangan langsung menuruti ritme yang dibangun pengirim.</span></div></div>
+            <div class="check-item"><button class="check-toggle" aria-label="Tandai checklist 2"></button><div><strong>Cek domain pengirim, bukan hanya nama tampilannya.</strong><br><span class="muted">Nama tampil bisa dibuat meyakinkan, tetapi domain sering menunjukkan kejanggalan.</span></div></div>
+            <div class="check-item"><button class="check-toggle" aria-label="Tandai checklist 3"></button><div><strong>Jangan login lewat tautan baru yang datang mendadak.</strong><br><span class="muted">Gunakan portal resmi yang memang sudah biasa dipakai perusahaan.</span></div></div>
+            <div class="check-item"><button class="check-toggle" aria-label="Tandai checklist 4"></button><div><strong>Verifikasi lewat kanal kedua yang resmi.</strong><br><span class="muted">Hubungi PIC yang benar, gunakan nomor resmi, atau cek portal internal yang Anda kenal.</span></div></div>
+            <div class="check-item"><button class="check-toggle" aria-label="Tandai checklist 5"></button><div><strong>Jangan memakai email mencurigakan itu untuk verifikasi.</strong><br><span class="muted">Jika kanal awal sudah bermasalah, balasan Anda tetap berada di ruang yang sama.</span></div></div>
+            <div class="check-item"><button class="check-toggle" aria-label="Tandai checklist 6"></button><div><strong>Laporkan ke pihak yang berwenang.</strong><br><span class="muted">Pelaporan membantu melindungi rekan kerja lain dari email serupa.</span></div></div>
+          </div>
+        </div>
+
+        <div class="video-card" style="margin-top:18px;">
+          <div class="video-placeholder">
+            <div>
+              <strong>Video Penutup</strong>
+              Area ini dapat diisi video penutup singkat untuk menguatkan tindakan aman.
+            </div>
+          </div>
+          <div class="video-copy">
+            <h3>Penutup singkat</h3>
+            <p class="muted">
+              Kewaspadaan yang baik bukan hanya soal curiga, tetapi soal tahu kapan harus berhenti, bagaimana memverifikasi, dan ke mana harus melapor.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="container footer-note">
+    Topik latihan: Phishing Email
+  </div>
+
+  <script>
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    const modeNote = document.getElementById('modeNote');
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const panels = document.querySelectorAll('.panel');
+    const nextButtons = document.querySelectorAll('.next-btn');
+    const prevButtons = document.querySelectorAll('.prev-btn');
+    const choiceButtons = document.querySelectorAll('.choice-btn');
+    const submitDecisionBtn = document.getElementById('submitDecisionBtn');
+    const feedbackCard = document.getElementById('feedbackCard');
+    const feedbackContent = document.getElementById('feedbackContent');
+    const detailContent = document.getElementById('detailContent');
+    const detailCard = document.getElementById('detailCard');
+    const detailBtn = document.getElementById('detailBtn');
+    const sidebarDetailBtn = document.getElementById('sidebarDetailBtn');
+    const hintBtn = document.getElementById('hintBtn');
+    const sidebarHintBtn = document.getElementById('sidebarHintBtn');
+    const hintCard = document.getElementById('hintCard');
+    const hintArea = document.getElementById('hintArea');
+    const detailActionWrap = document.getElementById('detailActionWrap');
+    const decisionStatus = document.getElementById('decisionStatus');
+    const checklistToggles = document.querySelectorAll('.check-toggle');
+
+    let currentMode = 'latihan';
+    let selectedChoice = null;
+    let feedbackReady = false;
+
+    const feedbackData = {
+      a: {
+        badgeClass: 'risk',
+        badgeText: 'Risiko Tinggi',
+        title: 'Anda langsung masuk ke ritme yang dibangun pelaku.',
+        summary: 'Tekanan waktu dan ancaman suspend akun berhasil mendorong Anda untuk bergerak cepat sebelum sempat memverifikasi.',
+        diagnostics: [
+          'Pola utama yang terlihat adalah respons reaktif terhadap urgency. Anda ingin masalah cepat selesai sebelum akses terganggu.',
+          'Sinyal yang terlewat: domain pengirim tidak menunjukkan kanal internal resmi, tetapi email meminta Anda login melalui jalur baru.',
+          'Dampak yang mungkin terjadi: kredensial dicuri, akun email dipakai untuk eskalasi serangan, atau data internal ikut terekspos.'
+        ],
+        saferAction: 'Respons yang lebih aman adalah tidak mengklik tautan, lalu memverifikasi melalui kanal resmi lain yang memang dikenal di perusahaan.',
+        detail: [
+          'Di lapangan, banyak korban sebenarnya tahu konsep phishing, tetapi tetap kalah oleh kombinasi antara rasa terburu-buru dan kekhawatiran pekerjaan terganggu.',
+          'Pelaku tidak harus terlihat sangat meyakinkan. Mereka cukup membuat korban merasa tidak nyaman bila tidak segera bertindak.',
+          'Jika pola ini sering muncul dalam tim, masalahnya bukan hanya pengetahuan, tetapi kebiasaan kerja yang terlalu cepat bereaksi.'
+        ]
+      },
+      b: {
+        badgeClass: 'warn',
+        badgeText: 'Kurang Aman',
+        title: 'Anda sudah menahan diri untuk tidak klik, tetapi verifikasinya masih berada di kanal yang sama.',
+        summary: 'Keputusan ini menunjukkan kehati-hatian awal, namun Anda masih mengandalkan jalur komunikasi yang bisa saja memang dikendalikan pelaku.',
+        diagnostics: [
+          'Pola utama yang terlihat adalah kehati-hatian setengah jalan. Anda curiga, tetapi belum berpindah ke prosedur verifikasi yang benar.',
+          'Sinyal yang terlewat: jika email awal palsu, maka balasan Anda tetap sampai ke pihak yang sama dan dapat dimanfaatkan untuk menekan lebih lanjut.',
+          'Dampak yang mungkin terjadi: pelaku punya ruang untuk menjawab, membangun legitimasi, lalu mendorong Anda mengikuti instruksi berikutnya.'
+        ],
+        saferAction: 'Lebih aman berpindah ke kanal resmi lain, misalnya nomor PIC resmi, helpdesk internal, atau portal perusahaan yang sudah biasa Anda gunakan.',
+        detail: [
+          'Banyak orang merasa sudah aman karena tidak langsung klik. Padahal, inti keamanan bukan hanya menahan klik, melainkan memilih jalur verifikasi yang benar.',
+          'Phishing modern sering berhasil pada orang yang tampak hati-hati, tetapi verifikasinya masih terjadi di tempat yang salah.',
+          'Latihan seperti ini penting agar peserta membedakan antara rasa curiga dan prosedur aman yang benar-benar efektif.'
+        ]
+      },
+      c: {
+        badgeClass: 'good',
+        badgeText: 'Paling Aman',
+        title: 'Anda memilih respons yang paling sehat untuk diri sendiri dan untuk organisasi.',
+        summary: 'Anda tidak hanya menahan diri dari klik, tetapi juga memindahkan proses verifikasi ke jalur resmi yang lebih terpercaya.',
+        diagnostics: [
+          'Pola utama yang terlihat adalah disiplin prosedural. Anda tidak membiarkan rasa buru-buru mengalahkan verifikasi.',
+          'Sinyal penting berhasil dibaca: domain pengirim, nada mendesak, dan ajakan login mendadak cukup untuk dianggap tidak aman.',
+          'Dampak positifnya: akun Anda lebih terlindungi dan perilaku ini dapat menjadi contoh kebiasaan aman yang bisa direplikasi oleh tim lain.'
+        ],
+        saferAction: 'Pertahankan kebiasaan ini. Jadikan verifikasi lintas kanal sebagai standar saat ada permintaan sensitif atau tidak biasa.',
+        detail: [
+          'Pilihan ini ideal karena menggabungkan kewaspadaan pribadi dengan kepatuhan terhadap prosedur yang sehat.',
+          'Tujuan terbaik awareness bukan sekadar membuat orang curiga, tetapi membuat mereka tahu harus bergerak ke jalur aman yang mana.',
+          'Jika organisasi ingin matang, perilaku seperti ini perlu dibangun menjadi norma tim, bukan hanya kebiasaan individu.'
+        ]
+      },
+      d: {
+        badgeClass: 'warn',
+        badgeText: 'Belum Tuntas',
+        title: 'Mengabaikan email memang menghindarkan Anda dari klik berbahaya, tetapi responsnya belum lengkap.',
+        summary: 'Anda menolak masuk ke jebakan, namun Anda juga melewatkan peluang untuk memverifikasi atau melaporkan ancaman yang mungkin menyerang rekan kerja lain.',
+        diagnostics: [
+          'Pola utama yang terlihat adalah perlindungan pasif. Anda selamat secara pribadi, tetapi belum membantu sistem kerja menjadi lebih aman.',
+          'Sinyal masalahnya bukan pada klik, melainkan pada tidak adanya tindak lanjut untuk pelaporan atau pengecekan resmi.',
+          'Dampak yang mungkin terjadi: email serupa terus beredar karena tidak pernah sampai ke pihak yang bisa menindaklanjuti.'
+        ],
+        saferAction: 'Langkah yang lebih matang adalah tidak klik, lalu verifikasi lewat kanal resmi atau melaporkannya ke pihak yang berwenang.',
+        detail: [
+          'Dalam konteks organisasi, diam tidak selalu sama dengan aman. Kadang itu hanya berarti ancaman lolos dari perhatian bersama.',
+          'Kesadaran keamanan yang baik bergerak dari perlindungan diri menuju kebiasaan berbagi sinyal risiko kepada tim atau PIC terkait.',
+          'Budaya aman terbentuk ketika pegawai tidak hanya menghindari jebakan, tetapi juga membantu organisasi membaca ancaman lebih cepat.'
+        ]
+      }
+    };
+
+    function setMode(mode) {
+      currentMode = mode;
+      modeButtons.forEach(btn => {
+        const active = btn.dataset.mode === mode;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      if (mode === 'latihan') {
+        modeNote.innerHTML = '<strong>Mode Latihan aktif.</strong><br>Petunjuk tersedia selama Anda mengerjakan skenario dan pembahasan detail dapat dibuka setelah melihat feedback.';
+        hintArea.style.display = 'flex';
+        sidebarHintBtn.style.display = 'inline-block';
+      } else {
+        modeNote.innerHTML = '<strong>Mode Uji Mandiri aktif.</strong><br>Petunjuk disembunyikan agar Anda bisa mencoba tanpa bantuan. Pembahasan detail tetap tersedia setelah feedback muncul.';
+        hintArea.style.display = 'none';
+        sidebarHintBtn.style.display = 'none';
+        hintCard.classList.add('hidden');
+      }
+
+      detailActionWrap.style.display = feedbackReady ? 'flex' : 'none';
+    }
+
+    function showPanel(target) {
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === `panel-${target}`));
+      navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.target === target));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectChoice(choice) {
+      selectedChoice = choice;
+      choiceButtons.forEach(btn => {
+        const active = btn.dataset.choice === choice;
+        btn.classList.toggle('selected', active);
+        btn.setAttribute('aria-checked', active ? 'true' : 'false');
+      });
+      submitDecisionBtn.disabled = false;
+      decisionStatus.textContent = 'Pilihan siap diproses.';
+    }
+
+    function renderFeedback(choice) {
+      const data = feedbackData[choice];
+      if (!data) return;
+
+      feedbackContent.innerHTML = `
+        <div class="result-badge ${data.badgeClass}">${data.badgeText}</div>
+        <h3>${data.title}</h3>
+        <p>${data.summary}</p>
+        <div class="result-grid">
+          <div>
+            <strong>Diagnosis keputusan</strong>
+            <ul>${data.diagnostics.map(item => `<li>${item}</li>`).join('')}</ul>
+          </div>
+          <div>
+            <strong>Arah tindakan yang lebih aman</strong>
+            <p>${data.saferAction}</p>
+          </div>
+        </div>
+      `;
+
+      detailContent.innerHTML = `<ul>${data.detail.map(item => `<li>${item}</li>`).join('')}</ul>`;
+      feedbackCard.classList.remove('hidden');
+      detailCard.classList.add('hidden');
+      feedbackReady = true;
+      detailActionWrap.style.display = 'flex';
+      setMode(currentMode);
+    }
+
+    function openHint() {
+      if (currentMode === 'uji') return;
+      showPanel('keputusan');
+      hintCard.classList.toggle('hidden');
+    }
+
+    function openDetail() {
+      if (!feedbackReady) {
+        showPanel('feedback');
+        return;
+      }
+      showPanel('feedback');
+      detailCard.classList.toggle('hidden');
+    }
+
+    modeButtons.forEach(btn => btn.addEventListener('click', () => setMode(btn.dataset.mode)));
+    navButtons.forEach(btn => btn.addEventListener('click', () => showPanel(btn.dataset.target)));
+    nextButtons.forEach(btn => btn.addEventListener('click', () => showPanel(btn.dataset.next)));
+    prevButtons.forEach(btn => btn.addEventListener('click', () => showPanel(btn.dataset.prev)));
+    choiceButtons.forEach(btn => btn.addEventListener('click', () => selectChoice(btn.dataset.choice)));
+    submitDecisionBtn.addEventListener('click', () => {
+      if (!selectedChoice) return;
+      renderFeedback(selectedChoice);
+      showPanel('feedback');
+    });
+    hintBtn.addEventListener('click', openHint);
+    sidebarHintBtn.addEventListener('click', openHint);
+    detailBtn.addEventListener('click', openDetail);
+    sidebarDetailBtn.addEventListener('click', openDetail);
+    checklistToggles.forEach(toggle => toggle.addEventListener('click', () => toggle.classList.toggle('done')));
+
+    setMode('latihan');
+  </script>
+</body>
+</html>
